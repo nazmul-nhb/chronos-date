@@ -2,7 +2,7 @@ import { isValidObject } from 'nhb-toolbox';
 import { DATE_PART_RANGES } from '../constants/basic';
 import type { $Chronos, DayPart, DayPartConfig } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns the part of day (`'midnight', 'lateNight', 'night', 'morning', 'afternoon', 'evening'`) based on the current hour.

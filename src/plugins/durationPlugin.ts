@@ -8,7 +8,7 @@ import type {
 	TimeDuration,
 } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns the full time duration breakdown between current input (start) and another time (to) as {@link TimeDuration} object.

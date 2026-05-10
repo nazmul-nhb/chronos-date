@@ -2,7 +2,7 @@ import { formatUnitWithPlural } from 'nhb-toolbox';
 import { INTERNALS } from '../constants/basic';
 import type { $Chronos, $DateUnit, ChronosInput, FromNowUnit } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns full time difference from now (or a specified time) down to a given level.

@@ -1,7 +1,7 @@
 import { isPalindrome } from 'nhb-toolbox';
 import type { $Chronos } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Checks if the current date is a palindrome in either padded or non-padded format.

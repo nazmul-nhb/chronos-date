@@ -1,7 +1,7 @@
 import { SEASON_PRESETS } from '../constants/seasons';
 import type { $Chronos, SeasonOptions } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns the current season name based on optional season rules or presets.

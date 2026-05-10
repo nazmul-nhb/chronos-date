@@ -1,6 +1,6 @@
 {
   "name": "chronos-date",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Flexible date-time library for any JavaScript and TypeScript environment.",
   "main": "./dist/index.cjs",
   "type": "module",

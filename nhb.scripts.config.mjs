@@ -45,7 +45,7 @@ function generatePlugin(pluginName) {
 			name: `${pluginName}Plugin.ts`,
 			content: `import type { $Chronos } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
     interface Chronos {
 
         ${pluginName}(): void;

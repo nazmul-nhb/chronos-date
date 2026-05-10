@@ -11,7 +11,7 @@ import type {
 	Quarter,
 } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Checks if the current date falls on a weekend using week start day and weekend length.

@@ -2,7 +2,7 @@ import { roundToNearest } from 'nhb-toolbox';
 import { INTERNALS, MS_PER_DAY } from '../constants/basic';
 import type { $Chronos, TimeUnit } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Rounds the current date-time to the nearest specified unit and interval.

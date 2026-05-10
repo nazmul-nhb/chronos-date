@@ -19,7 +19,7 @@ import { extractMinutesFromUTC } from '../utils/utilities';
 /** Record of time zone name and abbreviation */
 type $TZNameAbbr = { tzAbbr: TimeZone; tzName: TimeZoneName };
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Creates a new instance of `Chronos` for the specified time zone identifier.

@@ -10,7 +10,7 @@ import type {
 } from '../types';
 import { _padZero } from '../utils/helpers';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns the zodiac sign based on current date or `birthDate` option.

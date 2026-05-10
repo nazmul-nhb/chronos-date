@@ -24,7 +24,7 @@ import {
 	_padShunno,
 } from '../utils/helpers';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Converts the current date to a complete Bangla calendar date object.

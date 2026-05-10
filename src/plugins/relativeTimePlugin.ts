@@ -1,7 +1,7 @@
 import { INTERNALS } from '../constants/basic';
 import type { $Chronos, ChronosInput, TimeUnit } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns the number of full years between the input date and now.

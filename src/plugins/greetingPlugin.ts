@@ -1,7 +1,7 @@
 import type { $Chronos, ClockTime, GreetingConfigs } from '../types';
 import { getGreeting } from '../utils/greet';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns a greeting message based on current instance of `Chronos` time or provided time in the `configs`.

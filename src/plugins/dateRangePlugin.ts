@@ -2,7 +2,7 @@ import { isNumber, isValidArray } from 'nhb-toolbox';
 import { DAYS, INTERNALS, MS_PER_DAY } from '../constants/basic';
 import type { $Chronos, ISOTimeString, RangeWithDates, RelativeDateRange } from '../types';
 
-declare module '../' {
+declare module 'chronos-date' {
 	interface Chronos {
 		/**
 		 * @instance Returns an array of ISO date-time strings within a specific date range.
