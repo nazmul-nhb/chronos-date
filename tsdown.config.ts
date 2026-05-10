@@ -12,7 +12,7 @@ export default defineConfig({
 	globalName: 'Chronos',
 	format: ['esm', 'cjs'],
 	dts: true,
-	minify: true,
+	minify: false,
 	exports: true,
 	unbundle: false,
 	treeshake: true,
