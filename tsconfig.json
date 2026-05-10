@@ -3,7 +3,8 @@
 		"target": "ES2023",
 		"lib": ["DOM", "ESNext"],
 		"paths": {
-			"*": ["./*"]
+			"*": ["./*"],
+			"chronos-date": ["./src/index"]
 		},
 		"module": "preserve",
 		"rootDir": "./",
