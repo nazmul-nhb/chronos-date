@@ -1,8 +1,8 @@
-import { isNumber, isString } from 'nhb-toolbox';
+import { isNumber } from 'nhb-toolbox';
 import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
 import type { LooseLiteral, TupleOf } from 'nhb-toolbox/utils/types';
 import { DAYS, INTERNALS, MONTHS, MS_PER_DAY } from './constants/basic';
-import { isLeapYear } from './guards';
+import { isDateString, isLeapYear } from './guards';
 import {
 	_dateArgsToDate,
 	_formatDate,
@@ -1578,8 +1578,8 @@ export class Chronos {
 
 	/**
 	 * @static Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC).
-	 * * It basically calls {@link Date.now()}.
 	 * @returns The number of milliseconds elapsed since the Unix epoch.
+	 * @remarks It internally uses {@link Date.now()}.
 	 */
 	static now(): number {
 		return Date.now();
@@ -1793,12 +1793,12 @@ export class Chronos {
 	 * - A year is a leap year if it is divisible by 4, but not divisible by 100, unless it is also divisible by 400.
 	 * - For example, 2000 and 2400 are leap years, but 1900 and 2100 are not.
 	 *
-	 * @description
-	 * This method accepts different types of date inputs and extracts the year to check if it's a leap year.
-	 * If the provided date is a `number`, it will be treated as a year (must be a valid year from 0 to 9999).
-	 * If the year is out of this range (negative or larger than 9999), it will be treated as a Unix timestamp.
-	 * If the provided date is a string or a `Date` object, it will be parsed and the year will be extracted.
-	 * If a `Chronos` instance is passed, the year will be directly accessed from the instance.
+	 * @remarks
+	 * - This method accepts different types of date inputs and extracts the year to check if it's a leap year.
+	 * - If the provided date is a `number`, it will be treated as a year (must be a valid year from 0 to 9999).
+	 * - If the year is out of this range (negative or larger than 9999), it will be treated as a Unix timestamp.
+	 * - If the provided date is a string or a `Date` object, it will be parsed and the year will be extracted.
+	 * - If a `Chronos` instance is passed, the year will be directly accessed from the instance.
 	 *
 	 * @param date - A `number` (year or Unix timestamp), `string`, `Date`, or `Chronos` instance representing a date.
 	 * @returns `true` if the year is a leap year, `false` otherwise.
@@ -1838,7 +1838,7 @@ export class Chronos {
 	 * @returns `true` if the value is a valid date string, otherwise `false`.
 	 */
 	static isDateString(value: unknown): value is string {
-		return isString(value) && !isNaN(Date.parse(value));
+		return isDateString(value);
 	}
 
 	/**
