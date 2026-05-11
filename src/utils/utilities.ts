@@ -10,7 +10,7 @@ import type {
 	DateFormatOptions,
 	HourMinutes,
 	ISODateFormat,
-	ISOTimeString,
+	ISODateTimeString,
 	StrictFormat,
 	TimeOnlyFormat,
 	TimestampOptions,
@@ -304,7 +304,7 @@ export function formatDateRelative(date: Maybe<DateArgs>, format?: StrictFormat)
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp(): ISOTimeString;
+export function getTimestamp(): ISODateTimeString;
 
 /**
  * * Get timestamp in ISO 8601 format.
@@ -321,7 +321,10 @@ export function getTimestamp(): ISOTimeString;
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp(value: DateArgs, format?: ISODateFormat): ISOTimeString;
+export function getTimestamp<F extends ISODateFormat>(
+	value: DateArgs,
+	format?: F
+): ISODateTimeString<F>;
 
 /**
  * * Get timestamp in ISO 8601 format.
@@ -334,10 +337,15 @@ export function getTimestamp(value: DateArgs, format?: ISODateFormat): ISOTimeSt
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp(options: TimestampOptions): ISOTimeString;
+export function getTimestamp<F extends ISODateFormat>(
+	options: TimestampOptions<F>
+): ISODateTimeString<F>;
 
 /** Get timestamp in ISO 8601 format. */
-export function getTimestamp(args?: DateArgs | TimestampOptions, format?: ISODateFormat) {
+export function getTimestamp<F extends ISODateFormat>(
+	args?: DateArgs | TimestampOptions,
+	format?: F
+) {
 	let $value: DateArgs;
 	let $format: ISODateFormat;
 
@@ -366,8 +374,8 @@ export function getTimestamp(args?: DateArgs | TimestampOptions, format?: ISODat
 
 		const offset = formatUTCOffset(-offsetMins).slice(3);
 
-		return localDate.toISOString().replace('Z', offset) as ISOTimeString;
+		return localDate.toISOString().replace('Z', offset) as ISODateTimeString<F>;
 	}
 
-	return date.toISOString() as ISOTimeString;
+	return date.toISOString() as ISODateTimeString<F>;
 }

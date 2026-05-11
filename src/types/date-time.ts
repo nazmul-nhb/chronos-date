@@ -169,10 +169,9 @@ export type $GMTOffset = `GMT${$UTCOffset}` | 'GMT';
 export type $ISOTimeString =
 	`${number}-${number}-${number}T${number}:${number}:${number}.${number}`;
 
-export type ISODateTimeString = `${$ISOTimeString}Z`;
-
-/** ISO timestamp string type in ISO 8601 format */
-export type ISOTimeString = `${$ISOTimeString}${'Z' | $UTCOffset}`;
+export type ISODateTimeString<F extends ISODateFormat = 'utc'> = F extends 'utc'
+	? `${$ISOTimeString}Z`
+	: `${$ISOTimeString}${$UTCOffset}`;
 
 /** Valid argument type accepted by `Date` constructor */
 export type DateArgs = string | number | Date;
@@ -181,7 +180,7 @@ export type DateArgs = string | number | Date;
 export type ISODateFormat = 'local' | 'utc';
 
 /** Options for `getTimestamp` utility */
-export interface TimestampOptions {
+export interface TimestampOptions<F extends ISODateFormat = 'utc'> {
 	/**
 	 * Optional date input (string, number, or `Date` object).
 	 * Defaults to {@link Date new Date()}.
@@ -192,7 +191,7 @@ export interface TimestampOptions {
 	 * - `'utc'` (default) → returns ISO string in UTC (`...Z`).
 	 * - `'local'` → returns ISO string with current system offset (`...+05:30`).
 	 */
-	format?: ISODateFormat;
+	format?: F | ISODateFormat;
 }
 
 /** `Chronos` Date Format options */

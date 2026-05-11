@@ -1,6 +1,6 @@
 import { isNumber, isValidArray } from 'nhb-toolbox';
 import { DAYS, INTERNALS, MS_PER_DAY } from '../constants/basic';
-import type { $Chronos, ISOTimeString, RangeWithDates, RelativeDateRange } from '../types';
+import type { $Chronos, ISODateTimeString, RangeWithDates, RelativeDateRange } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -35,7 +35,7 @@ declare module 'chronos-date' {
 		 * new Chronos().getDatesInRange({ span: 2, unit: 'day', format: 'utc' });
 		 * // → ['2025-06-16T00:00:00.000Z', '2025-06-17T00:00:00.000Z']
 		 */
-		getDatesInRange(options?: RangeWithDates): ISOTimeString[];
+		getDatesInRange(options?: RangeWithDates): ISODateTimeString<'local' | 'utc'>[];
 
 		/**
 		 * @instance Returns an array of ISO date-time strings within a specific date range.
@@ -64,7 +64,7 @@ declare module 'chronos-date' {
 		 * new Chronos().getDatesInRange({ from: '2025-01-01', to: '2025-01-03' });
 		 * // → ['2025-01-01T00:00:00+06:00', '2025-01-02T00:00:00+06:00', '2025-01-03T00:00:00+06:00']
 		 */
-		getDatesInRange(options?: RelativeDateRange): ISOTimeString[];
+		getDatesInRange(options?: RelativeDateRange): ISODateTimeString<'local' | 'utc'>[];
 	}
 }
 
@@ -103,7 +103,7 @@ export const dateRangePlugin = ($Chronos: $Chronos): void => {
 			skippedDays.map((day) => (isNumber(day) ? day : DAYS.indexOf(day)))
 		);
 
-		const dates: ISOTimeString[] = [];
+		const dates: ISODateTimeString<'local' | 'utc'>[] = [];
 
 		const startTime = $Date(startDate).getTime();
 		const endTime = $Date(endDate).getTime();

@@ -249,7 +249,7 @@ declare module 'chronos-date' {
 		 * c2.getBanglaMonth(); // uses 'revised-2019'
 		 *
 		 * // Set the global default to 1966 variant
-		 * c1.configureBanglaCalendar({ variant: 'revised-1966' });
+		 * c1.$configureBangla({ variant: 'revised-1966' });
 		 *
 		 * c1.getBanglaMonth(); // now uses 'revised-1966'
 		 * c2.getBanglaMonth(); // also uses 'revised-1966'
@@ -257,7 +257,7 @@ declare module 'chronos-date' {
 		 * // Per-call override still works
 		 * c1.getBanglaMonth({ variant: 'revised-2019' }); // uses 'revised-2019' just for this call
 		 */
-		configureBanglaCalendar(options: BnCalendarConfig): void;
+		$configureBangla(options: BnCalendarConfig): void;
 	}
 }
 
@@ -271,7 +271,7 @@ export const banglaPlugin = ($Chronos: $Chronos): void => {
 		return _bnDaysMonthIdx(date, variant ?? DEFAULT_CONFIG.get('config')?.variant);
 	}
 
-	$Chronos.prototype.configureBanglaCalendar = function (configs) {
+	$Chronos.prototype.$configureBangla = function (configs) {
 		DEFAULT_CONFIG.set('config', configs);
 	};
 
