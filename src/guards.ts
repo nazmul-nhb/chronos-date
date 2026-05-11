@@ -11,6 +11,7 @@ import { IANA_TZ_IDS, NATIVE_TZ_IDS } from './constants/timezone';
 import type {
 	$TimeZoneIdentifier,
 	ClockTime,
+	DateLike,
 	TimeWithUnit,
 	TimeZoneIdNative,
 	UTCOffset,
@@ -111,39 +112,54 @@ export function isLeapYear(year: Numeric): boolean {
  * @param value Value to check if it is date-like object.
  * @returns `true` if the value is date-like object, otherwise `false`.
  */
-export function isDateLike(value: unknown): boolean {
+export function isDateLike(value: unknown): value is DateLike {
 	if (value instanceof Date) return true;
 
 	if (isObject(value)) {
 		// Chronos, Moment or Day.js
 		if (
-			isFunction(value.format) &&
-			isFunction(value.toJSON) &&
-			isFunction(value.toISOString)
+			isFunction(value?.format) &&
+			isFunction(value?.toJSON) &&
+			isFunction(value?.toISOString)
 		) {
 			return true;
 		}
 
 		// Luxon
-		if (isFunction(value.toISO) && isFunction(value.toFormat) && isBoolean(value.isValid)) {
+		if (
+			isFunction(value?.toISO) &&
+			isFunction(value?.toFormat) &&
+			isBoolean(value?.isValid)
+		) {
 			return true;
 		}
 
 		// JS-Joda
 		if (
-			isFunction(value.plus) &&
-			isFunction(value.minus) &&
-			isFunction(value.equals) &&
-			isFunction(value.getClass)
+			isFunction(value?.plus) &&
+			isFunction(value?.minus) &&
+			isFunction(value?.equals) &&
+			isFunction(value?.getClass)
 		) {
 			return true;
 		}
 
+		const temporals = [
+			'Instant',
+			'Duration',
+			'PlainDate',
+			'PlainTime',
+			'PlainDateTime',
+			'PlainMonthDay',
+			'PlainYearMonth',
+			'ZonedDateTime',
+		];
+
 		// Temporal
 		if (
-			isFunction(value.toJSON) &&
-			isFunction(value.toString) &&
-			['PlainDate', 'ZonedDateTime', 'Instant'].includes(value.constructor?.name ?? '')
+			isFunction(value?.toJSON) &&
+			isFunction(value?.toString) &&
+			temporals.includes(value?.constructor?.name)
 		) {
 			return true;
 		}
