@@ -321,7 +321,7 @@ export function getTimestamp(): ISODateTimeString;
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp<F extends ISODateFormat>(
+export function getTimestamp<F extends ISODateFormat = 'utc'>(
 	value: DateArgs,
 	format?: F
 ): ISODateTimeString<F>;
@@ -337,19 +337,19 @@ export function getTimestamp<F extends ISODateFormat>(
  *
  * @returns Timestamp string in ISO 8601 format.
  */
-export function getTimestamp<F extends ISODateFormat>(
+export function getTimestamp<F extends ISODateFormat = 'utc'>(
 	options: TimestampOptions<F>
 ): ISODateTimeString<F>;
 
 /** Get timestamp in ISO 8601 format. */
-export function getTimestamp<F extends ISODateFormat>(
-	args?: DateArgs | TimestampOptions,
+export function getTimestamp<F extends ISODateFormat = 'utc'>(
+	args?: DateArgs | TimestampOptions<F>,
 	format?: F
 ) {
 	let $value: DateArgs;
-	let $format: ISODateFormat;
+	let $format: ISODateFormat | F;
 
-	const _isTsOptions = (opt: unknown): opt is TimestampOptions => {
+	const _isTsOptions = (opt: unknown): opt is TimestampOptions<F> => {
 		return isObject(opt) && ('value' in opt || 'format' in opt);
 	};
 
