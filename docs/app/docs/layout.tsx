@@ -12,12 +12,14 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
 			<AISearch>
 				<AISearchPanel />
 				<AISearchTrigger
+					spellCheck
 					position="float"
 					className={cn(
 						buttonVariants({
 							variant: 'secondary',
 							className: 'text-fd-muted-foreground rounded-2xl',
-						})
+						}),
+						'right-4'
 					)}
 				>
 					<MessageCircleIcon className="size-4.5" />

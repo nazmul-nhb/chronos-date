@@ -259,7 +259,7 @@ function Input(props: ComponentProps<'textarea'>) {
 
 const roleName: Record<string, string> = {
 	user: 'you',
-	assistant: 'fumadocs',
+	assistant: 'Chronos AI',
 };
 
 function Message({ message, ...props }: { message: ChatUIMessage } & ComponentProps<'div'>) {
@@ -368,7 +368,8 @@ export function AISearchPanel() {
 	return (
 		<>
 			<style>
-				{`
+				{
+					/* css */ `
         @keyframes ask-ai-open {
           from {
             translate: 100% 0;
@@ -384,7 +385,8 @@ export function AISearchPanel() {
           to {
             width: 0px;
           }
-        }`}
+        }`
+				}
 			</style>
 			<Presence present={open}>
 				<div

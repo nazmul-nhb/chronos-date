@@ -19,12 +19,15 @@ import * as TimeZonePlugin from 'chronos-date/plugins/timeZonePlugin';
 import * as ZodiacPlugin from 'chronos-date/plugins/zodiacPlugin';
 import * as Types from 'chronos-date/types';
 import * as Utils from 'chronos-date/utils';
-import { PlayIcon, RefreshCcwIcon } from 'lucide-react';
+import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { transform } from 'sucrase';
 import generatedTypes from '@/lib/generated-types.json';
+import { Copy } from './Copy';
 
-const MODULES: Record<string, unknown> = {
+type ChronosModule = 'chronos-date' | `chronos-date/${string}`;
+
+const MODULES: Record<ChronosModule, unknown> = {
 	'chronos-date': ChronosDate,
 	'chronos-date/constants': Constants,
 	'chronos-date/guards': Guards,
@@ -54,6 +57,8 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 	const [outputs, setOutputs] = useState<unknown[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const monaco = useMonaco();
+
+	// const {} = useCop
 
 	// Load chronos-date types into Monaco for IntelliSense
 	useEffect(() => {
@@ -92,7 +97,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 			},
 		};
 
-		const customRequire = (pkgName: string) => {
+		const customRequire = (pkgName: ChronosModule) => {
 			if (MODULES[pkgName]) return MODULES[pkgName];
 			throw new Error(`Cannot resolve module '${pkgName}'`);
 		};
@@ -123,9 +128,9 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 		<div className="my-6 rounded-xl overflow-hidden border border-fd-border bg-[#1e1e2e] shadow-sm flex flex-col">
 			<div className="flex items-center justify-between px-4 py-2 border-b border-fd-border/50 bg-[#1e1e2e]">
 				<div className="flex gap-1.5 items-center">
-					<div className="w-3 h-3 rounded-full bg-red-500/80" />
-					<div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-					<div className="w-3 h-3 rounded-full bg-green-500/80" />
+					<div className="size-3 rounded-full bg-red-500/80" />
+					<div className="size-3 rounded-full bg-yellow-500/80" />
+					<div className="size-3 rounded-full bg-green-500/80" />
 					<span className="text-xs text-fd-muted-foreground ml-3 font-mono">
 						playground.ts
 					</span>
@@ -139,6 +144,12 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					>
 						<RefreshCcwIcon className="size-3.5" />
 					</button>
+					<Copy
+						label={<CopyIcon className="size-3.5" />}
+						text={code}
+						afterCopy={<CheckIcon className="size-3.5" />}
+						message="Code block copied successfully!"
+					/>
 					<button
 						type="button"
 						onClick={runCode}

@@ -2,19 +2,22 @@
 
 import { useTheme } from 'fumadocs-ui/provider/base';
 import { useCopyText } from 'nhb-hooks';
+import type { ReactNode } from 'react';
 import { Fragment } from 'react/jsx-runtime';
 import { Toaster, toast } from 'react-hot-toast';
 
 interface Props {
+	/** * Content to display as trigger for copying. */
+	label?: ReactNode;
 	/** * The string content to be copied. */
 	text: string;
-	/** * Text content to display in place of original content after successful copy. */
-	afterCopy?: string;
+	/** * Content to display in place of original content after successful copy. */
+	afterCopy?: ReactNode;
 	/** * Text content to display for the toast message. */
 	message?: string;
 }
 
-export function Copy({ text, afterCopy = '✅', message = 'Token Copied!' }: Props) {
+export function Copy({ text, label, afterCopy = '✅', message = 'Token Copied!' }: Props) {
 	const { resolvedTheme } = useTheme();
 
 	const { copiedText, copyToClipboard } = useCopyText({
@@ -27,16 +30,10 @@ export function Copy({ text, afterCopy = '✅', message = 'Token Copied!' }: Pro
 			<button
 				type="button"
 				onClick={() => copyToClipboard(text, message)}
-				style={{
-					background: 'none',
-					border: 'none',
-					color: resolvedTheme === 'dark' ? '#7cc2ff' : '#228be6',
-					cursor: 'pointer',
-					padding: 0,
-					fontFamily: 'monospace',
-				}}
+				className="bg-transparent border-none font-mono p-1.5 text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent rounded-md transition-colors"
+				title="Copy"
 			>
-				{copiedText ? afterCopy : text}
+				{copiedText ? afterCopy : label || text}
 			</button>
 			<Toaster
 				toastOptions={{

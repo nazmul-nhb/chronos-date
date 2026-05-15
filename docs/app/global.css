@@ -46,3 +46,8 @@ button {
 		border-color 0.15s ease,
 		box-shadow 0.15s ease;
 }
+
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+	cursor: pointer;
+}

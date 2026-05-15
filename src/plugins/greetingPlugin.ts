@@ -16,7 +16,7 @@ declare module 'chronos-date' {
 		/**
 		 * @instance Returns a greeting message based on current instance of `Chronos` time or provided time in the `configs`.
 		 *
-		 * @remarks This method is an alias for {@link https://toolbox.nazmul-nhb.dev/docs/classes/Chronos/format#getgreeting getGreeting} method.
+		 * @remarks This method is an alias for {@link https://toolbox.nazmul-nhb.dev/docs/classes/chronos/format#getgreeting getGreeting} method.
 		 *
 		 * @param configs - Configuration options for greeting times and messages.
 		 * @returns The appropriate greeting message.

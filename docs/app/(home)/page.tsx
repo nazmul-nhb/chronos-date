@@ -1,16 +1,17 @@
+import pkg from 'chronos-date/package.json';
 import Link from 'next/link';
 
 export default function HomePage() {
 	return (
 		<main className="flex flex-col items-center justify-center flex-1 px-6 py-20 text-center">
 			<div className="max-w-3xl space-y-8">
-				{/* <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm font-medium mb-4">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
-          </span>
-          v1.1.0 — Now with Plugin System
-        </div> */}
+				<div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm font-medium mb-4">
+					<span className="relative flex h-2 w-2">
+						<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+						<span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+					</span>
+					Latest: v{pkg.version}
+				</div>
 
 				<h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
 					<span className="bg-linear-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
