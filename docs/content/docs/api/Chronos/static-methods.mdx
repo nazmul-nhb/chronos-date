@@ -1,9 +1,7 @@
 ---
-id: statics
 title: Static Methods
+description: Static Methods — chronos-date API reference.
 ---
-
-{/* markdownlint-disable-file MD024 */}
 
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
@@ -12,21 +10,18 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 Injects a plugin into the `Chronos` system. This enables dynamic extension of the `Chronos` class at runtime by registering external functionality as methods on its prototype.
 
-:::info One-time Injection
+<Callout type="info" title="One-time Injection">
 A plugin is only injected once per runtime. Re-registering the same plugin has no effect.
-:::
-
-:::info
-
+</Callout>
+<Callout type="info">
 - Plugins should be injected **before** any instance creation.
 - Internally, `Chronos` maintains a `#plugins` set to prevent duplicate injections.
 - This system is ideal for modular features like `seasons`, `zodiac`, or `timeZone` etc. support.
 
-:::
-
+</Callout>
 ### Signature
 
-```ts runnable
+```ts
 static use(plugin: ChronosPlugin): void
 ```
 
@@ -38,16 +33,16 @@ static use(plugin: ChronosPlugin): void
 
 ### Example
 
-```ts runnable
-import { Chronos } from 'nhb-toolbox';
-import { timeZonePlugin } from 'nhb-toolbox/plugins/timeZonePlugin';
+```ts
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
 
 Chronos.use(timeZonePlugin); // Injects timeZone() and other timezone specific methods
 ```
 
 Once injected, the plugin methods become available on all `Chronos` instances:
 
-```ts runnable
+```ts
 const c = new Chronos();
 c.timeZone('UTC+06:30'); // Chronos instance for timezone with `UTC+06:30`
 ```
@@ -69,7 +64,7 @@ This is just an alias for [**use**](#use) method. It internally uses [`Chronos.u
 
 ### Signature
 
-```ts runnable
+```ts
 static register(plugin: ChronosPlugin): void
 ```
 
@@ -81,16 +76,16 @@ static register(plugin: ChronosPlugin): void
 
 ### Example
 
-```ts runnable
-import { Chronos } from 'nhb-toolbox';
-import { timeZonePlugin } from 'nhb-toolbox/plugins/timeZonePlugin';
+```ts
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
 
 Chronos.register(timeZonePlugin); // Injects timeZone() and other timezone specific methods
 ```
 
 Once injected, the plugin methods become available on all `Chronos` instances:
 
-```ts runnable
+```ts
 const c = new Chronos();
 c.timeZone('UTC+06:30'); // Chronos instance for timezone with `UTC+06:30`
 ```
@@ -106,7 +101,7 @@ Creates a new `Chronos` instance with the provided time component(s), using curr
 
 ### Signature
 
-```ts runnable
+```ts
 static with(options: ChronosWithOptions): Chronos
 ```
 
@@ -118,7 +113,7 @@ static with(options: ChronosWithOptions): Chronos
 
 #### ChronosWithOptions Type
 
-```ts runnable
+```ts
 interface ChronosWithOptions {
   /** The full year (e.g., 2025). Years 0–99 are interpreted as 1900–1999. */
   year?: number;
@@ -150,7 +145,7 @@ interface ChronosWithOptions {
 
 ### Examples
 
-```ts runnable
+```ts
 // Override only the year and month
 const futureDate = Chronos.with({ year: 2025, month: 12 });
 
@@ -182,10 +177,9 @@ const mixed = Chronos.with({
 - Building relative dates (e.g., "same time next month")
 - Time component manipulation without affecting other components
 
-:::tip[See Also]
-[`set`](/docs/classes/Chronos/get-set#set) instance method for flexibility
-:::
-
+<Callout type="tip" title="See Also">
+[`set`](/docs/api/get-set#set) instance method for flexibility
+</Callout>
 ---
 
 ## parse()
@@ -194,7 +188,7 @@ Parses a date string according to the specified format and returns a new `Chrono
 
 ### Signature
 
-```ts runnable
+```ts
 static parse(dateStr: string, format: string): Chronos
 ```
 
@@ -228,7 +222,7 @@ static parse(dateStr: string, format: string): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 // Parse date in DD-MM-YYYY format
 Chronos.parse('15-01-2025', 'DD-MM-YYYY');
 // Returns: Chronos instance for January 15, 2025
@@ -257,7 +251,7 @@ Returns the current date and time in a specified format in local time.
 
 ### Signature
 
-```ts runnable
+```ts
 static today(options?: FormatOptions): string
 ```
 
@@ -265,7 +259,7 @@ static today(options?: FormatOptions): string
 
 - `options`: Formatting options
 
-```ts runnable
+```ts
 interface FormatOptions {
   format?: string;
   useUTC?: boolean;
@@ -278,7 +272,7 @@ interface FormatOptions {
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.today({format: 'YYYY-MM-DD'}); // "2025-07-20"
 ```
 
@@ -288,7 +282,7 @@ Returns a new `Chronos` instance representing yesterday's date.
 
 ### Signature
 
-```ts runnable
+```ts
 static yesterday(): Chronos
 ```
 
@@ -298,7 +292,7 @@ static yesterday(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.yesterday(); // `Chronos` instance for yesterday
 ```
 
@@ -310,7 +304,7 @@ Returns a new `Chronos` instance representing tomorrow's date.
 
 ### Signature
 
-```ts runnable
+```ts
 static tomorrow(): Chronos
 ```
 
@@ -320,7 +314,7 @@ static tomorrow(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.tomorrow(); // `Chronos` instance for tomorrow
 ```
 
@@ -332,7 +326,7 @@ Returns the number of milliseconds elapsed since midnight, January 1, 1970 Unive
 
 ### Signature
 
-```ts runnable
+```ts
 static now(): number
 ```
 
@@ -346,7 +340,7 @@ static now(): number
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.now(); // 1689876543210
 ```
 
@@ -358,7 +352,7 @@ Creates a UTC-based `Chronos` instance.
 
 ### Signature
 
-```ts runnable
+```ts
 static utc(dateLike?: ChronosInput): Chronos
 ```
 
@@ -376,13 +370,12 @@ static utc(dateLike?: ChronosInput): Chronos
 - If no `dateLike` (string/number/object) is provided, it uses the current date and time.
 - This UTC instance is considered the **base time**, meaning all time zone conversions are derived from this reference point and not the local time.
 
-:::info
+<Callout type="info">
 Internally, this method adjusts the local time to its UTC equivalent by removing the time zone offset.
-:::
-
+</Callout>
 ### Example
 
-```ts runnable
+```ts
 // Using a specific date string
 const utcChronos = Chronos.utc('2025-01-15T12:00:00');
 // Using the current system time
@@ -397,7 +390,7 @@ Formats a time-only string into a formatted time string.
 
 ### Signature
 
- ```ts runnable
+ ```ts
 static formatTimePart(time: string, format?: TimeOnlyFormat): string
 
 ```
@@ -416,10 +409,9 @@ static formatTimePart(time: string, format?: TimeOnlyFormat): string
 - `HH:mm:ss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00+05:30'`
 - `HH:mm:ss.mss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00.800+06:30'`
 
-:::caution
+<Callout type="warn">
 *If no offset is provided with time string, local (system) timezone will be used. The current date will be used as the base date for the time internally.*
-:::
-
+</Callout>
 - `format`: Format string accepted by the `formatStrict()` method for time component.
   **Default**: `'hh:mm:ss a'` → e.g., `"02:33:36 pm"`
 
@@ -429,7 +421,7 @@ static formatTimePart(time: string, format?: TimeOnlyFormat): string
 
 ### Example
 
- ```ts runnable
+ ```ts
 Chronos.formatTimePart('14:50'); 
 // "02:50:00 pm"
 
@@ -445,7 +437,7 @@ Returns ISO date strings for each occurrence of a weekday.
 
 ### Signature
 
-```ts runnable
+```ts
 // Relative range signature
 static getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): string[];
 
@@ -476,10 +468,11 @@ static getDatesForDay(day: WeekDay, options?: WeekdayOptions): string[]
 
 #### Options (Differ by Signature)
 
-<Tabs>
-<Tab value="relative-options" label="Relative Range Options">
+<Tabs items={['Relative Range Options', 'Absolute Range Options']}>
 
-```ts runnable
+<Tab value="Relative Range Options">
+
+```ts
 interface RelativeRangeOptions {
   span?: number;    // Duration quantity (default: 4)
   unit?: TimeUnit;  // 'day' | 'week' | 'month' | 'year' (default: 'week')
@@ -489,9 +482,9 @@ interface RelativeRangeOptions {
 ```
 
 </Tab>
-<Tab value="absolute-options" label="Absolute Range Options">
+<Tab value="Absolute Range Options">
 
-```ts runnable
+```ts
 interface DateRangeOptions {
   from?: ChronosInput; // Start date (default: now)
   to?: ChronosInput;   // End date (default: 4 weeks from now)
@@ -501,6 +494,7 @@ interface DateRangeOptions {
 ```
 
 </Tab>
+
 </Tabs>
 
 ### Return Type
@@ -515,19 +509,18 @@ interface DateRangeOptions {
 - Returns dates in chronological order
 - Empty array if no matches found in range
 
-:::caution[Note]
-
+<Callout type="warn" title="Note">
 - When using `Chronos` instances for `from` and/or `to`, ensure both are created in the **same time zone** to avoid mismatched boundaries.
 - Mixing zones may shift the interpreted start or end by several hours, which can cause the range to include or exclude incorrect weekdays.
 
-:::
-
+</Callout>
 ### Examples
 
-<Tabs>
-<Tab value="relative-example" label="Relative Range">
+<Tabs items={['Relative Range', 'Absolute Range']}>
 
-```ts runnable
+<Tab value="Relative Range">
+
+```ts
 // Get rounded UTC Wednesdays for next month
 Chronos.getDatesForDay('Wednesday', { 
   span: 1,
@@ -539,9 +532,9 @@ Chronos.getDatesForDay('Wednesday', {
 ```
 
 </Tab>
-<Tab value="absolute-example" label="Absolute Range">
+<Tab value="Absolute Range">
 
-```ts runnable
+```ts
 // Get local Fridays in Q3 2025 (rounded)
 Chronos.getDatesForDay('Friday', {
   from: '2025-07-01',
@@ -552,6 +545,7 @@ Chronos.getDatesForDay('Friday', {
 ```
 
 </Tab>
+
 </Tabs>
 
 ### Notes
@@ -569,21 +563,19 @@ Chronos.getDatesForDay('Friday', {
 - When `roundDate: true`, all times are set to `00:00:00`
 - Default range is `4 weeks` when no dates specified
 
-:::tip Similar Instance Method
-
+<Callout type="tip" title="Similar Instance Method">
 - [getDatesInRange](calculation#getdatesinrange)
 
-:::
-
+</Callout>
 ---
 
 ## min()
 
-Returns the earliest `Chronos` instance based on the underlying universal [`timestamp`](/docs/classes/Chronos/getters#timestamp).
+Returns the earliest `Chronos` instance based on the underlying universal [`timestamp`](/docs/api/getters#timestamp).
 
 ### Signature
 
-```ts runnable
+```ts
 static min(...dates: ChronosInput[]): Chronos
 ```
 
@@ -597,7 +589,7 @@ static min(...dates: ChronosInput[]): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.min('2025-01-01', '2025-02-01'); // Jan 1 ('2025-01-01')
 
 Chronos.min('2012-12-25', new Chronos('2012-12-01').timeZone('Asia/Kolkata'), '2012-12-17'); // 2012-12-01T05:30:00.000+05:30
@@ -614,11 +606,11 @@ Chronos.min('2012-12-25', new Chronos('2012-12-01').timeZone('Asia/Kolkata'), '2
 
 ## max()
 
-Returns the latest `Chronos` instance based on the underlying universal [`timestamp`](/docs/classes/Chronos/getters#timestamp).
+Returns the latest `Chronos` instance based on the underlying universal [`timestamp`](/docs/api/getters#timestamp).
 
 ### Signature
 
-```ts runnable
+```ts
 static max(...dates: ChronosInput[]): Chronos
 ```
 
@@ -632,7 +624,7 @@ static max(...dates: ChronosInput[]): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.max('2025-01-01', '2025-02-01'); // Feb 1 ('2025-02-01')
 
 Chronos.max('2012-12-25', new Chronos('2012-12-31').timeZone('Asia/Kolkata'), '2012-12-17'); // 2012-12-31T05:30:00.000+05:30
@@ -651,8 +643,7 @@ Chronos.max('2012-12-25', new Chronos('2012-12-31').timeZone('Asia/Kolkata'), '2
 
 Checks if the year in the date string or year (from 0 - 9999) is a leap year.
 
-:::info
-
+<Callout type="info">
 - A year is a leap year if it is divisible by 4.
 - However, years divisible by 100 are not leap years **unless** they are also divisible by 400.
 - For example:
@@ -660,11 +651,10 @@ Checks if the year in the date string or year (from 0 - 9999) is a leap year.
   - `2000`, `2400` → leap years ✅
   - `1900`, `2100` → not leap years ❌s
 
-:::
-
+</Callout>
 ### Signature
 
-```ts runnable
+```ts
 static isLeapYear(date: ChronosInput): boolean
 ```
 
@@ -678,7 +668,7 @@ static isLeapYear(date: ChronosInput): boolean
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.isLeapYear(2024); // true
 ```
 
@@ -690,7 +680,7 @@ Checks if the given value is a valid `Date` object.
 
 ### Signature
 
-```ts runnable
+```ts
 static isValidDate(value: unknown): value is Date
 ```
 
@@ -704,7 +694,7 @@ static isValidDate(value: unknown): value is Date
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.isValidDate(new Date()); // true
 ```
 
@@ -719,7 +709,7 @@ Checks if the given value is a valid date string.
 
 ### Signature
 
-```ts runnable
+```ts
 static isDateString(value: unknown): value is string
 ```
 
@@ -733,7 +723,7 @@ static isDateString(value: unknown): value is string
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.isDateString('2025-01-01'); // true
 ```
 
@@ -745,7 +735,7 @@ Checks if the given value is an instance of `Chronos`.
 
 ### Signature
 
-```ts runnable
+```ts
 static isValidChronos(value: unknown): value is Chronos
 ```
 
@@ -759,7 +749,7 @@ static isValidChronos(value: unknown): value is Chronos
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.isValidChronos(new Chronos()); // true
 ```
 
@@ -771,7 +761,7 @@ Checks whether a value has the required `ChronosProperties` shape to safely reco
 
 ### Signature
 
-```ts runnable
+```ts
 static isReconstructable(value: unknown): value is ChronosProperties
 ```
 
@@ -785,8 +775,8 @@ static isReconstructable(value: unknown): value is ChronosProperties
 
 ### Example
 
-```ts runnable
-import { Chronos } from 'nhb-toolbox';
+```ts
+import { Chronos } from "chronos-date";
 
 const payload: unknown = {
   native: '2025-01-01T00:00:00.000Z',
@@ -817,7 +807,7 @@ Rebuilds a `Chronos` instance from a `ChronosProperties` object.
 
 ### Signature
 
-```ts runnable
+```ts
 static reconstruct(value: ChronosProperties): Chronos
 ```
 
@@ -827,7 +817,7 @@ static reconstruct(value: ChronosProperties): Chronos
 
 #### ChronosProperties Type
 
-```ts runnable
+```ts
 interface ChronosProperties {
   origin: LooseLiteral<ChronosMethods>;
   native: Date | string;
@@ -848,8 +838,8 @@ interface ChronosProperties {
 
 ### Example
 
-```ts runnable
-import { Chronos } from 'nhb-toolbox';
+```ts
+import { Chronos } from "chronos-date";
 
 const base = new Chronos('2025-04-06T16:11:55Z');
 const snapshot = {
@@ -870,8 +860,8 @@ if (Chronos.isReconstructable(snapshot)) {
 
 ### Example (Invalid Input)
 
-```ts runnable
-import { Chronos } from 'nhb-toolbox';
+```ts
+import { Chronos } from "chronos-date";
 
 try {
   Chronos.reconstruct({ native: '2025-01-01' } as any);

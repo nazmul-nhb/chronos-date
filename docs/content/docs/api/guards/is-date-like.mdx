@@ -23,7 +23,7 @@ Detects _date-like objects_ from popular date/time libraries.
 
 ## Basic Usage
 
-```ts runnable
+```ts
 import { isDateLike } from 'nhb-toolbox';
 
 const nativeDate = new Date();
@@ -58,7 +58,7 @@ The function recognizes these date-like objects:
 
 ### Function Signature
 
-```ts runnable
+```ts
 isDateLike(value: unknown): boolean;
 ```
 
@@ -76,7 +76,7 @@ isDateLike(value: unknown): boolean;
 
 ### Checking Different Value Types
 
-```ts runnable
+```ts
 import { DateTime } from 'luxon';
 import { Temporal } from '@js-temporal/polyfill';
 

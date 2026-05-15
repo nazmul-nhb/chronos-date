@@ -12,7 +12,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 
 ### Signature
 
-```ts runnable
+```ts
 valueOf(): number
 ```
 
@@ -29,7 +29,7 @@ valueOf(): number
 
 ### Examples
 
-```ts runnable
+```ts
 // Numeric comparison
 const date1 = new Chronos('2025-01-01');
 const date2 = new Chronos('2025-01-02');
@@ -56,7 +56,7 @@ const timestamp = new Chronos().valueOf();
 
 ### Signature
 
-```ts runnable
+```ts
 add(amount: number, unit: TimeUnit): Chronos
 ```
 
@@ -76,7 +76,7 @@ add(amount: number, unit: TimeUnit): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-31').add(1, 'month'); // 2025-02-28
 ```
 
@@ -97,7 +97,7 @@ new Chronos('2025-01-31').add(1, 'month'); // 2025-02-28
 
 ### Signature
 
-```ts runnable
+```ts
 subtract(amount: number, unit: TimeUnit): Chronos
 ```
 
@@ -112,7 +112,7 @@ subtract(amount: number, unit: TimeUnit): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-03-31').subtract(1, 'month'); // 2025-02-28
 ```
 
@@ -124,7 +124,7 @@ Returns the difference between current and another date in the given unit.
 
 ### Signature
 
-```ts runnable
+```ts
 diff(other: ChronosInput, unit: TimeUnit): number
 ```
 
@@ -143,7 +143,7 @@ diff(other: ChronosInput, unit: TimeUnit): number
 
 ### Example
 
-```ts runnable
+```ts
 const date1 = new Chronos('2025-01-01');
 const date2 = new Chronos('2025-01-15');
 date2.diff(date1, 'days'); // 14
@@ -159,7 +159,7 @@ This method is provided by `roundPlugin`. You must register it using `Chronos.us
 
 ### Signature
 
-```ts runnable
+```ts
 round(unit: TimeUnit, nearest?: number): Chronos
 ```
 
@@ -211,7 +211,7 @@ round(unit: TimeUnit, nearest?: number): Chronos
 
 ### Examples
 
-```ts runnable
+```ts
 import { roundPlugin } from 'nhb-toolbox/plugins/roundPlugin';
 
 Chronos.use(roundPlugin);
@@ -245,7 +245,7 @@ This method is provided by `durationPlugin`. You must register it using `Chronos
 
 ### Signature
 
-```ts runnable
+```ts
 duration(toTime?: ChronosInput, absolute?: boolean): TimeDuration
 ```
 
@@ -258,7 +258,7 @@ duration(toTime?: ChronosInput, absolute?: boolean): TimeDuration
 
 `TimeDuration` - Object with breakdown
 
-```ts runnable
+```ts
 interface TimeDuration {
  /** Total number of years. */
  years: number;
@@ -279,7 +279,7 @@ interface TimeDuration {
 
 ### Example
 
-```ts runnable
+```ts
 import { durationPlugin } from 'nhb-toolbox/plugins/durationPlugin';
 
 Chronos.use(durationPlugin);
@@ -304,7 +304,7 @@ This method is provided by `durationPlugin`. You must register it using `Chronos
 
 ### Signature
 
-```ts runnable
+```ts
 durationString(options?: DurationOptions): string
 ```
 
@@ -331,7 +331,7 @@ Returns a human-readable string representation of the duration between the curre
 
 ### Examples
 
-```ts runnable
+```ts
 import { durationPlugin } from 'nhb-toolbox/plugins/durationPlugin';
 
 Chronos.use(durationPlugin);
@@ -404,28 +404,30 @@ This method is provided by `dateRangePlugin`. You must register it using `Chrono
 
 ### Signatures
 
-<Tabs>
-<Tab value="fixed" label="Fixed Range">
+<Tabs items={['Fixed Range', 'Relative Range', 'Implementation']}>
 
-```ts runnable
+<Tab value="Fixed Range">
+
+```ts
 getDatesInRange(options?: RangeWithDates): ISOTimeString[]
 ```
 
 </Tab>
-<Tab value="relative" label="Relative Range">
+<Tab value="Relative Range">
 
-```ts runnable
+```ts
 getDatesInRange(options?: RelativeDateRange): ISOTimeString[]
 ```
 
 </Tab>
-<Tab value="implementation" label="Implementation">
+<Tab value="Implementation">
 
-```ts runnable
+```ts
 getDatesInRange(options?: DatesInRangeOptions): ISOTimeString[]
 ```
 
 </Tab>
+
 </Tabs>
 
 ### Overview
@@ -454,10 +456,11 @@ Configuration object accepting either fixed or relative range parameters:
 | `onlyDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`             | Include these (e.g. `['Monday']` or `[1]`, overrides `skipDays`) |
 | `roundDate` | `boolean`                        | `false`          | Round dates to start of day                                      |
 
-<Tabs>
-<Tab value="fixed-options" label="Fixed Range Options">
+<Tabs items={['Fixed Range Options', 'Relative Range Options', 'Implementation Options']}>
 
-```ts runnable
+<Tab value="Fixed Range Options">
+
+```ts
 interface RangeWithDates {
   /** Start date (inclusive). Default: current date */
   from?: ChronosInput;
@@ -483,9 +486,9 @@ interface RangeWithDates {
 ```
 
 </Tab>
-<Tab value="relative-options" label="Relative Range Options">
+<Tab value="Relative Range Options">
 
-```ts runnable
+```ts
 interface RelativeDateRange {
   /** Number of time units. Default: 4 */
   span?: number;
@@ -511,14 +514,15 @@ interface RelativeDateRange {
 ```
 
 </Tab>
-<Tab value="implementation-options" label="Implementation Options">
+<Tab value="Implementation Options">
 
-```ts runnable
+```ts
 /** - Unified type that supports either a fixed or relative date range configuration. */
 type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
 ```
 
 </Tab>
+
 </Tabs>
 
 ### Return Value
@@ -541,10 +545,11 @@ type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
 
 ### Examples
 
-<Tabs>
-<Tab value="fixed-example" label="Fixed Range">
+<Tabs items={['Fixed Range', 'Relative Range', 'With Rounding']}>
 
-```ts runnable
+<Tab value="Fixed Range">
+
+```ts
 import { dateRangePlugin } from 'nhb-toolbox/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
@@ -574,9 +579,9 @@ new Chronos().getDatesInRange({
 ```
 
 </Tab>
-<Tab value="relative-example" label="Relative Range">
+<Tab value="Relative Range">
 
-```ts runnable
+```ts
 import { dateRangePlugin } from 'nhb-toolbox/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
@@ -598,9 +603,9 @@ new Chronos().getDatesInRange({
 ```
 
 </Tab>
-<Tab value="rounding-example" label="With Rounding">
+<Tab value="With Rounding">
 
-```ts runnable
+```ts
 import { dateRangePlugin } from 'nhb-toolbox/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
@@ -615,6 +620,7 @@ now.getDatesInRange({
 ```
 
 </Tab>
+
 </Tabs>
 
 ### Notes

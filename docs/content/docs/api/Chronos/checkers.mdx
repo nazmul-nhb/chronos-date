@@ -15,7 +15,7 @@ When comparing weeks, the `weekStartsOn` parameter (when available) determines h
 
 ### Signature
 
-```ts runnable
+```ts
 isBefore(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
 ```
 
@@ -31,7 +31,7 @@ isBefore(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): bool
 
 ### Example
 
-```ts runnable
+```ts
 // Compare entire dates
 new Chronos('2025-01-01').isBefore('2025-02-01', 'day'); // true
 
@@ -45,7 +45,7 @@ new Chronos('2025-01-15').isBefore('2025-02-01', 'month'); // true
 
 ### Signature
 
-```ts runnable
+```ts
 isAfter(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
 ```
 
@@ -61,7 +61,7 @@ isAfter(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boole
 
 ### Example
 
-```ts runnable
+```ts
 // Basic date comparison
 new Chronos('2025-02-01').isAfter('2025-01-01', 'day'); // true
 
@@ -75,7 +75,7 @@ new Chronos('2025-01-15T12:00:00').isAfter('2025-01-15T10:00:00', 'hour'); // tr
 
 ### Signature
 
-```ts runnable
+```ts
 isSame(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
 ```
 
@@ -91,7 +91,7 @@ isSame(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boolea
 
 ### Example
 
-```ts runnable
+```ts
 // Same month but different days
 new Chronos('2025-01-15').isSame('2025-01-20', 'month'); // true
 new Chronos('2025-01-15').isSame('2025-01-20', 'day'); // false
@@ -107,7 +107,7 @@ new Chronos('2025-01-15').isSame('2025-01-20', 'day'); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isSameOrBefore(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
 ```
 
@@ -126,7 +126,7 @@ isSameOrBefore(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>)
 
 ### Example
 
-```ts runnable
+```ts
 // Same month
 new Chronos('2025-01-15').isSameOrBefore('2025-01-20', 'month'); // true
 
@@ -143,7 +143,7 @@ new Chronos('2025-02-15').isSameOrBefore('2025-01-20', 'month'); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isSameOrAfter(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
 ```
 
@@ -162,7 +162,7 @@ isSameOrAfter(other: ChronosInput, unit: TimeUnit, weekStartsOn?: Enumerate<7>):
 
 ### Example
 
-```ts runnable
+```ts
 // Same month
 new Chronos('2025-01-20').isSameOrAfter('2025-01-15', 'month'); // true
 
@@ -179,7 +179,7 @@ new Chronos('2025-01-01').isSameOrAfter('2025-02-15', 'month'); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isBetween(
   start: ChronosInput,
   end: ChronosInput,
@@ -203,7 +203,7 @@ isBetween(
 
 ### Example
 
-```ts runnable
+```ts
 const date = new Chronos('2025-01-15');
 
 // Default exclusive end
@@ -222,7 +222,7 @@ date.isBetween('2025-01-01', '2025-01-15', '()'); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isEqual(other: ChronosInput): boolean
 ```
 
@@ -236,7 +236,7 @@ isEqual(other: ChronosInput): boolean
 
 ### Example
 
-```ts runnable
+```ts
 // Exact timestamp match
 const date1 = new Chronos('2025-01-01T12:00:00');
 const date2 = new Chronos('2025-01-01T12:00:00');
@@ -252,7 +252,7 @@ new Chronos('2025-01-01T12:00:00').isEqual('2025-01-01T12:00:01'); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isEqualOrBefore(other: ChronosInput): boolean
 ```
 
@@ -269,7 +269,7 @@ isEqualOrBefore(other: ChronosInput): boolean
 
 ### Example
 
-```ts runnable
+```ts
 // Equal dates
 new Chronos('2025-01-15').isEqualOrBefore('2025-01-15'); // true
 
@@ -286,7 +286,7 @@ new Chronos('2025-01-20').isEqualOrBefore('2025-01-15'); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isEqualOrAfter(other: ChronosInput): boolean
 ```
 
@@ -303,7 +303,7 @@ isEqualOrAfter(other: ChronosInput): boolean
 
 ### Example
 
-```ts runnable
+```ts
 // Equal dates
 new Chronos('2025-01-15').isEqualOrAfter('2025-01-15'); // true
 
@@ -324,7 +324,7 @@ This method is provided by `relativeTimePlugin`. You must register it using `Chr
 
 ### Signature
 
-```ts runnable
+```ts
 isToday(): boolean
 ```
 
@@ -334,7 +334,7 @@ isToday(): boolean
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { relativeTimePlugin } from 'nhb-toolbox/plugins/relativeTimePlugin';
 
@@ -353,7 +353,7 @@ This method is provided by `relativeTimePlugin`. You must register it using `Chr
 
 ### Signature
 
-```ts runnable
+```ts
 isTomorrow(): boolean
 ```
 
@@ -363,7 +363,7 @@ isTomorrow(): boolean
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { relativeTimePlugin } from 'nhb-toolbox/plugins/relativeTimePlugin';
 
@@ -382,7 +382,7 @@ This method is provided by `relativeTimePlugin`. You must register it using `Chr
 
 ### Signature
 
-```ts runnable
+```ts
 isYesterday(): boolean
 ```
 
@@ -392,7 +392,7 @@ isYesterday(): boolean
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { relativeTimePlugin } from 'nhb-toolbox/plugins/relativeTimePlugin';
 
@@ -411,7 +411,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 isWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): boolean;
 
 isWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
@@ -430,7 +430,7 @@ isWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -461,7 +461,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 isWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): boolean;
 
 isWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
@@ -480,7 +480,7 @@ isWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -502,7 +502,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 isBusinessHour(options?: BusinessOptionsBasic): boolean;
 
 isBusinessHour(options?: BusinessOptionsWeekends): boolean;
@@ -514,7 +514,7 @@ isBusinessHour(options?: BusinessOptionsWeekends): boolean;
 
 #### Options Type Definitions
 
-```ts runnable
+```ts
 interface $BusinessHourBaseOptions {
  /** - Optional starting hour of business time (0–23). Defaults to `9` (9 AM). */
  businessStartHour?: Enumerate<24>;
@@ -543,7 +543,7 @@ interface BusinessOptionsWeekends extends $BusinessHourBaseOptions {
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -574,7 +574,7 @@ This method is provided by `palindromePlugin`. You must register it using `Chron
 
 ### Signature
 
-```ts runnable
+```ts
 isPalindromeDate(shortYear?: boolean): boolean
 ```
 
@@ -588,7 +588,7 @@ isPalindromeDate(shortYear?: boolean): boolean
 
 ### Example
 
-```ts runnable
+```ts
 import { palindromePlugin } from 'nhb-toolbox/plugins/palindromePlugin';
 
 Chronos.use(palindromePlugin);
@@ -602,7 +602,7 @@ new Chronos('2020-02-02').isPalindromeDate(); // true
 
 ### Signature
 
-```ts runnable
+```ts
 isDST(): boolean
 ```
 
@@ -618,7 +618,7 @@ isDST(): boolean
 
 ### Example
 
-```ts runnable
+```ts
 // Northern hemisphere summer
 new Chronos('2025-07-01').isDST(); // true
 
@@ -632,7 +632,7 @@ new Chronos('2025-01-01').isDST(); // false
 
 ### Signature
 
-```ts runnable
+```ts
 isFirstDayOfMonth(): boolean
 ```
 
@@ -642,7 +642,7 @@ isFirstDayOfMonth(): boolean
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-01').isFirstDayOfMonth(); // true
 ```
 
@@ -652,7 +652,7 @@ new Chronos('2025-01-01').isFirstDayOfMonth(); // true
 
 ### Signature
 
-```ts runnable
+```ts
 isLastDayOfMonth(): boolean
 ```
 
@@ -662,7 +662,7 @@ isLastDayOfMonth(): boolean
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-31').isLastDayOfMonth(); // true
 ```
 
@@ -685,7 +685,7 @@ Checks if the current year is a leap year.
 
 ### Signature
 
-```ts runnable
+```ts
 isLeapYear(year?: number): boolean
 ```
 
@@ -699,7 +699,7 @@ isLeapYear(year?: number): boolean
 
 ### **Example Usage**
 
-```ts runnable
+```ts
 new Chronos().isLeapYear(2024); // true
 new Chronos('2025-05-29').isLeapYear(); // false
 ```

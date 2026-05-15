@@ -11,7 +11,7 @@ title: Extra Time Information
 
 ### Signature
 
-```ts runnable
+```ts
 getUTCOffset(): $UTCOffset
 ```
 
@@ -29,7 +29,7 @@ Unlike JavaScript's [`Date.prototype.getTimezoneOffset()`](https://developer.moz
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').getUTCOffset(); // "-05:00" for EST
 ```
 
@@ -39,7 +39,7 @@ new Chronos('2025-01-15').getUTCOffset(); // "-05:00" for EST
 
 ### Signature
 
-```ts runnable
+```ts
 getTimeZoneOffset(): $UTCOffset
 ```
 
@@ -59,7 +59,7 @@ Follows the same sign convention as [**getUTCOffset()**](#getutcoffset) — posi
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos().timeZone('IST-IN').getTimeZoneOffset(); // "+05:30"
 ```
 
@@ -69,7 +69,7 @@ new Chronos().timeZone('IST-IN').getTimeZoneOffset(); // "+05:30"
 
 ### Signature
 
-```ts runnable
+```ts
 getUTCOffsetMinutes(): number
 ```
 
@@ -90,7 +90,7 @@ Returns the **system’s UTC offset in minutes**, but using a **flipped sign con
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos().getUTCOffsetMinutes(); // 360 for UTC+06:00
 ```
 
@@ -100,7 +100,7 @@ new Chronos().getUTCOffsetMinutes(); // 360 for UTC+06:00
 
 ### Signature
 
-```ts runnable
+```ts
 getTimeZoneOffsetMinutes(): number
 ```
 
@@ -121,7 +121,7 @@ Used internally for calculating UTC equivalence, especially when converting betw
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos().timeZone('IST-IN').getTimeZoneOffsetMinutes(); // 330
 ```
 
@@ -135,7 +135,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signature
 
-```ts runnable
+```ts
 toAcademicYear(): `${number}-${number}`
 ```
 
@@ -149,7 +149,7 @@ toAcademicYear(): `${number}-${number}`
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -165,7 +165,7 @@ new Chronos('2025-08-15').toAcademicYear(); // "2025-2024"
 
 ### Signature
 
-```ts runnable
+```ts
 toQuarter(): Quarter
 ```
 
@@ -194,7 +194,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signature
 
-```ts runnable
+```ts
 toFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter
 ```
 
@@ -212,7 +212,7 @@ toFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 

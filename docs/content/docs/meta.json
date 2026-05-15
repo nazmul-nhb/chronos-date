@@ -5,11 +5,7 @@
 		"index",
 		"installation",
 		"quick-start",
-		"---Chronos Class---",
-		"...api",
-		"---Plugins---",
-		"...plugins",
-		"---Utilities---",
-		"...utilities"
+		"---API Reference---",
+		"...api"
 	]
 }

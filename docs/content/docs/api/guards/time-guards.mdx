@@ -10,7 +10,7 @@ Type guard that checks if a value is a valid time string in "HH:MM" format.
 
 ### Function Signature
 
-```ts runnable
+```ts
 isValidTime(value: unknown): value is Time;
 ```
 
@@ -24,7 +24,7 @@ isValidTime(value: unknown): value is Time;
 
 ### Example Usage
 
-```ts runnable
+```ts
 import { isValidTime } from 'nhb-toolbox';
 
 console.log(isValidTime("14:30")); // true
@@ -46,7 +46,7 @@ console.log(isValidTime(1234));    // false (not a string)
 
 ### Type Definition
 
-```ts runnable
+```ts
 type ClockTime = `${ClockHour}:${ClockMinute}`;
 type ClockHour = '00'|'01'|...|'23';
 type ClockMinute = '00'|'01'|...|'59';
@@ -60,7 +60,7 @@ Type guard that checks if a value is a valid UTC offset string.
 
 ### Function Signature
 
-```ts runnable
+```ts
 isValidUTCOffset(value: unknown): value is UTCOffset;
 ```
 
@@ -74,7 +74,7 @@ isValidUTCOffset(value: unknown): value is UTCOffset;
 
 ### Example Usage
 
-```ts runnable
+```ts
 import { isValidUTCOffset } from 'nhb-toolbox';
 
 console.log(isValidUTCOffset("UTC+05:30")); // true
@@ -101,7 +101,7 @@ This guard is also available as following aliases:
 
 ### Type Definition
 
-```ts runnable
+```ts
 type UTCOffset = `UTC${PositiveUTCHour | NegativeUTCHour}:${UTCMinute}`;
 ```
 
@@ -115,7 +115,7 @@ Validates whether the provided value is a recognized [**IANA timezone identifier
 
 ### Signature
 
-```ts runnable
+```ts
 isValidTimeZoneId(value: unknown): value is $TimeZoneIdentifier
 ```
 
@@ -129,7 +129,7 @@ isValidTimeZoneId(value: unknown): value is $TimeZoneIdentifier
 
 ### Example
 
-```ts runnable
+```ts
 import { isValidTimeZoneId } from 'nhb-toolbox';
 
 // Valid IANA identifiers (including modern canonical names)
@@ -158,13 +158,13 @@ console.log(isValidTimeZoneId(null)); // → false
 :::tip
 Full data is also available through this package subpath:
 
-```ts runnable
+```ts
 import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'nhb-toolbox/constants';
 ```
 
 - `IANA_TZ_IDS` contains array of identifiers while `TIME_ZONE_IDS` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
 
-```ts runnable
+```ts
 {
   'Asia/Dhaka': { tzName: 'Bangladesh Standard Time', offset: 'UTC+06:00' },
   // ...
@@ -182,7 +182,7 @@ import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'nhb-toolbox/constants';
 
 ### Typical Use Cases
 
-```ts runnable
+```ts
 // Validate user input preferring modern names
 const userInput = 'Asia/Kolkata'; // Modern systems should use this
 if (isValidTimeZoneId(userInput)) {
@@ -209,7 +209,7 @@ Validates whether the provided value is a supported time zone identifier using t
 
 ### Signature
 
-```ts runnable
+```ts
 isNativeTimeZoneId(value: unknown): value is TimeZoneIdNative
 ```
 
@@ -223,7 +223,7 @@ isNativeTimeZoneId(value: unknown): value is TimeZoneIdNative
 
 ### Example
 
-```ts runnable
+```ts
 import { isNativeTimeZoneId } from 'nhb-toolbox';
 
 // Valid Native JS identifiers (legacy names in some engines)
@@ -254,13 +254,13 @@ console.log(isNativeTimeZoneId(null)); // → false
 :::tip
 Full data is also available through this package subpath:
 
-```ts runnable
+```ts
 import { TIME_ZONES_NATIVE } from 'nhb-toolbox/constants';
 ```
 
 - `TIME_ZONES_NATIVE` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
 
-```ts runnable
+```ts
 {
   'Asia/Dhaka': { tzName: 'Bangladesh Standard Time', offset: 'UTC+06:00' },
   // ...
@@ -278,7 +278,7 @@ import { TIME_ZONES_NATIVE } from 'nhb-toolbox/constants';
 
 ### Typical Use Cases
 
-```ts runnable
+```ts
 // Validate user input for maximum JS engine compatibility
 const userInput = 'Asia/Calcutta'; // JS engines recognize this
 if (isNativeTimeZoneId(userInput)) {
@@ -337,7 +337,7 @@ This means `isNativeTimeZoneId` is stricter about what the engine explicitly "su
 
 **Practical Example**
 
-```ts runnable
+```ts
 import { isValidTimeZoneId, isNativeTimeZoneId } from 'nhb-toolbox';
 
 // Modern name - valid in IANA but not in native JS list
@@ -375,7 +375,7 @@ Type guard that checks if a value is a valid time string with supported units.
 
 ### Function Signature
 
-```ts runnable
+```ts
 isTimeWithUnit(value: unknown): value is TimeWithUnit
 ```
 
@@ -397,7 +397,7 @@ Checks whether a given value matches the pattern for time duration strings (e.g.
 
 When this function returns `true`, TypeScript narrows the type to `TimeWithUnit`:
 
-```ts runnable
+```ts
 const input: unknown = getUserInput();
 if (isTimeWithUnit(input)) {
   // input is now typed as TimeWithUnit
@@ -437,7 +437,7 @@ if (isTimeWithUnit(input)) {
 
 ### Usage Examples
 
-```ts runnable
+```ts
 import { parseMSec, isTimeWithUnit } from 'nhb-toolbox';
 
 // Input validation

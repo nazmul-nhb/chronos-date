@@ -1,0 +1,18 @@
+{
+	"title": "Chronos",
+	"pages": [
+		"chronos",
+		"static-methods",
+		"getters",
+		"get-set",
+		"format",
+		"calculation",
+		"names",
+		"checkers",
+		"comparison",
+		"conversion",
+		"strings",
+		"symbols",
+		"extras"
+	]
+}

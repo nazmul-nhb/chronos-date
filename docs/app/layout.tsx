@@ -1,11 +1,44 @@
 import './global.css';
 
 import { RootProvider } from 'fumadocs-ui/provider/next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { appName } from '../lib/shared';
 
 const inter = Inter({
 	subsets: ['latin'],
 });
+
+export const metadata: Metadata = {
+	title: {
+		absolute: `${appName} - Elegant Date-Time Library`,
+		default: appName,
+		template: `%s » ${appName}`,
+	},
+	// metadataBase: new URL(siteConfig.baseUrl),
+	// description: siteConfig.description,
+	// keywords: [...siteConfig.keywords, ...Object.values(siteConfig.links)],
+	// authors: [{ name: siteConfig.name, url: siteConfig.baseUrl }],
+	// alternates: { canonical: buildCanonicalUrl('/') },
+	// icons: {
+	// 	icon: siteConfig.favicon,
+	// 	shortcut: siteConfig.favicon,
+	// },
+	// openGraph: {
+	// 	title: {
+	// 		absolute: `${siteConfig.name} - Programmer & Full-Stack Web Developer`,
+	// 		default: siteConfig.name,
+	// 		template: `%s » ${siteConfig.name}`,
+	// 	},
+	// 	description: siteConfig.description,
+	// 	url: buildCanonicalUrl('/'),
+	// 	siteName: siteConfig.name,
+	// 	type: 'website',
+	// },
+	// verification: {
+	// 	google: ENV.google.gscVerificationId,
+	// },
+};
 
 export default function Layout({ children }: LayoutProps<'/'>) {
 	return (

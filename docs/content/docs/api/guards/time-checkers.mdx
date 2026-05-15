@@ -9,7 +9,7 @@ Checks if a given year is a leap year according to the Gregorian calendar rules.
 
 ### Function Signature
 
-```ts runnable
+```ts
 isLeapYear(year: Numeric): boolean;
 ```
 
@@ -31,7 +31,7 @@ A year is a leap year if:
 
 ### Example Usage
 
-```ts runnable
+```ts
 import { isLeapYear } from 'nhb-toolbox';
 
 console.log(isLeapYear(2000));  // true (divisible by 400)
@@ -49,7 +49,7 @@ console.log(isLeapYear("2024")); // true (accepts numeric strings)
 
 ### Type Definition
 
-```ts runnable
+```ts
 type Numeric = number | `${number}`;
 ```
 

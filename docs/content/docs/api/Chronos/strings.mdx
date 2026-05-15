@@ -13,7 +13,7 @@ Returns a date as a string value in ISO format (UTC).
 
 ### Signature
 
-```ts runnable
+```ts
 toISOString(): ISODateTimeString
 ```
 
@@ -41,7 +41,7 @@ Returns ISO time string in appropriate time zone with offset.
 
 ### Signature
 
-```ts runnable
+```ts
 toLocalISOString(): ISOTimeString
 ```
 
@@ -68,7 +68,7 @@ Wrapper over native `Date` object's `toLocaleString` method with improved type s
 
 ### Signature
 
-```ts runnable
+```ts
 toLocaleString(locales?: LocalesArguments, options?: DateTimeFormatOptions): string
 ```
 
@@ -79,7 +79,7 @@ toLocaleString(locales?: LocalesArguments, options?: DateTimeFormatOptions): str
 
 #### Type Definitions
 
-```ts runnable
+```ts
 /** `BCP47` locale string or `Intl.Locale` object that contain one or more language or locale tags */
 type $LocalArguments = LooseLiteral<LocaleCode | Split<LocaleCode, '-'>[0]> | Intl.Locale;
 
@@ -131,7 +131,7 @@ Returns a string representation of a date.
 
 ### Signature
 
-```ts runnable
+```ts
 toString(): string
 ```
 
@@ -159,7 +159,7 @@ Enables `JSON.stringify` to show readable output. Calls [**toLocalISOString**](#
 
 ### Signature
 
-```ts runnable
+```ts
 toJSON(): string
 ```
 
@@ -187,7 +187,7 @@ Returns a debug-friendly string for `console.log` or `util.inspect`.
 
 ### Signature
 
-```ts runnable
+```ts
 inspect(): string
 ```
 

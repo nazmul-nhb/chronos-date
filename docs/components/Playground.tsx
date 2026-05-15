@@ -2,9 +2,48 @@
 
 import Editor, { useMonaco } from '@monaco-editor/react';
 import * as ChronosDate from 'chronos-date';
+import * as Constants from 'chronos-date/constants';
+import * as Guards from 'chronos-date/guards';
+import * as BanglaPlugin from 'chronos-date/plugins/banglaPlugin';
+import * as BusinessPlugin from 'chronos-date/plugins/businessPlugin';
+import * as DateRangePlugin from 'chronos-date/plugins/dateRangePlugin';
+import * as DayPartPlugin from 'chronos-date/plugins/dayPartPlugin';
+import * as DurationPlugin from 'chronos-date/plugins/durationPlugin';
+import * as FromNowPlugin from 'chronos-date/plugins/fromNowPlugin';
+import * as GreetingPlugin from 'chronos-date/plugins/greetingPlugin';
+import * as PalindromePlugin from 'chronos-date/plugins/palindromePlugin';
+import * as RelativeTimePlugin from 'chronos-date/plugins/relativeTimePlugin';
+import * as RoundPlugin from 'chronos-date/plugins/roundPlugin';
+import * as SeasonPlugin from 'chronos-date/plugins/seasonPlugin';
+import * as TimeZonePlugin from 'chronos-date/plugins/timeZonePlugin';
+import * as ZodiacPlugin from 'chronos-date/plugins/zodiacPlugin';
+import * as Types from 'chronos-date/types';
+import * as Utils from 'chronos-date/utils';
 import { PlayIcon, RefreshCcwIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { transform } from 'sucrase';
+import generatedTypes from '@/lib/generated-types.json';
+
+const MODULES: Record<string, unknown> = {
+	'chronos-date': ChronosDate,
+	'chronos-date/constants': Constants,
+	'chronos-date/guards': Guards,
+	'chronos-date/plugins/banglaPlugin': BanglaPlugin,
+	'chronos-date/plugins/businessPlugin': BusinessPlugin,
+	'chronos-date/plugins/dateRangePlugin': DateRangePlugin,
+	'chronos-date/plugins/dayPartPlugin': DayPartPlugin,
+	'chronos-date/plugins/durationPlugin': DurationPlugin,
+	'chronos-date/plugins/fromNowPlugin': FromNowPlugin,
+	'chronos-date/plugins/greetingPlugin': GreetingPlugin,
+	'chronos-date/plugins/palindromePlugin': PalindromePlugin,
+	'chronos-date/plugins/relativeTimePlugin': RelativeTimePlugin,
+	'chronos-date/plugins/roundPlugin': RoundPlugin,
+	'chronos-date/plugins/seasonPlugin': SeasonPlugin,
+	'chronos-date/plugins/timeZonePlugin': TimeZonePlugin,
+	'chronos-date/plugins/zodiacPlugin': ZodiacPlugin,
+	'chronos-date/types': Types,
+	'chronos-date/utils': Utils,
+};
 
 interface PlaygroundProps {
 	code: string;
@@ -29,16 +68,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 				noEmit: true,
 			});
 
-			// Declare chronos-date module so imports don't error
-			monaco.typescript.typescriptDefaults.addExtraLib(
-				`
-			  declare module 'chronos-date' {
-			    export const Chronos: Chronos;
-			    export const chronos: Chronos;
-			  }
-			  `,
-				'file:///node_modules/chronos-date/index.d.ts'
-			);
+			monaco.typescript.typescriptDefaults.setExtraLibs(generatedTypes);
 		}
 	}, [monaco]);
 
@@ -63,7 +93,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 		};
 
 		const customRequire = (pkgName: string) => {
-			if (pkgName === 'chronos-date') return ChronosDate;
+			if (MODULES[pkgName]) return MODULES[pkgName];
 			throw new Error(`Cannot resolve module '${pkgName}'`);
 		};
 

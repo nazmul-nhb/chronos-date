@@ -41,7 +41,7 @@ Each plugin enhances the `Chronos` prototype and becomes available globally afte
 
 ### Import
 
-```ts runnable
+```ts
 import { chronos } from "chronos-date";
 // or
 import { chronos } from "chronos-date/chronos";
@@ -49,7 +49,7 @@ import { chronos } from "chronos-date/chronos";
 
 ### Basic Instantiation
 
-```ts runnable
+```ts
 // Function style
 const date = chronos('2023-12-31')
 
@@ -65,7 +65,7 @@ date.formatStrict() // Formatted date string
 
 ### With Components
 
-```ts runnable
+```ts
 const date = chronos(2023, 12, 31, 15, 30)
 
 date.year // 2023
@@ -117,7 +117,7 @@ All [`Chronos static methods`](/docs/api/static-methods) are available directly 
 
 ### Some Examples
 
-```ts runnable
+```ts
 import { Chronos } from "chronos-date";
 import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
 

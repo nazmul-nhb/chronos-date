@@ -11,7 +11,7 @@ Enables iteration over date components, allowing destructuring and array spreadi
 
 ### Signature
 
-```ts runnable
+```ts
 *[Symbol.iterator](): IterableIterator<[string, number]>
 ```
 
@@ -27,7 +27,7 @@ Enables iteration over date components, allowing destructuring and array spreadi
 
 ### Example
 
-```ts runnable
+```ts
 for (const [key, value] of new Chronos()) {
   console.log(key, value);
 }
@@ -53,7 +53,7 @@ Provides primitive value conversion for mathematical operations and string inter
 
 ### Signature
 
-```ts runnable
+```ts
 [Symbol.toPrimitive](hint: string): string | number
 ```
 
@@ -73,7 +73,7 @@ Provides primitive value conversion for mathematical operations and string inter
 
 ### Example
 
-```ts runnable
+```ts
 +new Chronos(); // timestamp 1746866213184
 `${new Chronos()}`; // ISO string 2025-05-10T14:37:20.105+06:00
 ```
@@ -86,7 +86,7 @@ Enables `Chronos` instances to be used as search patterns in `String.prototype.r
 
 ### Signature
 
-```ts runnable
+```ts
 [Symbol.replace](string: string, replacement: string): string
 ```
 
@@ -107,7 +107,7 @@ Enables `Chronos` instances to be used as search patterns in `String.prototype.r
 
 ### Example
 
-```ts runnable
+```ts
 const chronos = new Chronos('2025-09-01T13:26:00');
 const text = 'Event scheduled for 2025-09-01T13:26:00';
 
@@ -123,7 +123,7 @@ Enables `Chronos` instances to be used as search patterns in `String.prototype.s
 
 ### Signature
 
-```ts runnable
+```ts
 [Symbol.search](string: string): number
 ```
 
@@ -143,7 +143,7 @@ Enables `Chronos` instances to be used as search patterns in `String.prototype.s
 
 ### Example
 
-```ts runnable
+```ts
 const chronos = new Chronos('2025-09-01T00:00:00');
 const text = 'Meeting on 2025-09-01T00:00:00 at conference room';
 
@@ -158,7 +158,7 @@ Enables `Chronos` instances to be used as separators in `String.prototype.split(
 
 ### Signature
 
-```ts runnable
+```ts
 [Symbol.split](string: string): string[]
 ```
 
@@ -178,7 +178,7 @@ Enables `Chronos` instances to be used as separators in `String.prototype.split(
 
 ### Example
 
-```ts runnable
+```ts
 const chronos = new Chronos('2025-09-01T00:00:00.000+06:00');
 const text = 'Log entries: Error2025-09-01T00:00:00Nothing Serious';
 
@@ -194,7 +194,7 @@ Enables `Chronos` instances to be used as regex patterns in string matching oper
 
 ### Signature
 
-```ts runnable
+```ts
 [Symbol.match](string: string): RegExpMatchArray | null
 ```
 
@@ -234,7 +234,7 @@ Enables `Chronos` instances to be used as regex patterns in string matching oper
 
 ### Example
 
-```ts runnable
+```ts
 const chronosInstance = new Chronos('2025-09-01T13:26:00');
 
 // Match various date formats
@@ -259,7 +259,7 @@ Customizes the default string description of the object.
 
 ### Signature
 
-```ts runnable
+```ts
 get [Symbol.toStringTag](): string
 ```
 
@@ -275,7 +275,7 @@ get [Symbol.toStringTag](): string
 
 ### Example
 
-```ts runnable
+```ts
 Object.prototype.toString.call(new Chronos()); // [object 2025-11-11T00:29:01.599+06:00]
 ```
 
@@ -287,7 +287,7 @@ Enables Chronos instances to be spread when used with array concatenation.
 
 ### Signature
 
-```ts runnable
+```ts
 get [Symbol.isConcatSpreadable](): boolean
 ```
 
@@ -303,7 +303,7 @@ get [Symbol.isConcatSpreadable](): boolean
 
 ### Example
 
-```ts runnable
+```ts
 const chronosInstance = new Chronos('2023-12-31');
 const array1 = [1, 2, 3];
 const array2 = [4, 5, 6];

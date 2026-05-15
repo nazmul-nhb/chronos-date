@@ -9,7 +9,7 @@ title: Conversion Methods
 
 ### Signature
 
-```ts runnable
+```ts
 clone(): Chronos
 ```
 
@@ -28,7 +28,7 @@ clone(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 const original = new Chronos('2025-01-15T12:00:00');
 const copy = original.clone();
 
@@ -45,7 +45,7 @@ console.log(modified.format()); // "Thu, Jan 16, 2025 12:00:00"
 
 - **Metadata Preservation**
 
-```ts runnable
+```ts
 const base = new Chronos('2025-01-01');
 const modified = base.clone().subtract(3, 'days');
 
@@ -86,7 +86,7 @@ While `Chronos's` immutability makes cloning less critical for safety, it remain
 
 ### Signature
 
-```ts runnable
+```ts
 toDate(): Date
 ```
 
@@ -100,7 +100,7 @@ toDate(): Date
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').toDate(); // Date object
 ```
 
@@ -112,7 +112,7 @@ Returns new `Chronos` instance in UTC time.
 
 ### Signature
 
-```ts runnable
+```ts
 toUTC(): Chronos
 ```
 
@@ -122,7 +122,7 @@ toUTC(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').toUTC(); // UTC-converted instance
 ```
 
@@ -134,7 +134,7 @@ Returns new `Chronos` instance in local time
 
 ### Signature
 
-```ts runnable
+```ts
 toLocal(): Chronos
 ```
 
@@ -144,7 +144,7 @@ toLocal(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 Chronos.utc('2025-01-15').toLocal(); // Local time instance
 ```
 
@@ -160,7 +160,7 @@ This method is provided by `timeZonePlugin`. You must register it using `Chronos
 
 ### Signature
 
-```ts runnable
+```ts
 timeZone(tzId: TimeZoneIdentifier): Chronos;
 timeZone(zone: TimeZone): Chronos;
 timeZone(utc: UTCOffset): Chronos;
@@ -183,7 +183,7 @@ timeZone(utc: TimeZoneIdentifier | TimeZone | UTCOffset): Chronos;
 
 Creates a new instance using an IANA timezone identifier. This is the recommended approach for accurate timezone handling.
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').timeZone('Asia/Dhaka');
 new Chronos('2025-01-15').timeZone('America/Los_Angeles');
 ```
@@ -192,7 +192,7 @@ new Chronos('2025-01-15').timeZone('America/Los_Angeles');
 
 Creates a new instance using a standard timezone abbreviation. Use when timezone identifiers are not available.
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').timeZone('EST'); // Eastern Standard Time
 new Chronos('2025-01-15').timeZone('IST'); // Indian Standard Time
 ```
@@ -201,14 +201,14 @@ new Chronos('2025-01-15').timeZone('IST'); // Indian Standard Time
 
 Creates a new instance using a UTC offset for fictional or unlisted timezones.
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').timeZone('UTC+08:00'); // 8 hours ahead of UTC
 new Chronos('2025-01-15').timeZone('UTC-05:30'); // 5 hours 30 minutes behind UTC
 ```
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { timeZonePlugin } from 'nhb-toolbox/plugins/timeZonePlugin';
 
@@ -243,7 +243,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 nextWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
 
 nextWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
@@ -273,7 +273,7 @@ Moves forward one day at a time to find the nearest day that is **not** consider
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -302,7 +302,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 nextWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
 
 nextWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
@@ -332,7 +332,7 @@ Moves forward one day at a time until a weekend day is reached.
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -361,7 +361,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 previousWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
 
 previousWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
@@ -391,7 +391,7 @@ Moves backward one day at a time to find the nearest day that is **not** conside
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -420,7 +420,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 previousWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
 
 previousWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
@@ -450,7 +450,7 @@ Moves backward one day at a time until a weekend day is reached.
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -477,7 +477,7 @@ Converts to object with all date unit parts
 
 ### Signature
 
-```ts runnable
+```ts
 toObject(): ChronosObject
 ```
 
@@ -485,7 +485,7 @@ toObject(): ChronosObject
 
 `ChronosObject` - Date components
 
-```ts runnable
+```ts
 /** Iterable `Chronos` object properties */
 interface ChronosObject {
  /** Full year (e.g., 2025). */
@@ -517,7 +517,7 @@ interface ChronosObject {
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').toObject();
 // {year: 2025, month: 0, isoMonth: 1, ...}
 ```
@@ -530,7 +530,7 @@ Converts to array with all date unit parts
 
 ### Signature
 
-```ts runnable
+```ts
 toArray(): TupleOf<number, 12>
 ```
 
@@ -540,7 +540,7 @@ toArray(): TupleOf<number, 12>
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').toArray();
 // [ 2025, 0, 1, 15, 3, 3, 6, 0, 0, 0, 1736899200000, 1736899200 ]
 ```

@@ -56,6 +56,9 @@ importers:
       '@radix-ui/react-scroll-area':
         specifier: ^1.2.10
         version: 1.2.10(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@radix-ui/react-tabs':
+        specifier: ^1.1.13
+        version: 1.1.13(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       ai:
         specifier: ^6.0.182
         version: 6.0.182(zod@4.4.3)
@@ -92,12 +95,18 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      nhb-hooks:
+        specifier: ^1.50.11
+        version: 1.50.11(nhb-toolbox@4.30.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.6
         version: 19.2.6
       react-dom:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
+      react-hot-toast:
+        specifier: ^2.6.0
+        version: 2.6.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       remark:
         specifier: ^15.0.1
         version: 15.0.1
@@ -1887,6 +1896,11 @@ packages:
     resolution: {integrity: sha512-QrJia2qDf5BB/V6HYlDTs0I0lBahyjLzpGQg3KT7FnCdTonAyPy2RtY802m2k4ALx6Dp752f82WsOczEVr3l6Q==}
     engines: {node: '>=20'}
 
+  goober@2.1.19:
+    resolution: {integrity: sha512-U7veizMqxyKlM58+Z5j2ngJBH/r9siDmxpvNxSw0PylF6WQvrASJEZrxh1hidRBJc2jqoBVSyOban5u8m+6Rxg==}
+    peerDependencies:
+      csstype: ^3.0.10
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -2379,6 +2393,13 @@ packages:
       sass:
         optional: true
 
+  nhb-hooks@1.50.11:
+    resolution: {integrity: sha512-Td9RWuS7Uo53A6q28RECzR6bmkoAg912ZSkYI9ri/ljh+dJ82klfat5mUpAqAoME1UnFG+oh3ZTGbZeZM9G/QA==}
+    peerDependencies:
+      nhb-toolbox: '>=4.28.80'
+      react: '>=18.3.1 || ^19.0.0'
+      react-dom: '>=18.3.1 || ^19.0.0'
+
   nhb-scripts@1.9.2:
     resolution: {integrity: sha512-bqTqur5SDWKB2VG0R+qagJFlwi/vnzOmma5DUFgeGngIOj1PV7JdbjbYZ1ff99+lpufaSDA0WjrfSIC8mg05Bg==}
     engines: {node: '>=22'}
@@ -2483,6 +2504,13 @@ packages:
     resolution: {integrity: sha512-0prMI+hvBbPjsWnxDLxlCGyM8PN6UuWjEUCYmZhO67xIV9Xasa/r/vDnq+Xyq4Lo27g8QSbO5YzARu0D1Sps3g==}
     peerDependencies:
       react: ^19.2.6
+
+  react-hot-toast@2.6.0:
+    resolution: {integrity: sha512-bH+2EBMZ4sdyou/DPrfgIouFpcRLCJ+HoCA32UoAYHn6T3Ur5yfcDCeSr5mwldl6pFOsiocmrXMuoCJ1vV8bWg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
 
   react-remove-scroll-bar@2.3.8:
     resolution: {integrity: sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==}
@@ -4459,6 +4487,10 @@ snapshots:
       slash: 5.1.0
       unicorn-magic: 0.4.0
 
+  goober@2.1.19(csstype@3.2.3):
+    dependencies:
+      csstype: 3.2.3
+
   graceful-fs@4.2.11: {}
 
   has-flag@3.0.0: {}
@@ -5237,6 +5269,12 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
+  nhb-hooks@1.50.11(nhb-toolbox@4.30.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+    dependencies:
+      nhb-toolbox: 4.30.1
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+
   nhb-scripts@1.9.2:
     dependencies:
       '@clack/prompts': 0.11.0
@@ -5348,6 +5386,13 @@ snapshots:
     dependencies:
       react: 19.2.6
       scheduler: 0.27.0
+
+  react-hot-toast@2.6.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+    dependencies:
+      csstype: 3.2.3
+      goober: 2.1.19(csstype@3.2.3)
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
 
   react-remove-scroll-bar@2.3.8(@types/react@19.2.14)(react@19.2.6):
     dependencies:

@@ -58,7 +58,7 @@ Below is a list of all supported tokens:
 
 ### Signature
 
-```ts runnable
+```ts
 format(format?: string, useUTC?: boolean): string
 ```
 
@@ -73,7 +73,7 @@ format(format?: string, useUTC?: boolean): string
 
 ### Example
 
-```ts runnable
+```ts
 const date = new Chronos('2025-01-15T14:30:00');
 date.format('YYYY-MM-DD'); // "2025-01-15"
 date.format('ddd, mmmm Do YYYY'); // "Wednesday, January 15th 2025"
@@ -86,7 +86,7 @@ date.format('h:mm A'); // "2:30 PM"
 
 ### Signature
 
-```ts runnable
+```ts
 formatUTC(format?: string): string
 ```
 
@@ -104,7 +104,7 @@ formatUTC(format?: string): string
 
 ### Example
 
-```ts runnable
+```ts
 const date = new Chronos('2025-01-15T14:30:00Z');
 date.formatUTC('YYYY-MM-DD HH:mm:ss'); // "2025-01-15 14:30:00"
 ```
@@ -115,7 +115,7 @@ date.formatUTC('YYYY-MM-DD HH:mm:ss'); // "2025-01-15 14:30:00"
 
 ### Signature
 
-```ts runnable
+```ts
 formatStrict(format?: StrictFormat, useUTC?: boolean): string
 ```
 
@@ -135,7 +135,7 @@ formatStrict(format?: StrictFormat, useUTC?: boolean): string
 
 ### Example
 
-```ts runnable
+```ts
 date.formatStrict('YYYY-MM-DD'); // Type-safe format
 ```
 
@@ -145,7 +145,7 @@ date.formatStrict('YYYY-MM-DD'); // Type-safe format
 
 ### Signature
 
-```ts runnable
+```ts
 calendar(baseDate?: ChronosInput): string
 ```
 
@@ -163,7 +163,7 @@ calendar(baseDate?: ChronosInput): string
 
 ### Example
 
-```ts runnable
+```ts
 const date = new Chronos().subtract(1, 'day');
 date.calendar(); // "Yesterday at [time]"
 ```
@@ -187,7 +187,7 @@ This method is provided by `fromNowPlugin`. You must register it using `Chronos.
 
 ### Signature
 
-```ts runnable
+```ts
 fromNow(level?: FromNowUnit, withSuffixPrefix?: boolean, time?: ChronosInput): string
 ```
 
@@ -203,14 +203,14 @@ fromNow(level?: FromNowUnit, withSuffixPrefix?: boolean, time?: ChronosInput): s
 
 ### Type Definition
 
-```ts runnable
+```ts
 /** Name of time unit from `'year'` to `'millisecond'`, excluding `'week'` */
 type FromNowUnit = "year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond";
 ```
 
 ### Example
 
-```ts runnable
+```ts
 import { fromNowPlugin } from 'nhb-toolbox/plugins/fromNowPlugin';
 
 Chronos.use(fromNowPlugin);
@@ -232,7 +232,7 @@ new Chronos('2020-03-16').subtract(1, 'day').fromNow('day', false, '2025-10-01')
 
 ### Signature
 
-```ts runnable
+```ts
 fromNowShort(): string
 ```
 
@@ -246,7 +246,7 @@ fromNowShort(): string
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos().subtract(150, 'minutes').fromNowShort(); // "2h ago"
 ```
 
@@ -262,7 +262,7 @@ Returns a time-appropriate greeting message based on configurable time periods. 
 
 ### Signature
 
-```ts runnable
+```ts
 getGreeting(configs?: GreetingConfigs): string;
 ```
 
@@ -280,7 +280,7 @@ getGreeting(configs?: GreetingConfigs): string;
 
 ### Example
 
-```ts runnable
+```ts
 import { greetingPlugin } from 'nhb-toolbox/plugins/greetingPlugin';
 
 Chronos.use(greetingPlugin);

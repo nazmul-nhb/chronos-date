@@ -1,13 +1,17 @@
 import * as Twoslash from 'fumadocs-twoslash/ui';
+import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
+import { Copy } from './Copy';
 import { Playground } from './Playground';
 
 export function getMDXComponents(components?: MDXComponents) {
 	return {
 		...defaultMdxComponents,
 		...Twoslash,
+		...TabsComponents,
 		Playground,
+		Copy,
 		// biome-ignore lint/suspicious/noExplicitAny: need any here
 		pre: (props: any) => {
 			let isRunnable =

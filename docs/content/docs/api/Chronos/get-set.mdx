@@ -11,7 +11,7 @@ Gets the value of a specific time unit from the date.
 
 ### Signature
 
-```ts runnable
+```ts
 get<Unit extends TimeUnit>(unit: Unit): TimeUnitValue<Unit>
 ```
 
@@ -25,7 +25,7 @@ get<Unit extends TimeUnit>(unit: Unit): TimeUnitValue<Unit>
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').get('month'); // 1 (January)
 ```
 
@@ -44,7 +44,7 @@ Returns a new `Chronos` instance with the specified unit set to the given value.
 
 ### Signature
 
-```ts runnable
+```ts
 set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos
 ```
 
@@ -59,7 +59,7 @@ set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').set('month', 6); // June 15
 ```
 
@@ -85,7 +85,7 @@ Unit `month` is `1` based (`1`: January, `12`: December)
 
 ### Signature
 
-```ts runnable
+```ts
 getTimeStamp(): number
   ```
 
@@ -101,7 +101,7 @@ getTimeStamp(): number
 
 ### Example
 
-```ts runnable
+```ts
 const timestamp = new Chronos('2025-01-01').getTimeStamp();
 // Returns: 1735689600000 (exact timestamp for midnight Jan 1, 2025 UTC)
 
@@ -122,7 +122,7 @@ console.log(jsDate.getTime() === new Chronos(jsDate).getTimeStamp()); // true
 
 ### Signature
 
-```ts runnable
+```ts
 startOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
 ```
 
@@ -137,7 +137,7 @@ startOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').startOf('month'); // Jan 1
 ```
 
@@ -147,7 +147,7 @@ new Chronos('2025-01-15').startOf('month'); // Jan 1
 
 ### Signature
 
-```ts runnable
+```ts
 endOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
 ```
 
@@ -162,7 +162,7 @@ endOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').endOf('month'); // Jan 31 23:59:59.999
 ```
 
@@ -172,7 +172,7 @@ new Chronos('2025-01-15').endOf('month'); // Jan 31 23:59:59.999
 
 ### Signature
 
-```ts runnable
+```ts
 firstDayOfMonth(): Chronos
 ```
 
@@ -182,7 +182,7 @@ firstDayOfMonth(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').firstDayOfMonth(); // Jan 1
 ```
 
@@ -192,7 +192,7 @@ new Chronos('2025-01-15').firstDayOfMonth(); // Jan 1
 
 ### Signature
 
-```ts runnable
+```ts
 lastDayOfMonth(): Chronos
 ```
 
@@ -202,7 +202,7 @@ lastDayOfMonth(): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-15').lastDayOfMonth(); // Jan 31
 ```
 
@@ -212,7 +212,7 @@ new Chronos('2025-01-15').lastDayOfMonth(); // Jan 31
 
 ### Signature
 
-```ts runnable
+```ts
 getWeek(): NumberRange<1, 53>
 ```
 
@@ -222,7 +222,7 @@ getWeek(): NumberRange<1, 53>
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2022-01-01').getWeek(); // 52 (previous year)
 ```
 
@@ -232,7 +232,7 @@ new Chronos('2022-01-01').getWeek(); // 52 (previous year)
 
 ### Signature
 
-```ts runnable
+```ts
 setWeek(week: NumberRange<1, 53>): Chronos
 ```
 
@@ -246,7 +246,7 @@ setWeek(week: NumberRange<1, 53>): Chronos
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-01').setWeek(1); // Jan 2 (ISO week 1)
 ```
 
@@ -256,7 +256,7 @@ new Chronos('2025-01-01').setWeek(1); // Jan 2 (ISO week 1)
 
 ### Signature
 
-```ts runnable
+```ts
 getWeekOfYear(weekStartsOn?: Enumerate<7>): NumberRange<1, 53>
 ```
 
@@ -270,7 +270,7 @@ getWeekOfYear(weekStartsOn?: Enumerate<7>): NumberRange<1, 53>
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-01').getWeekOfYear(); // 1 (Sunday-start week)
 ```
 
@@ -280,7 +280,7 @@ new Chronos('2025-01-01').getWeekOfYear(); // 1 (Sunday-start week)
 
 ### Signature
 
-```ts runnable
+```ts
 getWeekYear(weekStartsOn?: Enumerate<7>): number
 ```
 
@@ -294,7 +294,7 @@ getWeekYear(weekStartsOn?: Enumerate<7>): number
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-01').getWeekYear(); // 2022 (ISO year)
 ```
 
@@ -304,7 +304,7 @@ new Chronos('2025-01-01').getWeekYear(); // 2022 (ISO year)
 
 ### Signature
 
-```ts runnable
+```ts
 getDayOfYear(): NumberRange<1, 366>
 ```
 
@@ -314,7 +314,7 @@ getDayOfYear(): NumberRange<1, 366>
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-01-01').getDayOfYear(); // 1
 ```
 
@@ -324,7 +324,7 @@ new Chronos('2025-01-01').getDayOfYear(); // 1
 
 ### Signature
 
-```ts runnable
+```ts
 daysInMonth(): NumberRange<28, 31>
 ```
 
@@ -334,7 +334,7 @@ daysInMonth(): NumberRange<28, 31>
 
 ### Example
 
-```ts runnable
+```ts
 new Chronos('2025-02-01').daysInMonth(); // 28
 ```
 
@@ -348,7 +348,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 workdaysBetween(other: ChronosInput, weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
 
 workdaysBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
@@ -377,7 +377,7 @@ This calculation is exclusive of the starting date and inclusive of the ending d
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -405,7 +405,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 workdaysInMonth(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
 
 workdaysInMonth(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
@@ -429,7 +429,7 @@ Counts the number of workdays in the current month based on the specified weeken
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -457,7 +457,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 workdaysInYear(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
 
 workdaysInYear(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
@@ -481,7 +481,7 @@ Counts the number of workdays in the current year based on the specified weekend
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -509,7 +509,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 weekendsBetween(other: ChronosInput, weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
 
 weekendsBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
@@ -538,7 +538,7 @@ This calculation is exclusive of the starting date and inclusive of the ending d
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -567,7 +567,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 weekendsInMonth(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
 
 weekendsInMonth(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
@@ -591,7 +591,7 @@ Counts the number of weekends in the current month based on the specified weeken
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -620,7 +620,7 @@ This method is provided by `businessPlugin`. You must register it using `Chronos
 
 ### Signatures
 
-```ts runnable
+```ts
 weekendsInYear(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
 
 weekendsInYear(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
@@ -644,7 +644,7 @@ Counts the number of weekends in the current year based on the specified weekend
 
 ### Example
 
-```ts runnable
+```ts
 import { Chronos } from 'nhb-toolbox';
 import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
 
@@ -667,7 +667,7 @@ new Chronos('2025-01-01').weekendsInYear(1, 1);
 
 ## Type Definitions
 
-```ts runnable
+```ts
 /** Name of time unit from `year` to `millisecond` */
 type TimeUnit = 'year' | 'month' | 'day' | 'week' | 'hour' | 'minute' | 'second' | 'millisecond';
 

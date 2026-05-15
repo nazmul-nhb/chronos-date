@@ -16,17 +16,13 @@ export default defineConfig({
 	exports: true,
 	unbundle: false,
 	treeshake: true,
+	checks: {
+		pluginTimings: false,
+	},
 	deps: {
 		onlyBundle: ['nhb-toolbox'],
 	},
-	banner: {
-		js: banner(),
-		dts: banner(),
-	},
-});
-
-function banner() {
-	return `/**
+	banner: `/**
  * Copyright 2026 - present Nazmul Hassan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,5 +37,5 @@ function banner() {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-`;
-}
+`,
+});
