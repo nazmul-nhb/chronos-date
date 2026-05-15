@@ -1,0 +1,87 @@
+---
+title: Quick Start
+description: Get up and running with chronos-date in minutes.
+---
+
+
+
+## Creating Instances
+
+There are multiple ways to create a `Chronos` instance:
+
+### Using the Constructor
+
+```ts
+import { Chronos } from "chronos-date";
+
+// Current date and time
+const now = new Chronos();
+
+// From a date string
+const date = new Chronos("2025-12-31");
+
+// From a timestamp
+const fromTimestamp = new Chronos(1735689600000);
+
+// From a Date object
+const fromDate = new Chronos(new Date());
+
+// From components
+const custom = new Chronos(2025, 6, 15, 14, 30, 0);
+```
+
+### Using the Wrapper Function
+
+The `chronos` function provides the same functionality with a simpler syntax:
+
+```ts
+import { chronos } from "chronos-date";
+
+const date = chronos("2025-12-31");
+date.year; // 2025
+date.monthName; // "December"
+```
+
+## Basic Operations
+
+<Playground code={
+      `import { Chronos } from "chronos-date";
+
+const date = new Chronos("2025-06-15");
+
+// Formatting
+console.log(date.format("mmmm DD, YYYY"));
+console.log(date.format("ddd"));
+
+// Arithmetic
+console.log(date.add(7, "day").format("YYYY-MM-DD"));
+console.log(date.subtract(1, "month").format("YYYY-MM-DD"));
+
+// Comparison
+const other = new Chronos("2025-07-01");
+console.log("Is before July?", date.isBefore(other));
+console.log("Days between:", date.diff(other, "day"));`
+}
+/>
+
+## Using Plugins
+
+Extend Chronos with plugins for additional functionality:
+
+```ts
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+
+// Register plugins (do this once, before creating instances)
+Chronos.use(timeZonePlugin);
+Chronos.use(seasonPlugin);
+
+// Now you can use plugin methods
+const date = new Chronos();
+date.timeZone("America/New_York"); // Convert to timezone
+date.season(); // Get current season
+```
+
+> [!TIP]
+> Register plugins at the top of your application entry point, before creating any `Chronos` instances.

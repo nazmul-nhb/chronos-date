@@ -1,0 +1,667 @@
+---
+title: Get & Set Methods
+description: Get & Set Methods — chronos-date API reference.
+---
+
+## get()
+
+Gets the value of a specific time unit from the date.
+
+### Signature
+
+```ts runnable
+get<Unit extends TimeUnit>(unit: Unit): TimeUnitValue<Unit>
+```
+
+### Parameters
+
+- `unit`: Time unit to get: [`TimeUnit`](#type-definitions)
+
+### Return Type
+
+[`TimeUnitValue<Unit>`](#type-definitions) - Component value
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-15').get('month'); // 1 (January)
+```
+
+<Callout type="info" title="Notes">
+- Return value for `month` is `1` based (`1`: January, `12`: December)
+- ISO weeks start on Monday, and the first week of the year is the one containing January 4th.
+
+</Callout>
+---
+
+## set()
+
+Returns a new `Chronos` instance with the specified unit set to the given value.
+
+### Signature
+
+```ts runnable
+set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos
+```
+
+### Parameters
+
+- `unit`: Time unit to set: [`TimeUnit`](#type-definitions)
+- `value`: Value to set: [`TimeUnitValue<Unit>`](#type-definitions)
+
+### Return Type
+
+`Chronos` - New instance with updated value
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-15').set('month', 6); // June 15
+```
+
+<Callout type="info" title="N.B.">
+Unit `month` is `1` based (`1`: January, `12`: December)
+</Callout>
+<Callout type="tip" title="See Also">
+[`with`](/docs/api/static-methods#with) static method for more options
+</Callout>
+---
+
+## getTimeStamp()
+
+<Callout type="tip" title="NOTICE">
+- The getter method [`timestamp`](/docs/api/getters#timestamp) and `getTimeStamp()` returns the same value (milliseconds).
+
+- The **timestamp in seconds** (which some people considers as `timestamp`) can be accessed using [`unix`](/docs/api/getters#unix) getter method.
+
+</Callout>
+### Signature
+
+```ts runnable
+getTimeStamp(): number
+  ```
+
+### Return Type
+
+`number` - Milliseconds since Unix epoch (January 1, 1970 UTC)
+
+### Behavior & Notes
+
+- Equivalent to JavaScript [`Date.getTime()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime)
+- Returns the primitive timestamp value of the `Chronos` instance
+- Useful for interoperability with other date libraries or storage
+
+### Example
+
+```ts runnable
+const timestamp = new Chronos('2025-01-01').getTimeStamp();
+// Returns: 1735689600000 (exact timestamp for midnight Jan 1, 2025 UTC)
+
+// Comparison with native Date
+const jsDate = new Date('2025-01-01');
+console.log(jsDate.getTime() === new Chronos(jsDate).getTimeStamp()); // true
+```
+
+### Use Cases
+
+- Storing dates in databases as timestamps
+- Performance-critical operations where primitive numbers are preferred
+- Interfacing with systems that expect Unix timestamps
+
+---
+
+## startOf()
+
+### Signature
+
+```ts runnable
+startOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
+```
+
+### Parameters
+
+- `unit`: Unit to start from
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`Chronos` - Start of period
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-15').startOf('month'); // Jan 1
+```
+
+---
+
+## endOf()
+
+### Signature
+
+```ts runnable
+endOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
+```
+
+### Parameters
+
+- `unit`: Unit to end at
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`Chronos` - End of period
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-15').endOf('month'); // Jan 31 23:59:59.999
+```
+
+---
+
+## firstDayOfMonth()
+
+### Signature
+
+```ts runnable
+firstDayOfMonth(): Chronos
+```
+
+### Return Type
+
+`Chronos` - First day of month
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-15').firstDayOfMonth(); // Jan 1
+```
+
+---
+
+## lastDayOfMonth()
+
+### Signature
+
+```ts runnable
+lastDayOfMonth(): Chronos
+```
+
+### Return Type
+
+`Chronos` - Last day of month
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-15').lastDayOfMonth(); // Jan 31
+```
+
+---
+
+## getWeek()
+
+### Signature
+
+```ts runnable
+getWeek(): NumberRange<1, 53>
+```
+
+### Return Type
+
+`NumberRange<1, 53>` - ISO week number (1-53)
+
+### Example
+
+```ts runnable
+new Chronos('2022-01-01').getWeek(); // 52 (previous year)
+```
+
+---
+
+## setWeek()
+
+### Signature
+
+```ts runnable
+setWeek(week: NumberRange<1, 53>): Chronos
+```
+
+### Parameters
+
+- `week`: Week number to set (from `1-53`)
+
+### Return Type
+
+`Chronos` - Instance at start of week
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-01').setWeek(1); // Jan 2 (ISO week 1)
+```
+
+---
+
+## getWeekOfYear()
+
+### Signature
+
+```ts runnable
+getWeekOfYear(weekStartsOn?: Enumerate<7>): NumberRange<1, 53>
+```
+
+### Parameters
+
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`NumberRange<1, 53>` - Week number (`1-53`)
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-01').getWeekOfYear(); // 1 (Sunday-start week)
+```
+
+---
+
+## getWeekYear()
+
+### Signature
+
+```ts runnable
+getWeekYear(weekStartsOn?: Enumerate<7>): number
+```
+
+### Parameters
+
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`number` - ISO week-numbering year
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-01').getWeekYear(); // 2022 (ISO year)
+```
+
+---
+
+## getDayOfYear()
+
+### Signature
+
+```ts runnable
+getDayOfYear(): NumberRange<1, 366>
+```
+
+### Return Type
+
+`NumberRange<1, 366>` - Day of year (1-366)
+
+### Example
+
+```ts runnable
+new Chronos('2025-01-01').getDayOfYear(); // 1
+```
+
+---
+
+## daysInMonth()
+
+### Signature
+
+```ts runnable
+daysInMonth(): NumberRange<28, 31>
+```
+
+### Return Type
+
+`NumberRange<28, 31>` - Days in month (`28 | 29 | 30 | 31`)
+
+### Example
+
+```ts runnable
+new Chronos('2025-02-01').daysInMonth(); // 28
+```
+
+---
+
+## workdaysBetween()
+
+<Callout type="error" title="Note">
+This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.workdaysBetween()`. Once registered, all `Chronos` instances will have access to the `.workdaysBetween()` method.
+</Callout>
+### Signatures
+
+```ts runnable
+workdaysBetween(other: ChronosInput, weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+workdaysBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+### Parameters
+
+- `other`: The target date to compare against (can be `Chronos` instance, `Date`, string, or timestamp).
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+### Return Type
+
+`number` - Total count of workdays between the two dates (exclusive of start date, inclusive of end date).
+
+### Description
+
+Calculates the number of workdays between the current date and another date.
+
+<Callout type="error" title="Important">
+This calculation is exclusive of the starting date and inclusive of the ending date.
+</Callout>
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-12-15').workdaysBetween(new Chronos('2025-12-21'));
+// Returns: 4
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-12-15').workdaysBetween(new Chronos('2025-12-20'), [0, 6]);
+// Returns: 4
+
+// With week start on Monday and 2-day weekend
+new Chronos('2025-01-01').workdaysBetween('2025-01-10', 1, 2);
+```
+
+---
+
+## workdaysInMonth()
+
+<Callout type="error" title="Note">
+This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.workdaysInMonth()`. Once registered, all `Chronos` instances will have access to the `.workdaysInMonth()` method.
+</Callout>
+### Signatures
+
+```ts runnable
+workdaysInMonth(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+workdaysInMonth(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+### Return Type
+
+`number` - Number of workdays in the current month.
+
+### Description
+
+Counts the number of workdays in the current month based on the specified weekend configuration.
+
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').workdaysInMonth();
+// Returns: 22
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').workdaysInMonth([0, 6]);
+// Returns: 23
+
+// With week start on Monday and 3-day weekend
+new Chronos('2025-06-15').workdaysInMonth(1, 3);
+```
+
+---
+
+## workdaysInYear()
+
+<Callout type="error" title="Note">
+This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.workdaysInYear()`. Once registered, all `Chronos` instances will have access to the `.workdaysInYear()` method.
+</Callout>
+### Signatures
+
+```ts runnable
+workdaysInYear(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+workdaysInYear(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+### Return Type
+
+`number` - Number of workdays in the current year.
+
+### Description
+
+Counts the number of workdays in the current year based on the specified weekend configuration.
+
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').workdaysInYear();
+// Returns: 261
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').workdaysInYear([0, 6]);
+// Returns: 261
+
+// With week start on Monday and 1-day weekend (Sunday only)
+new Chronos('2025-01-01').workdaysInYear(1, 1);
+```
+
+---
+
+## weekendsBetween()
+
+<Callout type="error" title="Note">
+This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.weekendsBetween()`. Once registered, all `Chronos` instances will have access to the `.weekendsBetween()` method.
+</Callout>
+### Signatures
+
+```ts runnable
+weekendsBetween(other: ChronosInput, weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+weekendsBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+### Parameters
+
+- `other`: The target date to compare against (can be `Chronos` instance, `Date`, string, or timestamp).
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+### Return Type
+
+`number` - Total count of weekends between the two dates (exclusive of start date, inclusive of end date).
+
+### Description
+
+Calculates the number of weekends between the current date and another date.
+
+<Callout type="error" title="Important">
+This calculation is exclusive of the starting date and inclusive of the ending date.
+</Callout>
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-12-15').weekendsBetween(new Chronos('2025-12-21'));
+// Returns: 2
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-12-15').weekendsBetween(new Chronos('2025-12-20'), [0, 6]);
+// Returns: 1
+
+// With week start on Monday and 2-day weekend
+new Chronos('2025-01-01').weekendsBetween('2025-01-10', 1, 2);
+// Returns: 2
+```
+
+---
+
+## weekendsInMonth()
+
+<Callout type="error" title="Note">
+This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.weekendsInMonth()`. Once registered, all `Chronos` instances will have access to the `.weekendsInMonth()` method.
+</Callout>
+### Signatures
+
+```ts runnable
+weekendsInMonth(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+weekendsInMonth(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+### Return Type
+
+`number` - Number of weekends in the current month.
+
+### Description
+
+Counts the number of weekends in the current month based on the specified weekend configuration.
+
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').weekendsInMonth();
+// Returns: 9
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').weekendsInMonth([0, 6]);
+// Returns: 8
+
+// With week start on Monday and 3-day weekend
+new Chronos('2025-06-15').weekendsInMonth(1, 3);
+// Returns: 13
+```
+
+---
+
+## weekendsInYear()
+
+<Callout type="error" title="Note">
+This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.weekendsInYear()`. Once registered, all `Chronos` instances will have access to the `.weekendsInYear()` method.
+</Callout>
+### Signatures
+
+```ts runnable
+weekendsInYear(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+weekendsInYear(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+### Return Type
+
+`number` - Number of weekends in the current year.
+
+### Description
+
+Counts the number of weekends in the current year based on the specified weekend configuration.
+
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').weekendsInYear();
+// Returns: 104
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').weekendsInYear([0, 6]);
+// Returns: 104
+
+// With week start on Monday and 1-day weekend (Sunday only)
+new Chronos('2025-01-01').weekendsInYear(1, 1);
+// Returns: 52
+```
+
+---
+
+## Type Definitions
+
+```ts runnable
+/** Name of time unit from `year` to `millisecond` */
+type TimeUnit = 'year' | 'month' | 'day' | 'week' | 'hour' | 'minute' | 'second' | 'millisecond';
+
+/** Conditional value for `TimeUnit` */
+type TimeUnitValue<Unit extends TimeUnit> =
+ Unit extends 'month' ? NumberRange<1, 12> // 1-12
+ : Unit extends 'week' ? NumberRange<1, 53> // 1-51
+ : Unit extends 'day' ? NumberRange<1, 31> // 1-31
+ : Unit extends 'hour' ? Enumerate<24> // 0-23
+ : Unit extends 'minute' | 'second' ? Enumerate<60> // 0-59
+ : Unit extends 'millisecond' ? Milliseconds // 0-999
+ : number;
+```

@@ -1,0 +1,49 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+	"extends": "//",
+	"files": {
+		"ignoreUnknown": true,
+		"includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!.source"]
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "tab",
+		"indentWidth": 4,
+		"lineEnding": "lf",
+		"lineWidth": 96,
+		"attributePosition": "auto",
+		"bracketSameLine": false,
+		"bracketSpacing": true,
+		"expand": "auto",
+		"useEditorconfig": true,
+		"includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!.source"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"useButtonType": "info",
+				"useKeyWithClickEvents": "info",
+				"noStaticElementInteractions": "info"
+			},
+			"complexity": {
+				"noImportantStyles": "info"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "info"
+			},
+			"style": {
+				"noNonNullAssertion": "info"
+			}
+		},
+		"domains": {
+			"next": "recommended",
+			"react": "recommended"
+		}
+	},
+	"css": {
+		"parser": { "tailwindDirectives": true }
+	}
+}

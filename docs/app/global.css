@@ -1,0 +1,48 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+@import "fumadocs-twoslash/twoslash.css";
+
+@theme inline {
+	/* Chronos brand palette — gold/amber accent */
+	--color-brand-50: #fffbeb;
+	--color-brand-100: #fef3c7;
+	--color-brand-200: #fde68a;
+	--color-brand-300: #fcd34d;
+	--color-brand-400: #fbbf24;
+	--color-brand-500: #f59e0b;
+	--color-brand-600: #d97706;
+	--color-brand-700: #b45309;
+	--color-brand-800: #92400e;
+	--color-brand-900: #78350f;
+}
+
+html {
+	scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+	margin-right: 0px;
+	--removed-body-scroll-bar-size: 0px;
+}
+
+/* Override Fumadocs primary accent for golden theme */
+:root {
+	--fd-primary: 38 92% 50%;
+}
+
+/* Refined code block styling */
+.prose pre {
+	border: 1px solid hsl(var(--fd-border));
+	border-radius: 0.75rem;
+}
+
+/* Smooth transitions for interactive elements */
+a,
+button {
+	transition:
+		color 0.15s ease,
+		background-color 0.15s ease,
+		border-color 0.15s ease,
+		box-shadow 0.15s ease;
+}

@@ -1,0 +1,334 @@
+---
+title: Format Date & Time
+description: Format Date & Time — chronos-date API reference.
+---
+
+## formatDate
+
+Formats a date into a specified string format using comprehensive [formatting tokens](#format-tokens).
+
+### Signature
+
+```typescript
+formatDate(options?: DateFormatOptions): string
+```
+
+### Parameter
+
+- `options`: Options to control date and time formatting.
+
+```ts
+interface DateFormatOptions {
+    /** Date to format, must be parsable by `Date` constructor. Can be string, number or `Date`. Defaults to current time. */
+    date?: string | number | Date;
+    /** The desired format (Default format is `'dd, mmm DD, YYYY HH:mm:ss'` = `'Sun, Apr 06, 2025 16:11:55'`). */
+    format?: StrictFormat; // 21,000+ predefined formats + any string that uses tokens
+    /** Whether to use UTC time. Defaults to `false`. */
+    useUTC?: boolean;
+}
+```
+
+### Return Type
+
+`string` - Formatted date/time string according to the specified format.
+
+### Example
+
+```ts
+// Using string date
+formatDate({ 
+  date: '2025-01-15T14:30:00', 
+  format: 'YYYY-MM-DD HH:mm:ss' 
+});
+// "2025-01-15 14:30:00"
+
+// Using number (timestamp)
+formatDate({ 
+  date: 1736944200000, 
+  format: 'dd, mmm DD, YYYY' 
+});
+// "Wed, Jan 15, 2025"
+
+// Using Date object
+formatDate({ 
+  date: new Date('2025-01-15T14:30:00'), 
+  format: 'mmmm D, YYYY [at] h:mm A' 
+});
+// "January 15, 2025 at 2:30 PM"
+
+// Format current time in UTC time
+formatDate({ 
+  format: 'YYYY-MM-DD HH:mm:ss ZZ',
+  useUTC: true 
+});
+// "2025-01-15 14:30:00 Z"
+
+// With ordinal day and escaped text
+formatDate({ 
+  date: '2025-01-01', 
+  format: '[Today is the] Do [of] mmmm, YYYY' 
+});
+// "Today is the 1st of January, 2025"
+
+// 12-hour time format
+formatDate({
+ date: '2025-01-15T19:30:00',
+ format: 'hh:mm A',
+}),
+// "07:30 PM"
+
+// 24-hour time format
+formatDate({ 
+  date: '2025-01-15T14:30:00', 
+  format: 'HH:mm:ss' 
+});
+// "14:30:00"
+
+// Current time (no date option)
+formatDate({ 
+  format: 'YYYY-MM-DD HH:mm:ss' 
+});
+// "2025-11-21 16:11:55" (current date/time)
+
+// Complex format with multiple escaped sections
+formatDate({ 
+  date: '2025-12-25T18:45:30', 
+  format: '[Christmas Party:] ddd, mmmm Do [@] h:mm A [sharp!]' 
+});
+// "Christmas Party: Thursday, December 25th @ 6:45 PM sharp!"
+```
+
+### Alias
+
+`formatDate` can also be accessed via the following aliases:
+
+- `formatDateTime`
+
+### See Also
+
+- [Chronos format methods](/docs/api/format) for similar date formatting capabilities within the Chronos class.
+
+---
+
+### Format Tokens
+
+<Callout type="info">
+`formatDate` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [Chronos format](/docs/api/format) methods, and behave similarly to libraries like `Moment.js` or `Day.js`.
+</Callout>
+Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
+
+Below is a list of all supported tokens:
+
+| Token                                        | Output                 | Example           |
+| -------------------------------------------- | ---------------------- | ----------------- |
+| `YYYY` or `yyyy` | Full year              | 2025              |
+| `YY` or `yy`     | 2-digit year           | 23                |
+| `mmmm`                         | Full month             | January           |
+| `mmm`                          | Short month            | Jan               |
+| `MM`                           | 2-digit month          | 01-12             |
+| `M`                            | Month                  | 1-12              |
+| `DD`                           | 2-digit day            | 01-31             |
+| `D`                            | Day                    | 1-31              |
+| `Do`                           | Ordinal day            | 1st, 2nd          |
+| `ddd`                          | Full weekday           | Monday            |
+| `dd`                           | Short weekday          | Mon               |
+| `d`                            | Shorter weekday        | Mo                |
+| `HH`                           | 24-hour (00-23)        | 09                |
+| `H`                            | 24-hour (0-23)         | 9                 |
+| `hh`                           | 12-hour (01-12)        | 02                |
+| `h`                            | 12-hour (1-12)         | 2                 |
+| `mm`                           | Minutes (00-59)        | 05                |
+| `m`                            | Minutes (0-59)         | 5                 |
+| `ss`                           | Seconds (00-59)        | 09                |
+| `s`                            | Seconds (0-59)         | 9                 |
+| `ms`                           | Milliseconds (0-999)   | 9                 |
+| `mss`                          | Milliseconds (000-999) | 009               |
+| `A`                            | AM/PM                  | PM                |
+| `a`                            | am/pm                  | pm                |
+| `ZZ`                           | TZ Offset ±HH:mm       | +06:00 or Z (UTC) |
+
+<Callout type="error" title="Note">
+- To output raw text (i.e., not interpreted as a date token), wrap it in square brackets.
+- For example, `[Today is] ddd` results in `Today is Sunday`, and `YYYY[ year]` results in `2025 year`.
+
+- Supported format tokens include: `YYYY`, `YY`, `MMMM`, `MMM`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
+- *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
+
+</Callout>
+---
+
+## formatDateRelative
+
+Formats a date as a relative time string (e.g., `"5m ago"`, `"2h from now"`). Falls back to a formatted date string for dates older than 7 days.
+
+### Signature
+
+```typescript
+formatDateRelative(date: Maybe<DateArgs>, format?: StrictFormat): string
+```
+
+### Parameters
+
+- `date`: The date to format — can be a `Date` object, a date string, or a timestamp number. If `undefined`, the current date and time will be used.
+- `format`: Optional format string for dates older than 7 days. Defaults to `'mmm D, yyyy hh:mm a'`. Supports the same tokens as [`formatDate()`](#formatdate).
+
+### Return Type
+
+`string` - A relative time string if the date is within the last 7 days, otherwise a formatted date string.
+
+### Example
+
+```typescript
+formatDateRelative(Date.now() - 5 * 60000);
+// "5m ago"
+
+formatDateRelative(Date.now() + 2 * 3600000);
+// "2h from now"
+
+formatDateRelative(Date.now() - 10 * 86400000);
+// "Apr 6, 2026 04:11 pm" (formatted date string)
+```
+
+### Relative Output Ranges
+
+| Time Difference | Output                               |
+| --------------- | ------------------------------------ |
+| < 1 minute      | `"Just now"`                         |
+| < 60 minutes    | `"Xm ago/from now"`                  |
+| < 24 hours      | `"Xh ago/from now"`                  |
+| < 7 days        | `"Xd ago/from now"`                  |
+| ≥ 7 days        | Formatted date string using `format` |
+
+### Aliases
+
+`formatDateRelative` can also be accessed via the following aliases:
+
+- `formatRelativeDate`
+- `formatRelativeTime`
+
+### Notes
+
+- If the provided date is invalid, the function returns `'Invalid Date!'`.
+- The suffix `"ago"` or `"from now"` is determined by whether the date is in the past or future.
+- For dates older than 7 days, the output is formatted using the provided `format` string or the default `'mmm D, yyyy hh:mm a'`.
+
+### See Also
+
+- [`formatDate()`](#formatdate) for full date formatting with custom tokens.
+
+---
+
+## formatTimePart
+
+Formats a time-only string into a formatted time string, automatically combining it with today's date for proper parsing.
+
+### Signature
+
+```typescript
+formatTimePart(time: string, format?: TimeOnlyFormat): string
+```
+
+### Parameters
+
+- `time`: Time string to be formatted. Supported formats include:
+  - `HH:mm` → e.g., `'14:50'`
+  - `HH:mm:ss` → e.g., `'14:50:00'`
+  - `HH:mm:ss.mss` → e.g., `'14:50:00.800'`
+  - `HH:mm+TimeZoneOffset(HH)` → e.g., `'14:50+06'`
+  - `HH:mm+TimeZoneOffset(HH:mm)` → e.g., `'14:50+06:00'`
+  - `HH:mm:ss+TimeZoneOffset(HH)` → e.g., `'14:50:00+06'`
+  - `HH:mm:ss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00+05:30'`
+  - `HH:mm:ss.mss+TimeZoneOffset(HH)` → e.g., `'14:50:00.800+06'`
+  - `HH:mm:ss.mss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00.800+06:30'`
+  
+  *Note: Input defaults to today's date and assumes local timezone if no offset is provided.*
+
+- `format`: Optional format tokens for time part only (default: `'hh:mm:ss a'` = `'02:33:36 pm'`).
+  Supports the same time-related tokens as [`formatDate()`](#formatdate).
+
+### Return Type
+
+`string` - Formatted time string in local (system) time.
+
+### Example
+
+```typescript
+// Basic time formatting
+formatTimePart('14:50'); 
+// "02:50:00 pm" (with today's date)
+
+formatTimePart('14:50:30');
+// "02:50:30 pm"
+
+// With milliseconds
+formatTimePart('14:50:30.500');
+// "02:50:30 pm" (milliseconds not shown in default format)
+
+// Custom formats
+formatTimePart('14:50', 'HH:mm');
+// "14:50"
+
+formatTimePart('14:50:30', 'h:mm A');
+// "2:50 PM"
+
+formatTimePart('09:15', 'hh:mm a');
+// "09:15 am"
+
+// 24-hour format
+formatTimePart('23:45:20', 'HH:mm:ss');
+// "23:45:20"
+
+// With timezone offset
+formatTimePart('14:50+06');
+// "02:50:00 pm" (converted to local time)
+
+formatTimePart('14:50:00+05:30');
+// "03:20:00 pm" (adjusted from +05:30 to local time)
+
+// Complex formats
+formatTimePart('18:30:45', '[Time:] hh:mm:ss A');
+// "Time: 06:30:45 PM"
+```
+
+### Behavior Details
+
+1. **Date Combination**: Automatically combines the input time with today's date (using `YYYY-MM-DD`) to create a complete datetime string for parsing.
+2. **Timezone Handling**:
+   - If a timezone offset is provided (e.g., `+06:00`), it's preserved in the combined datetime
+   - If no offset is provided, local system timezone is assumed
+3. **Normalization**: The function internally normalizes various time formats to ISO-like format for consistent parsing
+4. **Output**: Always returns time formatted according to the specified tokens, converted to local system time
+
+### Supported Time Format Tokens
+
+The `format` parameter accepts the same time-related tokens as [`formatDate()`](#formatdate):
+
+| Token | Description                         | Example    |
+| ----- | ----------------------------------- | ---------- |
+| `HH`  | 24-hour, zero-padded (00-23)        | `14`, `23` |
+| `H`   | 24-hour (0-23)                      | `14`, `23` |
+| `hh`  | 12-hour, zero-padded (01-12)        | `02`, `11` |
+| `h`   | 12-hour (1-12)                      | `2`, `11`  |
+| `mm`  | Minutes, zero-padded (00-59)        | `05`, `30` |
+| `m`   | Minutes (0-59)                      | `5`, `30`  |
+| `ss`  | Seconds, zero-padded (00-59)        | `09`, `45` |
+| `s`   | Seconds (0-59)                      | `9`, `45`  |
+| `ms`  | Milliseconds (0-999)                | `123`      |
+| `mss` | Milliseconds, zero-padded (000-999) | `123`      |
+| `A`   | AM/PM uppercase                     | `AM`, `PM` |
+| `a`   | am/pm lowercase                     | `am`, `pm` |
+
+### Use Cases
+
+- Formatting time inputs from forms or APIs that only provide time
+- Displaying time-only data in user-friendly formats
+- Converting 24-hour time to 12-hour format with AM/PM indicators
+- Adjusting times from different timezones to local display
+
+### Notes
+
+- This function is ideal when you only have a time component without a specific date
+- For complete datetime formatting with specific dates, use [`formatDate()`](#formatdate) instead
+- The function handles timezone offsets but always outputs in local system time
+- Millisecond tokens (`ms`, `mss`) are supported but may not show if the input doesn't include milliseconds
+- If date formatting tokens are passed, it will output the current date

@@ -1,0 +1,18 @@
+{
+	"title": "API Reference",
+	"pages": [
+		"chronos-class",
+		"static-methods",
+		"getters",
+		"get-set",
+		"format",
+		"calculation",
+		"names",
+		"checkers",
+		"comparison",
+		"conversion",
+		"strings",
+		"symbols",
+		"extras"
+	]
+}

@@ -3,3 +3,6 @@ node_modules
 dist
 .env
 __*.ts
+docs/.next
+docs/.source
+docs/.env.local

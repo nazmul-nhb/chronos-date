@@ -1,0 +1,63 @@
+---
+title: Installation
+description: How to install chronos-date in your project.
+---
+
+## Package Manager
+
+Install `chronos-date` using your preferred package manager:
+
+```bash tab="npm"
+npm install chronos-date
+```
+
+```bash tab="pnpm"
+pnpm add chronos-date
+```
+
+```bash tab="yarn"
+yarn add chronos-date
+```
+
+```bash tab="bun"
+bun add chronos-date
+```
+
+## Requirements
+
+- **Node.js** 18+ or any modern JavaScript runtime
+- **TypeScript** 5.0+ (optional, but recommended for full IntelliSense)
+
+## Module Formats
+
+`chronos-date` ships as both ESM and CommonJS:
+
+```ts
+// ESM (recommended)
+import { Chronos } from "chronos-date";
+
+// CommonJS
+const { Chronos } = require("chronos-date");
+```
+
+## Modular Imports
+
+You can import specific submodules for better tree-shaking:
+
+```ts
+// Guards
+import { isValidDateInput } from "chronos-date/guards";
+
+// Utility functions
+import { formatDate } from "chronos-date/utils";
+
+// Type definitions
+import type { ChronosInput } from "chronos-date/types";
+
+// Constants
+import { MONTHS } from "chronos-date/constants";
+
+// Plugins (imported individually)
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+```

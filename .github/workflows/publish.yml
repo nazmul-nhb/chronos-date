@@ -64,10 +64,10 @@ jobs:
           node-version: 24
           # registry-url: "https://registry.npmjs.org/"
 
-      # Install Dependencies
+      # Install Dependencies (only root package, not docs)
       - name: Install Dependencies
         if: env.VERSION_UNCHANGED == 'false'
-        run: pnpm install --frozen-lockfile --store-dir ~/.pnpm-store
+        run: pnpm install --frozen-lockfile --filter chronos-date... --store-dir ~/.pnpm-store
 
       # Publish to NPM Registry
       - name: Publish to NPM Registry

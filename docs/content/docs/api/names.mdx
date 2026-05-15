@@ -1,0 +1,948 @@
+---
+title: Name Getter Methods
+description: Name Getter Methods — chronos-date API reference.
+---
+
+> Get Names of the Parts of Date, e.g. `Day`, `Month`, `Season`, `Zodiac Signs` etc.
+
+---
+
+## day()
+
+Get the name of a weekday
+
+### Signature
+
+```ts runnable
+day(index?: Enumerate<7>): WeekDay
+```
+
+### Parameter
+
+- `index` *(optional)*: A number from `0` to `6` representing the day of the week, where `0` is Sunday and `6` is Saturday. If omitted, it defaults to the current day from the `Chronos` instance.
+
+### Return Value
+
+- `WeekDay` — The full name of the corresponding weekday (`"Sunday"`, `"Monday"`, ..., `"Saturday"`).
+
+### Example Usage
+
+```ts runnable
+new Chronos('2025-05-29').day(); // "Thursday"
+new Chronos().day(0);            // "Sunday"
+```
+
+<Callout type="info">
+- This method supports overriding the current day with a specific index.
+- Internally, it maps indices `0–6` to the English names of the weekdays.
+
+</Callout>
+---
+
+## monthName()
+
+Get the name of a month
+
+### Signature
+
+```ts runnable
+monthName(index?: Enumerate<12>): MonthName
+```
+
+### Parameters
+
+- `index` *(optional)*: A number from `0` to `11` representing the month, where `0` is January and `11` is December. If omitted, it defaults to the current month from the `Chronos` instance.
+
+### Return Value
+
+- `MonthName` — The full name of the month (`"January"`, `"February"`, ..., `"December"`).
+
+### Example Usage
+
+```ts runnable
+new Chronos('2025-05-29').monthName(); // "May"
+new Chronos().monthName(11);           // "December"
+```
+
+<Callout type="info">
+- This method supports overriding the current month with a specific index.
+- Internally, it maps indices `0–11` to the English names of the months.
+
+</Callout>
+---
+
+## $getNativeTimeZoneName()
+
+Retrieves the local system's current timezone name, falling back to its IANA timezone identifier if the name cannot be determined.
+
+### Signature
+
+```ts runnable
+$getNativeTimeZoneName(tzId?: $TimeZoneIdentifier): LooseLiteral<TimeZoneNameNative | $TimeZoneIdentifier>
+```
+
+### Parameters  
+
+- `tzId` *Optional* time zone identifier to get time zone name for that identifier.
+
+### Return Type
+
+- `LooseLiteral<TimeZoneNameNative | $TimeZoneIdentifier>` - The resolved timezone name or IANA identifier as fallback
+
+### Example
+
+```ts runnable
+const ch = new Chronos('2025-01-15');
+
+// Get native timezone name
+console.log(ch.$getNativeTimeZoneName());
+// → "Bangladesh Standard Time" (if in Asia/Dhaka)
+// → "Eastern Standard Time" (if in America/New_York)
+// → "Asia/Dhaka" (fallback if name unavailable)
+```
+
+### Remarks
+
+- **Always reflects the local machine's timezone name** regardless of whether `timeZone()`, `utc()`, or `toUTC()` methods have been applied
+- **For modified instances**, use the `timeZoneName` public property instead to get the current instance's timezone context
+- Uses `Intl.DateTimeFormat` with `timeZoneName: 'long'` to resolve the display name
+- Falls back to the IANA identifier when no display name can be determined
+
+### Usage Notes
+
+```ts runnable
+const ch = new Chronos('2025-01-15').timeZone('UTC+02:45');
+
+// These reflect the modified instance's timezone
+console.log(ch.timeZoneName); // → "UTC+02:45"
+
+// These always reflect the native system timezone
+console.log(ch.$getNativeTimeZoneName());   // → "Bangladesh Standard Time"
+```
+
+---
+
+## $getNativeTimeZoneId()
+
+Retrieves the IANA timezone identifier for the local system's current timezone.
+
+### Signature
+
+```ts runnable
+$getNativeTimeZoneId(): TimeZoneIdNative
+```
+
+### Return Type
+
+- **`TimeZoneIdNative`** - The local system's IANA timezone identifier
+
+### Example
+
+```ts runnable
+const ch = new Chronos('2025-01-15');
+
+// Get native IANA timezone identifier
+console.log(ch.$getNativeTimeZoneId());
+// → "Asia/Dhaka" (if in Bangladesh)
+// → "America/New_York" (if in Eastern Time)
+// → "Europe/London" (if in UK)
+```
+
+### Remarks
+
+- **Always returns the local machine's timezone identifier** regardless of whether `timeZone()`, `utc()`, or `toUTC()` methods have been applied
+- **For modified instances**, use the `timeZoneId` public property instead to get the current instance's timezone context
+- Directly accesses `Intl.DateTimeFormat().resolvedOptions().timeZone` for the system identifier
+- Returns standardized IANA timezone identifiers (e.g., `"Asia/Dhaka"`, `"America/New_York"`)
+
+### Usage Notes
+
+```ts runnable
+const ch = new Chronos('2025-01-15').timeZone('UTC+02:45');
+
+// These reflect the modified instance's timezone
+console.log(ch.timeZoneId);   // → "UTC+02:45"
+
+// These always reflect the native system timezone
+console.log(ch.$getNativeTimeZoneId()); // → "Asia/Dhaka"
+```
+
+---
+
+## getTimeZoneName()
+
+Get full time zone name or UTC offset
+
+<Callout type="error" title="Note">
+This method is provided by `timeZonePlugin`. You must register it using `Chronos.use(timeZonePlugin)` before calling `.getTimeZoneName()`. Once registered, all `Chronos` instances will have access to the `.getTimeZoneName()` method.
+</Callout>
+### Signature
+
+```ts runnable
+getTimeZoneName(utc?: UTCOffset): LooseLiteral<UTCOffset>
+```
+
+### Parameters
+
+- `utc?` — *(Optional)* A UTC offset string in the format `"UTC+06:00"`, `"UTC-04:30"`, etc.
+  - If provided, it **bypasses the instance's current offset** and returns the name mapped to this offset instead.
+
+### Return Value
+
+- `LooseLiteral<UTCOffset>` — The current time zone name as a full descriptive `string` (e.g. `"Bangladesh Standard Time"`) or  the fallback UTC offset (`UTCOffset`).
+
+### Example Usage
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+
+Chronos.use(timeZonePlugin);
+
+new Chronos().getTimeZoneName(); // "Bangladesh Standard Time"
+
+// If it's a custom time zone or does not math with predefined time zones:
+new Chronos().getTimeZoneName(); // "UTC+06:45"
+
+new Chronos().getTimeZoneName('UTC+03:00'); 
+// → "Arab Standard Time" (uses provided offset)
+
+new Chronos().getTimeZoneName('UTC+06:15'); 
+// → "UTC+06:15" (no matching time zone found)
+```
+
+<Callout type="info">
+- This method uses a **predefined mapping of UTC offsets** to time zone names.
+- If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
+- If **no match** is found (which is rare), it falls back to returning the UTC offset (e.g. `"UTC+06:15"`).
+- Passing a custom `utc` offset overrides system/instance's offset detection.
+- To retrieve the local system's native time zone name (or its identifier if the name is unavailable), use the [**$getNativeTimeZoneName**](#getnativetimezonename) instance method.
+- To retrieve the local system's native time zone identifier, use the [**$getNativeTimeZoneId**](#getnativetimezoneid) instance method.
+
+</Callout>
+---
+
+## getTimeZoneNameShort()
+
+Get abbreviated time zone name or UTC offset
+
+<Callout type="error" title="Note">
+This method is provided by `timeZonePlugin`. You must register it using `Chronos.use(timeZonePlugin)` before calling `.getTimeZoneNameShort()`. Once registered, all `Chronos` instances will have access to the `.getTimeZoneNameShort()` method.
+</Callout>
+### Signature
+
+```ts runnable
+getTimeZoneNameShort(utc?: UTCOffset): TimeZone | UTCOffset
+```
+
+### Parameters
+
+- `utc?` — *(Optional)* A UTC offset string in the format `"UTC+06:00"`, `"UTC-04:30"`, etc.
+  - If provided, it **bypasses the instance's current offset** and returns the name mapped to this offset instead.
+
+### Return Value
+
+- `TimeZone | UTCOffset` — The current time zone abbreviation (e.g. `"BST"` for `Bangladesh Standard Time`).
+
+### Example Usage
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+
+Chronos.use(timeZonePlugin);
+
+new Chronos().getTimeZoneNameShort(); // "BST"
+
+// If it's a custom time zone or does not math with predefined time zones:
+new Chronos().getTimeZoneNameShort(); // "UTC+06:45"
+
+new Chronos().getTimeZoneNameShort('UTC+03:00'); 
+// → "Arab Standard Time" (uses provided offset)
+
+new Chronos().getTimeZoneNameShort('UTC+06:15'); 
+// → "UTC+06:15" (no matching time zone found)
+```
+
+<Callout type="info">
+- This method uses a **predefined mapping of UTC offsets** to time zone names.
+- If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
+- If **no match** is found (which is rare), it falls back to returning the UTC offset (e.g. `"UTC+06:15"`).
+- Passing a custom `utc` offset overrides system/instance's offset detection.
+- To retrieve the local system's native time zone name (or its identifier if the name is unavailable), use the [**$getNativeTimeZoneName**](#getnativetimezonename) instance method.
+- To retrieve the local system's native time zone identifier, use the [**$getNativeTimeZoneId**](#getnativetimezoneid) instance method.
+
+</Callout>
+### ALias
+
+Also available as `getTimeZoneNameAbbr()` alias.
+
+---
+
+## season()
+
+Get season name
+
+### Signature
+
+```ts runnable
+season(options?: SeasonOptions): string
+```
+
+### Alias
+
+- `getSeasonName` is an alias for `season` method.
+
+### Overview
+
+The `season()` method determines the current season based on either predefined regional presets or custom season definitions. It supports both month-based and exact date-based season boundaries.
+
+<Callout type="error" title="Note">
+This method is provided by `seasonPlugin`. You must register it using `Chronos.use(seasonPlugin)` before calling `.season()`. Once registered, all `Chronos` instances will have access to the `.season()` method.
+</Callout>
+### Usage
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+
+Chronos.use(seasonPlugin);
+
+// Using default preset (Western seasons)
+const now = new Chronos();
+console.log(now.season()); // "Spring" (if between March-May)
+
+// Using a specific preset
+console.log(now.season({ preset: 'japan' }));
+
+// Custom seasons
+const customSeasons = [
+  { name: 'Peak Time', boundary: { startDate: '11-20', endDate: '01-10' } }
+];
+console.log(now.season({ seasons: customSeasons }));
+```
+
+### Configuration
+
+#### SeasonOptions
+
+```ts runnable
+interface SeasonOptions {
+  seasons?: SeasonDefinition[];
+  preset?: SeasonPreset;
+}
+```
+
+- `seasons`: Custom array of season definitions (overrides preset if provided)
+- `preset`: Name of predefined season configuration (default: `'default'` - Western Seasons)
+
+#### SeasonDefinition
+
+```ts runnable
+interface SeasonDefinition {
+  name: string;
+  boundary: MonthBoundary | DateBoundary;
+}
+```
+
+Boundary can be either:
+
+- **Month-based**: `{ startMonth: 0-11, endMonth: 0-11 }` (0=January)
+- **Date-based**: `{ startDate: 'MM-DD', endDate: 'MM-DD' }`
+
+<Callout type="warn" title="Boundary Handling">
+- Supports wrap-around seasons (e.g., Winter: Dec-Feb)
+- Boundaries are inclusive
+- Returns `'Unknown'` if no season matches
+
+</Callout>
+### Available Presets
+
+<Tabs>
+<Tab value="default" label={ <span style={{ whiteSpace: 'nowrap' }}>Default (Western)</span> }>
+
+```ts runnable
+[
+  { name: 'Spring', boundary: { startMonth: 2, endMonth: 4 } },  // Mar-May
+  { name: 'Summer', boundary: { startMonth: 5, endMonth: 7 } },  // Jun-Aug
+  { name: 'Autumn', boundary: { startMonth: 8, endMonth: 10 } }, // Sep-Nov
+  { name: 'Winter', boundary: { startMonth: 11, endMonth: 1 } }  // Dec-Feb
+]
+```
+
+</Tab>
+<Tab value="Bangladesh">
+
+```ts runnable
+[
+ { name: 'Grisma (Summer)', boundary: { startDate: '04-15', endDate: '06-14' } },
+ { name: 'Barsa (Monsoon)', boundary: { startDate: '06-15', endDate: '08-14' } },
+ { name: 'Sarat (Autumn)', boundary: { startDate: '08-15', endDate: '10-14' } },
+ { name: 'Hemanta (Late-Autumn)', boundary: { startDate: '10-15', endDate: '12-14' } },
+ { name: 'Shhit (Winter)', boundary: { startDate: '12-15', endDate: '02-14' } },
+ { name: 'Basanta (Spring)', boundary: { startDate: '02-15', endDate: '04-14' } }
+]
+```
+
+</Tab>
+<Tab value="Vedic">
+
+```ts runnable
+[
+  { name: 'Shishir (Winter)', boundary: { startDate: '12-15', endDate: '02-14' } },
+  { name: 'Vasanta (Spring)', boundary: { startDate: '02-15', endDate: '04-14' } },
+  { name: 'Grishma (Summer)', boundary: { startDate: '04-15', endDate: '06-14' } },
+  { name: 'Varsha (Monsoon)', boundary: { startDate: '06-15', endDate: '08-14' } },
+  { name: 'Sharad (Autumn)', boundary: { startDate: '08-15', endDate: '10-14' } },
+  { name: 'Hemant (Late-Autumn)', boundary: { startDate: '10-15', endDate: '12-14' } }
+]
+```
+
+</Tab>
+<Tab value="Tamil">
+
+```ts runnable
+[
+  { name: 'Ilavenil (Mid-Summer)', boundary: { startMonth: 4, endMonth: 5 } },   // May-Jun
+  { name: 'Mutuvenil (Peak-Summer)', boundary: { startMonth: 6, endMonth: 7 } }, // Jul-Aug
+  { name: 'Kaar (Monsoon)', boundary: { startMonth: 7, endMonth: 9 } },          // Aug-Oct
+  { name: 'Koothir (Autumn)', boundary: { startMonth: 9, endMonth: 10 } },       // Oct-Nov
+  { name: 'Munpani (Early-Winter)', boundary: { startMonth: 10, endMonth: 0 } }, // Nov-Jan
+  { name: 'Pinpani (Late-Winter)', boundary: { startMonth: 0, endMonth: 2 } }    // Jan-Mar
+]
+```
+
+</Tab>
+<Tab value="india" label={ <span style={{ whiteSpace: 'nowrap' }}>India (IMD)</span> }>
+
+```ts runnable
+[
+  { name: 'Winter', boundary: { startMonth: 0, endMonth: 1 } },       // Jan-Feb
+  { name: 'Pre-Monsoon', boundary: { startMonth: 2, endMonth: 4 } },  // Mar-May
+  { name: 'Monsoon', boundary: { startMonth: 5, endMonth: 8 } },      // Jun-Sep
+  { name: 'Post-Monsoon', boundary: { startMonth: 9, endMonth: 10 } },// Oct-Nov
+  { name: 'Cool Season', boundary: { startMonth: 11, endMonth: 11 } } // Dec
+]
+```
+
+</Tab>
+<Tab value="Philippines">
+
+```ts runnable
+[
+  { name: 'Dry Season', boundary: { startMonth: 11, endMonth: 4 } }, // Dec-May
+  { name: 'Wet Season', boundary: { startMonth: 5, endMonth: 10 } }  // Jun-Nov
+]
+```
+
+</Tab>
+<Tab value="academic_us" label={ <span style={{ whiteSpace: 'nowrap' }}>US Academic</span> } >
+
+```ts runnable
+[
+  { name: 'Spring', boundary: { startDate: '01-10', endDate: '05-15' } },
+  { name: 'Summer', boundary: { startDate: '05-16', endDate: '08-15' } },
+  { name: 'Fall', boundary: { startDate: '08-16', endDate: '12-20' } },
+  { name: 'Winter Break', boundary: { startDate: '12-21', endDate: '01-09' } }
+]
+```
+
+</Tab>
+<Tab value="Japan">
+
+```ts runnable
+[
+  { name: 'Haru (Spring)', boundary: { startDate: '03-01', endDate: '05-31' } },
+  { name: 'Natsu (Summer)', boundary: { startDate: '06-01', endDate: '08-31' } },
+  { name: 'Aki (Autumn)', boundary: { startDate: '09-01', endDate: '11-30' } },
+  { name: 'Fuyu (Winter)', boundary: { startDate: '12-01', endDate: '02-28' } }
+]
+```
+
+</Tab>
+<Tab value="Australia">
+
+```ts runnable
+[
+  { name: 'Summer', boundary: { startMonth: 11, endMonth: 1 } }, // Dec-Feb
+  { name: 'Autumn', boundary: { startMonth: 2, endMonth: 4 } },  // Mar-May
+  { name: 'Winter', boundary: { startMonth: 5, endMonth: 7 } },  // Jun-Aug
+  { name: 'Spring', boundary: { startMonth: 8, endMonth: 10 } }  // Sep-Nov
+]
+```
+
+</Tab>
+<Tab value="Ethiopia">
+
+```ts runnable
+[
+  { name: 'Bega (Dry)', boundary: { startMonth: 10, endMonth: 1 } },       // Nov-Feb
+  { name: 'Belg (Short Rain)', boundary: { startMonth: 2, endMonth: 4 } }, // Mar-May
+  { name: 'Kiremt (Main Rain)', boundary: { startMonth: 5, endMonth: 9 } } // Jun-Oct
+]
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="tip" title="Custom Seasons">
+You can create completely custom season configurations by providing your own array of `SeasonDefinition` objects:
+
+```ts runnable
+const gamingSeasons = [
+  { name: 'Pre-Season', boundary: { startMonth: 0, endMonth: 2 } },
+  { name: 'Competitive', boundary: { startDate: '03-01', endDate: '09-30' } },
+  { name: 'Off-Season', boundary: { startMonth: 10, endMonth: 11 } }
+];
+
+const currentSeason = new Chronos().season({ seasons: gamingSeasons });
+```
+
+</Callout>
+### Type Definitions
+
+```ts runnable
+type SeasonPreset = 
+  | 'default'
+  | 'bangladesh'
+  | 'india'
+  | 'tamil'
+  | 'vedic'
+  | 'philippines'
+  | 'academic_us'
+  | 'japan'
+  | 'australia'
+  | 'ethiopia';
+
+type MonthDateString = `${MonthString}-${DateString}`; // 'MM-DD' format
+
+interface DateBoundary {
+  startDate: MonthDateString;
+  endDate: MonthDateString;
+}
+
+interface MonthBoundary {
+  startMonth: number; // 0-11 (0=January)
+  endMonth: number;   // 0-11
+}
+```
+
+<Callout type="error" title="Note">
+When using month-based boundaries (`MonthBoundary`), the season calculation only considers the month component and ignores specific dates within the month.
+</Callout>
+---
+
+## getZodiacSign()
+
+### Signature
+
+```ts runnable
+getZodiacSign<Sign extends string = ZodiacSign>(options?: ZodiacOptions<Sign>): Sign
+```
+
+### Alias
+
+- `zodiac` is an alias for `getZodiacSign` method.
+
+### Overview
+
+The `getZodiacSign()` method determines the zodiac sign based on either predefined presets (Western or Vedic) or custom zodiac definitions. It supports both instance date and custom birthdate inputs.
+
+<Callout type="error" title="Note">
+This method is provided by `zodiacPlugin`. You must register it using `Chronos.use(zodiacPlugin)` before calling `.getZodiacSign()`. Once registered, all `Chronos` instances will have access to the `.getZodiacSign()` method.
+</Callout>
+### Usage
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { zodiacPlugin } from "chronos-date/plugins/zodiacPlugin";
+
+Chronos.use(zodiacPlugin);
+
+// Using default preset (Western)
+const now = new Chronos();
+console.log(now.getZodiacSign()); // "Leo" (if between Jul 23-Aug 22)
+
+// Using Vedic preset
+console.log(now.getZodiacSign({ preset: 'vedic' }));
+
+// Custom birthdate
+console.log(now.getZodiacSign({ birthDate: '05-21' })); // "Gemini"
+
+// Custom zodiac definitions
+const customZodiac = [
+  ['Aries', [3, 21]],
+  ['Taurus', [4, 20]],
+  ['A', [3, 1]],
+  ['B', [6, 1]],
+  ['C', [9, 1]],
+  ['D', [12, 1]],
+  // ...other signs, zodiac names can be any string
+] as const;
+console.log(now.getZodiacSign({ custom: customZodiac }));
+```
+
+### Configuration
+
+#### ZodiacOptions
+
+```ts runnable
+interface ZodiacOptions<Sign extends string = ZodiacSign> {
+  birthDate?: MonthDateString;      // 'MM-DD' format (1-based month)
+  preset?: ZodiacPreset;      // 'western' | 'vedic' | 'tropical' | 'sidereal'
+  custom?: ZodiacArray<Sign> | Readonly<ZodiacArray<Sign>>;     // Custom zodiac definitions
+}
+```
+
+- `birthDate`: Optional date in `'MM-DD'` format to use instead of instance date
+- `preset`: Name of predefined zodiac configuration (default: `'western'`)
+- `custom`: Custom array of zodiac definitions (overrides preset if provided)
+
+### Available Presets
+
+<Tabs>
+<Tab value="Western/Tropical">
+
+```ts runnable
+[
+  ['Capricorn', [12, 22]],
+  ['Aquarius', [1, 20]],
+  ['Pisces', [2, 19]],
+  ['Aries', [3, 21]],
+  ['Taurus', [4, 20]],
+  ['Gemini', [5, 21]],
+  ['Cancer', [6, 21]],
+  ['Leo', [7, 23]],
+  ['Virgo', [8, 23]],
+  ['Libra', [9, 23]],
+  ['Scorpio', [10, 23]],
+  ['Sagittarius', [11, 22]]
+]
+```
+
+</Tab>
+<Tab value="Vedic/Sidereal">
+
+```ts runnable
+[
+  ['Capricorn', [1, 14]],
+  ['Aquarius', [2, 13]],
+  ['Pisces', [3, 14]],
+  ['Aries', [4, 14]],
+  ['Taurus', [5, 15]],
+  ['Gemini', [6, 15]],
+  ['Cancer', [7, 16]],
+  ['Leo', [8, 17]],
+  ['Virgo', [9, 17]],
+  ['Libra', [10, 17]],
+  ['Scorpio', [11, 16]],
+  ['Sagittarius', [12, 16]]
+]
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="tip" title="Custom Zodiac">
+You can create custom zodiac configurations by providing your own array of zodiac definitions with any zodiac sign names:
+
+```ts runnable
+const customZodiac = [
+  ['Capricorn', [1, 1]], 
+  ['Sagittarius', [2, 1]],
+  ['A', [3, 1]],
+  ['B', [6, 1]],
+  ['C', [9, 1]],
+  ['D', [12, 1]],
+  // ...other signs, zodiac names can be any string
+] as const;
+
+const currentSign = new Chronos().getZodiacSign({ custom: customZodiac });
+```
+
+</Callout>
+### Type Definitions
+
+```ts runnable
+type ZodiacPreset = 'western' | 'vedic' | 'tropical' | 'sidereal';
+type ZodiacSign = 'Aries' | 'Taurus' | ...; // All zodiac sign names
+type ZodiacArray<Sign extends string = ZodiacSign> = Array<
+  [Sign, [NumberRange<1, 12>, NumberRange<1, 31>]] | Readonly<[Sign, Readonly<[NumberRange<1, 12>, NumberRange<1, 31>]>]>
+>;
+```
+
+<Callout type="info" title="Date Handling">
+- Month values are 1-based (1 = January)
+- Supports both instance date and custom `birthDate` input
+- Returns the first sign if no matches found (shouldn't occur with presets or proper definitions)
+
+</Callout>
+---
+
+## getZodiacMeta()
+
+### Signature
+
+```ts runnable
+getZodiacMeta<Sign extends string = ZodiacSign>(sign: Sign, options?: ZodiacMetaOptions<Sign>): ZodiacMeta<Sign>
+```
+
+### Overview
+
+The `getZodiacMeta()` method retrieves detailed metadata for a specific zodiac sign based on either predefined presets (Western or Vedic) or custom zodiac definitions. It returns the sign's chronological position, inclusive date range, and handles year-boundary wrapping correctly.
+
+<Callout type="error" title="Note">
+This method is provided by `zodiacPlugin`. You must register it using `Chronos.use(zodiacPlugin)` before calling `.getZodiacMeta()`. Once registered, all `Chronos` instances will have access to the `.getZodiacMeta()` method.
+</Callout>
+### Usage
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { zodiacPlugin } from "chronos-date/plugins/zodiacPlugin";
+
+Chronos.use(zodiacPlugin);
+
+// Using default preset (Western)
+const chronos = new Chronos();
+
+// Get metadata for a specific sign
+const ariesMeta = chronos.getZodiacMeta('Aries');
+console.log(ariesMeta);
+// {
+//   index: 2,
+//   sign: 'Aries',
+//   start: '03-21',
+//   end: '04-19'
+// }
+
+// Using Vedic preset
+const vedicAriesMeta = chronos.getZodiacMeta('Aries', { preset: 'vedic' });
+console.log(vedicAriesMeta);
+// {
+//   index: 3,
+//   sign: 'Aries',
+//   start: '04-14',
+//   end: '05-14'
+// }
+
+// Custom zodiac definitions
+const customZodiac = [
+  ['A', [3, 1]],
+  ['B', [6, 1]],
+  ['C', [9, 1]],
+  ['D', [12, 1]],
+  ['E', [1, 15]],
+  ['F', [2, 15]],
+] as const;
+
+const signMeta = chronos.getZodiacMeta('D', { custom: customZodiac });
+console.log(signMeta);
+// {
+//   index: 3,
+//   sign: 'D',
+//   start: '12-01',
+//   end: '01-14'
+// }
+```
+
+### Configuration
+
+#### ZodiacMetaOptions
+
+```ts runnable
+interface ZodiacMetaOptions<Sign extends string = ZodiacSign> {
+  preset?: ZodiacPreset;      // 'western' | 'vedic' | 'tropical' | 'sidereal'
+  custom?: ZodiacArray<Sign> | Readonly<ZodiacArray<Sign>>;     // Custom zodiac definitions
+}
+```
+
+- `preset`: Name of predefined zodiac configuration (default: `'western'`)
+- `custom`: Custom array of zodiac definitions (overrides preset if provided)
+
+### Return Value
+
+#### ZodiacMeta
+
+```ts runnable
+interface ZodiacMeta<Sign extends string = ZodiacSign> {
+  index: number;      // 0-based chronological position
+  sign: Sign;         // The zodiac sign name
+  start: MonthDateString;    // Inclusive start date in 'MM-DD' format
+  end: MonthDateString;      // Inclusive end date in 'MM-DD' format
+}
+```
+
+##### index
+
+The `index` property represents the chronological position (0-based) of the zodiac sign within the resolved and sorted zodiac list.
+
+<Callout type="warn" title="Important Notes about Index">
+- The index is determined by the Gregorian month–day ordering of zodiac start dates
+- Index values may differ between zodiac variants (e.g., Western vs Vedic)
+- This index **should not** be interpreted as a traditional or mythological zodiac ordering
+- It's primarily useful for programmatic sorting and comparison within the same zodiac variant
+
+</Callout>
+### Available Presets
+
+The same presets as [**getZodiacSign()**](#available-presets-1) are available:
+
+<Tabs>
+<Tab value="Western/Tropical">
+
+```ts runnable
+[
+  ['Aquarius', [1, 20]],      // index: 0
+  ['Pisces', [2, 19]],        // index: 1
+  ['Aries', [3, 21]],         // index: 2
+  ['Taurus', [4, 20]],        // index: 3
+  ['Gemini', [5, 21]],        // index: 4
+  ['Cancer', [6, 21]],        // index: 5
+  ['Leo', [7, 23]],           // index: 6
+  ['Virgo', [8, 23]],         // index: 7
+  ['Libra', [9, 23]],         // index: 8
+  ['Scorpio', [10, 23]],      // index: 9
+  ['Sagittarius', [11, 22]]   // index: 10
+  ['Capricorn', [12, 22]],    // index: 11
+]
+```
+
+</Tab>
+<Tab value="Vedic/Sidereal">
+
+```ts runnable
+[
+  ['Capricorn', [1, 14]],     // index: 0
+  ['Aquarius', [2, 13]],      // index: 1
+  ['Pisces', [3, 14]],        // index: 2
+  ['Aries', [4, 14]],         // index: 3
+  ['Taurus', [5, 15]],        // index: 4
+  ['Gemini', [6, 15]],        // index: 5
+  ['Cancer', [7, 16]],        // index: 6
+  ['Leo', [8, 17]],           // index: 7
+  ['Virgo', [9, 17]],         // index: 8
+  ['Libra', [10, 17]],        // index: 9
+  ['Scorpio', [11, 16]],      // index: 10
+  ['Sagittarius', [12, 16]]   // index: 11
+]
+```
+
+</Tab>
+</Tabs>
+
+### Year-Boundary Handling
+
+The method correctly handles zodiac signs that wrap around year boundaries:
+
+```ts runnable
+const chronos = new Chronos();
+
+// Capricorn spans December to January
+const capricornMeta = chronos.getZodiacMeta('Capricorn');
+console.log(capricornMeta);
+// {
+//   index: 11,
+//   sign: 'Capricorn',
+//   start: '12-22',
+//   end: '01-19'  // Next year's January
+// }
+
+// Sagittarius is entirely within one year
+const sagittariusMeta = chronos.getZodiacMeta('Sagittarius');
+console.log(sagittariusMeta);
+// {
+//   index: 10,
+//   sign: 'Sagittarius',
+//   start: '11-22',
+//   end: '12-21'  // Same year
+// }
+```
+
+### Error Handling
+
+The method throws a `RangeError` if the provided sign does not exist in the resolved zodiac list:
+
+```ts runnable
+try {
+  const meta = chronos.getZodiacMeta('NonExistentSign');
+} catch (error) {
+  console.error(error.message); 
+  // "Invalid zodiac sign: 'NonExistentSign'"
+}
+```
+
+### Common Use Cases
+
+1 **Display sign information:**
+
+```ts runnable
+function displayZodiacInfo(sign: string) {
+  const meta = chronos.getZodiacMeta(sign);
+  console.log(`${meta.sign}: ${meta.start} to ${meta.end}`);
+}
+```
+
+2 **Sort signs chronologically:**
+
+```ts runnable
+const signs = ['Leo', 'Aries', 'Capricorn', 'Libra'];
+const sortedSigns = signs.sort((a, b) => {
+  const metaA = chronos.getZodiacMeta(a);
+  const metaB = chronos.getZodiacMeta(b);
+  return metaA.index - metaB.index;
+});
+// Result: ['Aries', 'Leo', 'Libra', 'Capricorn']
+```
+
+3 **Validate date ranges:**
+
+```ts runnable
+function isDateInSign(date: MonthDateString, sign: string): boolean {
+  const meta = chronos.getZodiacMeta(sign);
+  // Implementation to check if date falls within meta.start to meta.end
+  // considering year-boundary wrapping
+}
+```
+
+---
+
+## getPartOfDay()
+
+<Callout type="error" title="Note">
+This method is provided by `dayPartPlugin`. You must register it using `Chronos.use(dayPartPlugin)` before calling `.getPartOfDay()`. Once registered, all `Chronos` instances will have access to the `.getPartOfDay()` method.
+</Callout>
+### Signature
+
+```ts runnable
+getPartOfDay(config?: Partial<DayPartConfig>): DayPart
+```
+
+### Parameters
+
+- `config`: Custom day part ranges
+
+### Return Type
+
+`DayPart` - Current part of day
+
+### Default Ranges
+
+| Part      | Range       |
+|-----------|-------------|
+| midnight  | 00:00-01:00 |
+| lateNight | 02:00-04:00 |
+| morning   | 05:00-11:00 |
+| afternoon | 12:00-16:00 |
+| evening   | 17:00-20:00 |
+| night     | 21:00-23:00 |
+
+### Example
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { dayPartPlugin } from "chronos-date/plugins/dayPartPlugin";
+
+Chronos.use(dayPartPlugin);
+
+new Chronos('2025-01-15T09:00:00').getPartOfDay(); // "morning"
+```

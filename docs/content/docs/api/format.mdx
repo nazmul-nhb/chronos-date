@@ -1,0 +1,292 @@
+---
+title: Format Methods
+description: Format Methods — chronos-date API reference.
+---
+
+## Format Tokens
+
+<Callout type="info">
+`Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](#format), [`formatUTC`](#formatutc), and [`formatStrict`](#formatstrict) methods as well as for other methods and utilities like [`formatDate`](/docs/utilities/formatDate) that accept a format, and behave similarly to libraries like `Moment.js` or `Day.js`.
+</Callout>
+Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
+
+Below is a list of all supported tokens:
+
+| Token                                        | Output                 | Example           |
+| -------------------------------------------- | ---------------------- | ----------------- |
+| `YYYY` or `yyyy` | Full year              | 2025              |
+| `YY` or `yy`     | 2-digit year           | 23                |
+| `mmmm`                         | Full month             | January           |
+| `mmm`                          | Short month            | Jan               |
+| `MM`                           | 2-digit month          | 01-12             |
+| `M`                            | Month                  | 1-12              |
+| `DD`                           | 2-digit day            | 01-31             |
+| `D`                            | Day                    | 1-31              |
+| `Do`                           | Ordinal day            | 1st, 2nd          |
+| `ddd`                          | Full weekday           | Monday            |
+| `dd`                           | Short weekday          | Mon               |
+| `d`                            | Shorter weekday        | Mo                |
+| `HH`                           | 24-hour (00-23)        | 09                |
+| `H`                            | 24-hour (0-23)         | 9                 |
+| `hh`                           | 12-hour (01-12)        | 02                |
+| `h`                            | 12-hour (1-12)         | 2                 |
+| `mm`                           | Minutes (00-59)        | 05                |
+| `m`                            | Minutes (0-59)         | 5                 |
+| `ss`                           | Seconds (00-59)        | 09                |
+| `s`                            | Seconds (0-59)         | 9                 |
+| `ms`                           | Milliseconds (0-999)   | 9                 |
+| `mss`                          | Milliseconds (000-999) | 009               |
+| `A`                            | AM/PM                  | PM                |
+| `a`                            | am/pm                  | pm                |
+| `ZZ`                           | TZ Offset ±HH:mm       | +06:00 or Z (UTC) |
+
+<Callout type="error" title="Note">
+- To output raw text (i.e., not interpreted as a date token), wrap it in square brackets.
+- For example, `[Today is] ddd` results in `Today is Sunday`, and `YYYY[ year]` results in `2025 year`.
+
+- Supported format tokens include: `YYYY`, `YY`, `MMMM`, `MMM`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
+- *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
+
+</Callout>
+## format()
+
+### Signature
+
+```ts runnable
+format(format?: string, useUTC?: boolean): string
+```
+
+### Parameters
+
+- `format`: Format string (default: `'dd, mmm DD, YYYY HH:mm:ss'`)
+- `useUTC`: Use UTC time (default: `false`)
+
+### Return Type
+
+`string` - Formatted date
+
+### Example
+
+```ts runnable
+const date = new Chronos('2025-01-15T14:30:00');
+date.format('YYYY-MM-DD'); // "2025-01-15"
+date.format('ddd, mmmm Do YYYY'); // "Wednesday, January 15th 2025"
+date.format('h:mm A'); // "2:30 PM"
+```
+
+---
+
+## formatUTC()
+
+### Signature
+
+```ts runnable
+formatUTC(format?: string): string
+```
+
+### Parameters
+
+- `format`: Format string (default: `'dd, mmm DD, YYYY HH:mm:ss:mss'`)
+
+### Return Type
+
+`string` - Formatted UTC date
+
+### Notes
+
+- Always uses UTC time regardless of instance configuration
+
+### Example
+
+```ts runnable
+const date = new Chronos('2025-01-15T14:30:00Z');
+date.formatUTC('YYYY-MM-DD HH:mm:ss'); // "2025-01-15 14:30:00"
+```
+
+---
+
+## formatStrict()
+
+### Signature
+
+```ts runnable
+formatStrict(format?: StrictFormat, useUTC?: boolean): string
+```
+
+### Parameters
+
+- `format`: Predefined strict format
+- `useUTC`: Use UTC time (default: `false`)
+
+### Return Type
+
+`string` - Formatted date
+
+### Notes
+
+- Provides type-safe formatting with IntelliSense support
+- See `StrictFormat` type for available formats
+
+### Example
+
+```ts runnable
+date.formatStrict('YYYY-MM-DD'); // Type-safe format
+```
+
+---
+
+## calendar()
+
+### Signature
+
+```ts runnable
+calendar(baseDate?: ChronosInput): string
+```
+
+### Parameters
+
+- `baseDate`: Reference date (default: now)
+
+### Return Type
+
+`string` - Human-readable relative date
+
+### Notes
+
+- Returns strings like "Today at 3:00 PM", "Yesterday at 2:30 AM"
+
+### Example
+
+```ts runnable
+const date = new Chronos().subtract(1, 'day');
+date.calendar(); // "Yesterday at [time]"
+```
+
+---
+
+## fromNow()
+
+<Callout type="error" title="Note">
+This method is provided by `fromNowPlugin`. You must register it using `Chronos.use(fromNowPlugin)` before calling `.fromNow()`. Once registered, all `Chronos` instances will have access to the `.fromNow()` method.
+</Callout>
+<Callout type="info">
+- This method calculates the **elapsed time difference** (excludes the end day), consistent with libraries like `Day.js` and `Luxon`.
+- If you need an *inclusive calendar-style* difference (counting both start and end days), adjust one day manually before calling `fromNow()`.
+- The smallest unit included can be customized via the `level` parameter (from `'year'` to `'millisecond'`).
+- Returns `"0 <unit>"` if no time difference is detected at the requested precision.
+
+</Callout>
+### Signature
+
+```ts runnable
+fromNow(level?: FromNowUnit, withSuffixPrefix?: boolean, time?: ChronosInput): string
+```
+
+### Parameters
+
+- `level`: Smallest unit to include (default: `'second'`)
+- `withSuffixPrefix`: Include `"ago"` or `"in"` depending on the time direction (default: `true`)
+- `time`: Optional comparison time (`string`, `number`, `Date`, or `Chronos` instance). Defaults to `now`.
+
+### Return Type
+
+`string` - Human-readable duration
+
+### Type Definition
+
+```ts runnable
+/** Name of time unit from `'year'` to `'millisecond'`, excluding `'week'` */
+type FromNowUnit = "year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond";
+```
+
+### Example
+
+```ts runnable
+import { fromNowPlugin } from "chronos-date/plugins/fromNowPlugin";
+
+Chronos.use(fromNowPlugin);
+
+new Chronos().fromNow(); // "0 second ago"
+new Chronos().add(3, 'hours').fromNow(); // "in 3 hours"
+new Chronos().subtract(2, 'days').fromNow(); // "2 days ago"
+
+new Chronos('2020-03-16').fromNow('day', false, '2025-10-01'); 
+// "5 years 6 months 15 days" (exclusive of end day)
+
+new Chronos('2020-03-16').subtract(1, 'day').fromNow('day', false, '2025-10-01'); 
+// "5 years 6 months 16 days" (inclusive of end day)
+```
+
+---
+
+## fromNowShort()
+
+### Signature
+
+```ts runnable
+fromNowShort(): string
+```
+
+### Return Type
+
+`string` - Short duration string, from `year` to `second`
+
+### Notes
+
+- Returns strings like "2h ago", "in 5m"
+
+### Example
+
+```ts runnable
+new Chronos().subtract(150, 'minutes').fromNowShort(); // "2h ago"
+```
+
+---
+
+## getGreeting()
+
+<Callout type="error" title="Note">
+This method is provided by `greetingPlugin`. You must register it using `Chronos.use(greetingPlugin)` before calling `.getGreeting()`. Once registered, all `Chronos` instances will have access to the `.getGreeting()` method.
+</Callout>
+Returns a time-appropriate greeting message based on configurable time periods. Supports custom messages and time thresholds.
+
+### Signature
+
+```ts runnable
+getGreeting(configs?: GreetingConfigs): string;
+```
+
+### Parameters
+
+- `configs`: Configurations options, e.g. times, msgs.
+
+### Return Type
+
+`string` - The appropriate greeting message.
+
+### Alias
+
+- `greet` is an alias for `getGreeting` method.
+
+### Example
+
+```ts runnable
+import { greetingPlugin } from "chronos-date/plugins/greetingPlugin";
+
+Chronos.use(greetingPlugin);
+
+// Use with default configs
+new Chronos().getGreeting(); // Greeting msg e.g. "Good Afternoon!"
+
+// Custom msg and times
+new Chronos().getGreeting({
+  morningEnds: '10:00',
+  noonEnds: '14:00',
+  afternoonEnds: '18:00',
+  eveningEnds: '22:00',
+  midnightMessage: 'Working late?',
+  currentTime: '01:30'
+});
+```
+
+> This method internally uses [getGreeting](/docs/utilities/getGreeting) function. For detailed usage please refer to the docs.

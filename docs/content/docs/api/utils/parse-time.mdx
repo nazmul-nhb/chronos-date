@@ -1,0 +1,307 @@
+---
+id: parse-time
+title: Parse Time Value
+---
+
+{/* markdownlint-disable-file MD024 */}
+
+## parseMSec
+
+Converts time values with units to milliseconds or seconds.
+
+### Overview
+
+The `parseMSec` function parses time strings with units (like `"2h"`, `"30m"`, `"1.5d"`) or numeric values into milliseconds or seconds. It's useful for handling time durations in configuration files, command-line arguments, or any scenario where human-readable time strings need to be converted to programmatic time values.
+
+### Function Signature
+
+```ts runnable
+parseMSec(value: TimeWithUnit | Numeric, sec?: boolean): number
+```
+
+### Parameters
+
+| Parameter | Type                      | Default | Description                                                                    |
+| --------- | ------------------------- | ------- | ------------------------------------------------------------------------------ |
+| `value`   | `TimeWithUnit \| Numeric` | -       | The time value to parse. Can be a string with unit, number, or numeric string. |
+| `sec`     | `boolean`                 | `false` | When `true`, returns the value in seconds instead of milliseconds.             |
+
+### Returns
+
+- `number` - The parsed time value in milliseconds (or seconds if `sec` is `true`)
+- `NaN` - If the input cannot be parsed
+
+### Supported Units
+
+| Unit        | Variants                                             |
+| ----------- | ---------------------------------------------------- |
+| Year        | `y`, `yr`, `yrs`, `year`, `years`                    |
+| Month       | `mo`, `month`, `months`                              |
+| Week        | `w`, `week`, `weeks`                                 |
+| Day         | `d`, `day`, `days`                                   |
+| Hour        | `h`, `hr`, `hrs`, `hour`, `hours`                    |
+| Minute      | `m`, `min`, `mins`, `minute`, `minutes`              |
+| Second      | `s`, `sec`, `secs`, `second`, `seconds`              |
+| Millisecond | `ms`, `msec`, `msecs`, `millisecond`, `milliseconds` |
+
+### Type Definitions
+
+```ts runnable
+type Numeric = number | `${number}`;
+
+type $TimeUnitVar = "year" | "y" | "yr" | "yrs" | "years" | "month" | "mo" | "months" | "week" | "w" | "weeks" | "day" | "d" | "days" | "hour" | "h" | "hr" | "hrs" | "hours" | "minute" | "m" | "min" | "mins" | "minutes" | "second" | "s" | "sec" | "secs" | "seconds" | "millisecond" | "ms" | "msec" | "msecs" | "milliseconds";
+
+type $UnitAnyCase = Capitalize<$TimeUnitVar> | Uppercase<$TimeUnitVar> | $TimeUnitVar;
+
+type TimeWithUnit = `${number}${$UnitAnyCase}` | `${number} ${$UnitAnyCase}`;
+```
+
+### Usage Examples
+
+#### Basic Usage
+
+```ts runnable
+import { parseMSec } from 'nhb-toolbox';
+
+// Convert time strings to milliseconds
+console.log(parseMSec('1h'));        // 3600000 (1 hour in ms)
+console.log(parseMSec('30m'));       // 1800000 (30 minutes in ms)
+console.log(parseMSec('2.5d'));      // 216000000 (2.5 days in ms)
+
+// Convert to seconds instead
+console.log(parseMSec('1h', true));  // 3600 (1 hour in seconds)
+console.log(parseMSec('30m', true)); // 1800 (30 minutes in seconds)
+
+// Numeric values are treated as seconds
+console.log(parseMSec(120));         // 120000 (120 seconds in ms)
+console.log(parseMSec('300'));       // 300000 (300 seconds in ms)
+```
+
+#### Practical Scenarios
+
+```ts runnable
+// Setting timeouts
+const timeoutDuration = parseMSec('5m');
+setTimeout(() => {
+  console.log('Timeout fired after 5 minutes');
+}, timeoutDuration);
+
+// Configuring intervals
+const pollInterval = parseMSec('30s');
+setInterval(fetchData, pollInterval);
+
+// Parsing user input
+function parseUserTimeout(input: string): number {
+  const ms = parseMSec(input);
+  if (isNaN(ms)) {
+    throw new Error(`Invalid time format: ${input}`);
+  }
+  return ms;
+}
+
+// Working with configuration files
+const config = {
+  cacheTTL: parseMSec('24h'),
+  sessionTimeout: parseMSec('2h', true),
+  backupInterval: parseMSec('1w')
+};
+```
+
+### Input Format Rules
+
+#### Valid Inputs
+
+1. **Time strings with units**:
+
+   ```ts runnable
+   parseMSec('10ms')     // Valid
+   parseMSec('30s')      // Valid
+   parseMSec('1.5d')     // Valid (decimal values)
+   ```
+
+2. **Numeric values**:
+
+   ```ts runnable
+   parseMSec(60)         // Valid (treated as 60 seconds)
+   parseMSec('120')      // Valid (treated as 120 seconds)
+   parseMSec(2.5)        // Valid (treated as 2.5 seconds)
+   ```
+
+#### Invalid Inputs
+
+```ts runnable
+parseMSec('')            // NaN (empty string)
+parseMSec('unknown')     // NaN (no numeric value)
+parseMSec('120 unknown') // NaN (unknown unit)
+parseMSec('2h30m')       // NaN (combined units)
+parseMSec('1d 6h')       // NaN (spaces allowed)
+parseMSec('ms')          // NaN (missing numeric value)
+parseMSec(null)          // NaN (not a valid type)
+parseMSec(undefined)     // NaN (not a valid type)
+```
+
+### Error Handling
+
+#### Input Validation
+
+The function performs several layers of validation:
+
+```ts runnable
+// Type validation
+parseMSec('2h');         // Valid: returns 7200000
+parseMSec('invalid');    // Invalid: returns NaN
+
+// String length validation
+parseMSec('1h');         // Valid
+parseMSec('a'.repeat(100)); // Throws RangeError
+
+// Unit validation
+parseMSec('10ms');       // Valid
+parseMSec('10years');    // Valid
+```
+
+#### Error Recovery
+
+```ts runnable
+function safeParseMSec(value: unknown, sec = false): number {
+  try {
+    const result = parseMSec(value as any, sec);
+    if (isNaN(result)) {
+      console.warn(`Could not parse time value: ${value}`);
+      return sec ? 0 : 0; // Return default
+    }
+    return result;
+  } catch (error) {
+    console.error('Error parsing time:', error);
+    return sec ? 0 : 0; // Return default on error
+  }
+}
+```
+
+### Performance Considerations
+
+- **Fast path for numeric values**: Numbers and numeric strings skip regex parsing
+- **Regex optimization**: The time unit regex is compiled once and reused
+- **Input validation**: Early returns for invalid inputs to avoid unnecessary processing
+- **String length limit**: Input strings longer than 100 characters are rejected to prevent DoS attacks
+
+### Use Cases
+
+#### 1. **Configuration Parsing**
+
+```ts runnable
+// Parse configuration from environment variables
+const config = {
+  timeout: parseMSec(process.env.REQUEST_TIMEOUT || '30s'),
+  interval: parseMSec(process.env.POLL_INTERVAL || '5m', true),
+  ttl: parseMSec(process.env.CACHE_TTL || '24h')
+};
+```
+
+#### 2. **CLI Argument Processing**
+
+```ts runnable
+import { Command } from 'commander';
+
+const program = new Command();
+
+program
+  .option('-t, --timeout <duration>', 'Timeout duration', '30s')
+  .option('-i, --interval <duration>', 'Poll interval', '1m')
+  .action((options) => {
+    const timeoutMs = parseMSec(options.timeout);
+    const intervalSec = parseMSec(options.interval, true);
+    
+    // Use the parsed values
+    startService({ timeoutMs, intervalSec });
+  });
+```
+
+#### 3. **API Response Handling**
+
+```ts runnable
+interface ApiResponse {
+  data: any;
+  retryAfter: string; // e.g., "5m", "30s", "2h"
+}
+
+function handleRateLimit(response: ApiResponse) {
+  const retryDelay = parseMSec(response.retryAfter);
+  if (!isNaN(retryDelay)) {
+    scheduleRetry(retryDelay);
+  }
+}
+```
+
+#### 4. **Duration Calculations**
+
+```ts runnable
+function calculateTotalDuration(tasks: Array<{ duration: string }>): number {
+  return tasks.reduce((total, task) => {
+    const ms = parseMSec(task.duration);
+    return total + (isNaN(ms) ? 0 : ms);
+  }, 0);
+}
+
+const tasks = [
+  { name: 'Task A', duration: '30m' },
+  { name: 'Task B', duration: '2h' },
+  { name: 'Task C', duration: '45m' }
+];
+
+const totalMs = calculateTotalDuration(tasks);
+console.log(`Total duration: ${totalMs}ms (${parseMSec(totalMs, true)}s)`);
+```
+
+### Integration Examples
+
+#### With Express.js
+
+```ts runnable
+import express from 'express';
+import { parseMSec } from 'nhb-toolbox';
+
+const app = express();
+
+app.use((req, res, next) => {
+  // Parse cache-control header
+  const cacheControl = req.headers['cache-control'];
+  if (cacheControl?.includes('max-age=')) {
+    const maxAge = cacheControl.match(/max-age=(\d+)/)?.[1];
+    if (maxAge) {
+      res.locals.cacheDuration = parseMSec(`${maxAge}s`);
+    }
+  }
+  next();
+});
+```
+
+#### With Job Scheduling
+
+```ts runnable
+import { parseMSec } from 'nhb-toolbox';
+import { scheduleJob } from 'node-schedule';
+
+function scheduleRecurringJob(name: string, interval: string, task: () => void) {
+  const intervalMs = parseMSec(interval);
+  if (isNaN(intervalMs)) {
+    throw new Error(`Invalid interval for job ${name}: ${interval}`);
+  }
+  
+  setInterval(task, intervalMs);
+  console.log(`Scheduled job "${name}" to run every ${interval}`);
+}
+
+scheduleRecurringJob('cleanup', '1d', cleanupOldData);
+scheduleRecurringJob('backup', '6h', backupDatabase);
+```
+
+### Alias
+
+`parseMSec` can also be imported using alias:
+
+- `parseMs`
+
+---
+
+**Note**: This function is designed for parsing time into ms/sec, not absolute timestamps. For date/time parsing and manipulation, consider using [Chronos](/docs/classes/Chronos) class or other [date utilities](/docs/utilities/date).

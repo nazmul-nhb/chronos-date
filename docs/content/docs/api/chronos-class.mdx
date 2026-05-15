@@ -1,0 +1,150 @@
+---
+title: Chronos Wrapper Function
+description: Chronos Wrapper Function — chronos-date API reference.
+---
+
+## Overview
+
+<Callout type="info">
+Function wrapper around the [`Chronos`](/docs/api/chronos-class) class that provides identical functionality with a simpler interface. All [`Chronos`](/docs/api/chronos-class) features are available through this function.
+</Callout>
+## Key Features
+
+- Same functionality as `new Chronos()` but with function syntax
+- Full access to all `Chronos` instance methods
+- Inherits all static methods from `Chronos` class (`chronos` without call signature)
+- Supports all `Chronos` input types
+- Maintains identical type safety
+
+### 🧩 Plugin System
+
+[`Chronos`](/docs/api/chronos-class) supports a modular plugin system that allows you to extend its capabilities without bloating the core. Plugin methods are **not available by default**, you must explicitly register them using the `.use()` or `.register()` static method.
+
+#### How it works
+
+```ts pg
+import { chronos } from "chronos-date";
+import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+
+// Register the plugin before using its methods
+chronos.use(seasonPlugin); 
+// or
+chronos.register(seasonPlugin);
+
+console.log(chronos().season()); // ✅ Safe to use after plugin registration
+```
+
+<Callout type="info">
+Each plugin enhances the `Chronos` prototype and becomes available globally after registration.
+</Callout>
+## Usage
+
+### Import
+
+```ts runnable
+import { chronos } from "chronos-date";
+// or
+import { chronos } from "chronos-date/chronos";
+```
+
+### Basic Instantiation
+
+```ts runnable
+// Function style
+const date = chronos('2023-12-31')
+
+date.year // 2023
+date.formatStrict() // Formatted date string
+
+// Class style (equivalent)
+const date = new Chronos('2023-12-31')
+
+date.year // 2023
+date.formatStrict() // Formatted date string
+```
+
+### With Components
+
+```ts runnable
+const date = chronos(2023, 12, 31, 15, 30)
+
+date.year // 2023
+date.formatStrict() // Formatted date string
+```
+
+## Available Methods & Properties
+
+The wrapper provides access to all `Chronos` methods through the returned instance:
+
+- **[Public/Protected Properties](/docs/api/chronos-class#public--protected-properties)** - Public/protected properties for debugging and easy access
+- **[Getters](/docs/api/getters)** - Access date components
+- **[Format Methods](/docs/api/format)** - Date display formatting
+- **[Calculation Methods](/docs/api/calculation)** - Date math operations
+- **[Name Getter Methods](/docs/api/names)** - Get names of the date parts (day-name, month-name, time zone etc.)
+- **[Checker Methods](/docs/api/checkers)** - Date validation
+- **[Conversion Methods](/docs/api/conversion)** - Type transformations
+- **[Comparison Methods](/docs/api/comparison)** - Date relation checks
+- **[Get & Set Methods](/docs/api/get-set)** - Set and get date part(s)
+- **[String Methods](/docs/api/strings)** - Get time as string
+- **[Extra Time Information](/docs/api/comparison)** - Get extra information about part of year, month, day/date etc.
+
+## Static Methods
+
+All [`Chronos static methods`](/docs/api/static-methods) are available directly on the wrapper function:
+
+<details>
+  <summary>**List of Static Methods**</summary>
+ | Method                                                           | Short Description                                                |
+ | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+ | [now()](/docs/api/static-methods#now)                       | Returns the number of milliseconds since 1970-01-01 UTC.         |
+ | [use()](/docs/api/static-methods#use)                       | Injects a plugin into the `Chronos` system.                      |
+ | [register()](/docs/api/static-methods#register)             | Alias for [`use()`](/docs/api/static-methods#use)           |
+ | [utc()](/docs/api/static-methods#utc)                       | Creates a UTC-based `Chronos` instance.                          |
+ | [with()](/docs/api/static-methods#with)                     | Creates a new instance with the provided time component(s).      |
+ | [parse()](/docs/api/static-methods#parse)                   | Parses a date string with a given format (limited support only). |
+ | [max()](/docs/api/static-methods#max)                       | Returns latest Chronos.                                          |
+ | [min()](/docs/api/static-methods#min)                       | Returns earliest Chronos.                                        |
+ | [today()](/docs/api/static-methods#today)                   | Returns the current date in a specified format in local time.    |
+ | [tomorrow()](/docs/api/static-methods#tomorrow)             | Returns a new `Chronos` instance representing tomorrow's date.   |
+ | [yesterday()](/docs/api/static-methods#yesterday)           | Returns a new `Chronos` instance representing yesterday's date.  |
+ | [formatTimePart()](/docs/api/static-methods#formattimepart) | Formats a time-only string into a formatted time string.         |
+ | [getDatesForDay()](/docs/api/static-methods#getdatesforday) | Returns ISO date strings for each occurrence of a weekday.       |
+ | [isLeapYear()](/docs/api/static-methods#isleapyear)         | Checks if the year in the date or year is a leap year.           |
+ | [isValidChronos()](/docs/api/static-methods#isvalidchronos) | Checks if the given value is an instance of `Chronos`.           |
+ | [isValidDate()](/docs/api/static-methods#isvaliddate)       | Checks if the given value is a valid `Date` object.              |
+ | [isDateString()](/docs/api/static-methods#isdatestring)     | Checks if the given value is a valid date string.                |
+</details>
+
+### Some Examples
+
+```ts runnable
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+
+// Using wrapper function
+chronos.parse('2023-12-31', 'YYYY-MM-DD')
+chronos.use(timeZonePlugin)
+chronos.today()
+chronos.isLeapYear(2024)
+
+// Using class (equivalent)
+Chronos.parse('2023-12-31', 'YYYY-MM-DD')
+Chronos.today()
+Chronos.isLeapYear(2024)
+```
+
+## Aliases
+
+The `chronos` function is also available under the following aliases:
+
+- `chronosjs`
+- `chronosts`
+- `chronus`
+- `chronusjs`
+- `chronusts`
+
+> These aliases exist to support flexible naming conventions and common user preferences.
+
+## Full Documentation
+
+For complete method documentation, see the [`Chronos` class reference](/docs/api/chronos-class). All methods shown there are available through this wrapper.

@@ -1,0 +1,15 @@
+{
+	"title": "Documentation",
+	"pages": [
+		"---Getting Started---",
+		"index",
+		"installation",
+		"quick-start",
+		"---Chronos Class---",
+		"...api",
+		"---Plugins---",
+		"...plugins",
+		"---Utilities---",
+		"...utilities"
+	]
+}

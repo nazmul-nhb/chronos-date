@@ -1,0 +1,17 @@
+{
+	"title": "Utilities",
+	"pages": [
+		"index",
+		"format-date",
+		"get-timestamp",
+		"get-greeting",
+		"parse-time",
+		"time-zone",
+		"convert-minutes",
+		"extract-hour-minute",
+		"extract-minutes-utc",
+		"extract-time-utc",
+		"format-utc-offset",
+		"get-total-minutes"
+	]
+}
