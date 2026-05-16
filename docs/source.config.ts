@@ -22,8 +22,8 @@ export default defineConfig({
 	mdxOptions: {
 		rehypeCodeOptions: {
 			themes: {
-				light: 'github-light',
-				dark: 'github-dark',
+				light: 'night-owl-light',
+				dark: 'night-owl',
 			},
 			transformers: [
 				...(rehypeCodeDefaultOptions.transformers ?? []),

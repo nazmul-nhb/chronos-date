@@ -6,3 +6,4 @@ __*.ts
 docs/.next
 docs/.source
 docs/.env.local
+ex.js

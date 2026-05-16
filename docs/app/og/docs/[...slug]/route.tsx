@@ -16,6 +16,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
 			title={page.data.title}
 			description={page.data.description}
 			site={appName}
+			// icon={<Image src={appLogo} alt={appName} quality={100} width={28} height={28} />}
 		/>,
 		{
 			width: 1200,

@@ -5,6 +5,9 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
+	images: {
+		qualities: [100, 75],
+	},
 	reactStrictMode: true,
 	serverExternalPackages: ['typescript', 'twoslash'],
 	turbopack: {
