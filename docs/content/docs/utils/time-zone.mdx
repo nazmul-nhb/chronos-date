@@ -36,7 +36,7 @@ Returns a [`TimeZoneDetails`](#type-definitions) object containing:
 #### Basic Usage
 
 ```typescript
-import { getTimeZoneDetails } from "chronos-date";
+import { getTimeZoneDetails } from "chronos-date/utils";
 
 // Get details for current system timezone
 const systemTZ = getTimeZoneDetails();
@@ -135,7 +135,7 @@ Returns a `TimeZoneIdNative` string representing the system's current IANA time 
 ### Example Usage
 
 ```typescript
-import { getNativeTimeZoneId } from "chronos-date";
+import { getNativeTimeZoneId } from "chronos-date/utils";
 
 const currentTimeZone = getNativeTimeZoneId();
 console.log(currentTimeZone);
@@ -176,7 +176,7 @@ Returns an array of `TimeZoneIdNative` strings representing all IANA time zone i
 ### Example Usage
 
 ```typescript
-import { getTimeZoneIds } from "chronos-date";
+import { getTimeZoneIds } from "chronos-date/utils";
 
 const zonesForUTCPlus5 = getTimeZoneIds('UTC+05:00');
 console.log(zonesForUTCPlus5);

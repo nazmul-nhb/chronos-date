@@ -204,8 +204,8 @@ getTimeZoneName(utc?: UTCOffset): LooseLiteral<UTCOffset>
 ### Example Usage
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { timeZonePlugin } from 'nhb-toolbox/plugins/timeZonePlugin';
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
 
 Chronos.use(timeZonePlugin);
 
@@ -260,8 +260,8 @@ getTimeZoneNameShort(utc?: UTCOffset): TimeZone | UTCOffset
 ### Example Usage
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { timeZonePlugin } from 'nhb-toolbox/plugins/timeZonePlugin';
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
 
 Chronos.use(timeZonePlugin);
 
@@ -319,8 +319,8 @@ This method is provided by `seasonPlugin`. You must register it using `Chronos.u
 ### Usage
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { seasonPlugin } from 'nhb-toolbox/plugins/seasonPlugin';
+import { Chronos } from 'chronos-date';
+import { seasonPlugin } from 'chronos-date/plugins/seasonPlugin';
 
 Chronos.use(seasonPlugin);
 
@@ -577,8 +577,8 @@ This method is provided by `zodiacPlugin`. You must register it using `Chronos.u
 ### Usage
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { zodiacPlugin } from 'nhb-toolbox/plugins/zodiacPlugin';
+import { Chronos } from 'chronos-date';
+import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';
 
 Chronos.use(zodiacPlugin);
 
@@ -726,8 +726,8 @@ This method is provided by `zodiacPlugin`. You must register it using `Chronos.u
 ### Usage
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { zodiacPlugin } from 'nhb-toolbox/plugins/zodiacPlugin';
+import { Chronos } from 'chronos-date';
+import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';
 
 Chronos.use(zodiacPlugin);
 
@@ -973,8 +973,8 @@ getPartOfDay(config?: Partial<DayPartConfig>): DayPart
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { dayPartPlugin } from 'nhb-toolbox/plugins/dayPartPlugin';
+import { Chronos } from 'chronos-date';
+import { dayPartPlugin } from 'chronos-date/plugins/dayPartPlugin';
 
 Chronos.use(dayPartPlugin);
 

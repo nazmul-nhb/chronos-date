@@ -25,7 +25,7 @@ isValidTime(value: unknown): value is Time;
 ### Example Usage
 
 ```ts
-import { isValidTime } from 'nhb-toolbox';
+import { isValidTime } from 'chronos-date/guards';
 
 console.log(isValidTime("14:30")); // true
 console.log(isValidTime("25:00")); // false (invalid hour)
@@ -75,7 +75,7 @@ isValidUTCOffset(value: unknown): value is UTCOffset;
 ### Example Usage
 
 ```ts
-import { isValidUTCOffset } from 'nhb-toolbox';
+import { isValidUTCOffset } from 'chronos-date/guards';
 
 console.log(isValidUTCOffset("UTC+05:30")); // true
 console.log(isValidUTCOffset("UTC-14:00")); // true
@@ -130,7 +130,7 @@ isValidTimeZoneId(value: unknown): value is $TimeZoneIdentifier
 ### Example
 
 ```ts
-import { isValidTimeZoneId } from 'nhb-toolbox';
+import { isValidTimeZoneId } from 'chronos-date/guards';
 
 // Valid IANA identifiers (including modern canonical names)
 console.log(isValidTimeZoneId('Asia/Dhaka')); // → true
@@ -159,7 +159,7 @@ console.log(isValidTimeZoneId(null)); // → false
 Full data is also available through this package subpath:
 
 ```ts
-import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'nhb-toolbox/constants';
+import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'chronos-date/constants';
 ```
 
 - `IANA_TZ_IDS` contains array of identifiers while `TIME_ZONE_IDS` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
@@ -224,7 +224,7 @@ isNativeTimeZoneId(value: unknown): value is TimeZoneIdNative
 ### Example
 
 ```ts
-import { isNativeTimeZoneId } from 'nhb-toolbox';
+import { isNativeTimeZoneId } from 'chronos-date/guards';
 
 // Valid Native JS identifiers (legacy names in some engines)
 console.log(isNativeTimeZoneId('Asia/Dhaka')); // → true
@@ -255,7 +255,7 @@ console.log(isNativeTimeZoneId(null)); // → false
 Full data is also available through this package subpath:
 
 ```ts
-import { TIME_ZONES_NATIVE } from 'nhb-toolbox/constants';
+import { TIME_ZONES_NATIVE } from 'chronos-date/constants';
 ```
 
 - `TIME_ZONES_NATIVE` contains the identifiers in record style `{id: { tzName: '...', offset: '...' }}`
@@ -338,7 +338,7 @@ This means `isNativeTimeZoneId` is stricter about what the engine explicitly "su
 **Practical Example**
 
 ```ts
-import { isValidTimeZoneId, isNativeTimeZoneId } from 'nhb-toolbox';
+import { isValidTimeZoneId, isNativeTimeZoneId } from 'chronos-date/guards';
 
 // Modern name - valid in IANA but not in native JS list
 console.log(isValidTimeZoneId('Asia/Kolkata')); // → true
@@ -438,7 +438,8 @@ if (isTimeWithUnit(input)) {
 ### Usage Examples
 
 ```ts
-import { parseMSec, isTimeWithUnit } from 'nhb-toolbox';
+import { isTimeWithUnit } from 'chronos-date/guards';
+import { parseMSec } from 'chronos-date/utils';
 
 // Input validation
 function validateTimeout(input: string): TimeWithUnit {

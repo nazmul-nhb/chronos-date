@@ -59,7 +59,7 @@ type TimeWithUnit = `${number}${$UnitAnyCase}` | `${number} ${$UnitAnyCase}`;
 #### Basic Usage
 
 ```typescript
-import { parseMSec } from "chronos-date";
+import { parseMSec } from "chronos-date/utils";
 
 // Convert time strings to milliseconds
 console.log(parseMSec('1h'));        // 3600000 (1 hour in ms)
@@ -257,7 +257,7 @@ console.log(`Total duration: ${totalMs}ms (${parseMSec(totalMs, true)}s)`);
 
 ```typescript
 import express from 'express';
-import { parseMSec } from "chronos-date";
+import { parseMSec } from "chronos-date/utils";
 
 const app = express();
 
@@ -277,7 +277,7 @@ app.use((req, res, next) => {
 #### With Job Scheduling
 
 ```typescript
-import { parseMSec } from "chronos-date";
+import { parseMSec } from "chronos-date/utils";
 import { scheduleJob } from 'node-schedule';
 
 function scheduleRecurringJob(name: string, interval: string, task: () => void) {

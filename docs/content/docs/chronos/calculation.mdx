@@ -212,7 +212,7 @@ round(unit: TimeUnit, nearest?: number): Chronos
 ### Examples
 
 ```ts
-import { roundPlugin } from 'nhb-toolbox/plugins/roundPlugin';
+import { roundPlugin } from 'chronos-date/plugins/roundPlugin';
 
 Chronos.use(roundPlugin);
 
@@ -280,7 +280,7 @@ interface TimeDuration {
 ### Example
 
 ```ts
-import { durationPlugin } from 'nhb-toolbox/plugins/durationPlugin';
+import { durationPlugin } from 'chronos-date/plugins/durationPlugin';
 
 Chronos.use(durationPlugin);
 
@@ -332,7 +332,7 @@ Returns a human-readable string representation of the duration between the curre
 ### Examples
 
 ```ts
-import { durationPlugin } from 'nhb-toolbox/plugins/durationPlugin';
+import { durationPlugin } from 'chronos-date/plugins/durationPlugin';
 
 Chronos.use(durationPlugin);
 
@@ -550,7 +550,7 @@ type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
 <Tab value="Fixed Range">
 
 ```ts
-import { dateRangePlugin } from 'nhb-toolbox/plugins/dateRangePlugin';
+import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
 
@@ -582,7 +582,7 @@ new Chronos().getDatesInRange({
 <Tab value="Relative Range">
 
 ```ts
-import { dateRangePlugin } from 'nhb-toolbox/plugins/dateRangePlugin';
+import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
 
@@ -606,7 +606,7 @@ new Chronos().getDatesInRange({
 <Tab value="With Rounding">
 
 ```ts
-import { dateRangePlugin } from 'nhb-toolbox/plugins/dateRangePlugin';
+import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
 

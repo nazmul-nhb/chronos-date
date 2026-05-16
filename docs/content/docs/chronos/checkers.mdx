@@ -335,8 +335,8 @@ isToday(): boolean
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { relativeTimePlugin } from 'nhb-toolbox/plugins/relativeTimePlugin';
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
 
 Chronos.use(relativeTimePlugin);
 
@@ -364,8 +364,8 @@ isTomorrow(): boolean
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { relativeTimePlugin } from 'nhb-toolbox/plugins/relativeTimePlugin';
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
 
 Chronos.use(relativeTimePlugin);
 
@@ -393,8 +393,8 @@ isYesterday(): boolean
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { relativeTimePlugin } from 'nhb-toolbox/plugins/relativeTimePlugin';
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
 
 Chronos.use(relativeTimePlugin);
 
@@ -431,8 +431,8 @@ isWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
@@ -481,8 +481,8 @@ isWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
@@ -544,8 +544,8 @@ interface BusinessOptionsWeekends extends $BusinessHourBaseOptions {
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
@@ -589,7 +589,7 @@ isPalindromeDate(shortYear?: boolean): boolean
 ### Example
 
 ```ts
-import { palindromePlugin } from 'nhb-toolbox/plugins/palindromePlugin';
+import { palindromePlugin } from 'chronos-date/plugins/palindromePlugin';
 
 Chronos.use(palindromePlugin);
 

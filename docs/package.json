@@ -1,6 +1,6 @@
 {
 	"name": "chronos-date-docs",
-	"version": "0.0.0",
+	"version": "1.2.0",
 	"private": true,
 	"scripts": {
 		"build": "cd .. && pnpm run build && cd docs && node scripts/generate-types.mjs && next build",

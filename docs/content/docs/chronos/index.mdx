@@ -1,7 +1,7 @@
 ---
 title: Chronos
 description: Chronos - Play with Time and Date, Be a Time Master like Chronos
-icons: Clock
+icon: Clock
 ---
 
 ## `Chronos`
@@ -77,7 +77,7 @@ These properties provide non-destructive, read-only (only the core ones) access 
 However, in JavaScript, these properties _can technically be mutated_ (Compile-time `Error` occurs in TypScript if these properties are tried to be mutated), but such mutations (changes) **do not** affect the `Chronos` instance itself. The class internally manages equivalent strict **readonly/private state**. These public properties exist _purely for developer convenience and sugar_.
 :::
 
-#### `native: Date`
+#### native
 
 Returns the underlying native JavaScript `Date` object used internally by the `Chronos` instance. This is useful for interoperability with APIs or libraries that expect a native `Date`.
 
@@ -90,7 +90,7 @@ const ch = new Chronos('2025-01-01');
 console.log(ch.native.toISOString()); // → 2025-01-01T00:00:00.000Z
 ```
 
-#### `origin: ChronosMethods | 'root'`
+#### origin
 
 Indicates how the current `Chronos` instance was created. This can be helpful for debugging flow logic or tracing method chains in complex date-time pipelines.
 
@@ -107,7 +107,7 @@ console.log(root.origin); // → 'root'
 console.log(viaMethod.origin); // → 'addDays'
 ```
 
-#### `utcOffset: UTCOffset`
+#### utcOffset
 
 Returns the current UTC offset in `UTC±HH:mm` format (e.g., `"UTC+06:00"`, `"UTC-05:30"`).
 
@@ -130,7 +130,7 @@ console.log(ny.utcOffset); // → "UTC-05:00" (or UTC-04:00 during DST)
 This property is mutable, but modifying it has no effect on the `Chronos` instance. Any logic that relies on the mutated value may behave incorrectly, as `Chronos` internally derives its actual state from private fields.
 :::
 
-#### `timeZoneName: LooseLiteral<TimeZoneName>`
+#### timeZoneName
 
 Represents the current timezone name (e.g., `"Bangladesh Standard Time"`), or falls back to the corresponding timezone identifier (e.g., `"Asia/Dhaka"`) if no name can be resolved.
 
@@ -153,7 +153,7 @@ console.log(custom.timeZoneName); // → "UTC+02:45" (no named timezone)
 This property is mutable, but modifying it has no effect on the `Chronos` instance. Any logic that relies on the mutated value may behave incorrectly, as `Chronos` internally derives its actual state from private fields.
 :::
 
-#### `timeZoneId: TimeZoneId`
+#### timeZoneId
 
 Represents the current timezone context, which can be a single identifier, an array of equivalent identifiers, or a UTC offset.
 
@@ -187,7 +187,7 @@ console.log(offsetOnly.timeZoneId); // → "UTC+02:15" (no named timezone)
 This property is mutable, but modifying it has no effect on the `Chronos` instance. Any logic that relies on the mutated value may behave incorrectly, as `Chronos` internally derives its actual state from private fields.
 :::
 
-#### `$tzTracker?: $TimeZoneIdentifier | TimeZone | UTCOffset`
+#### $tzTracker
 
 :::danger
 _**[Protected]**_ Internal flag used to track instances created via the [`timeZone()`](conversion#timezone) method. This value participates in the internal resolution of time-zone name, identifier, and offset. _Although it is protected_, it can still be mutated in JavaScript/TypeScript; and doing so may de-synchronize these time-zone properties and lead to inconsistent results. _Avoid modifying this field unless you fully understand the implications_.
@@ -197,8 +197,8 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Getter Methods**](getters)</summary>
-    | Method                                             | Short Description                                                      |
-    | -------------------------------------------------- | ---------------------------------------------------------------------- |
+    | Method                                     | Short Description                                                      |
+    | ------------------------------------------ | ---------------------------------------------------------------------- |
     | [year](getters#year)                       | Gets the full year of the date.                                        |
     | [month](getters#month)                     | Gets the month (0-11) of the date.                                     |
     | [date](getters#date)                       | Gets the day of the month (1-31).                                      |
@@ -216,8 +216,8 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Format Methods**](format)</summary>
-    | Method                                        | Short Description                                                         |
-    | --------------------------------------------- | ------------------------------------------------------------------------- |
+    | Method                                | Short Description                                                         |
+    | ------------------------------------- | ------------------------------------------------------------------------- |
     | [format()](format#format)             | Formats the current date into a custom string format.                     |
     | [formatStrict()](format#formatstrict) | Formats the date into a predefined strict string format.                  |
     | [formatUTC()](format#formatutc)       | Formats the date into a custom string format (UTC time).                  |
@@ -225,13 +225,13 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
     | [fromNow()](format#fromnow)           | Returns full time difference as string down to a given level.             |
     | [fromNowShort()](format#fromnowshort) | Returns a short human-readable string like "2h ago", "in 5m".             |
     | [getGreeting()](format#getgreeting)   | Returns a greeting message based on `Chronos` instance or provided time.  |
-    | [greet()](format#alias)               | Alias for [`getGreeting()`](format#getgreeting)                   |
+    | [greet()](format#alias)               | Alias for [`getGreeting()`](format#getgreeting)                           |
 </details>
 
 <details>
   <summary>[**Calculation Methods**](calculation)</summary>
-    | Method                                                   | Short Description                                                    |
-    | -------------------------------------------------------- | -------------------------------------------------------------------- |
+    | Method                                           | Short Description                                                    |
+    | ------------------------------------------------ | -------------------------------------------------------------------- |
     | [valueOf()](calculation#valueof)                 | Enables arithmetic and comparison operations (e.g., +new Chronos()). |
     | [add()](calculation#add)                         | Returns a new `Chronos` instance with the specified unit added.      |
     | [addDays()](calculation#alternatives)            | Adds days and returns a new immutable instance.                      |
@@ -251,26 +251,26 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Name Getter Methods**](names)</summary>
-    | Method                                                       | Short Description                                               |
-    | ------------------------------------------------------------ | --------------------------------------------------------------- |
-    | [day()](names#day)                                   | Returns the name of the current day or optional day index.      |
-    | [monthName()](names#monthname)                       | Returns the name of the current month or optional month index.  |
-    | [$getNativeTimeZoneName()](names#getnativetimezonename) | Retrieves the local system's current timezone name.          |
-    | [$getNativeTimeZoneId()](names#getnativetimezoneid)  | Retrieves the IANA time zone identifier for the local system.   |
-    | [getTimeZoneName()](names#gettimezonename)           | Returns the current time zone name in descriptive string.       |
-    | [getTimeZoneNameShort()](names#gettimezonenameshort) | Returns the current time zone abbreviation (e.g. `"BST"`).      |
-    | [getTimeZoneNameAbbr()](names#gettimezonenameshort)  | Get time zone abbreviation (Alias of `getTimeZoneNameShort()`). |
-    | [season()](names#season)                             | Returns the current season name based on options.               |
-    | [getSeasonName()](names#season)                      | Alias for [`season()`](names#season)                    |
-    | [getZodiacSign()](names#getzodiacsign)               | Returns the zodiac sign based on current date or `birthDate`.   |
-    | [zodiac()](names#getzodiacsign)                      | Alias for [`getZodiacSign()`](names#getzodiacsign)      |
-    | [getPartOfDay()](names#getpartofday)                 | Returns the part of day based on the current hour.              |
+    | Method                                                  | Short Description                                               |
+    | ------------------------------------------------------- | --------------------------------------------------------------- |
+    | [day()](names#day)                                      | Returns the name of the current day or optional day index.      |
+    | [monthName()](names#monthname)                          | Returns the name of the current month or optional month index.  |
+    | [$getNativeTimeZoneName()](names#getnativetimezonename) | Retrieves the local system's current timezone name.             |
+    | [$getNativeTimeZoneId()](names#getnativetimezoneid)     | Retrieves the IANA time zone identifier for the local system.   |
+    | [getTimeZoneName()](names#gettimezonename)              | Returns the current time zone name in descriptive string.       |
+    | [getTimeZoneNameShort()](names#gettimezonenameshort)    | Returns the current time zone abbreviation (e.g. `"BST"`).      |
+    | [getTimeZoneNameAbbr()](names#gettimezonenameshort)     | Get time zone abbreviation (Alias of `getTimeZoneNameShort()`). |
+    | [season()](names#season)                                | Returns the current season name based on options.               |
+    | [getSeasonName()](names#season)                         | Alias for [`season()`](names#season)                            |
+    | [getZodiacSign()](names#getzodiacsign)                  | Returns the zodiac sign based on current date or `birthDate`.   |
+    | [zodiac()](names#getzodiacsign)                         | Alias for [`getZodiacSign()`](names#getzodiacsign)              |
+    | [getPartOfDay()](names#getpartofday)                    | Returns the part of day based on the current hour.              |
 </details>
 
 <details>
   <summary>[**Checker Methods**](checkers)</summary>
-    | Method                                                    | Short Description                                                    |
-    | --------------------------------------------------------- | -------------------------------------------------------------------- |
+    | Method                                            | Short Description                                                    |
+    | ------------------------------------------------- | -------------------------------------------------------------------- |
     | [isAfter()](checkers#isafter)                     | Checks if this date is after another date in a specific unit.        |
     | [isBefore()](checkers#isbefore)                   | Checks if this date is before another date in a specific unit.       |
     | [isBetween()](checkers#isbetween)                 | Checks if the current date is between the given start and end dates. |
@@ -295,8 +295,8 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Conversion Methods**](conversion)</summary>
-    | Method                                    | Short Description                                                            |
-    | ----------------------------------------- | ---------------------------------------------------------------------------- |
+    | Method                            | Short Description                                                            |
+    | --------------------------------- | ---------------------------------------------------------------------------- |
     | [clone()](conversion#clone)       | Clones and returns exactly same `Chronos` instance.                          |
     | [toUTC()](conversion#toutc)       | Returns new `Chronos` instance in UTC time.                                  |
     | [toLocal()](conversion#tolocal)   | Returns new `Chronos` instance in local time.                                |
@@ -308,8 +308,8 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Comparison Methods**](comparison)</summary>
-    | Method                                                                | Short Description                                    |
-    | --------------------------------------------------------------------- | ---------------------------------------------------- |
+    | Method                                                        | Short Description                                    |
+    | ------------------------------------------------------------- | ---------------------------------------------------- |
     | [compare()](comparison#compare)                               | Returns the difference of 2 dates in specified unit. |
     | [getRelativeDay()](comparison#getrelativeday)                 | Returns the number of days between 2 dates.          |
     | [getRelativeHour()](comparison#getrelativehour)               | Returns the number of hours between 2 dates.         |
@@ -323,8 +323,8 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Get & Set Methods**](get-set)</summary>
-    | Method                                               | Short Description                                                       |
-    | ---------------------------------------------------- | ----------------------------------------------------------------------- |
+    | Method                                       | Short Description                                                       |
+    | -------------------------------------------- | ----------------------------------------------------------------------- |
     | [get()](get-set#get)                         | Gets the value of a specific time unit from the date.                   |
     | [set()](get-set#set)                         | Returns a new instance with the specified unit set to the given value.  |
     | [startOf()](get-set#startof)                 | Returns a new `Chronos` instance at the start of a given unit.          |
@@ -342,20 +342,20 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**String Methods**](strings)</summary>
-    | Method                                                 | Short Description                                                      |
-    | ------------------------------------------------------ | ---------------------------------------------------------------------- |
-    | [toString()](strings#tostring)                 | Returns a string representation of a date.                             |
-    | [toISOString()](strings#toisostring)           | Returns a date as a string value in ISO format (UTC).                  |
-    | [toLocalISOString()](strings#tolocalisostring) | Returns ISO time string in appropriate time zone with offset.          |
-    | [toLocaleString()](strings#tolocalestring)     | Wrapper over native JS `toLocaleString` with improved type system.     |
-    | [toJSON()](strings#tojson)                     | Enables `JSON.stringify` to show readable output.                      |
-    | [inspect()](strings#inspect)                   | Returns a debug-friendly string for `console.log` or `util.inspect`.   |
+    | Method                                         | Short Description                                                    |
+    | ---------------------------------------------- | -------------------------------------------------------------------- |
+    | [toString()](strings#tostring)                 | Returns a string representation of a date.                           |
+    | [toISOString()](strings#toisostring)           | Returns a date as a string value in ISO format (UTC).                |
+    | [toLocalISOString()](strings#tolocalisostring) | Returns ISO time string in appropriate time zone with offset.        |
+    | [toLocaleString()](strings#tolocalestring)     | Wrapper over native JS `toLocaleString` with improved type system.   |
+    | [toJSON()](strings#tojson)                     | Enables `JSON.stringify` to show readable output.                    |
+    | [inspect()](strings#inspect)                   | Returns a debug-friendly string for `console.log` or `util.inspect`. |
 </details>
 
 <details>
   <summary>[**Extra Time Information**](extras)</summary>
-    | Method                                                                | Short Description                                       |
-    | --------------------------------------------------------------------- | ------------------------------------------------------- |
+    | Method                                                        | Short Description                                       |
+    | ------------------------------------------------------------- | ------------------------------------------------------- |
     | [getUTCOffset()](extras#getutcoffset)                         | Returns the system's UTC offset formatted as `±HH:mm`   |
     | [getTimeZoneOffset()](extras#gettimezoneoffset)               | Returns the timezone offset in `±HH:mm` format          |
     | [getUTCOffsetMinutes()](extras#getutcoffsetminutes)           | Gets difference in mins between UTC and local system.   |
@@ -367,11 +367,11 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Static Methods**](statics)</summary>
-    | Method                                             | Short Description                                                          |
-    | -------------------------------------------------- | -------------------------------------------------------------------------- |
+    | Method                                     | Short Description                                                          |
+    | ------------------------------------------ | -------------------------------------------------------------------------- |
     | [now()](statics#now)                       | Returns the number of milliseconds elapsed since midnight, 1970-01-01 UTC. |
     | [use()](statics#use)                       | Injects a plugin into the `Chronos` system.                                |
-    | [register()](statics#register)             | Alias for [`use()`](statics#use)                                   |
+    | [register()](statics#register)             | Alias for [`use()`](statics#use)                                           |
     | [utc()](statics#utc)                       | Creates a UTC-based `Chronos` instance.                                    |
     | [with()](statics#with)                     | Creates a new `Chronos` instance with the provided time component(s).      |
     | [parse()](statics#parse)                   | Parses a date string with a given format (limited support only).           |
@@ -390,8 +390,8 @@ _**[Protected]**_ Internal flag used to track instances created via the [`timeZo
 
 <details>
   <summary>[**Symbol Methods**](symbols)</summary>
-    | Method                                                                | Short Description                                        |
-    | --------------------------------------------------------------------- | -------------------------------------------------------- |
+    | Method                                                        | Short Description                                        |
+    | ------------------------------------------------------------- | -------------------------------------------------------- |
     | [Symbol.iterator](symbols#symboliterator)                     | Returns the default iterator for an object.              |
     | [Symbol.toPrimitive](symbols#symboltoprimitive)               | Converts an object to a corresponding primitive value.   |
     | [Symbol.replace](symbols#symbolreplace)                       | `RegExp` method, replaces matched parts of a string.     |

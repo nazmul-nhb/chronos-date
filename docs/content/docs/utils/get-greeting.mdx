@@ -45,7 +45,7 @@ getGreeting(configs?: GreetingConfigs): string;
 #### Basic Usage
 
 ```typescript
-import { getGreeting } from "chronos-date";
+import { getGreeting } from "chronos-date/utils";
 
 // Uses current time
 console.log(getGreeting()); 
@@ -86,7 +86,7 @@ console.log(getGreeting({
 #### Using Aliases
 
 ```typescript
-import { greet } from "chronos-date";
+import { greet } from "chronos-date/utils";
 greet({ morningMessage: 'Rise and shine!' });
 ```
 

@@ -1,6 +1,7 @@
 ---
-title: Chronos Plugins
+title: Plugins
 description: Chronos Plugins — chronos-date API reference.
+icon: Blocks
 ---
 
 <Callout type="info">
@@ -19,7 +20,7 @@ A plugin is a function that takes the `Chronos` class constructor and augments i
 type ChronosPlugin = ($Chronos: typeof Chronos) => void;
 ```
 
-You can inject plugins via the static [`Chronos.use()`](/docs/api/static-methods#use) or [`Chronos.register()`](/docs/api/static-methods#register) method or its wrapper function:
+You can inject plugins via the static [`Chronos.use()`](/docs/static-methods#use) or [`Chronos.register()`](/docs/static-methods#register) method or its wrapper function:
 
 ```ts
 Chronos.use(pluginName);
@@ -95,13 +96,13 @@ chronos().enabledMethod()
 Here's the basic structure of a `Chronos` plugin with access to *protected and/or private* internals:
 
 ```ts
-import { Chronos, INTERNALS } from "chronos-date/chronos";
-import type { $Chronos } from "chronos-date/date/types";
+import { Chronos, INTERNALS } from "chronos-date";
+import type { $Chronos } from "chronos-date/types";
 
 // Create a module augmentation to add your custom method to the `Chronos` interface
 // This allows TypeScript to recognize the new method on `Chronos` instances
 // This should be inside a `d.ts` file or at the top of your plugin file (must be a `.ts` file)
-declare module 'nhb-toolbox/chronos' {
+declare module 'chronos-date' {
   interface Chronos {
     /**
     * @instance Custom `Chronos` method to greet a user with the current date.
@@ -127,7 +128,6 @@ export const customPlugin = ($Chronos: $Chronos): void => {
 
 ```ts
 import { Chronos } from "chronos-date";
-// or import { Chronos } from "chronos-date/chronos";
 import { customPlugin } from './path-to-your-plugin-file';
 
 // Use the plugin in your application's root/entry file or where you initialize `Chronos`
@@ -196,11 +196,11 @@ interface ChronosInternals {
 > Here's a real example (simplified version of the original method) from the package itself: plugin that adds a `timeZone` method to `Chronos` instances, allowing users to convert the instance to a specified time zone using some internal methods and properties:
 
 ```ts
-import { Chronos, INTERNALS } from "chronos-date/chronos";
-import type { $Chronos } from "chronos-date/date/types";
+import { Chronos, INTERNALS } from "chronos-date";
+import type { $Chronos } from "chronos-date/types";
 // Other imports
 
-declare module 'nhb-toolbox/chronos' {
+declare module 'chronos-date' {
   interface Chronos {
     timeZone(): Chronos;
   }
@@ -238,8 +238,8 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 ### 🔥 Important Notes
 
 <Callout type="error" title="Important">
-1. Always augment `Chronos` via module augmentation to ensure TypeScript recognizes your new methods using this subpath: `'nhb-toolbox/chronos'`
-2. Import `Chronos` and `INTERNALS` from `'nhb-toolbox'` in your plugin file
+1. Always augment `Chronos` via module augmentation to ensure TypeScript recognizes your new methods using this subpath: `'chronos-date'`
+2. Import `Chronos` and `INTERNALS` from `'chronos-date'` in your plugin file
 3. Always use the static `[INTERNALS]` interface rather than trying to access private fields directly
 4. The `withOrigin` method should be used when creating new `Chronos` instances to maintain proper origin tracking
 5. For native js `Date` manipulation in your plugin, prefer using `toNewDate` from `ChronosInternals` interface rather than creating `Date` objects directly to maintain consistency with internal handling of `Chronos`

@@ -209,8 +209,8 @@ new Chronos('2025-01-15').timeZone('UTC-05:30'); // 5 hours 30 minutes behind UT
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { timeZonePlugin } from 'nhb-toolbox/plugins/timeZonePlugin';
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
 
 // Register plugin
 Chronos.use(timeZonePlugin);
@@ -274,8 +274,8 @@ Moves forward one day at a time to find the nearest day that is **not** consider
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
@@ -333,8 +333,8 @@ Moves forward one day at a time until a weekend day is reached.
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
@@ -392,8 +392,8 @@ Moves backward one day at a time to find the nearest day that is **not** conside
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
@@ -451,8 +451,8 @@ Moves backward one day at a time until a weekend day is reached.
 ### Example
 
 ```ts
-import { Chronos } from 'nhb-toolbox';
-import { businessPlugin } from 'nhb-toolbox/plugins/businessPlugin';
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
