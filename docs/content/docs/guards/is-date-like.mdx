@@ -6,7 +6,7 @@ description: Detect date-like objects from various date/time libraries
 
 ## isDateLike
 
-Detects _date-like objects_ from popular date/time libraries.
+Detects *date-like objects* from popular date/time libraries.
 
 ## Features
 
@@ -17,9 +17,15 @@ Detects _date-like objects_ from popular date/time libraries.
   - `Luxon`
   - `JS-Joda`
   - `Temporal`
-  - [`Chronos`](/docs/classes/Chronos)
+  - [`Chronos`](/docs/chronos)
 - Type-safe TypeScript implementation
 - Zero dependencies
+
+## Signature
+
+```ts
+function isDateLike(value: unknown): value is DateLike
+```
 
 ## Basic Usage
 

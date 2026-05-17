@@ -1,7 +1,7 @@
 import { generate as DefaultImage } from 'fumadocs-ui/og';
 import { notFound } from 'next/navigation';
 import { ImageResponse } from 'next/og';
-import { appName } from '@/lib/shared';
+import { appLogo, appName } from '@/lib/shared';
 import { getPageImage, source } from '@/lib/source';
 
 export const revalidate = false;
@@ -15,8 +15,14 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
 		<DefaultImage
 			title={page.data.title}
 			description={page.data.description}
-			site={appName}
-			// icon={<Image src={appLogo} alt={appName} quality={100} width={28} height={28} />}
+			site={`${appName} Documentation`}
+			icon={
+				<img
+					src={`https://chronos.nazmul-nhb.dev/${appLogo}`}
+					alt={appName}
+					width={80}
+				/>
+			}
 		/>,
 		{
 			width: 1200,

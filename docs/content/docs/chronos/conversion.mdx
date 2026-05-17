@@ -68,7 +68,7 @@ console.log(subtracted.origin); // "subtract"
 | `new Chronos()`  | New instance      | ❌ No              | ⚠️ Slight overhead   |
 | Direct reference | Same instance     | ✅ Yes             | ✅ Best              |
 
-<Callout type="info">
+<Callout type="idea" title="Tips" >
 Use `clone()` when you need:
 
 - Explicit control over instance creation
@@ -77,7 +77,7 @@ Use `clone()` when you need:
 
 </Callout>
 
-<Callout type="info" title="NOTE">
+<Callout type="info" title="Note">
 While `Chronos's` immutability makes cloning less critical for safety, it remains valuable for:
 
 - Tracking different origin points in complex date pipelines

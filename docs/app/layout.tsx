@@ -12,8 +12,8 @@ const inter = Inter({
 export const metadata: Metadata = {
 	title: {
 		absolute: `${appName} - Elegant Date-Time Library`,
-		default: appName,
-		template: `%s » ${appName}`,
+		default: `${appName} Documentation`,
+		template: `%s » ${appName} Documentation`,
 	},
 	// metadataBase: new URL(siteConfig.baseUrl),
 	// description: siteConfig.description,

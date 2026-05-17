@@ -404,31 +404,17 @@ This method is provided by `dateRangePlugin`. You must register it using `Chrono
 
 ### Signatures
 
-<Tabs items={['Fixed Range', 'Relative Range', 'Implementation']}>
-
-<Tab value="Fixed Range">
-
-```ts
+```ts tab="Fixed Range"
 getDatesInRange(options?: RangeWithDates): ISOTimeString[]
 ```
 
-</Tab>
-<Tab value="Relative Range">
-
-```ts
+```ts tab="Relative Range"
 getDatesInRange(options?: RelativeDateRange): ISOTimeString[]
 ```
 
-</Tab>
-<Tab value="Implementation">
-
-```ts
+```ts tab="Implementation"
 getDatesInRange(options?: DatesInRangeOptions): ISOTimeString[]
 ```
-
-</Tab>
-
-</Tabs>
 
 ### Overview
 
@@ -456,11 +442,8 @@ Configuration object accepting either fixed or relative range parameters:
 | `onlyDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`             | Include these (e.g. `['Monday']` or `[1]`, overrides `skipDays`) |
 | `roundDate` | `boolean`                        | `false`          | Round dates to start of day                                      |
 
-<Tabs items={['Fixed Range Options', 'Relative Range Options', 'Implementation Options']}>
 
-<Tab value="Fixed Range Options">
-
-```ts
+```ts tab="Fixed Range Options"
 interface RangeWithDates {
   /** Start date (inclusive). Default: current date */
   from?: ChronosInput;
@@ -485,10 +468,7 @@ interface RangeWithDates {
 }
 ```
 
-</Tab>
-<Tab value="Relative Range Options">
-
-```ts
+```ts tab="Relative Range Options"
 interface RelativeDateRange {
   /** Number of time units. Default: 4 */
   span?: number;
@@ -513,17 +493,10 @@ interface RelativeDateRange {
 }
 ```
 
-</Tab>
-<Tab value="Implementation Options">
-
-```ts
+```ts tab="Implementation Options"
 /** - Unified type that supports either a fixed or relative date range configuration. */
 type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
 ```
-
-</Tab>
-
-</Tabs>
 
 ### Return Value
 
@@ -545,11 +518,7 @@ type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
 
 ### Examples
 
-<Tabs items={['Fixed Range', 'Relative Range', 'With Rounding']}>
-
-<Tab value="Fixed Range">
-
-```ts
+```ts tab="Fixed Range"
 import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
@@ -578,10 +547,7 @@ new Chronos().getDatesInRange({
 });
 ```
 
-</Tab>
-<Tab value="Relative Range">
-
-```ts
+```ts tab="Relative Range"
 import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
@@ -602,10 +568,7 @@ new Chronos().getDatesInRange({
 });
 ```
 
-</Tab>
-<Tab value="With Rounding">
-
-```ts
+```ts tab="With Rounding"
 import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
 
 Chronos.use(dateRangePlugin);
@@ -618,10 +581,6 @@ now.getDatesInRange({
   roundDate: true
 });
 ```
-
-</Tab>
-
-</Tabs>
 
 ### Notes
 

@@ -35,7 +35,7 @@ Chronos.register(pluginName);
 chronos.register(pluginName);
 ```
 
-<Callout type="tip">
+<Callout type="info" title="Info">
 - Each plugin is only applied once, even if `use()` or `register()` is called multiple times with the same plugin.
 - If a plugin enables multiple methods, injecting once will enable all the methods by that particular plugin. [See the list below](#-official-plugins)
 
@@ -238,6 +238,7 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 ### 🔥 Important Notes
 
 <Callout type="error" title="Important">
+
 1. Always augment `Chronos` via module augmentation to ensure TypeScript recognizes your new methods using this subpath: `'chronos-date'`
 2. Import `Chronos` and `INTERNALS` from `'chronos-date'` in your plugin file
 3. Always use the static `[INTERNALS]` interface rather than trying to access private fields directly

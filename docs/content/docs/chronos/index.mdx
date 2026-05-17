@@ -47,7 +47,7 @@ const now = new Chronos();
 console.log(now.season()); // ✅ Safe to use after plugin registration
 ```
 
-<Callout type="info">
+<Callout type="info" title="Info">
 Each plugin enhances the `Chronos` prototype and becomes available globally after registration.
 </Callout>
 
@@ -73,7 +73,7 @@ type ChronosInput = number | string | Date | Chronos;
 
 These properties provide non-destructive, read-only (only the core ones) access to the copies of internal states of a `Chronos` instance for debugging, inspection, or meta-awareness.
 
-<Callout type="info">
+<Callout type="info" title="Info">
 However, in JavaScript, these properties _can technically be mutated_ (Compile-time `Error` occurs in TypScript if these properties are tried to be mutated), but such mutations (changes) **do not** affect the `Chronos` instance itself. The class internally manages equivalent strict **readonly/private state**. These public properties exist _purely for developer convenience and sugar_.
 </Callout>
 
@@ -208,7 +208,7 @@ This property is mutable, but modifying it has no effect on the `Chronos` instan
 
 #### $tzTracker
 
-<Callout type="error">
+<Callout type="error" title="Warning">
 _**[Protected]**_ Internal flag used to track instances created via the [`timeZone()`](conversion#timezone) method. This value participates in the internal resolution of time-zone name, identifier, and offset. _Although it is protected_, it can still be mutated in JavaScript/TypeScript; and doing so may de-synchronize these time-zone properties and lead to inconsistent results. _Avoid modifying this field unless you fully understand the implications_.
 </Callout>
 

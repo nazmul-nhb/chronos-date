@@ -1,5 +1,6 @@
 'use client';
 
+import * as Unstyled from '@radix-ui/react-tabs';
 import type * as React from 'react';
 import {
 	type ComponentProps,
@@ -12,7 +13,6 @@ import {
 	useState,
 } from 'react';
 import { cn } from '../lib/cn';
-import * as Unstyled from './ui/tabs';
 
 type CollectionKey = string | symbol;
 

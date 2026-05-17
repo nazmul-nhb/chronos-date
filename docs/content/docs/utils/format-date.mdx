@@ -118,48 +118,46 @@ formatDate({
 
 ### Format Tokens
 
-<Callout type="info">
+<Callout type="info" title="Info">
 `formatDate` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [Chronos format](/docs/api/format) methods, and behave similarly to libraries like `Moment.js` or `Day.js`.
 </Callout>
 Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
 
 Below is a list of all supported tokens:
 
-| Token                                        | Output                 | Example           |
-| -------------------------------------------- | ---------------------- | ----------------- |
+| Token            | Output                 | Example           |
+| ---------------- | ---------------------- | ----------------- |
 | `YYYY` or `yyyy` | Full year              | 2025              |
-| `YY` or `yy`     | 2-digit year           | 23                |
-| `mmmm`                         | Full month             | January           |
-| `mmm`                          | Short month            | Jan               |
-| `MM`                           | 2-digit month          | 01-12             |
-| `M`                            | Month                  | 1-12              |
-| `DD`                           | 2-digit day            | 01-31             |
-| `D`                            | Day                    | 1-31              |
-| `Do`                           | Ordinal day            | 1st, 2nd          |
-| `ddd`                          | Full weekday           | Monday            |
-| `dd`                           | Short weekday          | Mon               |
-| `d`                            | Shorter weekday        | Mo                |
-| `HH`                           | 24-hour (00-23)        | 09                |
-| `H`                            | 24-hour (0-23)         | 9                 |
-| `hh`                           | 12-hour (01-12)        | 02                |
-| `h`                            | 12-hour (1-12)         | 2                 |
-| `mm`                           | Minutes (00-59)        | 05                |
-| `m`                            | Minutes (0-59)         | 5                 |
-| `ss`                           | Seconds (00-59)        | 09                |
-| `s`                            | Seconds (0-59)         | 9                 |
-| `ms`                           | Milliseconds (0-999)   | 9                 |
-| `mss`                          | Milliseconds (000-999) | 009               |
-| `A`                            | AM/PM                  | PM                |
-| `a`                            | am/pm                  | pm                |
-| `ZZ`                           | TZ Offset ±HH:mm       | +06:00 or Z (UTC) |
+| `YY` or `yy`     | 2-digit year           | 25                |
+| `mmmm`           | Full month             | January           |
+| `mmm`            | Short month            | Jan               |
+| `MM`             | 2-digit month          | 01-12             |
+| `M`              | Month                  | 1-12              |
+| `DD`             | 2-digit day            | 01-31             |
+| `D`              | Day                    | 1-31              |
+| `Do`             | Ordinal day            | 1st, 2nd          |
+| `ddd`            | Full weekday           | Monday            |
+| `dd`             | Short weekday          | Mon               |
+| `d`              | Shorter weekday        | Mo                |
+| `HH`             | 24-hour (00-23)        | 09                |
+| `H`              | 24-hour (0-23)         | 9                 |
+| `hh`             | 12-hour (01-12)        | 02                |
+| `h`              | 12-hour (1-12)         | 2                 |
+| `mm`             | Minutes (00-59)        | 05                |
+| `m`              | Minutes (0-59)         | 5                 |
+| `ss`             | Seconds (00-59)        | 09                |
+| `s`              | Seconds (0-59)         | 9                 |
+| `ms`             | Milliseconds (0-999)   | 9                 |
+| `mss`            | Milliseconds (000-999) | 009               |
+| `A`              | AM/PM                  | PM                |
+| `a`              | am/pm                  | pm                |
+| `ZZ`             | TZ Offset ±HH:mm       | +06:00 or Z (UTC) |
 
-<Callout type="error" title="Note">
+<Callout type="error" title="Caution">
 - To output raw text (i.e., not interpreted as a date token), wrap it in square brackets.
 - For example, `[Today is] ddd` results in `Today is Sunday`, and `YYYY[ year]` results in `2025 year`.
-
 - Supported format tokens include: `YYYY`, `YY`, `MMMM`, `MMM`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
 - *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
-
 </Callout>
 ---
 

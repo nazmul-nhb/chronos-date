@@ -7,9 +7,9 @@ export function baseOptions(): BaseLayoutProps {
 		nav: {
 			title: (
 				<div className="flex items-center gap-2">
-					<Image src={appLogo} alt={appName} quality={100} width={28} height={28} />
+					<Image src={appLogo} alt={appName} quality={100} width={48} height={48} />
 
-					<span className="font-semibold">{appName}</span>
+					<span className="font-bold text-xl">{appName}</span>
 				</div>
 			),
 			transparentMode: 'always',

@@ -13,7 +13,7 @@ Injects a plugin into the `Chronos` system. This enables dynamic extension of th
 <Callout type="info" title="One-time Injection">
 A plugin is only injected once per runtime. Re-registering the same plugin has no effect.
 </Callout>
-<Callout type="info">
+<Callout type="info" title="Info">
 - Plugins should be injected **before** any instance creation.
 - Internally, `Chronos` maintains a `#plugins` set to prevent duplicate injections.
 - This system is ideal for modular features like `seasons`, `zodiac`, or `timeZone` etc. support.
@@ -370,7 +370,7 @@ static utc(dateLike?: ChronosInput): Chronos
 - If no `dateLike` (string/number/object) is provided, it uses the current date and time.
 - This UTC instance is considered the **base time**, meaning all time zone conversions are derived from this reference point and not the local time.
 
-<Callout type="info">
+<Callout type="info" title="Info">
 Internally, this method adjusts the local time to its UTC equivalent by removing the time zone offset.
 </Callout>
 ### Example
@@ -409,7 +409,7 @@ static formatTimePart(time: string, format?: TimeOnlyFormat): string
 - `HH:mm:ss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00+05:30'`
 - `HH:mm:ss.mss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00.800+06:30'`
 
-<Callout type="warn">
+<Callout type="warn" title="Warning">
 *If no offset is provided with time string, local (system) timezone will be used. The current date will be used as the base date for the time internally.*
 </Callout>
 - `format`: Format string accepted by the `formatStrict()` method for time component.
@@ -468,11 +468,7 @@ static getDatesForDay(day: WeekDay, options?: WeekdayOptions): string[]
 
 #### Options (Differ by Signature)
 
-<Tabs items={['Relative Range Options', 'Absolute Range Options']}>
-
-<Tab value="Relative Range Options">
-
-```ts
+```ts tab="Relative Range Options"
 interface RelativeRangeOptions {
   span?: number;    // Duration quantity (default: 4)
   unit?: TimeUnit;  // 'day' | 'week' | 'month' | 'year' (default: 'week')
@@ -481,10 +477,7 @@ interface RelativeRangeOptions {
 }
 ```
 
-</Tab>
-<Tab value="Absolute Range Options">
-
-```ts
+```ts tab="Absolute Range Options"
 interface DateRangeOptions {
   from?: ChronosInput; // Start date (default: now)
   to?: ChronosInput;   // End date (default: 4 weeks from now)
@@ -492,10 +485,6 @@ interface DateRangeOptions {
   roundDate?: boolean; // Round to start of day (default: false)
 }
 ```
-
-</Tab>
-
-</Tabs>
 
 ### Return Type
 
@@ -516,11 +505,8 @@ interface DateRangeOptions {
 </Callout>
 ### Examples
 
-<Tabs items={['Relative Range', 'Absolute Range']}>
 
-<Tab value="Relative Range">
-
-```ts
+```ts tab="Relative Range"
 // Get rounded UTC Wednesdays for next month
 Chronos.getDatesForDay('Wednesday', { 
   span: 1,
@@ -531,10 +517,7 @@ Chronos.getDatesForDay('Wednesday', {
 //=> ['2025-05-28T00:00:00.000Z', '2025-06-04T00:00:00.000Z', ...]
 ```
 
-</Tab>
-<Tab value="Absolute Range">
-
-```ts
+```ts tab="Absolute Range"
 // Get local Fridays in Q3 2025 (rounded)
 Chronos.getDatesForDay('Friday', {
   from: '2025-07-01',
@@ -543,10 +526,6 @@ Chronos.getDatesForDay('Friday', {
 });
 //=> ['2025-07-04T00:00:00+06:00', '2025-07-11T00:00:00+06:00', ...]
 ```
-
-</Tab>
-
-</Tabs>
 
 ### Notes
 
@@ -643,7 +622,7 @@ Chronos.max('2012-12-25', new Chronos('2012-12-31').timeZone('Asia/Kolkata'), '2
 
 Checks if the year in the date string or year (from 0 - 9999) is a leap year.
 
-<Callout type="info">
+<Callout type="idea" title="Info">
 - A year is a leap year if it is divisible by 4.
 - However, years divisible by 100 are not leap years **unless** they are also divisible by 400.
 - For example:

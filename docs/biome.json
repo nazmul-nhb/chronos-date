@@ -44,6 +44,20 @@
 		}
 	},
 	"css": {
-		"parser": { "tailwindDirectives": true }
-	}
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/og/**/*/route.*"],
+			"linter": {
+				"rules": {
+					"performance": {
+						"noImgElement": "off"
+					}
+				}
+			}
+		}
+	]
 }

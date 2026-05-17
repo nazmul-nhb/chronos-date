@@ -7,7 +7,7 @@ title: Format Methods
 
 ## Format Tokens
 
-<Callout type="info">
+<Callout type="info" title="Info">
 `Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](#format), [`formatUTC`](#formatutc), and [`formatStrict`](#formatstrict) methods as well as for other methods and utilities like [`formatDate`](/docs/utilities/date/formatDate) that accept a format, and behave similarly to libraries like `Moment.js` or `Day.js`.
 </Callout>
 
@@ -176,7 +176,7 @@ date.calendar(); // "Yesterday at [time]"
 This method is provided by `fromNowPlugin`. You must register it using `Chronos.use(fromNowPlugin)` before calling `.fromNow()`. Once registered, all `Chronos` instances will have access to the `.fromNow()` method.
 </Callout>
 
-<Callout type="info">
+<Callout type="info" title="Info">
 
 - This method calculates the **elapsed time difference** (excludes the end day), consistent with libraries like `Day.js` and `Luxon`.
 - If you need an *inclusive calendar-style* difference (counting both start and end days), adjust one day manually before calling `fromNow()`.

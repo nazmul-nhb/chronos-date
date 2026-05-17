@@ -76,7 +76,7 @@ new Chronos('2025-05-29').monthName(); // "May"
 new Chronos().monthName(11);           // "December"
 ```
 
-<Callout type="info">
+<Callout type="info" title="Info">
 
 - This method supports overriding the current month with a specific index.
 - Internally, it maps indices `0–11` to the English names of the months.
@@ -236,7 +236,7 @@ const utcPlus615 = new Chronos().getTimeZoneName('UTC+06:15');
 console.log(utcPlus615); // → "UTC+06:15" (no matching time zone found)
 ```
 
-<Callout type="info">
+<Callout type="info" title="Info">
 
 - This method uses a **predefined mapping of UTC offsets** to time zone names.
 - If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
@@ -294,7 +294,7 @@ const utcPlus615 = new Chronos().getTimeZoneNameShort('UTC+06:15');
 console.log(utcPlus615); // → "UTC+06:15" (no matching time zone found)
 ```
 
-<Callout type="info">
+<Callout type="info" title="Info">
 
 - This method uses a **predefined mapping of UTC offsets** to time zone names.
 - If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
@@ -394,11 +394,7 @@ Boundary can be either:
 
 ### Available Presets
 
-<Tabs items={['default', 'bangladesh', 'vedic', 'tamil', 'india', 'philippines', 'academic_us', 'japan', 'australia', 'ethiopia']}>
-
-  <Tab value="default">
-
-  ```ts
+  ```ts tab="default"
   [
     { name: 'Spring', boundary: { startMonth: 2, endMonth: 4 } },  // Mar-May
     { name: 'Summer', boundary: { startMonth: 5, endMonth: 7 } },  // Jun-Aug
@@ -407,10 +403,7 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="bangladesh">
-
-  ```ts
+  ```ts tab="bangladesh"
   [
   { name: 'Grisma (Summer)', boundary: { startDate: '04-15', endDate: '06-14' } },
   { name: 'Barsa (Monsoon)', boundary: { startDate: '06-15', endDate: '08-14' } },
@@ -421,10 +414,7 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="vedic">
-
-  ```ts
+  ```ts tab="vedic"
   [
     { name: 'Shishir (Winter)', boundary: { startDate: '12-15', endDate: '02-14' } },
     { name: 'Vasanta (Spring)', boundary: { startDate: '02-15', endDate: '04-14' } },
@@ -435,10 +425,7 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="tamil">
-
-  ```ts
+  ```ts tab="tamil"
   [
     { name: 'Ilavenil (Mid-Summer)', boundary: { startMonth: 4, endMonth: 5 } },   // May-Jun
     { name: 'Mutuvenil (Peak-Summer)', boundary: { startMonth: 6, endMonth: 7 } }, // Jul-Aug
@@ -449,10 +436,7 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="india">
-
-  ```ts
+  ```ts tab="india"
   [
     { name: 'Winter', boundary: { startMonth: 0, endMonth: 1 } },       // Jan-Feb
     { name: 'Pre-Monsoon', boundary: { startMonth: 2, endMonth: 4 } },  // Mar-May
@@ -462,20 +446,14 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="philippines">
-
-  ```ts
+  ```ts tab="philippines"
   [
     { name: 'Dry Season', boundary: { startMonth: 11, endMonth: 4 } }, // Dec-May
     { name: 'Wet Season', boundary: { startMonth: 5, endMonth: 10 } }  // Jun-Nov
   ]
   ```
 
-  </Tab>
-  <Tab value="academic_us">
-
-  ```ts
+  ```ts tab="academic_us"
   [
     { name: 'Spring', boundary: { startDate: '01-10', endDate: '05-15' } },
     { name: 'Summer', boundary: { startDate: '05-16', endDate: '08-15' } },
@@ -484,10 +462,7 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="japan">
-
-  ```ts
+  ```ts tab="japan"
   [
     { name: 'Haru (Spring)', boundary: { startDate: '03-01', endDate: '05-31' } },
     { name: 'Natsu (Summer)', boundary: { startDate: '06-01', endDate: '08-31' } },
@@ -496,10 +471,7 @@ Boundary can be either:
   ]
   ```
 
-  </Tab>
-  <Tab value="australia">
-
-```ts
+  ```ts tab="australia"
 [
   { name: 'Summer', boundary: { startMonth: 11, endMonth: 1 } }, // Dec-Feb
   { name: 'Autumn', boundary: { startMonth: 2, endMonth: 4 } },  // Mar-May
@@ -508,20 +480,13 @@ Boundary can be either:
 ]
 ```
 
-</Tab>
-  <Tab value="ethiopia">
-
-```ts
+```ts tab="ethiopia" 
 [
   { name: 'Bega (Dry)', boundary: { startMonth: 10, endMonth: 1 } },       // Nov-Feb
   { name: 'Belg (Short Rain)', boundary: { startMonth: 2, endMonth: 4 } }, // Mar-May
   { name: 'Kiremt (Main Rain)', boundary: { startMonth: 5, endMonth: 9 } } // Jun-Oct
 ]
 ```
-
-</Tab>
-
-</Tabs>
 
 <Callout type="info" title="Custom Seasons">
 You can create completely custom season configurations by providing your own array of `SeasonDefinition` objects:
@@ -641,11 +606,7 @@ interface ZodiacOptions<Sign extends string = ZodiacSign> {
 
 ### Available Presets
 
-<Tabs items={['western', 'vedic']}>
-
-<Tab value="western">
-
-```ts
+```ts tab="western"
 [
   ['Capricorn', [12, 22]],
   ['Aquarius', [1, 20]],
@@ -662,10 +623,7 @@ interface ZodiacOptions<Sign extends string = ZodiacSign> {
 ]
 ```
 
-</Tab>
-<Tab value="vedic">
-
-```ts
+```ts tab="vedic"
 [
   ['Capricorn', [1, 14]],
   ['Aquarius', [2, 13]],
@@ -681,10 +639,6 @@ interface ZodiacOptions<Sign extends string = ZodiacSign> {
   ['Sagittarius', [12, 16]]
 ]
 ```
-
-</Tab>
-
-</Tabs>
 
 <Callout type="info" title="Custom Zodiac">
 You can create custom zodiac configurations by providing your own array of zodiac definitions with any zodiac sign names:
@@ -836,11 +790,8 @@ The `index` property represents the chronological position (0-based) of the zodi
 
 The same presets as [**getZodiacSign()**](#available-presets-1) are available:
 
-<Tabs items={['western', 'vedic']}>
 
-<Tab value="western">
-
-```ts
+```ts tab="western" 
 [
   ['Aquarius', [1, 20]],      // index: 0
   ['Pisces', [2, 19]],        // index: 1
@@ -857,10 +808,7 @@ The same presets as [**getZodiacSign()**](#available-presets-1) are available:
 ]
 ```
 
-</Tab>
-<Tab value="vedic">
-
-```ts
+```ts tab="vedic"
 [
   ['Capricorn', [1, 14]],     // index: 0
   ['Aquarius', [2, 13]],      // index: 1
@@ -876,10 +824,6 @@ The same presets as [**getZodiacSign()**](#available-presets-1) are available:
   ['Sagittarius', [12, 16]]   // index: 11
 ]
 ```
-
-</Tab>
-
-</Tabs>
 
 ### Year-Boundary Handling
 
