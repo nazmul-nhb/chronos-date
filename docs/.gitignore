@@ -3,6 +3,8 @@
 
 # generated content
 .source
+/lib/generated-types.json
+/lib/generated-modules.ts
 
 # test & build
 /coverage

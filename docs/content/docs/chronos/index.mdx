@@ -18,8 +18,8 @@ Whether you're building a calendar, a countdown, or scheduling logic, `Chronos` 
 
 This documentation provides a detailed guide to the `Chronos` class, a comprehensive date and time manipulation class. The methods are grouped into logical categories for easier navigation.
 
-<Callout type="info">
-For `chronos` function, a `Chronos` wrapper, refer to [**chronos**](wrapper-function)
+<Callout type="info" title="For chronos function">
+For `chronos` function, a `Chronos` wrapper, refer to [**chronos**](chronos/wrapper-function)
 </Callout>
 
 ### Import
@@ -33,6 +33,18 @@ import { Chronos } from 'chronos-date';
 Chronos supports a modular plugin system that allows you to extend its capabilities without bloating the core. Plugin methods are **not available by default**, you must explicitly install them using the `.use()` or `.register()` static method.
 
 #### How it works
+
+<Playground code={`import { Chronos } from 'chronos-date';
+import { seasonPlugin } from 'chronos-date/plugins/seasonPlugin';
+
+// Register the plugin before using its methods
+Chronos.use(seasonPlugin); 
+// or
+Chronos.register(seasonPlugin);
+
+const now = new Chronos();
+console.log(now.season()); // ✅ Safe to use after plugin registration
+`} />
 
 ```ts
 import { Chronos } from 'chronos-date';

@@ -1,52 +1,12 @@
 'use client';
 
 import Editor, { useMonaco } from '@monaco-editor/react';
-import * as ChronosDate from 'chronos-date';
-import * as Constants from 'chronos-date/constants';
-import * as Guards from 'chronos-date/guards';
-import * as BanglaPlugin from 'chronos-date/plugins/banglaPlugin';
-import * as BusinessPlugin from 'chronos-date/plugins/businessPlugin';
-import * as DateRangePlugin from 'chronos-date/plugins/dateRangePlugin';
-import * as DayPartPlugin from 'chronos-date/plugins/dayPartPlugin';
-import * as DurationPlugin from 'chronos-date/plugins/durationPlugin';
-import * as FromNowPlugin from 'chronos-date/plugins/fromNowPlugin';
-import * as GreetingPlugin from 'chronos-date/plugins/greetingPlugin';
-import * as PalindromePlugin from 'chronos-date/plugins/palindromePlugin';
-import * as RelativeTimePlugin from 'chronos-date/plugins/relativeTimePlugin';
-import * as RoundPlugin from 'chronos-date/plugins/roundPlugin';
-import * as SeasonPlugin from 'chronos-date/plugins/seasonPlugin';
-import * as TimeZonePlugin from 'chronos-date/plugins/timeZonePlugin';
-import * as ZodiacPlugin from 'chronos-date/plugins/zodiacPlugin';
-import * as Types from 'chronos-date/types';
-import * as Utils from 'chronos-date/utils';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { transform } from 'sucrase';
 import { Copy } from '@/components/Copy';
+import { ChronosDate, type ChronosModule, MODULES } from '@/lib/generated-modules';
 import generatedTypes from '@/lib/generated-types.json';
-
-type ChronosModule = 'chronos-date' | `chronos-date/${string}`;
-
-const MODULES: Record<ChronosModule, unknown> = {
-	'chronos-date': ChronosDate,
-	'chronos-date/types': Types,
-	'chronos-date/utils': Utils,
-	'chronos-date/guards': Guards,
-	'chronos-date/constants': Constants,
-	'chronos-date/plugins/banglaPlugin': BanglaPlugin,
-	'chronos-date/plugins/businessPlugin': BusinessPlugin,
-	'chronos-date/plugins/dateRangePlugin': DateRangePlugin,
-	'chronos-date/plugins/dayPartPlugin': DayPartPlugin,
-	'chronos-date/plugins/durationPlugin': DurationPlugin,
-	'chronos-date/plugins/fromNowPlugin': FromNowPlugin,
-	'chronos-date/plugins/greetingPlugin': GreetingPlugin,
-	'chronos-date/plugins/palindromePlugin': PalindromePlugin,
-	'chronos-date/plugins/relativeTimePlugin': RelativeTimePlugin,
-	'chronos-date/plugins/roundPlugin': RoundPlugin,
-	'chronos-date/plugins/seasonPlugin': SeasonPlugin,
-	'chronos-date/plugins/timeZonePlugin': TimeZonePlugin,
-	'chronos-date/plugins/zodiacPlugin': ZodiacPlugin,
-};
 
 interface PlaygroundProps {
 	code: string;
@@ -151,7 +111,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					<button
 						type="button"
 						onClick={runCode}
-						className="flex items-center gap-1.5 px-3 py-1 dark:bg-fd-primary/10 bg-fd-background text-fd-foreground hover:bg-fd-muted-foreground rounded-md transition-colors text-xs font-medium"
+						className="flex items-center gap-1.5 px-3 py-1 dark:bg-fd-primary/10 bg-fd-background/75 text-fd-foreground hover:bg-fd-background/50 rounded-md transition-colors text-xs font-medium"
 					>
 						<PlayIcon className="size-3.5 fill-current" />
 						Run

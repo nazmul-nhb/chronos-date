@@ -4,7 +4,7 @@ description: Chronos Plugins — chronos-date API reference.
 icon: Blocks
 ---
 
-<Callout type="info">
+<Callout type="info" title="About Plugins">
 - `Chronos` supports a powerful **plugin system** that allows developers to inject additional methods or utilities into the `Chronos` class **without modifying its core**. This enables clean separation of concerns, tree-shaking, modular feature design, and maintainability.
 
 - Plugins can be official (maintained by the core team) or custom (developed by users). [See the list of official plugins below](#-official-plugins) or [learn how to write your own plugin](#️-writing-your-own-custom-plugin).
@@ -91,7 +91,7 @@ chronos().enabledMethod()
 
 ---
 
-## 🛠️ Writing Your Own Custom Plugin
+## 🛠️ Writing A Custom Plugin
 
 Here's the basic structure of a `Chronos` plugin with access to *protected and/or private* internals:
 
