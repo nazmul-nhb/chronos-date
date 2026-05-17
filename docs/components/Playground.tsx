@@ -142,7 +142,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 			</div>
 
 			<div
-				className="relative overflow-hidden max-h-80"
+				className="relative overflow-visible max-h-80"
 				style={{ height: `${editorHeight}px` }}
 			>
 				<Editor
