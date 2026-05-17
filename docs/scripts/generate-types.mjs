@@ -7,11 +7,7 @@ function getFiles(dir, files = []) {
 		const name = `${dir}/${file}`;
 		if (fs.statSync(name).isDirectory()) {
 			getFiles(name, files);
-		} else if (
-			name.endsWith('.d.ts') ||
-			name.endsWith('.d.cts') ||
-			name.endsWith('.d.mts')
-		) {
+		} else if (name.endsWith('.d.ts') || name.endsWith('.d.cts')) {
 			files.push(name);
 		}
 	}
@@ -27,11 +23,16 @@ function generateTypes() {
 
 	const files = getFiles(distDir);
 	const types = files.map((file) => {
-		const content = fs.readFileSync(file, 'utf-8');
+		let content = fs.readFileSync(file, 'utf-8');
 		let relativePath = path.relative(distDir, file);
 
-		// Map .d.mts or .d.cts to .d.ts so TypeScript can resolve them without extensions
+		// Normalize .d.mts / .d.cts → .d.ts so Monaco resolves them without extensions
 		relativePath = relativePath.replace(/\.d\.[mc]ts$/, '.d.ts');
+
+		// Rewrite sibling chunk imports from .cjs/.mjs → .d.ts so Monaco can follow
+		// the import chain (the dist files cross-reference each other via runtime
+		// extensions that don't exist in Monaco's virtual filesystem).
+		content = content.replace(/from\s+"(\.\.?\/[^"]+)\.(c|m)js"/g, 'from "$1.d.ts"');
 
 		return {
 			content,
@@ -39,16 +40,47 @@ function generateTypes() {
 		};
 	});
 
-	// Also add the module declarations so TS knows what 'chronos-date' means
+	// Register the main entry types at file:///node_modules/chronos-date/index.d.ts
+	//
+	// WHY not `declare module 'chronos-date' { export * from '...' }`:
+	//   dist/index.d.ts is a pure re-export relay: it only does
+	//   `import { X } from "./chunk.cjs"; export { X }`.
+	//   Inside an ambient `declare module` block, TypeScript's `export *` only
+	//   carries TYPES through a re-export chain — values (class constructors,
+	//   functions) are stripped. That's why Chronos/chronos showed `any`.
+	//
+	// WHY not a virtual package.json:
+	//   `setExtraLibs` only processes .d.ts files; Monaco's TS worker ignores
+	//   .json files registered that way, so 'chronos-date' stayed unresolved (2307).
+	//
+	// THE FIX — direct file at index.d.ts:
+	//   With NodeJs module resolution, TypeScript looks for
+	//   `node_modules/chronos-date/index.d.ts` when there's no package.json types.
+	//   We read dist/index.d.cts, rewrite its relative imports to prepend `./dist/`
+	//   so they point to the already-registered chunk files, then register it at the
+	//   package root. Monaco follows the import chain naturally and gets the full
+	//   `declare class Chronos` definition — both type AND value.
+	const indexSrc = path.join(distDir, 'index.d.cts');
+	let indexContent = fs.readFileSync(indexSrc, 'utf-8');
+
+	// Rewrite .cjs/.mjs extensions to .d.ts (same as above)
+	indexContent = indexContent.replace(/from\s+"(\.\.?\/[^"]+)\.(c|m)js"/g, 'from "$1.d.ts"');
+
+	// Rewrite relative imports like `"./foo"` → `"./dist/foo"` so that when this
+	// file lives at the package root it can still find the chunk files in dist/.
+	indexContent = indexContent.replace(/from\s+"(\.\/)([^"]+)"/g, 'from "./dist/$2"');
+
+	types.push({
+		content: indexContent,
+		filePath: `file:///node_modules/chronos-date/index.d.ts`,
+	});
+
+	// Sub-path `declare module` blocks — these work fine because the sub-module
+	// dist files (constants, utils, guards, etc.) have self-contained value
+	// declarations rather than relay re-exports, so `export *` carries both
+	// types and values correctly.
 	types.push({
 		content: `
-declare module 'chronos-date' {
-	// export * from 'chronos-date/dist'; // it didn't work: showed this: only refers to types not value
-	import { Chronos as ChronosClass, chronos as chronosObj } from 'chronos-date/dist/index';
-	export const Chronos: ChronosClass; // these shows any for the instances
-	export const chronos: chronosObj; // these shows any for the instances
-	// tried typeof ChronosClass and chronosObj, but that didn't work either, shows any for Chronos and chronos
-}
 declare module 'chronos-date/constants' {
 	export * from 'chronos-date/dist/constants';
 }
@@ -100,8 +132,8 @@ declare module 'chronos-date/plugins/timeZonePlugin' {
 declare module 'chronos-date/plugins/zodiacPlugin' {
 	export * from 'chronos-date/dist/plugins/zodiacPlugin';
 }
-        `,
-		filePath: `file:///node_modules/chronos-date/index.d.ts`,
+		`,
+		filePath: `file:///node_modules/chronos-date/sub-paths.d.ts`,
 	});
 
 	fs.writeFileSync(path.resolve('lib/generated-types.json'), JSON.stringify(types, null, 2));

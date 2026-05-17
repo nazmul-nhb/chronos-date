@@ -123,7 +123,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 	};
 
 	return (
-		<div className="my-6 rounded-xl overflow-hidden border border-fd-border bg-[#1e1e2e] shadow-sm flex flex-col">
+		<div className="my-6 rounded-xl overflow-visible border border-fd-border bg-[#1e1e2e] shadow-sm flex flex-col">
 			<div className="flex items-center justify-between px-4 py-2 border-b border-fd-border/50 bg-[#1e1e2e]">
 				<div className="flex gap-1.5 items-center">
 					<div className="size-3 rounded-full bg-red-500/80" />
@@ -163,22 +163,27 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 				<Editor
 					height="240px"
 					defaultLanguage="typescript"
+					path="file:///playground.ts"
 					theme="vs-dark"
 					value={code}
 					onChange={(val) => setCode(val || '')}
 					options={{
 						minimap: { enabled: false },
-						fontSize: 14,
+						fontSize: 13.5,
+						wordWrap: 'on',
+						// allowOverflow: false,
 						fontFamily: 'var(--font-mono)',
 						lineHeight: 1.6,
 						padding: { top: 16, bottom: 16 },
 						scrollBeyondLastLine: false,
 						overviewRulerLanes: 0,
-						hideCursorInOverviewRuler: true,
+						// hideCursorInOverviewRuler: true,
 						scrollbar: {
-							vertical: 'hidden',
-							horizontal: 'hidden',
+							verticalScrollbarSize: 6,
+							horizontalScrollbarSize: 6,
 						},
+						// fixedOverflowWidgets: true,
+						// overflowWidgetsDomNode: document.body,
 						renderLineHighlight: 'none',
 					}}
 				/>
