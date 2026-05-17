@@ -9,7 +9,7 @@ export function baseOptions(): BaseLayoutProps {
 				<div className="flex items-center gap-2">
 					<Image src={appLogo} alt={appName} quality={100} width={28} height={28} />
 
-					<span className="font-semibold"> {appName}</span>
+					<span className="font-semibold">{appName}</span>
 				</div>
 			),
 			transparentMode: 'always',

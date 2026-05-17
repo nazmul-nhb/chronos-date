@@ -22,15 +22,17 @@ import * as Utils from 'chronos-date/utils';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { transform } from 'sucrase';
+import { Copy } from '@/components/Copy';
 import generatedTypes from '@/lib/generated-types.json';
-import { Copy } from './Copy';
 
 type ChronosModule = 'chronos-date' | `chronos-date/${string}`;
 
 const MODULES: Record<ChronosModule, unknown> = {
 	'chronos-date': ChronosDate,
-	'chronos-date/constants': Constants,
+	'chronos-date/types': Types,
+	'chronos-date/utils': Utils,
 	'chronos-date/guards': Guards,
+	'chronos-date/constants': Constants,
 	'chronos-date/plugins/banglaPlugin': BanglaPlugin,
 	'chronos-date/plugins/businessPlugin': BusinessPlugin,
 	'chronos-date/plugins/dateRangePlugin': DateRangePlugin,
@@ -44,8 +46,6 @@ const MODULES: Record<ChronosModule, unknown> = {
 	'chronos-date/plugins/seasonPlugin': SeasonPlugin,
 	'chronos-date/plugins/timeZonePlugin': TimeZonePlugin,
 	'chronos-date/plugins/zodiacPlugin': ZodiacPlugin,
-	'chronos-date/types': Types,
-	'chronos-date/utils': Utils,
 };
 
 interface PlaygroundProps {
@@ -57,8 +57,6 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 	const [outputs, setOutputs] = useState<unknown[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const monaco = useMonaco();
-
-	// const {} = useCop
 
 	// Load chronos-date types into Monaco for IntelliSense
 	useEffect(() => {
@@ -153,7 +151,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					<button
 						type="button"
 						onClick={runCode}
-						className="flex items-center gap-1.5 px-3 py-1 bg-fd-primary/10 text-fd-primary hover:bg-fd-primary/20 rounded-md transition-colors text-xs font-medium"
+						className="flex items-center gap-1.5 px-3 py-1 dark:bg-fd-primary/10 bg-fd-background text-fd-foreground hover:bg-fd-muted-foreground rounded-md transition-colors text-xs font-medium"
 					>
 						<PlayIcon className="size-3.5 fill-current" />
 						Run

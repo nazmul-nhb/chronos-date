@@ -1,0 +1,11 @@
+{
+	"eslint.enable": false,
+	"prettier.enable": false,
+	"biome.enabled": true,
+	// "biome.lsp.bin": "./node_modules/@biomejs/biome/bin",
+	// "editor.defaultFormatter": "biomejs.biome",
+	"biome.lsp.trace.server": "messages",
+	"typescript.preferences.importModuleSpecifier": "shortest"
+	// "js/ts.preferences.importModuleSpecifierEnding": "index",
+	// "typescript.preferences.importModuleSpecifierEnding": "index",
+}
