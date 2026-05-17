@@ -1,6 +1,8 @@
 # Chronos Date
 
-Flexible, immutable, and robust date-time manipulation library for any JavaScript and TypeScript environment.
+A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.
+
+![Chronos Date](chronos.png)
 
 ## Why Chronos?
 
