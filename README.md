@@ -2,7 +2,7 @@
 
 A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.
 
-![Chronos Date](chronos.png)
+![Chronos Date](https://raw.githubusercontent.com/nazmul-nhb/chronos-date/refs/heads/main/chronos.png)
 
 ## Why Chronos?
 
@@ -14,9 +14,10 @@ Designed to go beyond the native `Date` object, it empowers you to manipulate, f
 
 - **Immutability:** Every modification returns a new `Chronos` instance. Your original dates remain intact.
 - **Rich API:** From formatting to comparison, calculation, and detailed part extraction.
+- **Plugin System:** Extend core capabilities seamlessly using `Chronos.use(plugin)`. Over a dozen official plugins exist for advanced operations like business hours, seasons, zodiacs, relative times, and more.
 - **Time Zone Support:** Advanced formatting and tracking of UTC offsets and Native time zone properties.
-- **Plugin System:** Extend core capabilities seamlessly using `Chronos.use(plugin)`. Over a dozen official plugins exist for advanced operations like business hours, seasons, zodiacs, relative times, and localization.
-- **Comprehensive TypeScript IntelliSense:** Built with first-class TypeScript types, including granular tracking for strict date formatting tokens.
+- **Date Utilities:** Extra utilities, type guards, types and constants for light weight date operations without the need of core class.
+- **Comprehensive TypeScript IntelliSense:** Built with first-class TypeScript types and granular tracking for strict date formatting tokens.
 - **Cross-environment compatibility:** Works anywhere JS runs (Node.js, Browser, Deno, Bun).
 
 ## Installation
@@ -47,9 +48,31 @@ const eventDate = new Chronos('2025-12-31');
 console.log(now.diff(eventDate, 'day')); // Days until event
 ```
 
+## Modular Imports
+
+You can import specific submodules for better tree-shaking:
+
+```ts
+// Guards
+import { isValidDateInput } from "chronos-date/guards";
+
+// Utility functions
+import { formatDate } from "chronos-date/utils";
+
+// Type definitions
+import type { ChronosInput } from "chronos-date/types";
+
+// Constants
+import { MONTHS } from "chronos-date/constants";
+
+// Plugins (imported individually)
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+```
+
 ## Documentation
 
-For full documentation, API reference, and interactive playgrounds, visit the [Documentation Site](https://toolbox.nazmul-nhb.dev/docs/classes/chronos).
+For full documentation, API reference, and interactive playgrounds, visit the [**Documentation Site**](https://chronos.nazmul-nhb.dev/).
 
 ## License
 
