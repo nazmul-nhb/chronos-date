@@ -43,7 +43,7 @@ function generateTypes() {
 	types.push({
 		content: `
 declare module 'chronos-date' {
-	// export * from 'chronos-date/dist'; // it didn't work: showed this ony refers to types not value
+	// export * from 'chronos-date/dist'; // it didn't work: showed this: only refers to types not value
 	import { Chronos as ChronosClass, chronos as chronosObj } from 'chronos-date/dist/index';
 	export const Chronos: ChronosClass; // these shows any for the instances
 	export const chronos: chronosObj; // these shows any for the instances

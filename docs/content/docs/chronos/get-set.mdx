@@ -29,12 +29,12 @@ get<Unit extends TimeUnit>(unit: Unit): TimeUnitValue<Unit>
 new Chronos('2025-01-15').get('month'); // 1 (January)
 ```
 
-:::info[Notes]
+<Callout type="info" title="Notes">
 
 - Return value for `month` is `1` based (`1`: January, `12`: December)
 - ISO weeks start on Monday, and the first week of the year is the one containing January 4th.
 
-:::
+</Callout>
 
 ---
 
@@ -63,25 +63,25 @@ set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos
 new Chronos('2025-01-15').set('month', 6); // June 15
 ```
 
-:::info[N.B.]
+<Callout type="info" title="N.B.">
 Unit `month` is `1` based (`1`: January, `12`: December)
-:::
+</Callout>
 
-:::tip[See Also]
+<Callout type="info" title="See Also">
 [`with`](/docs/classes/chronos/statics#with) static method for more options
-:::
+</Callout>
 
 ---
 
 ## getTimeStamp()
 
-:::tip[NOTICE]
+<Callout type="info" title="NOTICE">
 
 - The getter method [`timestamp`](/docs/classes/chronos/getters#timestamp) and `getTimeStamp()` returns the same value (milliseconds).
 
 - The **timestamp in seconds** (which some people considers as `timestamp`) can be accessed using [`unix`](/docs/classes/chronos/getters#unix) getter method.
 
-:::
+</Callout>
 
 ### Signature
 
@@ -342,9 +342,9 @@ new Chronos('2025-02-01').daysInMonth(); // 28
 
 ## workdaysBetween()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.workdaysBetween()`. Once registered, all `Chronos` instances will have access to the `.workdaysBetween()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -371,9 +371,9 @@ workdaysBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>
 
 Calculates the number of workdays between the current date and another date.
 
-:::danger[Important]
+<Callout type="error" title="Important">
 This calculation is exclusive of the starting date and inclusive of the ending date.
-:::
+</Callout>
 
 ### Example
 
@@ -399,9 +399,9 @@ new Chronos('2025-01-01').workdaysBetween('2025-01-10', 1, 2);
 
 ## workdaysInMonth()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.workdaysInMonth()`. Once registered, all `Chronos` instances will have access to the `.workdaysInMonth()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -451,9 +451,9 @@ new Chronos('2025-06-15').workdaysInMonth(1, 3);
 
 ## workdaysInYear()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.workdaysInYear()`. Once registered, all `Chronos` instances will have access to the `.workdaysInYear()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -503,9 +503,9 @@ new Chronos('2025-01-01').workdaysInYear(1, 1);
 
 ## weekendsBetween()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.weekendsBetween()`. Once registered, all `Chronos` instances will have access to the `.weekendsBetween()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -532,9 +532,9 @@ weekendsBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>
 
 Calculates the number of weekends between the current date and another date.
 
-:::danger[Important]
+<Callout type="error" title="Important">
 This calculation is exclusive of the starting date and inclusive of the ending date.
-:::
+</Callout>
 
 ### Example
 
@@ -561,9 +561,9 @@ new Chronos('2025-01-01').weekendsBetween('2025-01-10', 1, 2);
 
 ## weekendsInMonth()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.weekendsInMonth()`. Once registered, all `Chronos` instances will have access to the `.weekendsInMonth()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -614,9 +614,9 @@ new Chronos('2025-06-15').weekendsInMonth(1, 3);
 
 ## weekendsInYear()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.weekendsInYear()`. Once registered, all `Chronos` instances will have access to the `.weekendsInYear()` method.
-:::
+</Callout>
 
 ### Signatures
 

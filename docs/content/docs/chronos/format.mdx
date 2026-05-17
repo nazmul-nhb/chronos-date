@@ -7,9 +7,9 @@ title: Format Methods
 
 ## Format Tokens
 
-:::info
+<Callout type="info">
 `Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](#format), [`formatUTC`](#formatutc), and [`formatStrict`](#formatstrict) methods as well as for other methods and utilities like [`formatDate`](/docs/utilities/date/formatDate) that accept a format, and behave similarly to libraries like `Moment.js` or `Day.js`.
-:::
+</Callout>
 
 Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
 
@@ -43,7 +43,7 @@ Below is a list of all supported tokens:
 | <Copy text="a" />                            | am/pm                  | pm                |
 | <Copy text="ZZ" />                           | TZ Offset ±HH:mm       | +06:00 or Z (UTC) |
 
-:::danger[Note]
+<Callout type="error" title="Note">
 
 - To output raw text (i.e., not interpreted as a date token), wrap it in square brackets.
 - For example, `[Today is] ddd` results in `Today is Sunday`, and `YYYY[ year]` results in `2025 year`.
@@ -51,7 +51,7 @@ Below is a list of all supported tokens:
 - Supported format tokens include: `YYYY`, `YY`, `MMMM`, `MMM`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
 - *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
 
-:::
+</Callout>
 
 {/* markdownlint-disable-file MD024 */}
 ## format()
@@ -172,18 +172,18 @@ date.calendar(); // "Yesterday at [time]"
 
 ## fromNow()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `fromNowPlugin`. You must register it using `Chronos.use(fromNowPlugin)` before calling `.fromNow()`. Once registered, all `Chronos` instances will have access to the `.fromNow()` method.
-:::
+</Callout>
 
-:::info
+<Callout type="info">
 
 - This method calculates the **elapsed time difference** (excludes the end day), consistent with libraries like `Day.js` and `Luxon`.
 - If you need an *inclusive calendar-style* difference (counting both start and end days), adjust one day manually before calling `fromNow()`.
 - The smallest unit included can be customized via the `level` parameter (from `'year'` to `'millisecond'`).
 - Returns `"0 <unit>"` if no time difference is detected at the requested precision.
 
-:::
+</Callout>
 
 ### Signature
 
@@ -254,9 +254,9 @@ new Chronos().subtract(150, 'minutes').fromNowShort(); // "2h ago"
 
 ## getGreeting()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `greetingPlugin`. You must register it using `Chronos.use(greetingPlugin)` before calling `.getGreeting()`. Once registered, all `Chronos` instances will have access to the `.getGreeting()` method.
-:::
+</Callout>
 
 Returns a time-appropriate greeting message based on configurable time periods. Supports custom messages and time thresholds.
 

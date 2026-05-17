@@ -8,9 +8,9 @@ title: Comparison Methods
 
 ## compare()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.compare()`. Once registered, all `Chronos` instances will have access to the `.compare()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -33,9 +33,9 @@ compare(unit: TimeUnit = 'minute', time?: ChronosInput): number
 - Positive value indicates future time
 - Wrapper around the various `getRelativeUnit` methods
 
-:::tip
+<Callout type="info">
 To calculate accurate difference use [**diff()**](./calculation#diff) method.
-:::
+</Callout>
 
 ### Example
 
@@ -56,9 +56,9 @@ futureDate.compare('hour'); // 3
 
 ## getRelativeYear()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeYear()`. Once registered, all `Chronos` instances will have access to the `.getRelativeYear()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -96,9 +96,9 @@ date.getRelativeYear('2023-07-01'); // -3
 
 ## getRelativeMonth()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeMonth()`. Once registered, all `Chronos` instances will have access to the `.getRelativeMonth()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -136,9 +136,9 @@ date.getRelativeMonth('2023-03-20'); // -2
 
 ## getRelativeWeek()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeWeek()`. Once registered, all `Chronos` instances will have access to the `.getRelativeWeek()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -174,9 +174,9 @@ new Chronos().getRelativeWeek('2023-01-01'); // Weeks between dates
 
 ## getRelativeDay()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeDay()`. Once registered, all `Chronos` instances will have access to the `.getRelativeDay()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -220,9 +220,9 @@ tomorrow.getRelativeDay(); // 1
 
 ## getRelativeHour()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeHour()`. Once registered, all `Chronos` instances will have access to the `.getRelativeHour()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -254,9 +254,9 @@ date.getRelativeHour(); // 1 (full hours)
 
 ## getRelativeMinute()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeMinute()`. Once registered, all `Chronos` instances will have access to the `.getRelativeMinute()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -288,9 +288,9 @@ date.getRelativeMinute(); // 2 (full minutes)
 
 ## getRelativeSecond()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeSecond()`. Once registered, all `Chronos` instances will have access to the `.getRelativeSecond()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -322,9 +322,9 @@ date.getRelativeSecond(); // 1 (full seconds)
 
 ## getRelativeMilliSecond()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.getRelativeMilliSecond()`. Once registered, all `Chronos` instances will have access to the `.getRelativeMilliSecond()` method.
-:::
+</Callout>
 
 ### Signature
 

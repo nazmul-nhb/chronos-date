@@ -155,7 +155,7 @@ console.log(isValidTimeZoneId(null)); // → false
 - **Case-sensitive** - identifiers must match exactly (e.g., `'America/New_York'`, not `'america/new_york'`)
 - **Larger bundle size** - includes a comprehensive array of all IANA identifiers (597 entries, `~10.7 kilobytes` after minification)
 
-:::tip
+<Callout type="info">
 Full data is also available through this package subpath:
 
 ```ts
@@ -171,7 +171,7 @@ import { IANA_TZ_IDS, TIME_ZONE_IDS } from 'chronos-date/constants';
 }
 ```
 
-:::
+</Callout>
 
 ### When to Use
 
@@ -251,7 +251,7 @@ console.log(isNativeTimeZoneId(null)); // → false
 - **Optimal performance** - leverages native browser optimizations
 - **Note**: Some JS engines accept modern names in `DateTimeFormat` but don't include them in `supportedValuesOf()`
 
-:::tip
+<Callout type="info">
 Full data is also available through this package subpath:
 
 ```ts
@@ -267,7 +267,7 @@ import { TIME_ZONES_NATIVE } from 'chronos-date/constants';
 }
 ```
 
-:::
+</Callout>
 
 ### When to Use
 
@@ -297,27 +297,29 @@ if (!isNativeTimeZoneId(config.timezone)) {
 }
 ```
 
-:::::info[`isValidTimeZoneId` vs `isNativeTimeZoneId`]
+<Callout type="info" title="\`isValidTimeZoneId\` vs \`isNativeTimeZoneId\`">
 <br/>
-| Aspect           | `isValidTimeZoneId`                    | `isNativeTimeZoneId`                            |
+| Aspect           | \`isValidTimeZoneId\`                    | \`isNativeTimeZoneId\`                            |
 | ---------------- | -------------------------------------- | ----------------------------------------------- |
 | **Coverage**     | 597 identifiers (full IANA database)   | 418 identifiers (engine-dependent legacy names) |
-| **Modern Names** | ✅ Includes `Asia/Kolkata` (canonical) | ❌ Usually only `Asia/Calcutta` (legacy)        |
+| **Modern Names** | ✅ Includes \`Asia/Kolkata\` (canonical) | ❌ Usually only \`Asia/Calcutta\` (legacy)        |
 | **Bundle Size**  | Larger (includes array of identifiers) | Minimal (uses native APIs)                      |
 | **Performance**  | Good                                   | Excellent (native optimized)                    |
 | **Use Case**     | Modern apps, future-proofing           | JS engine compatibility, performance            |
 
-:::tip[Important Note on JavaScript Engine Behavior]
+</Callout>
+
+<Callout type="info" title="Important Note on JavaScript Engine Behavior">
 
 JavaScript engines have an interesting inconsistency:
 
-- `Intl.supportedValuesOf('timeZone')` typically returns some legacy names like `Asia/Calcutta`
-- But `new Intl.DateTimeFormat().format()` often accepts modern names like `Asia/Kolkata` and works correctly
+- \`Intl.supportedValuesOf('timeZone')\` typically returns some legacy names like \`Asia/Calcutta\`
+- But \`new Intl.DateTimeFormat().format()\` often accepts modern names like \`Asia/Kolkata\` and works correctly
 
-This means `isNativeTimeZoneId` is stricter about what the engine explicitly "supports" vs what might actually work.
-:::
+This means \`isNativeTimeZoneId\` is stricter about what the engine explicitly "supports" vs what might actually work.
+</Callout>
 
-:::tip[Decision Guide]
+<Callout type="info" title="Decision Guide">
 
 **Use `isValidTimeZoneId` when:**
 
@@ -333,7 +335,7 @@ This means `isNativeTimeZoneId` is stricter about what the engine explicitly "su
 - Performance is critical
 - You're working with data that might come from `Intl.supportedValuesOf()`
 
-:::
+</Callout>
 
 **Practical Example**
 
@@ -360,12 +362,12 @@ console.log(new Intl.DateTimeFormat('en', {
 }).format(date)); // → Also works!
 ```
 
-:::tip[Recommendation]
+<Callout type="info" title="Recommendation">
 
 For most applications, **use `isValidTimeZoneId`** as it provides modern, future-proof validation. Use `isNativeTimeZoneId` only when you specifically need to validate against what the JS engine explicitly reports as supported.
-:::
+</Callout>
 
-:::::
+
 
 ---
 

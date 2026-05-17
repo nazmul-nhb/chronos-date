@@ -62,23 +62,23 @@ console.log(modified.origin); // "clone"
 | `new Chronos()`  | New instance      | ❌ No              | ⚠️ Slight overhead   |
 | Direct reference | Same instance     | ✅ Yes             | ✅ Best              |
 
-:::tip
+<Callout type="info">
 Use `clone()` when you need:
 
 - Explicit control over instance creation
 - To preserve metadata history
 - Clear code semantics around date derivation
 
-:::
+</Callout>
 
-:::info[NOTE]
+<Callout type="info" title="NOTE">
 While `Chronos's` immutability makes cloning less critical for safety, it remains valuable for:
 
 - Tracking different origin points in complex date pipelines
 - Integration with systems that care about object identity
 - Making derivation operations more explicit in code
 
-:::
+</Callout>
 
 ---
 
@@ -154,9 +154,9 @@ Chronos.utc('2025-01-15').toLocal(); // Local time instance
 
 Creates a new instance of `Chronos` for the specified time zone identifier, abbreviated time zone name or UTC offset.
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `timeZonePlugin`. You must register it using `Chronos.use(timeZonePlugin)` before calling `.timeZone()`. Once registered, all `Chronos` instances will have access to the `.timeZone()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -237,9 +237,9 @@ const customOffset = new Chronos('2025-01-15').timeZone('UTC+06:30');
 
 ## nextWorkday()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.nextWorkday()`. Once registered, all `Chronos` instances will have access to the `.nextWorkday()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -296,9 +296,9 @@ new Chronos().nextWorkday([5, 6, 0]);
 
 ## nextWeekend()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.nextWeekend()`. Once registered, all `Chronos` instances will have access to the `.nextWeekend()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -355,9 +355,9 @@ new Chronos().nextWeekend([0, 5, 6]);
 
 ## previousWorkday()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.previousWorkday()`. Once registered, all `Chronos` instances will have access to the `.previousWorkday()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -414,9 +414,9 @@ new Chronos().previousWorkday([5, 6, 0]);
 
 ## previousWeekend()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.previousWeekend()`. Once registered, all `Chronos` instances will have access to the `.previousWeekend()` method.
-:::
+</Callout>
 
 ### Signatures
 

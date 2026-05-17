@@ -37,12 +37,12 @@ new Chronos('2025-05-29').day(); // "Thursday"
 new Chronos().day(0);            // "Sunday"
 ```
 
-:::info
+<Callout type="info">
 
 - This method supports overriding the current day with a specific index.
 - Internally, it maps indices `0–6` to the English names of the weekdays.
 
-:::
+</Callout>
 
 ---
 
@@ -71,12 +71,12 @@ new Chronos('2025-05-29').monthName(); // "May"
 new Chronos().monthName(11);           // "December"
 ```
 
-:::info
+<Callout type="info">
 
 - This method supports overriding the current month with a specific index.
 - Internally, it maps indices `0–11` to the English names of the months.
 
-:::
+</Callout>
 
 ---
 
@@ -182,9 +182,9 @@ console.log(ch.$getNativeTimeZoneId()); // → "Asia/Dhaka"
 
 Get full time zone name or UTC offset
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `timeZonePlugin`. You must register it using `Chronos.use(timeZonePlugin)` before calling `.getTimeZoneName()`. Once registered, all `Chronos` instances will have access to the `.getTimeZoneName()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -221,7 +221,7 @@ new Chronos().getTimeZoneName('UTC+06:15');
 // → "UTC+06:15" (no matching time zone found)
 ```
 
-:::info
+<Callout type="info">
 
 - This method uses a **predefined mapping of UTC offsets** to time zone names.
 - If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
@@ -230,7 +230,7 @@ new Chronos().getTimeZoneName('UTC+06:15');
 - To retrieve the local system's native time zone name (or its identifier if the name is unavailable), use the [**$getNativeTimeZoneName**](#getnativetimezonename) instance method.
 - To retrieve the local system's native time zone identifier, use the [**$getNativeTimeZoneId**](#getnativetimezoneid) instance method.
 
-:::
+</Callout>
 
 ---
 
@@ -238,9 +238,9 @@ new Chronos().getTimeZoneName('UTC+06:15');
 
 Get abbreviated time zone name or UTC offset
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `timeZonePlugin`. You must register it using `Chronos.use(timeZonePlugin)` before calling `.getTimeZoneNameShort()`. Once registered, all `Chronos` instances will have access to the `.getTimeZoneNameShort()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -277,7 +277,7 @@ new Chronos().getTimeZoneNameShort('UTC+06:15');
 // → "UTC+06:15" (no matching time zone found)
 ```
 
-:::info
+<Callout type="info">
 
 - This method uses a **predefined mapping of UTC offsets** to time zone names.
 - If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
@@ -286,7 +286,7 @@ new Chronos().getTimeZoneNameShort('UTC+06:15');
 - To retrieve the local system's native time zone name (or its identifier if the name is unavailable), use the [**$getNativeTimeZoneName**](#getnativetimezonename) instance method.
 - To retrieve the local system's native time zone identifier, use the [**$getNativeTimeZoneId**](#getnativetimezoneid) instance method.
 
-:::
+</Callout>
 
 ### ALias
 
@@ -312,9 +312,9 @@ season(options?: SeasonOptions): string
 
 The `season()` method determines the current season based on either predefined regional presets or custom season definitions. It supports both month-based and exact date-based season boundaries.
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `seasonPlugin`. You must register it using `Chronos.use(seasonPlugin)` before calling `.season()`. Once registered, all `Chronos` instances will have access to the `.season()` method.
-:::
+</Callout>
 
 ### Usage
 
@@ -366,13 +366,13 @@ Boundary can be either:
 - **Month-based**: `{ startMonth: 0-11, endMonth: 0-11 }` (0=January)
 - **Date-based**: `{ startDate: 'MM-DD', endDate: 'MM-DD' }`
 
-:::caution[Boundary Handling]
+<Callout type="caution" title="Boundary Handling">
 
 - Supports wrap-around seasons (e.g., Winter: Dec-Feb)
 - Boundaries are inclusive
 - Returns `'Unknown'` if no season matches
 
-:::
+</Callout>
 
 ### Available Presets
 
@@ -505,7 +505,7 @@ Boundary can be either:
 
 </Tabs>
 
-:::tip[Custom Seasons]
+<Callout type="info" title="Custom Seasons">
 You can create completely custom season configurations by providing your own array of `SeasonDefinition` objects:
 
 ```ts
@@ -518,7 +518,7 @@ const gamingSeasons = [
 const currentSeason = new Chronos().season({ seasons: gamingSeasons });
 ```
 
-:::
+</Callout>
 
 ### Type Definitions
 
@@ -548,9 +548,9 @@ interface MonthBoundary {
 }
 ```
 
-:::danger[Note]
+<Callout type="error" title="Note">
 When using month-based boundaries (`MonthBoundary`), the season calculation only considers the month component and ignores specific dates within the month.
-:::
+</Callout>
 
 ---
 
@@ -570,9 +570,9 @@ getZodiacSign<Sign extends string = ZodiacSign>(options?: ZodiacOptions<Sign>): 
 
 The `getZodiacSign()` method determines the zodiac sign based on either predefined presets (Western or Vedic) or custom zodiac definitions. It supports both instance date and custom birthdate inputs.
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `zodiacPlugin`. You must register it using `Chronos.use(zodiacPlugin)` before calling `.getZodiacSign()`. Once registered, all `Chronos` instances will have access to the `.getZodiacSign()` method.
-:::
+</Callout>
 
 ### Usage
 
@@ -668,7 +668,7 @@ interface ZodiacOptions<Sign extends string = ZodiacSign> {
 
 </Tabs>
 
-:::tip[Custom Zodiac]
+<Callout type="info" title="Custom Zodiac">
 You can create custom zodiac configurations by providing your own array of zodiac definitions with any zodiac sign names:
 
 ```ts
@@ -685,7 +685,7 @@ const customZodiac = [
 const currentSign = new Chronos().getZodiacSign({ custom: customZodiac });
 ```
 
-:::
+</Callout>
 
 ### Type Definitions
 
@@ -697,13 +697,13 @@ type ZodiacArray<Sign extends string = ZodiacSign> = Array<
 >;
 ```
 
-:::info[Date Handling]
+<Callout type="info" title="Date Handling">
 
 - Month values are 1-based (1 = January)
 - Supports both instance date and custom `birthDate` input
 - Returns the first sign if no matches found (shouldn't occur with presets or proper definitions)
 
-:::
+</Callout>
 
 ---
 
@@ -719,9 +719,9 @@ getZodiacMeta<Sign extends string = ZodiacSign>(sign: Sign, options?: ZodiacMeta
 
 The `getZodiacMeta()` method retrieves detailed metadata for a specific zodiac sign based on either predefined presets (Western or Vedic) or custom zodiac definitions. It returns the sign's chronological position, inclusive date range, and handles year-boundary wrapping correctly.
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `zodiacPlugin`. You must register it using `Chronos.use(zodiacPlugin)` before calling `.getZodiacMeta()`. Once registered, all `Chronos` instances will have access to the `.getZodiacMeta()` method.
-:::
+</Callout>
 
 ### Usage
 
@@ -805,14 +805,14 @@ interface ZodiacMeta<Sign extends string = ZodiacSign> {
 
 The `index` property represents the chronological position (0-based) of the zodiac sign within the resolved and sorted zodiac list.
 
-:::warning[Important Notes about Index]
+<Callout type="warning" title="Important Notes about Index">
 
 - The index is determined by the Gregorian month–day ordering of zodiac start dates
 - Index values may differ between zodiac variants (e.g., Western vs Vedic)
 - This index **should not** be interpreted as a traditional or mythological zodiac ordering
 - It's primarily useful for programmatic sorting and comparison within the same zodiac variant
 
-:::
+</Callout>
 
 ### Available Presets
 
@@ -941,9 +941,9 @@ function isDateInSign(date: MonthDateString, sign: string): boolean {
 
 ## getPartOfDay()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `dayPartPlugin`. You must register it using `Chronos.use(dayPartPlugin)` before calling `.getPartOfDay()`. Once registered, all `Chronos` instances will have access to the `.getPartOfDay()` method.
-:::
+</Callout>
 
 ### Signature
 

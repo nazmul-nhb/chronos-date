@@ -5,11 +5,11 @@ title: Checker Methods
 
 {/* markdownlint-disable-file MD024 */}
 
-:::tip
+<Callout type="info">
 
 When comparing weeks, the `weekStartsOn` parameter (when available) determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
 
-:::
+</Callout>
 
 ## isBefore()
 
@@ -318,9 +318,9 @@ new Chronos('2025-01-10').isEqualOrAfter('2025-01-15'); // false
 
 ## isToday()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.isToday()`. Once registered, all `Chronos` instances will have access to the `.isToday()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -347,9 +347,9 @@ new Chronos().isToday(); // true
 
 ## isTomorrow()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.isTomorrow()`. Once registered, all `Chronos` instances will have access to the `.isTomorrow()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -376,9 +376,9 @@ new Chronos().add(1, 'day').isTomorrow(); // true
 
 ## isYesterday()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling `.isYesterday()`. Once registered, all `Chronos` instances will have access to the `.isYesterday()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -405,9 +405,9 @@ new Chronos().subtract(1, 'day').isYesterday(); // true
 
 ## isWeekend()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.isWeekend()`. Once registered, all `Chronos` instances will have access to the `.isWeekend()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -455,9 +455,9 @@ new Chronos().isWeekend([0, 5, 6]);
 
 ## isWorkday()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.isWorkday()`. Once registered, all `Chronos` instances will have access to the `.isWorkday()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -489,16 +489,16 @@ Chronos.use(businessPlugin);
 new Chronos('2025-01-16').isWorkday(); // true (Thursday)
 ```
 
-:::tip[Hint]
+<Callout type="info" title="Hint">
 This method internally uses [**isWeekend**](#isweekend) method.
-:::
+</Callout>
 ---
 
 ## isBusinessHour()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.isBusinessHour()`. Once registered, all `Chronos` instances will have access to the `.isBusinessHour()` method.
-:::
+</Callout>
 
 ### Signatures
 
@@ -558,19 +558,17 @@ new Chronos().isBusinessHour({ weekendDays: [0, 2, 4] });
 new Chronos().isBusinessHour({ weekendLength: 3 });
 ```
 
-:::
-
-:::tip[Note]
+<Callout type="info" title="Note">
 Weekends are determined by `weekStartsOn` and `weekendLength` or `weekdays` array if provided using the [**isWeekend**](#isweekend) method.
-:::
+</Callout>
 
 ---
 
 ## isPalindromeDate()
 
-:::danger[Note]
+<Callout type="error" title="Note">
 This method is provided by `palindromePlugin`. You must register it using `Chronos.use(palindromePlugin)` before calling `.isPalindromeDate()`. Once registered, all `Chronos` instances will have access to the `.isPalindromeDate()` method.
-:::
+</Callout>
 
 ### Signature
 
@@ -610,11 +608,11 @@ isDST(): boolean
 
 `boolean` - Returns `true` if the date is in Daylight Saving Time for the current timezone
 
-:::info Note
+<Callout type="info" title="Note">
 
 - Detection is based on the system's timezone settings
 - Only accurate for timezones that observe DST
-:::
+</Callout>
 
 ### Example
 
@@ -672,7 +670,7 @@ new Chronos('2025-01-31').isLastDayOfMonth(); // true
 
 Checks if the current year is a leap year.
 
-:::info
+<Callout type="info">
 
 - A year is a leap year if it is divisible by 4.
 - However, years divisible by 100 are not leap years **unless** they are also divisible by 400.
@@ -681,7 +679,7 @@ Checks if the current year is a leap year.
   - `2000`, `2400` → leap years ✅
   - `1900`, `2100` → not leap years ❌
 
-:::
+</Callout>
 
 ### Signature
 
