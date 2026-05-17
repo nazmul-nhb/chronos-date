@@ -85,7 +85,9 @@ Returns the underlying native JavaScript `Date` object used internally by the `C
 Equivalent to [`toDate()`](conversion#todate) instance method.
 </Callout>
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const ch = new Chronos('2025-01-01');
 console.log(ch.native.toISOString()); // → 2025-01-01T00:00:00.000Z
 ```
@@ -99,7 +101,9 @@ Possible values:
 - `'root'`: if the instance was directly constructed
 - A method name string such as `'addDays'`, `'startOf'`, etc., if the instance was produced as the result of a method call (which can create a new instance of `Chronos`). If no such method was called it shows the last previous method name as `origin`, if there is none, it shows `root`.
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const root = new Chronos();
 const viaMethod = root.addDays(3);
 
@@ -118,9 +122,14 @@ Returns the current UTC offset in `UTC±HH:mm` format (e.g., `"UTC+06:00"`, `"UT
 
 </Callout>
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
 const ch = new Chronos('2025-01-01');
-console.log(ch.utcOffset); // → "UTC+06:00"
+console.log(ch.utcOffset); // → "UTC+06:00" (Local Timezone Offset)
 
 const ny = ch.timeZone('America/New_York');
 console.log(ny.utcOffset); // → "UTC-05:00" (or UTC-04:00 during DST)
@@ -141,9 +150,14 @@ Represents the current timezone name (e.g., `"Bangladesh Standard Time"`), or fa
 
 </Callout>
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
 const ch = new Chronos('2025-01-01');
-console.log(ch.timeZoneName); // → "Bangladesh Standard Time"
+console.log(ch.timeZoneName); // → "Bangladesh Standard Time" (Local Timezone Name)
 
 const custom = ch.timeZone('UTC+02:45');
 console.log(custom.timeZoneName); // → "UTC+02:45" (no named timezone)
@@ -171,7 +185,12 @@ Represents the current timezone context, which can be a single identifier, an ar
 
 </Callout>
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
 const ch = new Chronos('2025-01-01');
 console.log(ch.timeZoneId); // → "Asia/Dhaka" (system timezone)
 
@@ -192,6 +211,21 @@ This property is mutable, but modifying it has no effect on the `Chronos` instan
 <Callout type="error">
 _**[Protected]**_ Internal flag used to track instances created via the [`timeZone()`](conversion#timezone) method. This value participates in the internal resolution of time-zone name, identifier, and offset. _Although it is protected_, it can still be mutated in JavaScript/TypeScript; and doing so may de-synchronize these time-zone properties and lead to inconsistent results. _Avoid modifying this field unless you fully understand the implications_.
 </Callout>
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+// Can access but TypeScript may complain
+
+const ch = new Chronos('2025-01-01');
+console.log(ch.$tzTracker); // → undefined
+
+const custom = ch.timeZone('Asia/Kolkata');
+console.log(custom.$tzTracker); // → "Asia/Kolkata"
+```
 
 ### Available Methods
 

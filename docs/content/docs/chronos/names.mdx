@@ -32,12 +32,17 @@ day(index?: Enumerate<7>): WeekDay
 
 ### Example Usage
 
-```ts
-new Chronos('2025-05-29').day(); // "Thursday"
-new Chronos().day(0);            // "Sunday"
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const today = new Chronos('2025-05-29').day(); // "Thursday"
+console.log(today);
+
+const sunday = new Chronos().day(0);            // "Sunday"
+console.log(sunday);
 ```
 
-<Callout type="info">
+<Callout type="info" title="Remarks">
 
 - This method supports overriding the current day with a specific index.
 - Internally, it maps indices `0–6` to the English names of the weekdays.
@@ -100,7 +105,9 @@ $getNativeTimeZoneName(tzId?: $TimeZoneIdentifier): LooseLiteral<TimeZoneNameNat
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const ch = new Chronos('2025-01-15');
 
 // Get native timezone name
@@ -119,7 +126,9 @@ console.log(ch.$getNativeTimeZoneName());
 
 ### Usage Notes
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const ch = new Chronos('2025-01-15').timeZone('UTC+02:45');
 
 // These reflect the modified instance's timezone
@@ -147,7 +156,9 @@ $getNativeTimeZoneId(): TimeZoneIdNative
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const ch = new Chronos('2025-01-15');
 
 // Get native IANA timezone identifier
@@ -166,7 +177,9 @@ console.log(ch.$getNativeTimeZoneId());
 
 ### Usage Notes
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const ch = new Chronos('2025-01-15').timeZone('UTC+02:45');
 
 // These reflect the modified instance's timezone
@@ -203,22 +216,24 @@ getTimeZoneName(utc?: UTCOffset): LooseLiteral<UTCOffset>
 
 ### Example Usage
 
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
 
 Chronos.use(timeZonePlugin);
 
-new Chronos().getTimeZoneName(); // "Bangladesh Standard Time"
+const currentTzName = new Chronos().getTimeZoneName(); // "Bangladesh Standard Time" (System time zone name)
+console.log(currentTzName);
 
 // If it's a custom time zone or does not math with predefined time zones:
-new Chronos().getTimeZoneName(); // "UTC+06:45"
+const customTimeZone = new Chronos().timeZone('UTC+06:45').getTimeZoneName(); // "UTC+06:45"
+console.log(customTimeZone);
 
-new Chronos().getTimeZoneName('UTC+03:00'); 
-// → "Arab Standard Time" (uses provided offset)
+const utcPlus3 = new Chronos().getTimeZoneName('UTC+03:00');
+console.log(utcPlus3); // → "Arab Standard Time" (uses provided offset)
 
-new Chronos().getTimeZoneName('UTC+06:15'); 
-// → "UTC+06:15" (no matching time zone found)
+const utcPlus615 = new Chronos().getTimeZoneName('UTC+06:15');
+console.log(utcPlus615); // → "UTC+06:15" (no matching time zone found)
 ```
 
 <Callout type="info">
@@ -259,22 +274,24 @@ getTimeZoneNameShort(utc?: UTCOffset): TimeZone | UTCOffset
 
 ### Example Usage
 
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
 
 Chronos.use(timeZonePlugin);
 
-new Chronos().getTimeZoneNameShort(); // "BST"
+const currentTzShort = new Chronos().getTimeZoneNameShort(); // "BST" (System time zone abbreviation)
+console.log(currentTzShort);
 
-// If it's a custom time zone or does not math with predefined time zones:
-new Chronos().getTimeZoneNameShort(); // "UTC+06:45"
+// If it's a custom time zone or does not match with predefined time zones:
+const customTimeZone = new Chronos().timeZone('UTC+06:45').getTimeZoneNameShort(); // "UTC+06:45"
+console.log(customTimeZone);
 
-new Chronos().getTimeZoneNameShort('UTC+03:00'); 
-// → "Arab Standard Time" (uses provided offset)
+const utcPlus3 = new Chronos().getTimeZoneNameShort('UTC+03:00');
+console.log(utcPlus3); // → "AST" (uses provided offset)
 
-new Chronos().getTimeZoneNameShort('UTC+06:15'); 
-// → "UTC+06:15" (no matching time zone found)
+const utcPlus615 = new Chronos().getTimeZoneNameShort('UTC+06:15');
+console.log(utcPlus615); // → "UTC+06:15" (no matching time zone found)
 ```
 
 <Callout type="info">
@@ -318,7 +335,7 @@ This method is provided by `seasonPlugin`. You must register it using `Chronos.u
 
 ### Usage
 
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { seasonPlugin } from 'chronos-date/plugins/seasonPlugin';
 
@@ -332,10 +349,11 @@ console.log(now.season()); // "Spring" (if between March-May)
 console.log(now.season({ preset: 'japan' }));
 
 // Custom seasons
-const customSeasons = [
-  { name: 'Peak Time', boundary: { startDate: '11-20', endDate: '01-10' } }
-];
-console.log(now.season({ seasons: customSeasons }));
+console.log(now.season({
+  seasons: [
+    { name: 'Peak Time', boundary: { startDate: '11-20', endDate: '01-10' } }
+  ]
+}));
 ```
 
 ### Configuration
@@ -576,7 +594,7 @@ This method is provided by `zodiacPlugin`. You must register it using `Chronos.u
 
 ### Usage
 
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';
 
@@ -725,17 +743,17 @@ This method is provided by `zodiacPlugin`. You must register it using `Chronos.u
 
 ### Usage
 
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';
 
 Chronos.use(zodiacPlugin);
 
 // Using default preset (Western)
-const chronos = new Chronos();
+const now = new Chronos();
 
 // Get metadata for a specific sign
-const ariesMeta = chronos.getZodiacMeta('Aries');
+const ariesMeta = now.getZodiacMeta('Aries');
 console.log(ariesMeta);
 // {
 //   index: 2,
@@ -745,7 +763,7 @@ console.log(ariesMeta);
 // }
 
 // Using Vedic preset
-const vedicAriesMeta = chronos.getZodiacMeta('Aries', { preset: 'vedic' });
+const vedicAriesMeta = now.getZodiacMeta('Aries', { preset: 'vedic' });
 console.log(vedicAriesMeta);
 // {
 //   index: 3,
@@ -764,7 +782,7 @@ const customZodiac = [
   ['F', [2, 15]],
 ] as const;
 
-const signMeta = chronos.getZodiacMeta('D', { custom: customZodiac });
+const signMeta = now.getZodiacMeta('D', { custom: customZodiac });
 console.log(signMeta);
 // {
 //   index: 3,
@@ -867,11 +885,16 @@ The same presets as [**getZodiacSign()**](#available-presets-1) are available:
 
 The method correctly handles zodiac signs that wrap around year boundaries:
 
-```ts
-const chronos = new Chronos();
+```ts pg
+import { Chronos } from 'chronos-date';
+import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';
+
+Chronos.use(zodiacPlugin);
+
+const now = new Chronos();
 
 // Capricorn spans December to January
-const capricornMeta = chronos.getZodiacMeta('Capricorn');
+const capricornMeta = now.getZodiacMeta('Capricorn');
 console.log(capricornMeta);
 // {
 //   index: 11,
@@ -881,7 +904,7 @@ console.log(capricornMeta);
 // }
 
 // Sagittarius is entirely within one year
-const sagittariusMeta = chronos.getZodiacMeta('Sagittarius');
+const sagittariusMeta = now.getZodiacMeta('Sagittarius');
 console.log(sagittariusMeta);
 // {
 //   index: 10,
@@ -895,9 +918,17 @@ console.log(sagittariusMeta);
 
 The method throws a `RangeError` if the provided sign does not exist in the resolved zodiac list:
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';
+
+Chronos.use(zodiacPlugin);
+
+const now = new Chronos();
+
 try {
-  const meta = chronos.getZodiacMeta('NonExistentSign');
+  const meta = now.getZodiacMeta('NonExistentSign');
+  console.log(meta)
 } catch (error) {
   console.error(error.message); 
   // "Invalid zodiac sign: 'NonExistentSign'"
@@ -972,11 +1003,13 @@ getPartOfDay(config?: Partial<DayPartConfig>): DayPart
 
 ### Example
 
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { dayPartPlugin } from 'chronos-date/plugins/dayPartPlugin';
 
 Chronos.use(dayPartPlugin);
 
-new Chronos('2025-01-15T09:00:00').getPartOfDay(); // "morning"
+const part = new Chronos('2025-01-15T09:00:00').getPartOfDay(); 
+console.log(part)
+// "morning"
 ```

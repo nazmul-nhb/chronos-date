@@ -8,7 +8,7 @@
 	"scripts": {
 		"build": "tsdown",
 		"dev:pkg": "tsdown --watch",
-		"dev:docs": "pnpm --filter chronos-date-docs dev",
+		"dev": "pnpm --filter chronos-date-docs dev",
 		"build:docs": "pnpm --filter chronos-date-docs build",
 		"typecheck": "tsc --noEmit",
 		"prepublishOnly": "pnpm run build",

@@ -1,8 +1,8 @@
 'use client';
 
-import Editor, { useMonaco } from '@monaco-editor/react';
+import Editor, { type OnMount, useMonaco } from '@monaco-editor/react';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { transform } from 'sucrase';
 import { Copy } from '@/components/Copy';
 import { ChronosDate, type ChronosModule, MODULES } from '@/lib/generated-modules';
@@ -13,10 +13,13 @@ interface PlaygroundProps {
 }
 
 export function Playground({ code: initialCode }: PlaygroundProps) {
+	const monaco = useMonaco();
 	const [code, setCode] = useState(initialCode);
 	const [outputs, setOutputs] = useState<unknown[]>([]);
 	const [error, setError] = useState<string | null>(null);
-	const monaco = useMonaco();
+	const [editorHeight, setEditorHeight] = useState(256);
+
+	const editorRef = useRef<Parameters<OnMount>[0]>(null);
 
 	// Each playground instance needs a unique Monaco model path.
 	// Without this, multiple playgrounds on the same page share a single
@@ -24,6 +27,18 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 	const id = useId();
 
 	const modelPath = `file:///playground-${id}.ts`;
+
+	const updateEditorHeight = () => {
+		const editor = editorRef.current;
+
+		if (!editor) return;
+
+		const contentHeight = editor.getContentHeight();
+
+		setEditorHeight(Math.min(320, contentHeight));
+
+		editor.layout();
+	};
 
 	// Load chronos-date types into Monaco for IntelliSense
 	useEffect(() => {
@@ -126,9 +141,12 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 				</div>
 			</div>
 
-			<div className="min-h-30 h-fit max-h-80 relative">
+			<div
+				className="relative overflow-hidden max-h-80"
+				style={{ height: `${editorHeight}px` }}
+			>
 				<Editor
-					height="256px"
+					height={`${editorHeight}px`}
 					defaultLanguage="typescript"
 					path={modelPath}
 					loading={
@@ -143,7 +161,17 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					theme="vs-dark"
 					value={code}
 					onChange={(val) => setCode(val || '')}
+					onMount={(editor) => {
+						editorRef.current = editor;
+
+						updateEditorHeight();
+
+						editor.onDidContentSizeChange(() => {
+							updateEditorHeight();
+						});
+					}}
 					options={{
+						automaticLayout: true,
 						minimap: { enabled: false },
 						fontSize: 13.5,
 						wordWrap: 'on',

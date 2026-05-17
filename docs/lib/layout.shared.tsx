@@ -23,7 +23,7 @@ export function baseOptions(): BaseLayoutProps {
 		],
 		themeSwitch: {
 			mode: 'light-dark-system',
-			defaultValue: 'system',
+			defaultValue: 'dark',
 		},
 		githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
 	};

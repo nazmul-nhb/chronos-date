@@ -101,8 +101,11 @@ getTimeStamp(): number
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const timestamp = new Chronos('2025-01-01').getTimeStamp();
+console.log(timestamp);
 // Returns: 1735689600000 (exact timestamp for midnight Jan 1, 2025 UTC)
 
 // Comparison with native Date
