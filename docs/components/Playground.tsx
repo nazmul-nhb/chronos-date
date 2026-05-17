@@ -2,7 +2,7 @@
 
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { transform } from 'sucrase';
 import { Copy } from '@/components/Copy';
 import { ChronosDate, type ChronosModule, MODULES } from '@/lib/generated-modules';
@@ -17,6 +17,13 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 	const [outputs, setOutputs] = useState<unknown[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const monaco = useMonaco();
+
+	// Each playground instance needs a unique Monaco model path.
+	// Without this, multiple playgrounds on the same page share a single
+	// model and all display the first block's content.
+	const id = useId();
+
+	const modelPath = `file:///playground-${id}.ts`;
 
 	// Load chronos-date types into Monaco for IntelliSense
 	useEffect(() => {
@@ -119,11 +126,20 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 				</div>
 			</div>
 
-			<div className="min-h-30 relative">
+			<div className="min-h-30 h-fit max-h-80 relative">
 				<Editor
-					height="240px"
+					height="256px"
 					defaultLanguage="typescript"
-					path="file:///playground.ts"
+					path={modelPath}
+					loading={
+						<div className="w-full h-full flex flex-col gap-2.5 p-4 bg-[#1e1e2e]">
+							<div className="h-4 w-1/2 bg-white/5 rounded animate-pulse" />
+							<div className="h-4 w-3/4 bg-white/5 rounded animate-pulse" />
+							<div className="h-4 w-2/5 bg-white/5 rounded animate-pulse" />
+							<div className="h-4 w-4/5 bg-white/5 rounded animate-pulse" />
+							<div className="h-4 w-1/3 bg-white/5 rounded animate-pulse" />
+						</div>
+					}
 					theme="vs-dark"
 					value={code}
 					onChange={(val) => setCode(val || '')}
@@ -131,20 +147,20 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 						minimap: { enabled: false },
 						fontSize: 13.5,
 						wordWrap: 'on',
-						// allowOverflow: false,
 						fontFamily: 'var(--font-mono)',
 						lineHeight: 1.6,
 						padding: { top: 16, bottom: 16 },
 						scrollBeyondLastLine: false,
 						overviewRulerLanes: 0,
-						// hideCursorInOverviewRuler: true,
+						renderLineHighlight: 'none',
 						scrollbar: {
 							verticalScrollbarSize: 6,
 							horizontalScrollbarSize: 6,
 						},
+						// allowOverflow: false,
+						// hideCursorInOverviewRuler: true,
 						// fixedOverflowWidgets: true,
 						// overflowWidgetsDomNode: document.body,
-						renderLineHighlight: 'none',
 					}}
 				/>
 			</div>

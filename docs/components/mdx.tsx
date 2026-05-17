@@ -2,8 +2,23 @@ import * as Twoslash from 'fumadocs-twoslash/ui';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
-import { Copy } from './Copy';
-import { Playground } from './Playground';
+import type { ReactElement, ReactNode } from 'react';
+import { Copy } from '@/components/Copy';
+import { Playground } from '@/components/Playground';
+import type { CodeChildProps, Maybe, PreProps } from '@/types/index';
+
+function isNodeCodeChild(node: unknown): node is ReactElement<CodeChildProps> {
+	return typeof node === 'object' && node !== null && 'props' in node;
+}
+
+/** Recursively extracts raw text from a React node tree (Shiki spans → plain string). */
+function extractText(node: ReactNode): string {
+	if (typeof node === 'string' || typeof node === 'number') return String(node);
+	if (Array.isArray(node)) return node.map(extractText).join('');
+	if (isNodeCodeChild(node)) return extractText(node.props.children);
+
+	return '';
+}
 
 export function getMDXComponents(components?: MDXComponents) {
 	return {
@@ -12,34 +27,27 @@ export function getMDXComponents(components?: MDXComponents) {
 		...TabsComponents,
 		Playground,
 		Copy,
-		// biome-ignore lint/suspicious/noExplicitAny: need any here
-		pre: (props: any) => {
-			let isRunnable =
-				props.runnable ||
-				props.className?.includes('runnable') ||
-				props['data-runnable'];
+		pre: (props: PreProps) => {
+			const child = props.children;
+
+			// Check for playground trigger: `runnable`, `pg`, or `data-pg` in meta/props/className
+			const hasTrigger = (src: Maybe<CodeChildProps>) =>
+				src?.runnable ||
+				src?.className?.includes('runnable') ||
+				src?.['data-runnable'] ||
+				src?.['data-pg'] ||
+				src?.meta?.includes('runnable') ||
+				src?.meta?.includes('pg');
+
+			const childProps: Maybe<CodeChildProps> = isNodeCodeChild(child)
+				? child.props
+				: undefined;
+
+			const isRunnable = hasTrigger(props) || hasTrigger(childProps);
 
 			let rawCode = '';
-			const child = props.children;
-			if (child?.props) {
-				if (!isRunnable) {
-					isRunnable =
-						child.props.runnable ||
-						child.props.className?.includes('runnable') ||
-						child.props['data-runnable'] ||
-						child.props.meta?.includes('runnable');
-				}
-
-				// Extract text from potentially complex React elements (spans for syntax highlighting)
-				// biome-ignore lint/suspicious/noExplicitAny: need any here
-				const extractText = (node: any): string => {
-					if (typeof node === 'string' || typeof node === 'number')
-						return String(node);
-					if (Array.isArray(node)) return node.map(extractText).join('');
-					if (node?.props?.children) return extractText(node.props.children);
-					return '';
-				};
-				rawCode = extractText(child.props.children);
+			if (childProps) {
+				rawCode = extractText(childProps.children);
 			} else if (typeof child === 'string') {
 				rawCode = child;
 			}
@@ -55,7 +63,3 @@ export function getMDXComponents(components?: MDXComponents) {
 }
 
 export const useMDXComponents = getMDXComponents;
-
-declare global {
-	type MDXProvidedComponents = ReturnType<typeof getMDXComponents>;
-}

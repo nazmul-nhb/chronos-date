@@ -44,8 +44,8 @@ date.monthName; // "December"
 
 ## Basic Operations
 
-<Playground code={
-      `import { Chronos } from "chronos-date";
+```ts pg
+import { Chronos } from "chronos-date";
 
 const date = new Chronos("2025-06-15");
 
@@ -59,10 +59,9 @@ console.log(date.subtract(1, "month").format("YYYY-MM-DD"));
 
 // Comparison
 const other = new Chronos("2025-07-01");
-console.log("Is before July?", date.isBefore(other));
-console.log("Days between:", date.diff(other, "day"));`
-}
-/>
+console.log("Is before July?", date.isBefore(other, "month"));
+console.log("Days between:", date.diff(other, "day"));
+```
 
 ## Using Plugins
 

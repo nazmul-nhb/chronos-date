@@ -20,16 +20,15 @@ description: A flexible, plugin-driven date-time library for JavaScript and Type
 
 ## Quick Example
 
-<Playground
-  code={`import { Chronos } from "chronos-date";
+```ts pg
+import { Chronos } from "chronos-date";
 
 const now = new Chronos();
 console.log("Today:", now.format("YYYY-MM-DD"));
 console.log("Day:", now.day());
 console.log("Tomorrow:", now.add(1, "day").format("YYYY-MM-DD"));
-console.log("Is Leap Year:", now.isLeapYear());`
-  }
-/>
+console.log("Is Leap Year:", now.isLeapYear());
+```
 
 ## What's Next?
 

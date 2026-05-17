@@ -34,19 +34,7 @@ Chronos supports a modular plugin system that allows you to extend its capabilit
 
 #### How it works
 
-<Playground code={`import { Chronos } from 'chronos-date';
-import { seasonPlugin } from 'chronos-date/plugins/seasonPlugin';
-
-// Register the plugin before using its methods
-Chronos.use(seasonPlugin); 
-// or
-Chronos.register(seasonPlugin);
-
-const now = new Chronos();
-console.log(now.season()); // ✅ Safe to use after plugin registration
-`} />
-
-```ts
+```ts pg
 import { Chronos } from 'chronos-date';
 import { seasonPlugin } from 'chronos-date/plugins/seasonPlugin';
 

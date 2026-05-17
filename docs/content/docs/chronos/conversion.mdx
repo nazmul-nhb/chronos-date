@@ -28,7 +28,9 @@ clone(): Chronos
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const original = new Chronos('2025-01-15T12:00:00');
 const copy = original.clone();
 
@@ -45,13 +47,17 @@ console.log(modified.format()); // "Thu, Jan 16, 2025 12:00:00"
 
 - **Metadata Preservation**
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const base = new Chronos('2025-01-01');
 const modified = base.clone();
+const subtracted = base.clone().subtract(3, 'day');
 
 // Track different origins while maintaining immutability
 console.log(base.origin);     // "root" 
-console.log(modified.origin); // "clone"
+console.log(modified.origin); // "root"
+console.log(subtracted.origin); // "subtract"
 ```
 
 ### Comparison with Alternatives
