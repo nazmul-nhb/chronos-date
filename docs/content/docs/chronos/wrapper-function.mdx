@@ -6,7 +6,7 @@ description: Chronos Wrapper Function — Chronos Documentation.
 ## Overview
 
 <Callout type="info" title="Info">
-Function wrapper around the [`Chronos`](/docs/api/chronos-class) class that provides identical functionality with a simpler interface. All [`Chronos`](/docs/api/chronos-class) features are available through this function.
+Function wrapper around the [`Chronos`](/docs/chronos) class that provides identical functionality with a simpler interface. All [`Chronos`](/docs/chronos) features are available through this function.
 </Callout>
 ## Key Features
 
@@ -18,7 +18,7 @@ Function wrapper around the [`Chronos`](/docs/api/chronos-class) class that prov
 
 ### 🧩 Plugin System
 
-[`Chronos`](/docs/api/chronos-class) supports a modular plugin system that allows you to extend its capabilities without bloating the core. Plugin methods are **not available by default**, you must explicitly register them using the `.use()` or `.register()` static method.
+[`Chronos`](/docs/chronos) supports a modular plugin system that allows you to extend its capabilities without bloating the core. Plugin methods are **not available by default**, you must explicitly register them using the `.use()` or `.register()` static method.
 
 #### How it works
 
@@ -74,7 +74,7 @@ date.formatStrict() // Formatted date string
 
 The wrapper provides access to all `Chronos` methods through the returned instance:
 
-- **[Public/Protected Properties](/docs/api/chronos-class#public--protected-properties)** - Public/protected properties for debugging and easy access
+- **[Public/Protected Properties](/docs/chronos#public--protected-properties)** - Public/protected properties for debugging and easy access
 - **[Getters](/docs/api/getters)** - Access date components
 - **[Format Methods](/docs/api/format)** - Date display formatting
 - **[Calculation Methods](/docs/api/calculation)** - Date math operations
@@ -92,11 +92,11 @@ All [`Chronos static methods`](/docs/api/static-methods) are available directly 
 
 <details>
   <summary>**List of Static Methods**</summary>
- | Method                                                           | Short Description                                                |
- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+ | Method                                                      | Short Description                                                |
+ | ----------------------------------------------------------- | ---------------------------------------------------------------- |
  | [now()](/docs/api/static-methods#now)                       | Returns the number of milliseconds since 1970-01-01 UTC.         |
  | [use()](/docs/api/static-methods#use)                       | Injects a plugin into the `Chronos` system.                      |
- | [register()](/docs/api/static-methods#register)             | Alias for [`use()`](/docs/api/static-methods#use)           |
+ | [register()](/docs/api/static-methods#register)             | Alias for [`use()`](/docs/api/static-methods#use)                |
  | [utc()](/docs/api/static-methods#utc)                       | Creates a UTC-based `Chronos` instance.                          |
  | [with()](/docs/api/static-methods#with)                     | Creates a new instance with the provided time component(s).      |
  | [parse()](/docs/api/static-methods#parse)                   | Parses a date string with a given format (limited support only). |
@@ -131,18 +131,6 @@ Chronos.today()
 Chronos.isLeapYear(2024)
 ```
 
-## Aliases
-
-The `chronos` function is also available under the following aliases:
-
-- `chronosjs`
-- `chronosts`
-- `chronus`
-- `chronusjs`
-- `chronusts`
-
-> These aliases exist to support flexible naming conventions and common user preferences.
-
 ## Full Documentation
 
-For complete method documentation, see the [`Chronos` class reference](/docs/api/chronos-class). All methods shown there are available through this wrapper.
+For complete method documentation, see the [`Chronos` class reference](/docs/chronos). All methods shown there are available through this wrapper.

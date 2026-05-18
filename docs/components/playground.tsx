@@ -4,7 +4,7 @@ import Editor, { type OnMount, useMonaco } from '@monaco-editor/react';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
 import { useEffect, useId, useRef, useState } from 'react';
 import { transform } from 'sucrase';
-import { Copy } from '@/components/Copy';
+import { Copy } from '@/components/copy';
 import { ChronosDate, type ChronosModule, MODULES } from '@/lib/.generated-modules';
 import generatedTypes from '@/lib/.generated-types.json';
 

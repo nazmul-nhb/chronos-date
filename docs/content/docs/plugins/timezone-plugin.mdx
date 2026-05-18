@@ -1,0 +1,301 @@
+---
+title: Timezone Plugin
+description: Timezone Plugin — Chronos Documentation.
+---
+
+<Callout type="info" title="About Timezone Plugin">
+Timezone plugin is a plugin that adds timezone functionality to `Chronos`.
+</Callout>
+
+## 📦 Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Timezone Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(timeZonePlugin);
+    // or
+    chronos.use(timeZonePlugin);
+    // or
+    Chronos.register(timeZonePlugin);
+    // or
+    chronos.register(timeZonePlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `timeZonePlugin`:
+
+    ```ts
+    const c = new Chronos();
+    const timeZoned = c.timeZone("Asia/Kathmandu");
+    console.log(timeZoned.getTimeZoneNameShort()); // Get timezone name abbreviation
+    console.log(timeZoned.getTimeZoneName()); // Get full timezone name
+    console.log(timeZoned.format()); // Format date in current timezone
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos, chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+
+// Register the plugin globally
+Chronos.use(timeZonePlugin);
+// or
+chronos.use(timeZonePlugin);
+// or
+Chronos.register(timeZonePlugin);
+// or
+chronos.register(timeZonePlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+const timeZoned = c.timeZone("Asia/Kathmandu");
+console.log(timeZoned.getTimeZoneNameShort()); // Get timezone name abbreviation
+console.log(timeZoned.getTimeZoneName()); // Get full timezone name
+console.log(timeZoned.format()); // Format date in current timezone
+```
+
+---
+
+## 📋 Overview
+
+The `timeZonePlugin` adds comprehensive time zone functionality to `Chronos`, enabling:
+
+- Time zone conversion and management
+- Date-time formatting with current time zone
+- Access to time zone names and abbreviations
+- Support for different time zone formats (identifier, abbreviation, UTC offset)
+
+---
+
+## 🎯 Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `timeZonePlugin`. You must register it using `Chronos.use(timeZonePlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                                          | Description                                                      | Returns   |
+| ----------------------------------------------- | ---------------------------------------------------------------- | --------- |
+| [`timeZone`](#timezone)                         | Creates a new instance of `Chronos` for the specified time zone. | `Chronos` |
+| [`getTimeZoneName`](#gettimezonename)           | Returns the current time zone name as a full descriptive string. | `string`  |
+| [`getTimeZoneNameShort`](#gettimezonenameshort) | Returns the current time zone abbreviation.                      | `string`  |
+
+---
+
+## 📚 API Reference
+
+### timeZone()
+
+Creates a new instance of `Chronos` for the specified time zone identifier, abbreviated time zone name or UTC offset.
+
+#### Signature
+
+```ts
+timeZone(tzId: TimeZoneIdentifier): Chronos;
+timeZone(zone: TimeZone): Chronos;
+timeZone(utc: UTCOffset): Chronos;
+timeZone(utc: TimeZoneIdentifier | TimeZone | UTCOffset): Chronos;
+```
+
+#### Parameters
+
+- **`tzId`**: IANA timezone identifier (e.g., `'Africa/Harare'`, `'America/New_York'`)
+- **`zone`**: Standard timezone abbreviation (e.g., `'EST'`, `'IST'`, `'UTC'`)
+- **`utc`**: UTC offset in `UTC±HH:mm` format for fictional/unlisted timezones (e.g., `'UTC+06:15'`)
+
+#### Return Type
+
+**`Chronos`** - New instance configured with the specified timezone context
+
+#### Overloads
+
+##### Timezone Identifier
+
+Creates a new instance using an IANA timezone identifier. This is the recommended approach for accurate timezone handling.
+
+```ts
+new Chronos('2025-01-15').timeZone('Asia/Dhaka');
+new Chronos('2025-01-15').timeZone('America/Los_Angeles');
+```
+
+##### Timezone Abbreviation  
+
+Creates a new instance using a standard timezone abbreviation. Use when timezone identifiers are not available.
+
+```ts
+new Chronos('2025-01-15').timeZone('EST'); // Eastern Standard Time
+new Chronos('2025-01-15').timeZone('IST'); // Indian Standard Time
+```
+
+##### UTC Offset
+
+Creates a new instance using a UTC offset for fictional or unlisted timezones.
+
+```ts
+new Chronos('2025-01-15').timeZone('UTC+08:00'); // 8 hours ahead of UTC
+new Chronos('2025-01-15').timeZone('UTC-05:30'); // 5 hours 30 minutes behind UTC
+```
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+// Register plugin
+Chronos.use(timeZonePlugin);
+
+// Using IANA identifier (recommended)
+const dhakaTime = new Chronos('2025-01-15').timeZone('Asia/Dhaka');
+
+// Using timezone abbreviation
+const easternTime = new Chronos('2025-01-15').timeZone('EST');
+
+// Using UTC offset
+const customOffset = new Chronos('2025-01-15').timeZone('UTC+06:30');
+```
+
+#### Remarks
+
+- **Timezone identifiers** provide the most accurate timezone handling and are recommended for production use
+- **Timezone abbreviations** should be used only when identifiers are not available, as they may have ambiguous interpretations  
+- **UTC offsets** are suitable for fictional timezones or regions not covered by the IANA database
+- Invalid input automatically falls back to `UTC` timezone
+- Returns a new `Chronos` instance - the original instance remains unchanged
+
+---
+
+### getTimeZoneName()
+
+Get full time zone name or UTC offset
+
+#### Signature
+
+```ts
+getTimeZoneName(utc?: UTCOffset): LooseLiteral<TimeZoneName | UTCOffset>
+```
+
+#### Parameters
+
+- `utc?` — *(Optional)* A UTC offset string in the format `"UTC+06:00"`, `"UTC-04:30"`, etc.
+  - If provided, it **bypasses the instance's current offset** and returns the name mapped to this offset instead.
+
+#### Return Value
+
+- `LooseLiteral<UTCOffset>` — The current time zone name as a full descriptive `string` (e.g. `"Bangladesh Standard Time"`) or  the fallback UTC offset (`UTCOffset`).
+
+#### Example Usage
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const currentTzName = new Chronos().getTimeZoneName(); // "Bangladesh Standard Time" (System time zone name)
+console.log(currentTzName);
+
+// If it's a custom time zone or does not math with predefined time zones:
+const customTimeZone = new Chronos().timeZone('UTC+06:45').getTimeZoneName(); // "UTC+06:45"
+console.log(customTimeZone);
+
+const utcPlus3 = new Chronos().getTimeZoneName('UTC+03:00');
+console.log(utcPlus3); // → "Arab Standard Time" (uses provided offset)
+
+const utcPlus615 = new Chronos().getTimeZoneName('UTC+06:15');
+console.log(utcPlus615); // → "UTC+06:15" (no matching time zone found)
+```
+
+<Callout type="info" title="Info">
+
+- This method uses a **predefined mapping of UTC offsets** to time zone names.
+- If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
+- If **no match** is found (which is rare), it falls back to returning the UTC offset (e.g. `"UTC+06:15"`).
+- Passing a custom `utc` offset overrides system/instance's offset detection.
+- To retrieve the local system's native time zone name (or its identifier if the name is unavailable), use the [**$getNativeTimeZoneName**](#getnativetimezonename) instance method.
+- To retrieve the local system's native time zone identifier, use the [**$getNativeTimeZoneId**](#getnativetimezoneid) instance method.
+
+</Callout>
+
+---
+
+### getTimeZoneNameShort()
+
+Get abbreviated time zone name or UTC offset
+
+#### Signature
+
+```ts
+getTimeZoneNameShort(utc?: UTCOffset): TimeZone | UTCOffset
+```
+
+#### Parameters
+
+- `utc?` — *(Optional)* A UTC offset string in the format `"UTC+06:00"`, `"UTC-04:30"`, etc.
+  - If provided, it **bypasses the instance's current offset** and returns the name mapped to this offset instead.
+
+#### Return Value
+
+- `TimeZone | UTCOffset` — The current time zone abbreviation (e.g. `"BST"` for `Bangladesh Standard Time`).
+
+#### Example Usage
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const currentTzShort = new Chronos().getTimeZoneNameShort(); // "BST" (System time zone abbreviation)
+console.log(currentTzShort);
+
+// If it's a custom time zone or does not match with predefined time zones:
+const customTimeZone = new Chronos().timeZone('UTC+06:45').getTimeZoneNameShort(); // "UTC+06:45"
+console.log(customTimeZone);
+
+const utcPlus3 = new Chronos().getTimeZoneNameShort('UTC+03:00');
+console.log(utcPlus3); // → "AST" (uses provided offset)
+
+const utcPlus615 = new Chronos().getTimeZoneNameShort('UTC+06:15');
+console.log(utcPlus615); // → "UTC+06:15" (no matching time zone found)
+```
+
+<Callout type="info" title="Info">
+
+- This method uses a **predefined mapping of UTC offsets** to time zone names.
+- If multiple time zones share the same UTC offset, it returns the **first match** from the predefined list.
+- If **no match** is found (which is rare), it falls back to returning the UTC offset (e.g. `"UTC+06:15"`).
+- Passing a custom `utc` offset overrides system/instance's offset detection.
+- To retrieve the local system's native time zone name (or its identifier if the name is unavailable), use the [**$getNativeTimeZoneName**](#getnativetimezonename) instance method.
+- To retrieve the local system's native time zone identifier, use the [**$getNativeTimeZoneId**](#getnativetimezoneid) instance method.
+
+</Callout>
+
+#### ALias
+
+Also available as `getTimeZoneNameAbbr()` alias.
+
+---

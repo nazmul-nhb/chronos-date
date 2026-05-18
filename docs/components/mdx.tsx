@@ -2,15 +2,16 @@ import * as Twoslash from 'fumadocs-twoslash/ui';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
-import { isNumber, isString, isValidArray } from 'nhb-toolbox';
+import { isNumber, isObject, isString, isValidArray } from 'nhb-toolbox';
 import type { Maybe } from 'nhb-toolbox/types';
 import type { ReactElement, ReactNode } from 'react';
-import { Copy } from '@/components/Copy';
-import { Playground } from '@/components/Playground';
+import { Copy } from '@/components/copy';
+import { Playground } from '@/components/playground';
+import { Step, Steps } from '@/components/steps';
 import type { CodeChildProps, PreProps } from '@/types/index';
 
 function isNodeCodeChild(node: unknown): node is ReactElement<CodeChildProps> {
-	return typeof node === 'object' && node !== null && 'props' in node;
+	return isObject(node) && 'props' in node;
 }
 
 /** Recursively extracts raw text from a React node tree (Shiki spans → plain string). */
@@ -29,6 +30,8 @@ export function getMDXComponents(components?: MDXComponents) {
 		...TabsComponents,
 		Playground,
 		Copy,
+		Steps,
+		Step,
 		pre: (props: PreProps) => {
 			const child = props.children;
 
