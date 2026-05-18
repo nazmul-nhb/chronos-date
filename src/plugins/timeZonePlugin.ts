@@ -176,7 +176,7 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 			const { offset } = _getTimeZoneDetails(id);
 
 			if (offset) {
-				const arr = tzIds.get(offset) ?? [];
+				const arr = tzIds.get(offset) || [];
 
 				arr.push(id);
 				tzIds.set(offset, arr);
@@ -248,7 +248,7 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 
 		// ! In case zone has empty string
 		const $zone = zone || offset;
-		const tzName = _getTimeZoneName($zone, $Date(this)) ?? offset;
+		const tzName = _getTimeZoneName($zone, $Date(this)) || offset;
 
 		const relativeOffset = extractMinutesFromUTC(offset) - this.getTimeZoneOffsetMinutes();
 
@@ -261,7 +261,7 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 	$Chronos.prototype.getTimeZoneName = function (utc) {
 		const UTC = utc || offset(this);
 
-		return _getTimeZoneName(utc || this?.$tzTracker || offset(this), $Date(this)) ?? UTC;
+		return _getTimeZoneName(utc || this?.$tzTracker || offset(this), $Date(this)) || UTC;
 	};
 
 	/** Cache to store abbreviated time zone names */
@@ -304,7 +304,7 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 			}
 		}
 
-		const zone = _getTimeZoneName(tzMapKey, $Date(this)) ?? UTC;
+		const zone = _getTimeZoneName(tzMapKey, $Date(this)) || UTC;
 
 		const fallbackKey = `name-${zone}`;
 
