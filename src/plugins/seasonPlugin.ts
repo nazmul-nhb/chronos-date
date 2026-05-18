@@ -1,5 +1,5 @@
 import { SEASON_PRESETS } from '../constants/seasons';
-import type { $Chronos, SeasonOptions } from '../types';
+import type { ChronosPlugin, SeasonOptions } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -23,7 +23,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `season`/`getSeasonName` method */
-export const seasonPlugin = ($Chronos: $Chronos): void => {
+export const seasonPlugin: ChronosPlugin = ($Chronos) => {
 	$Chronos.prototype.season = function (options) {
 		const { preset = 'default' } = options ?? {};
 

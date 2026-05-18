@@ -3,11 +3,11 @@ import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
 import type { RangeTuple } from 'nhb-toolbox/utils/types';
 import { INTERNALS } from '../constants/basic';
 import type {
-	$Chronos,
 	AcademicYear,
 	BusinessOptionsBasic,
 	BusinessOptionsWeekends,
 	ChronosInput,
+	ChronosPlugin,
 	Quarter,
 } from '../types';
 
@@ -493,7 +493,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `business` related methods */
-export const businessPlugin = ($Chronos: $Chronos): void => {
+export const businessPlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate: $Date, withOrigin, cast, offset } = $Chronos[INTERNALS];
 
 	/** Build weekend mask (array of booleans) based on `week definition` or weekend `length` */

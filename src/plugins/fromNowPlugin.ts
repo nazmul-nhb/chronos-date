@@ -1,6 +1,6 @@
 import { formatUnitWithPlural } from 'nhb-toolbox';
 import { INTERNALS } from '../constants/basic';
-import type { $Chronos, $DateUnit, ChronosInput, FromNowUnit } from '../types';
+import type { $DateUnit, ChronosInput, ChronosPlugin, FromNowUnit } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -21,7 +21,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `fromNow` method */
-export const fromNowPlugin = ($Chronos: $Chronos): void => {
+export const fromNowPlugin: ChronosPlugin = ($Chronos) => {
 	const { toNewDate } = $Chronos[INTERNALS];
 
 	$Chronos.prototype.fromNow = function (level = 'second', wSP = true, time) {

@@ -5,7 +5,6 @@ import type {
 	$BanglaMonthDate,
 	$BanglaYear,
 	$BnEn,
-	$Chronos,
 	BanglaDateObject,
 	BanglaDateOptions,
 	BanglaDayName,
@@ -13,6 +12,7 @@ import type {
 	BanglaSeasonName,
 	BnCalendarConfig,
 	BnCalendarVariant,
+	ChronosPlugin,
 	StrictFormat,
 } from '../types';
 import {
@@ -262,7 +262,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject methods related to Bangla calendar system (`Bongabdo`) */
-export const banglaPlugin = ($Chronos: $Chronos): void => {
+export const banglaPlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate: $Date } = $Chronos[INTERNALS];
 
 	const DEFAULT_CONFIG = new Map<'config', BnCalendarConfig>();

@@ -14,12 +14,12 @@ Returns a date as a string value in ISO format (UTC).
 ### Signature
 
 ```ts
-toISOString(): ISODateTimeString
+toISOString(): ISODateTimeString<'utc'>
 ```
 
 ### Return Type
 
-`ISODateTimeString` - Standard ISO 8601 string
+`ISODateTimeString<'utc'>` - Standard ISO 8601 string
 
 ### Notes
 
@@ -42,12 +42,12 @@ Returns ISO time string in appropriate time zone with offset.
 ### Signature
 
 ```ts
-toLocalISOString(): ISOTimeString
+toLocalISOString(): ISODateTimeString<'local'>
 ```
 
 ### Return Type
 
-`ISOTimeString` - ISO string with time zone offset
+`ISODateTimeString<'local'>` - ISO string with time zone offset
 
 ### Notes
 

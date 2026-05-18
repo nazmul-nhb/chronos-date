@@ -1,6 +1,11 @@
 import { isNumber, isValidArray } from 'nhb-toolbox';
 import { DAYS, INTERNALS, MS_PER_DAY } from '../constants/basic';
-import type { $Chronos, ISODateTimeString, RangeWithDates, RelativeDateRange } from '../types';
+import type {
+	ChronosPlugin,
+	ISODateTimeString,
+	RangeWithDates,
+	RelativeDateRange,
+} from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -69,7 +74,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `getDatesInRange` related method */
-export const dateRangePlugin = ($Chronos: $Chronos): void => {
+export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate: $Date, cast, withOrigin, offset } = $Chronos[INTERNALS];
 
 	$Chronos.prototype.getDatesInRange = function (this, options) {

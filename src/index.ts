@@ -788,7 +788,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @instance Checks if another date is the same as this one in a specific unit.
 	 * @param other The other date to compare.
 	 * @param unit The unit to compare. Default is `'millisecond'`.
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	isSame(
 		other: ChronosInput,
@@ -805,7 +805,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @instance Checks if this date is before another date in a specific unit.
 	 * @param other The other date to compare.
 	 * @param unit The unit to compare. Default is ``millisecond``.
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	isBefore(
 		other: ChronosInput,
@@ -822,7 +822,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @instance Checks if this date is after another date in a specific unit.
 	 * @param other The other date to compare.
 	 * @param unit The unit to compare. Default is `'millisecond'`.
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	isAfter(
 		other: ChronosInput,
@@ -839,7 +839,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @instance Checks if this date is the same or before another date in a specific unit.
 	 * @param other The other date to compare.
 	 * @param unit The unit to compare. Default is `'millisecond'`.
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	isSameOrBefore(
 		other: ChronosInput,
@@ -855,7 +855,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @instance Checks if this date is the same or after another date in a specific unit.
 	 * @param other The other date to compare.
 	 * @param unit The unit to compare. Default is `'millisecond'`.
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	isSameOrAfter(
 		other: ChronosInput,
@@ -942,7 +942,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	/**
 	 * @instance Returns a new `Chronos` instance at the start of a given unit.
 	 * @param unit The unit to reset (e.g., year, month, day).
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	startOf(unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): Chronos<Tz> {
 		const d = new Date(this.#date);
@@ -985,7 +985,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	/**
 	 * @instance Returns a new `Chronos` instance at the end of a given unit.
 	 * @param unit The unit to adjust (e.g., year, month, day).
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 */
 	endOf(unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): Chronos<Tz> {
 		const instance = this.startOf(unit, weekStartsOn).add(1, unit).add(-1, 'millisecond');
@@ -1238,7 +1238,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 
 	/**
 	 * @instance Calculates the week number of the year based on custom week start.
-	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
+	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Default is `0`. Applicable when {@link unit} is `'week'`.
 	 * @returns Week number (1-53).
 	 */
 	getWeekOfYear(weekStartsOn: Enumerate<7> = 0): NumberRange<1, 53> {
@@ -1362,7 +1362,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/** @instance Returns new `Chronos` instance in UTC time */
-	toUTC(): Chronos<Tz> {
+	toUTC(): Chronos<'UTC'> {
 		const offset = this.getTimeZoneOffsetMinutes();
 
 		const utc = new Date(this.#timestamp - offset * 60 * 1000);
@@ -1371,7 +1371,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/** @instance Returns new `Chronos` instance in local time */
-	toLocal(): Chronos<Tz> {
+	toLocal(): Chronos<'System'> {
 		const offset = this.getTimeZoneOffsetMinutes() - this.getUTCOffsetMinutes();
 
 		const localTime = new Date(this.#timestamp - offset * 60 * 1000);
@@ -1608,7 +1608,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * If omitted, the current system date/time is used.
 	 * @returns A new `Chronos` instance representing the UTC equivalent of the input.
 	 */
-	static utc(dateLike?: ChronosInput): Chronos {
+	static utc(dateLike?: ChronosInput): Chronos<'UTC'> {
 		const chronos = new Chronos(dateLike);
 
 		const offset = chronos.getTimeZoneOffsetMinutes();
@@ -1761,7 +1761,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @param dates A list of Chronos-compatible inputs (`string`, `number`, `Date` or `Chronos`).
 	 * @returns A new `Chronos` instance representing the earliest moment.
 	 */
-	static min(...dates: ChronosInput[]): Chronos {
+	static min(...dates: ChronosInput[]): Chronos<ChronosTimeZone> {
 		let winner = Chronos.#cast(dates[0]);
 
 		for (const d of dates) {
@@ -1787,7 +1787,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @param dates A list of Chronos-compatible inputs (`string`, `number`, `Date` or `Chronos`).
 	 * @returns A new `Chronos` instance representing the latest moment.
 	 */
-	static max(...dates: ChronosInput[]): Chronos {
+	static max(...dates: ChronosInput[]): Chronos<ChronosTimeZone> {
 		let winner = Chronos.#cast(dates[0]);
 
 		for (const d of dates) {
@@ -1883,7 +1883,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @returns A new `Chronos` instance created from the provided properties.
 	 * @throws `TypeError` if the input value does not have the necessary properties for reconstruction.
 	 */
-	static reconstruct(value: ChronosProperties): Chronos {
+	static reconstruct(value: ChronosProperties): Chronos<ChronosTimeZone> {
 		if (!_hasChronosProperties(value)) {
 			throw new TypeError('Invalid input for reconstruction!');
 		}
@@ -1942,7 +1942,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/** @static Ensures the input is a `Chronos` instance, creating one if necessary. */
-	static #cast(date: ChronosInput): Chronos {
+	static #cast(date: ChronosInput): Chronos<ChronosTimeZone> {
 		return date instanceof Chronos ? date : new Chronos(date);
 	}
 }

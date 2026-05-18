@@ -1,6 +1,6 @@
 import { roundToNearest } from 'nhb-toolbox';
 import { INTERNALS, MS_PER_DAY } from '../constants/basic';
-import type { $Chronos, TimeUnit } from '../types';
+import type { ChronosPlugin, TimeUnit } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -26,7 +26,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `round` method */
-export const roundPlugin = ($Chronos: $Chronos): void => {
+export const roundPlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate, withOrigin, offset } = $Chronos[INTERNALS];
 
 	$Chronos.prototype.round = function (unit, nearest = 1) {

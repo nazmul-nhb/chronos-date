@@ -1,8 +1,8 @@
 import { INTERNALS } from '../constants/basic';
 import type {
-	$Chronos,
 	$DateUnit,
 	ChronosInput,
+	ChronosPlugin,
 	DurationKey,
 	DurationOptions,
 	TimeDuration,
@@ -34,7 +34,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `duration` related methods */
-export const durationPlugin = ($Chronos: $Chronos): void => {
+export const durationPlugin: ChronosPlugin = ($Chronos) => {
 	const { toNewDate } = $Chronos[INTERNALS];
 
 	/**

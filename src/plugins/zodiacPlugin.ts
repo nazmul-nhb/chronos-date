@@ -1,7 +1,7 @@
 import type { NumberRange } from 'nhb-toolbox/number/types';
 import { ZODIAC_PRESETS } from '../constants/basic';
 import type {
-	$Chronos,
+	ChronosPlugin,
 	ZodiacArray,
 	ZodiacMeta,
 	ZodiacMetaOptions,
@@ -51,7 +51,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `zodiac` related methods */
-export const zodiacPlugin = ($Chronos: $Chronos): void => {
+export const zodiacPlugin: ChronosPlugin = ($Chronos) => {
 	function _toHundreds(range: readonly [number, number]) {
 		return range[0] * 100 + range[1];
 	}

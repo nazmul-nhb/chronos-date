@@ -4,9 +4,9 @@ import { INTERNALS } from '../constants/basic';
 import { NATIVE_TZ_IDS, TIME_ZONE_LABELS, TIME_ZONES } from '../constants/timezone';
 import { isValidUTCOffset } from '../guards';
 import type {
-	$Chronos,
 	$TimeZoneIdentifier,
 	$TZLabelKey,
+	ChronosPlugin,
 	ChronosTimeZone,
 	TimeZone,
 	TimeZoneId,
@@ -109,7 +109,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `timeZone` related methods */
-export const timeZonePlugin = ($Chronos: $Chronos): void => {
+export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate: $Date, withOrigin, offset } = $Chronos[INTERNALS];
 
 	/** Check if a time zone factor represents GMT */

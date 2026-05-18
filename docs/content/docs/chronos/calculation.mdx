@@ -405,15 +405,15 @@ This method is provided by `dateRangePlugin`. You must register it using `Chrono
 ### Signatures
 
 ```ts tab="Fixed Range"
-getDatesInRange(options?: RangeWithDates): ISOTimeString[]
+getDatesInRange(options?: RangeWithDates): ISODateTimeString<'utc' | 'local'>[]
 ```
 
 ```ts tab="Relative Range"
-getDatesInRange(options?: RelativeDateRange): ISOTimeString[]
+getDatesInRange(options?: RelativeDateRange): ISODateTimeString<'utc' | 'local'>[]
 ```
 
 ```ts tab="Implementation"
-getDatesInRange(options?: DatesInRangeOptions): ISOTimeString[]
+getDatesInRange(options?: DatesInRangeOptions): ISODateTimeString<'utc' | 'local'>[]
 ```
 
 ### Overview
@@ -500,7 +500,7 @@ type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
 
 ### Return Value
 
-`ISOTimeString[]` - Array of ISO date strings
+`ISODateTimeString<'utc' | 'local'>[]` - Array of ISO date strings
 
 ### Behavior
 

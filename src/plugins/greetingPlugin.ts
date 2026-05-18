@@ -1,4 +1,4 @@
-import type { $Chronos, ClockTime, GreetingConfigs } from '../types';
+import type { ChronosPlugin, ClockTime, GreetingConfigs } from '../types';
 import { getGreeting } from '../utils/greet';
 
 declare module 'chronos-date' {
@@ -26,7 +26,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `getGreeting`/`greet` method */
-export const greetingPlugin = ($Chronos: $Chronos): void => {
+export const greetingPlugin: ChronosPlugin = ($Chronos) => {
 	$Chronos.prototype.getGreeting = function (configs) {
 		const currentTime = this.formatStrict('HH:mm') as ClockTime;
 

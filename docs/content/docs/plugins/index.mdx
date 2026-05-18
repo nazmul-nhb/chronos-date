@@ -97,7 +97,7 @@ Here's the basic structure of a `Chronos` plugin with access to *protected and/o
 
 ```ts
 import { Chronos, INTERNALS } from "chronos-date";
-import type { $Chronos } from "chronos-date/types";
+import type { ChronosPlugin } from "chronos-date/types";
 
 // Create a module augmentation to add your custom method to the `Chronos` interface
 // This allows TypeScript to recognize the new method on `Chronos` instances
@@ -115,8 +115,8 @@ declare module 'chronos-date' {
 
 // The plugin function must be in a `.ts` or `.js` file
 /** * Plugin to inject `customMethod` into Chronos instances. */
-export const customPlugin = ($Chronos: $Chronos): void => {
-  $Chronos.prototype.customMethod = function (this: Chronos, user) {
+export const customPlugin: ChronosPlugin = ($Chronos) => {
+  $Chronos.prototype.customMethod = function (user) {
     // Example of accessing internals through protected static interface
     const internalDate = $Chronos[INTERNALS].internalDate(this);
     return `Hello ${user}, Welcome to custom plugin! Current date: { local: ${this} } { utc: ${internalDate.toISOString()} }`;
@@ -197,19 +197,19 @@ interface ChronosInternals {
 
 ```ts
 import { Chronos, INTERNALS } from "chronos-date";
-import type { $Chronos } from "chronos-date/types";
+import type { ChronosPlugin, TimeZone, UTCOffset } from "chronos-date/types";
 // Other imports
 
 declare module 'chronos-date' {
   interface Chronos {
-    timeZone(): Chronos;
+    timeZone(zone: TimeZone | UTCOffset): Chronos;
   }
 }
 
-export const timeZonePlugin = ($Chronos: $Chronos): void => {
+export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
   const { internalDate, withOrigin } = $Chronos[INTERNALS];
 
-  $Chronos.prototype.timeZone = function (this: Chronos, zone) {
+  $Chronos.prototype.timeZone = function (zone) {
     let targetOffset: number;
     let stringOffset: UTCOffset;
 

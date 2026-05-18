@@ -1,5 +1,5 @@
 import { INTERNALS } from '../constants/basic';
-import type { $Chronos, ChronosInput, TimeUnit } from '../types';
+import type { ChronosInput, ChronosPlugin, TimeUnit } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -89,7 +89,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `relative time` related methods */
-export const relativeTimePlugin = ($Chronos: $Chronos): void => {
+export const relativeTimePlugin: ChronosPlugin = ($Chronos) => {
 	const { toNewDate } = $Chronos[INTERNALS];
 
 	$Chronos.prototype.getRelativeYear = function (time) {

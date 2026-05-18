@@ -1,6 +1,6 @@
 import { isValidObject } from 'nhb-toolbox';
 import { DATE_PART_RANGES } from '../constants/basic';
-import type { $Chronos, DayPart, DayPartConfig } from '../types';
+import type { ChronosPlugin, DayPart, DayPartConfig } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -42,7 +42,7 @@ declare module 'chronos-date' {
 }
 
 /** * Plugin to inject `getPartOfDay` method */
-export const dayPartPlugin = ($Chronos: $Chronos): void => {
+export const dayPartPlugin: ChronosPlugin = ($Chronos) => {
 	$Chronos.prototype.getPartOfDay = function (config) {
 		const hour = this.hour;
 
