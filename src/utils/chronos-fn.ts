@@ -85,7 +85,7 @@ const $chronos = (
  * @param prop - The property name to check.
  * @returns `true` if the property is a static method of `Chronos`, `false` otherwise.
  */
-function _isChronosStaticKey(prop: string): prop is ChronosStaticKey {
+function _isChronosStaticKey(prop: PropertyKey): prop is ChronosStaticKey {
 	return (
 		prop in Chronos &&
 		prop !== 'prototype' &&
@@ -139,13 +139,13 @@ function _isChronosStaticKey(prop: string): prop is ChronosStaticKey {
  * chronos.isReconstructable(value: unknown): value is ChronosProperties;
  * chronos.reconstruct(value: ChronosProperties): Chronos;
  * chronos.formatTimePart(time: string, format?: TimeParts): string;
- * chronos.getDatesForDay(day: WeekDay, options?: WeekdayOptions): string[];
+ * chronos.getDatesForDay(day: WeekDay, options?: WeekdayOptions): ISODateTimeString[];
  * chronos.use(plugin: ChronosPlugin): void;
  * chronos.register(plugin: ChronosPlugin): void;
  * ```
  */
 export const chronos = new Proxy($chronos, {
-	get(target, prop: string, receiver) {
+	get(target, prop, receiver) {
 		// If the property exists on the function itself, return it
 		if (prop in target) {
 			return Reflect.get(target, prop, receiver);
@@ -161,7 +161,7 @@ export const chronos = new Proxy($chronos, {
 	},
 
 	// Handle checking if a property exists
-	has(target, prop: string) {
+	has(target, prop) {
 		return prop in target || _isChronosStaticKey(prop);
 	},
 }) as ChronosStatics;
