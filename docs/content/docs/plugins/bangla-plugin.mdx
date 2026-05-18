@@ -59,7 +59,7 @@ The `banglaPlugin` adds comprehensive Bengali calendar functionality to `Chronos
 | [`getBanglaDayName()`](#getbangladayname)               | Gets Bengali weekday name               | `string`             |
 | [`getBanglaMonthName()`](#getbanglamonthname)           | Gets Bengali month name                 | `string`             |
 | [`getBanglaSeasonName()`](#getbanglaseasonname)         | Gets Bengali season name                | `string`             |
-| [`configureBanglaCalendar()`](#configurebanglacalendar) | Sets default calendar variant globally  | `void`               |
+| [`$configureBangla()`](#configurebangla) | Sets default calendar variant globally  | `void`               |
 
 ---
 
@@ -422,14 +422,14 @@ chronos.getBanglaSeasonName({ locale: 'en' }); // Returns: 'Grisma (Summer)'
 
 ---
 
-#### configureBanglaCalendar()
+#### $configureBangla()
 
 Sets the default Bangla calendar variant globally for all `Chronos` instances.
 
 ##### Signature
 
 ```typescript
-configureBanglaCalendar(options: BnCalendarConfig): void
+$configureBangla(options: BnCalendarConfig): void
 ```
 
 ##### Parameters
@@ -452,7 +452,7 @@ const c2 = new Chronos();
 c1.getBanglaMonth(); // uses 'revised-2019'
 
 // Set global default to 1966 variant
-c1.configureBanglaCalendar({ variant: 'revised-1966' });
+c1.$configureBangla({ variant: 'revised-1966' });
 
 c1.getBanglaMonth(); // now uses 'revised-1966'
 c2.getBanglaMonth(); // also uses 'revised-1966'
@@ -545,7 +545,7 @@ console.log(chronos.getBanglaSeasonName()); // 'গ্রীষ্ম'
 console.log(chronos.getBanglaDayName('en')); // 'Shukrobar (Friday)'
 
 // Switch to 1966 variant
-chronos.configureBanglaCalendar({ variant: 'revised-1966' });
+chronos.$configureBangla({ variant: 'revised-1966' });
 console.log(chronos.getBanglaMonth({ variant: 'revised-1966' })); // '১' (using 1966 variant)
 ```
 

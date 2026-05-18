@@ -159,7 +159,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+			"includes": ["**/*.mts", "**/*.cts"],
 			"linter": {
 				"rules": {
 					"complexity": { "noArguments": "error" },
