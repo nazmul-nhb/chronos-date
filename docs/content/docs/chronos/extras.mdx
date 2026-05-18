@@ -123,40 +123,6 @@ new Chronos().timeZone('IST-IN').getTimeZoneOffsetMinutes(); // 330
 
 ---
 
-## toAcademicYear()
-
-<Callout type="error" title="Note">
-This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.toAcademicYear()`. Once registered, all `Chronos` instances will have access to the `.toAcademicYear()` method.
-</Callout>
-
-### Signature
-
-```ts
-toAcademicYear(): `${number}-${number}`
-```
-
-### Return Type
-
-`string` - Academic year string
-
-### Notes
-
-- Assumes academic year runs July-June
-
-### Example
-
-```ts
-import { Chronos } from 'chronos-date';
-import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
-
-Chronos.use(businessPlugin);
-
-new Chronos('2025-01-15').toAcademicYear(); // "2022-2025"
-new Chronos('2025-08-15').toAcademicYear(); // "2025-2024"
-```
-
----
-
 ## toQuarter()
 
 ### Signature
@@ -181,39 +147,3 @@ new Chronos('2025-04-01').toQuarter(); // 2
 ```
 
 ---
-
-## toFiscalQuarter()
-
-<Callout type="error" title="Note">
-This method is provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling `.toFiscalQuarter()`. Once registered, all `Chronos` instances will have access to the `.toFiscalQuarter()` method.
-</Callout>
-
-### Signature
-
-```ts
-toFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter
-```
-
-### Parameters
-
-- `startMonth`: Fiscal year start month (1-12, default: 7)
-
-### Return Type
-
-`Quarter` - Fiscal quarter (1-4)
-
-### Notes
-
-- Default assumes fiscal year starts in July
-
-### Example
-
-```ts
-import { Chronos } from 'chronos-date';
-import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
-
-Chronos.use(businessPlugin);
-
-new Chronos('2025-01-15').toFiscalQuarter(); // 3 (July-start year)
-new Chronos('2025-01-15').toFiscalQuarter(10); // 2 (October-start year)
-```

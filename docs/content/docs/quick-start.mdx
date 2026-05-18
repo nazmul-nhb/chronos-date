@@ -51,17 +51,23 @@ import { Chronos } from "chronos-date";
 const date = new Chronos("2025-06-15");
 
 // Formatting
-console.log(date.format("mmmm DD, YYYY"));
-console.log(date.format("ddd"));
+console.log({
+    format: date.format("mmmm DD, YYYY"),
+    format2: date.format("ddd")
+});
 
 // Arithmetic
-console.log(date.add(7, "day").format("YYYY-MM-DD"));
-console.log(date.subtract(1, "month").format("YYYY-MM-DD"));
+console.log({
+    add7days: date.add(7, "day").format(),
+    subtract1month: date.subtract(1, "month").format()
+});
 
 // Comparison
 const other = new Chronos("2025-07-01");
-console.log("Is before July?", date.isBefore(other, "month"));
-console.log("Days between:", date.diff(other, "day"));
+console.log({
+    isBeforeJuly: date.isBefore(other, "month"),
+    daysBetween: date.diff(other, "day")
+});
 ```
 
 ## Using Plugins

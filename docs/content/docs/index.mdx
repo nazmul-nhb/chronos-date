@@ -25,10 +25,12 @@ import { Chronos } from "chronos-date";
 
 const now = new Chronos();
 
-console.log("Today:", now.format("YYYY-MM-DD"));
-console.log("Day:", now.day());
-console.log("Tomorrow:", now.add(1, "day").format("YYYY-MM-DD"));
-console.log("Is Leap Year:", now.isLeapYear());
+console.log({
+    today: now.format(),
+    day: now.day(),
+    tomorrow: now.add(1, "day").format(),
+    isLeapYear: now.isLeapYear()
+});
 ```
 
 ## What's Next?

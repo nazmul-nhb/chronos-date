@@ -1,4 +1,5 @@
 import pkg from 'chronos-date/package.json';
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 import Link from 'next/link';
 import type { SpecialCharacter } from 'nhb-toolbox/string/types';
 import type { Key, ReactNode } from 'react';
@@ -33,14 +34,24 @@ export default function HomePage() {
 					>
 						Get Started →
 					</Link>
-					<Link
+					{/* <Link
 						href="https://www.npmjs.com/package/chronos-date"
 						className="inline-flex items-center px-6 py-3 rounded-xl border border-fd-border text-fd-foreground font-semibold hover:bg-fd-accent transition-colors"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						npm install chronos-date
-					</Link>
+						Find in NPM <ExternalLink />
+					</Link> */}
+					<DynamicCodeBlock
+						options={{
+							themes: {
+								light: 'dracula-soft',
+								dark: 'dracula',
+							},
+						}}
+						lang="shell"
+						code="npm install chronos-date"
+					/>
 				</div>
 
 				<div className="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">

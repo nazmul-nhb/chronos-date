@@ -3,11 +3,11 @@ title: Bangla Plugin
 description: Bangla Calendar Plugin — Chronos Documentation.
 ---
 
-<Callout type="info" title="About Bangla Plugin">
-Bangla plugin is a plugin that adds Bangla calendar functionality to `Chronos`. Think of this plugin as a locale for Bangla calendar.
+<Callout type="idea" title="About Bangla Plugin">
+Bangla plugin is a plugin that adds Bangla calendar-related methods to `Chronos`.
 </Callout>
 
-## 📦 Import & Usage
+## Import & Usage
 
 <Steps>
 
@@ -77,7 +77,7 @@ console.log(banglaDate);
 
 ---
 
-## 📋 Overview
+## Overview
 
 The `banglaPlugin` adds comprehensive Bengali calendar functionality to `Chronos`, enabling:
 
@@ -89,7 +89,7 @@ The `banglaPlugin` adds comprehensive Bengali calendar functionality to `Chronos
 
 ---
 
-## 🎯 Methods Added by the Plugin
+## Methods Added by the Plugin
 
 <Callout type="error" title="Note">
 All these methods are provided by `banglaPlugin`. You must register it using `Chronos.use(banglaPlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
@@ -109,7 +109,7 @@ All these methods are provided by `banglaPlugin`. You must register it using `Ch
 
 ---
 
-## 📚 API Reference
+## API Reference
 
 ### toBangla()
 
@@ -515,7 +515,7 @@ c1.getBanglaMonth({ variant: 'revised-2019' }); // uses 'revised-2019' for this 
 
 ---
 
-## 🗂️ Type Definitions
+## Type Definitions
 
 ### BanglaDateObject
 
@@ -551,7 +551,7 @@ type BnCalendarVariant = 'revised-2019' | 'revised-1966';
 
 ---
 
-## 💡 Complete Example
+## Complete Example
 
 ```typescript pg
 import { Chronos } from "chronos-date";
@@ -561,10 +561,10 @@ import { banglaPlugin } from "chronos-date/plugins/banglaPlugin";
 Chronos.use(banglaPlugin);
 
 // Create a date (April 14, 2023 = 1st Boishakh, 1430)
-const chronos = new Chronos('2023-04-14 14:30:00');
+const chr = new Chronos('2023-04-14 14:30:00');
 
 // Get complete Bangla date object
-const banglaDate = chronos.toBangla();
+const banglaDate = chr.toBangla();
 console.log(banglaDate);
 // {
 //   year: '১৪৩০',
@@ -577,22 +577,27 @@ console.log(banglaDate);
 // }
 
 // Format in Bengali
-console.log(chronos.formatBangla());
-// শুক্রবার, বৈশাখ ০১ (গ্রীষ্মকাল), ১৪৩০ বঙ্গাব্দ - ০২:৩০:০০ (অপরাহ্ণ)
-
-// Format with custom pattern
-console.log(chronos.formatBangla('DD mmmm, YYYY'));
-// ০১ বৈশাখ, ১৪৩০
+console.log({
+  default: chr.formatBangla(), // শুক্রবার, বৈশাখ ০১ (গ্রীষ্মকাল), ১৪৩০ বঙ্গাব্দ - ০২:৩০:০০ (অপরাহ্ণ)
+  custom: chr.formatBangla('DD mmmm, YYYY') // ০১ বৈশাখ, ১৪৩০
+});
 
 // Get individual components
-console.log(chronos.getBanglaYear()); // '১৪৩০'
-console.log(chronos.getBanglaMonthName()); // 'বৈশাখ'
-console.log(chronos.getBanglaSeasonName()); // 'গ্রীষ্ম'
-console.log(chronos.getBanglaDayName('en')); // 'Shukrobar (Friday)'
+console.log({
+  year: chr.getBanglaYear(),
+  monthName: chr.getBanglaMonthName(),
+  seasonName: chr.getBanglaSeasonName(),
+  dayNameEn: chr.getBanglaDayName('en')
+});
 
 // Switch to 1966 variant
-chronos.$configureBangla({ variant: 'revised-1966' });
-console.log(chronos.getBanglaMonth({ variant: 'revised-1966' })); // '১' (using 1966 variant)
+// chr.$configureBangla({ variant: 'revised-1966' }); // configure globally
+
+const chr2 = new Chronos('2024-02-13');
+console.log({
+  '1966Variant': chr2.formatBangla(undefined, { variant: 'revised-1966' }),
+  '2019Variant': chr2.formatBangla(undefined, { variant: 'revised-2019' }),
+});
 ```
 
 ---

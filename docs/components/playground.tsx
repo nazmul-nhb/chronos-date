@@ -1,7 +1,9 @@
 'use client';
 
 import Editor, { type OnMount, useMonaco } from '@monaco-editor/react';
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
+import { isObject } from 'nhb-toolbox';
 import { useEffect, useId, useRef, useState } from 'react';
 import { transform } from 'sucrase';
 import { Copy } from '@/components/copy';
@@ -115,12 +117,12 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 						playground.ts
 					</span>
 				</div>
-				<div className="flex gap-2">
+				<div className="flex gap-1">
 					<button
 						type="button"
 						onClick={() => setCode(initialCode)}
 						className="p-1.5 text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent rounded-md transition-colors"
-						title="Reset code"
+						title="Reset Code"
 					>
 						<RefreshCcwIcon className="size-3.5" />
 					</button>
@@ -133,7 +135,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					<button
 						type="button"
 						onClick={runCode}
-						className="flex items-center gap-1.5 px-3 py-1 dark:bg-fd-primary/10 bg-fd-background/75 text-fd-foreground hover:bg-fd-background/50 rounded-md transition-colors text-xs font-medium"
+						className="flex items-center gap-1.5 px-2 py-1 dark:bg-fd-primary/10 bg-fd-background/75 text-fd-foreground hover:bg-fd-background/50 rounded-md transition-colors text-xs font-medium"
 					>
 						<PlayIcon className="size-3.5 fill-current" />
 						Run
@@ -175,6 +177,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 						minimap: { enabled: false },
 						fontSize: 13.5,
 						wordWrap: 'on',
+						wordWrapColumn: 96,
 						fontFamily: 'var(--font-mono)',
 						lineHeight: 1.6,
 						padding: { top: 16, bottom: 16 },
@@ -200,16 +203,24 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					) : (
 						<div className="flex flex-col gap-2">
 							{outputs.map((output, i) => (
-								<div key={i} className="flex gap-3 text-fd-foreground">
-									<span className="text-fd-muted-foreground select-none">
-										›
-									</span>
-									<span className="wrap-break-word">
-										{typeof output === 'object'
+								<DynamicCodeBlock
+									key={i}
+									wrapInSuspense
+									options={{
+										themes: {
+											light: 'dracula-soft',
+											dark: 'dracula',
+										},
+										structure: 'classic',
+										mergeWhitespaces: 'never',
+									}}
+									lang={isObject(output) ? 'json' : 'text'}
+									code={
+										isObject(output)
 											? JSON.stringify(output, null, 2)
-											: String(output)}
-									</span>
-								</div>
+											: String(output)
+									}
+								/>
 							))}
 						</div>
 					)}

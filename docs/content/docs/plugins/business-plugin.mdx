@@ -1,0 +1,875 @@
+---
+title: Business Plugin
+description: Business Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Business Plugin">
+Business plugin is a plugin that adds business-related methods to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Business Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(businessPlugin);
+    // or
+    chronos.use(businessPlugin);
+    // or
+    Chronos.register(businessPlugin);
+    // or
+    chronos.register(businessPlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `businessPlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const isWorkday = c.isWorkday();
+    const isWeekend = c.isWeekend();
+    const isBusinessHour = c.isBusinessHour();
+
+    console.log({ isWorkday, isWeekend, isBusinessHour });
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos, chronos } from "chronos-date";
+import { businessPlugin } from "chronos-date/plugins/businessPlugin";
+
+// Register the plugin globally
+Chronos.use(businessPlugin);
+// or
+chronos.use(businessPlugin);
+// or
+Chronos.register(businessPlugin);
+// or
+chronos.register(businessPlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+const isWorkday = c.isWorkday();
+const isWeekend = c.isWeekend();
+const isBusinessHour = c.isBusinessHour();
+
+const toAcademicYear = c.toAcademicYear();
+const toFiscalQuarter = c.toFiscalQuarter();
+
+const workdaysInMonth = c.workdaysInMonth();
+const weekendsInMonth = c.weekendsInMonth();
+const workdaysInYear = c.workdaysInYear();
+const weekendsInYear = c.weekendsInYear();
+
+console.log({
+    isWorkday,
+    isWeekend,
+    isBusinessHour,
+    toAcademicYear,
+    toFiscalQuarter,
+    workdaysInMonth,
+    weekendsInMonth,
+    workdaysInYear,
+    weekendsInYear
+});
+```
+
+---
+
+## Overview
+
+The `businessPlugin` adds comprehensive business day functionalities to `Chronos`, enabling:
+
+- Workday/weekend calculations
+- Business day/weekend arithmetic
+- Workday/weekend counting
+- Fiscal/academic year and quarter calculations
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `businessPlugin`. You must register it using `Chronos.use(businessPlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                                | Description                                               | Returns   |
+| ------------------------------------- | --------------------------------------------------------- | --------- |
+| [`nextWorkday`](#nextworkday)         | Finds the nearest day forward that is **not** a weekend.  | `Chronos` |
+| [`nextWeekend`](#nextweekend)         | Finds the nearest day forward that **is** a weekend.      | `Chronos` |
+| [`previousWorkday`](#previousworkday) | Finds the nearest day backward that is **not** a weekend. | `Chronos` |
+| [`previousWeekend`](#previousweekend) | Finds the nearest day backward that **is** a weekend.     | `Chronos` |
+| [`workdaysBetween`](#workdaysbetween) | Counts business days between two dates.                   | `number`  |
+| [`workdaysInMonth`](#workdaysinmonth) | Counts business days in the current month.                | `number`  |
+| [`workdaysInYear`](#workdaysinyear)   | Counts business days in the current year.                 | `number`  |
+| [`weekendsBetween`](#weekendsbetween) | Counts weekend days between two dates.                    | `number`  |
+| [`weekendsInMonth`](#weekendsinmonth) | Counts weekend days in the current month.                 | `number`  |
+| [`weekendsInYear`](#weekendsinyear)   | Counts weekend days in the current year.                  | `number`  |
+| [`isWeekend`](#isweekend)             | Checks if the current date is a weekend day.              | `boolean` |
+| [`isWorkday`](#isworkday)             | Checks if the current date is a workday.                  | `boolean` |
+| [`isBusinessHour`](#isbusinesshour)   | Checks if the current date is a business hour.            | `boolean` |
+| [`toAcademicYear`](#toacademicyear)   | Converts the current date to the academic year.           | `number`  |
+| [`toFiscalQuarter`](#tofiscalquarter) | Converts the current date to the fiscal quarter.          | `number`  |
+
+---
+
+## API Reference
+
+### nextWorkday()
+
+#### Signatures
+
+```ts
+nextWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
+
+nextWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`Chronos` - New instance representing the next business day, normalized to the start of that day.
+
+#### Description
+
+Moves forward one day at a time to find the nearest day that is **not** considered a weekend.
+
+**Behavior:**
+
+- Weekend days are either automatically calculated from `weekStartsOn` and `weekendLength`, or directly specified via `weekendDays`.
+- The search begins on the day immediately after the current date.
+- Always returns a new immutable `Chronos` instance, normalized to the start of the day.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend (Friday & Saturday)
+new Chronos('2025-01-23').nextWorkday(); // Returns Friday Jan 24
+
+// Custom start of week (Monday) with 2-day weekend (Saturday & Sunday)
+new Chronos().nextWorkday(1, 2);
+
+// Custom 3-day weekend (Fri, Sat, Sun)
+new Chronos().nextWorkday(1, 3);
+
+// Fully custom weekend days (Friday, Saturday, Sunday)
+new Chronos().nextWorkday([5, 6, 0]);
+```
+
+---
+
+### nextWeekend()
+
+#### Signatures
+
+```ts
+nextWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
+
+nextWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`Chronos` - New instance representing the next weekend day, normalized to the start of that day.
+
+#### Description
+
+Moves forward one day at a time until a weekend day is reached.
+
+**Behavior:**
+
+- Weekend days are either automatically determined from `weekStartsOn` and `weekendLength`, or directly specified via `weekendDays`.
+- The scan begins on the next calendar day.
+- Produces a new immutable `Chronos` instance, normalized to the start of the day.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend (Friday & Saturday)
+new Chronos('2025-01-22').nextWeekend(); // Returns Friday Jan 23
+
+// Custom start of week (Monday) with 2-day weekend (Saturday & Sunday)
+new Chronos().nextWeekend(1, 2);
+
+// Custom 3-day weekend (Fri, Sat, Sun)
+new Chronos().nextWeekend(1, 3);
+
+// Custom weekend days (Sunday, Friday, Saturday)
+new Chronos().nextWeekend([0, 5, 6]);
+```
+
+---
+
+### previousWorkday()
+
+#### Signatures
+
+```ts
+previousWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
+
+previousWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`Chronos` - New instance representing the previous workday, normalized to the start of that day.
+
+#### Description
+
+Moves backward one day at a time to find the nearest day that is **not** considered a weekend.
+
+**Behavior:**
+
+- Weekend days are either automatically calculated from `weekStartsOn` and `weekendLength`, or directly specified via `weekendDays`.
+- The search begins on the day immediately before the current date.
+- Always returns a new immutable `Chronos` instance.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend (Friday & Saturday)
+new Chronos('2025-01-27').previousWorkday(); // Returns Thursday Jan 23
+
+// Custom start of week (Monday) with 2-day weekend (Saturday & Sunday)
+new Chronos().previousWorkday(1, 2);
+
+// Custom 3-day weekend (Fri, Sat, Sun)
+new Chronos().previousWorkday(1, 3);
+
+// Custom weekend days (Friday, Saturday, Sunday)
+new Chronos().previousWorkday([5, 6, 0]);
+```
+
+---
+
+### previousWeekend()
+
+#### Signatures
+
+```ts
+previousWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
+
+previousWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`Chronos` - New instance representing the previous weekend day, normalized to the start of that day.
+
+#### Description
+
+Moves backward one day at a time until a weekend day is reached.
+
+**Behavior:**
+
+- Weekend days are either automatically determined from `weekStartsOn` and `weekendLength`, or directly specified via `weekendDays`.
+- The scan begins on the previous calendar day.
+- Produces a new immutable `Chronos` instance.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend (Friday & Saturday)
+new Chronos('2025-01-27').previousWeekend(); // Returns Saturday Jan 25
+
+// Custom start of week (Monday) with 2-day weekend (Saturday & Sunday)
+new Chronos().previousWeekend(1, 2);
+
+// Custom 3-day weekend (Fri, Sat, Sun)
+new Chronos().previousWeekend(1, 3);
+
+// Custom weekend days (Sunday, Friday, Saturday)
+new Chronos().previousWeekend([0, 5, 6]);
+```
+
+---
+
+### workdaysBetween()
+
+#### Signatures
+
+```ts
+workdaysBetween(other: ChronosInput, weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+workdaysBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+#### Parameters
+
+- `other`: The target date to compare against (can be `Chronos` instance, `Date`, string, or timestamp).
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`number` - Total count of workdays between the two dates (exclusive of start date, inclusive of end date).
+
+#### Description
+
+Calculates the number of workdays between the current date and another date.
+
+<Callout type="error" title="Important">
+This calculation is exclusive of the starting date and inclusive of the ending date.
+</Callout>
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-12-15').workdaysBetween(new Chronos('2025-12-21'));
+// Returns: 4
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-12-15').workdaysBetween(new Chronos('2025-12-20'), [0, 6]);
+// Returns: 4
+
+// With week start on Monday and 2-day weekend
+new Chronos('2025-01-01').workdaysBetween('2025-01-10', 1, 2);
+```
+
+---
+
+### workdaysInMonth()
+
+#### Signatures
+
+```ts
+workdaysInMonth(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+workdaysInMonth(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`number` - Number of workdays in the current month.
+
+#### Description
+
+Counts the number of workdays in the current month based on the specified weekend configuration.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').workdaysInMonth();
+// Returns: 22
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').workdaysInMonth([0, 6]);
+// Returns: 23
+
+// With week start on Monday and 3-day weekend
+new Chronos('2025-06-15').workdaysInMonth(1, 3);
+```
+
+---
+
+### workdaysInYear()
+
+#### Signatures
+
+```ts
+workdaysInYear(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+workdaysInYear(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`number` - Number of workdays in the current year.
+
+#### Description
+
+Counts the number of workdays in the current year based on the specified weekend configuration.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').workdaysInYear();
+// Returns: 261
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').workdaysInYear([0, 6]);
+// Returns: 261
+
+// With week start on Monday and 1-day weekend (Sunday only)
+new Chronos('2025-01-01').workdaysInYear(1, 1);
+```
+
+---
+
+### weekendsBetween()
+
+#### Signatures
+
+```ts
+weekendsBetween(other: ChronosInput, weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+weekendsBetween(other: ChronosInput, weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+#### Parameters
+
+- `other`: The target date to compare against (can be `Chronos` instance, `Date`, string, or timestamp).
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`number` - Total count of weekends between the two dates (exclusive of start date, inclusive of end date).
+
+#### Description
+
+Calculates the number of weekends between the current date and another date.
+
+<Callout type="error" title="Important">
+This calculation is exclusive of the starting date and inclusive of the ending date.
+</Callout>
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-12-15').weekendsBetween(new Chronos('2025-12-21'));
+// Returns: 2
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-12-15').weekendsBetween(new Chronos('2025-12-20'), [0, 6]);
+// Returns: 1
+
+// With week start on Monday and 2-day weekend
+new Chronos('2025-01-01').weekendsBetween('2025-01-10', 1, 2);
+// Returns: 2
+```
+
+---
+
+### weekendsInMonth()
+
+#### Signatures
+
+```ts
+weekendsInMonth(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+weekendsInMonth(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`number` - Number of weekends in the current month.
+
+#### Description
+
+Counts the number of weekends in the current month based on the specified weekend configuration.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').weekendsInMonth();
+// Returns: 9
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').weekendsInMonth([0, 6]);
+// Returns: 8
+
+// With week start on Monday and 3-day weekend
+new Chronos('2025-06-15').weekendsInMonth(1, 3);
+// Returns: 13
+```
+
+---
+
+### weekendsInYear()
+
+#### Signatures
+
+```ts
+weekendsInYear(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): number;
+
+weekendsInYear(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): number;
+```
+
+#### Parameters
+
+- **First signature**: Uses automatic weekend calculation
+  - `weekStartsOn` (Optional): Day index (0–6) that the week starts on. Default is `0` (Sunday).
+  - `weekendLength` (Optional): Number of consecutive days at the end of the week considered as weekend. Must be between 1 and 4. Default is `2`.
+- **Second signature**: Uses custom weekend days
+  - `weekendDays`: Tuple of custom weekend day indices (0–6). Must contain between 1 and 4 elements.
+
+#### Return Type
+
+`number` - Number of weekends in the current year.
+
+#### Description
+
+Counts the number of weekends in the current year based on the specified weekend configuration.
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+// Default weekend Friday & Saturday
+new Chronos('2025-01-01').weekendsInYear();
+// Returns: 104
+
+// Custom weekend Sunday & Saturday
+new Chronos('2025-01-01').weekendsInYear([0, 6]);
+// Returns: 104
+
+// With week start on Monday and 1-day weekend (Sunday only)
+new Chronos('2025-01-01').weekendsInYear(1, 1);
+// Returns: 52
+```
+
+---
+
+### isWeekend()
+
+#### Signatures
+
+```ts
+isWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): boolean;
+
+isWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
+```
+
+#### Parameters
+
+- By default (`weekStartsOn = 0`, `weekendLength = 2`), Saturday (6) and Friday (5) are considered weekend.
+  - `weekStartsOn` sets the start of the week for calculating weekend days.
+  - `weekendLength` sets how many days at the end of the week are treated as weekend.
+  - `weekendDays` is used directly as the weekend days instead of calculating from `weekStartsOn` + `weekendLength`.
+
+#### Return Type
+
+`boolean` - Whether weekend (`true`) or not (`false`)
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+new Chronos('2025-01-11').isWeekend(); // true (Saturday)
+
+// Default: Saturday & Friday are weekend
+new Chronos().isWeekend();
+
+// Custom week start (Monday) with 2-day weekend (Saturday & Sunday)
+new Chronos().isWeekend(1, 2);
+
+// Custom 3-day weekend (Friday–Sunday)
+new Chronos().isWeekend(1, 3);
+
+// Fully custom weekend days (Sunday, Friday, Saturday)
+new Chronos().isWeekend([0, 5, 6]);
+```
+
+---
+
+### isWorkday()
+
+#### Signatures
+
+```ts
+isWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): boolean;
+
+isWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): boolean;
+```
+
+#### Parameters
+
+- By default (`weekStartsOn = 0`, `weekendLength = 2`), Saturday (6) and Friday (5) are considered weekend.
+  - `weekStartsOn` sets the start of the week for calculating weekend days.
+  - `weekendLength` sets how many days at the end of the week are treated as weekend.
+  - `weekendDays` is used directly as the weekend days instead of calculating from `weekStartsOn` + `weekendLength`.
+
+#### Return Type
+
+`boolean` - Whether workday (`true`) or not (`false`)
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+new Chronos('2025-01-16').isWorkday(); // true (Thursday)
+```
+
+<Callout type="info" title="Hint">
+This method internally uses [**isWeekend**](#isweekend) method.
+</Callout>
+
+---
+
+### isBusinessHour()
+
+#### Signatures
+
+```ts
+isBusinessHour(options?: BusinessOptionsBasic): boolean;
+
+isBusinessHour(options?: BusinessOptionsWeekends): boolean;
+```
+
+#### Parameters
+
+- `options`: Options to configure business hour
+
+##### Options Type Definitions
+
+```ts
+interface $BusinessHourBaseOptions {
+ /** - Optional starting hour of business time (0–23). Defaults to `9` (9 AM). */
+ businessStartHour?: Enumerate<24>;
+ /** - Optional ending hour of business time (0–23). Defaults to `17` (5 PM). */
+ businessEndHour?: Enumerate<24>;
+}
+
+/** Options for configuring business hour with `weekStartsOn` and `weekendLength` */
+interface BusinessOptionsBasic extends $BusinessHourBaseOptions {
+ /** - Optional day the week starts on (0–6). Default is `0` (Sunday). */
+ weekStartsOn?: Enumerate<7> | undefined;
+ /** - Optional weekend length (1-4). Default is `2`.*/
+ weekendLength?: NumberRange<1, 4> | undefined;
+}
+
+/** Options for configuring business hour with `weekendDays` tuple */
+interface BusinessOptionsWeekends extends $BusinessHourBaseOptions {
+ /** - Tuple of indices (0-6) of weekend days. Can pass only 1-4 elements. Default is `undefined`. */
+ weekendDays?: RangeTuple<Enumerate<7>, 1, 4> | undefined;
+}
+```
+
+#### Return Type
+
+`boolean` - Whether business hour (`true`) or not (`false`)
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+new Chronos('2025-01-16T10:00:00').isBusinessHour(); // true
+
+new Chronos().isBusinessHour({ weekendDays: [0, 2, 4] });
+
+// Or
+
+new Chronos().isBusinessHour({ weekendLength: 3 });
+```
+
+<Callout type="info" title="Note">
+Weekends are determined by `weekStartsOn` and `weekendLength` or `weekdays` array if provided using the [**isWeekend**](#isweekend) method.
+</Callout>
+
+---
+
+### toAcademicYear()
+
+#### Signature
+
+```ts
+toAcademicYear(): `${number}-${number}`
+```
+
+#### Return Type
+
+`string` - Academic year string
+
+#### Notes
+
+- Assumes academic year runs July-June
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+new Chronos('2025-01-15').toAcademicYear(); // "2022-2025"
+new Chronos('2025-08-15').toAcademicYear(); // "2025-2024"
+```
+
+---
+
+### toFiscalQuarter()
+
+#### Signature
+
+```ts
+toFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter
+```
+
+#### Parameters
+
+- `startMonth`: Fiscal year start month (1-12, default: 7)
+
+#### Return Type
+
+`Quarter` - Fiscal quarter (1-4)
+
+#### Notes
+
+- Default assumes fiscal year starts in July
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
+
+Chronos.use(businessPlugin);
+
+new Chronos('2025-01-15').toFiscalQuarter(); // 3 (July-start year)
+new Chronos('2025-01-15').toFiscalQuarter(10); // 2 (October-start year)
+```
