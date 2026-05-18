@@ -114,7 +114,7 @@ declare module 'chronos-date' {
 		 * // Custom 3-day weekend (Fri, Sat, Sun)
 		 * new Chronos().nextWorkday(1, 3);
 		 */
-		nextWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
+		nextWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): this;
 
 		/**
 		 * @instance Returns the next business day (workday) after the current date using custom weekend day indices.
@@ -134,7 +134,7 @@ declare module 'chronos-date' {
 		 * // Custom weekend days (Friday, Saturday, Sunday)
 		 * new Chronos().nextWorkday([5, 6, 0]);
 		 */
-		nextWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+		nextWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): this;
 
 		/**
 		 * @instance Returns the next weekend day after the current date using week start day and weekend length.
@@ -161,7 +161,7 @@ declare module 'chronos-date' {
 		 * // Custom 3-day weekend (Fri, Sat, Sun)
 		 * new Chronos().nextWeekend(1, 3);
 		 */
-		nextWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): Chronos;
+		nextWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): this;
 
 		/**
 		 * @instance Returns the next weekend day after the current date using custom weekend day indices.
@@ -181,7 +181,7 @@ declare module 'chronos-date' {
 		 * // Custom weekend days (Sunday, Friday, Saturday)
 		 * new Chronos().nextWeekend([0, 5, 6]);
 		 */
-		nextWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+		nextWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): this;
 
 		/**
 		 * @instance Returns the previous workday before the current date using week start day and weekend length.
@@ -208,10 +208,7 @@ declare module 'chronos-date' {
 		 * // Custom 3-day weekend (Fri, Sat, Sun)
 		 * new Chronos().previousWorkday(1, 3);
 		 */
-		previousWorkday(
-			weekStartsOn?: Enumerate<7>,
-			weekendLength?: NumberRange<1, 4>
-		): Chronos;
+		previousWorkday(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): this;
 
 		/**
 		 * @instance Returns the previous workday before the current date using custom weekend day indices.
@@ -231,7 +228,7 @@ declare module 'chronos-date' {
 		 * // Custom weekend days (Friday, Saturday, Sunday)
 		 * new Chronos().previousWorkday([5, 6, 0]);
 		 */
-		previousWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+		previousWorkday(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): this;
 
 		/**
 		 * @instance Returns the previous weekend day before the current date using week start day and weekend length.
@@ -258,10 +255,7 @@ declare module 'chronos-date' {
 		 * // Custom 3-day weekend (Fri, Sat, Sun)
 		 * new Chronos().previousWeekend(1, 3);
 		 */
-		previousWeekend(
-			weekStartsOn?: Enumerate<7>,
-			weekendLength?: NumberRange<1, 4>
-		): Chronos;
+		previousWeekend(weekStartsOn?: Enumerate<7>, weekendLength?: NumberRange<1, 4>): this;
 
 		/**
 		 * @instance Returns the previous weekend day before the current date using custom weekend day indices.
@@ -281,7 +275,7 @@ declare module 'chronos-date' {
 		 * // Custom weekend days (Sunday, Friday, Saturday)
 		 * new Chronos().previousWeekend([0, 5, 6]);
 		 */
-		previousWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): Chronos;
+		previousWeekend(weekendDays: RangeTuple<Enumerate<7>, 1, 4>): this;
 
 		/**
 		 * @instance Calculates the number of workdays between the current date and another using week start day and weekend length.

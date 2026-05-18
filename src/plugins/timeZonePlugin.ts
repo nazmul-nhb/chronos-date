@@ -7,6 +7,7 @@ import type {
 	$Chronos,
 	$TimeZoneIdentifier,
 	$TZLabelKey,
+	ChronosTimeZone,
 	TimeZone,
 	TimeZoneId,
 	TimeZoneIdentifier,
@@ -29,7 +30,7 @@ declare module 'chronos-date' {
 		 * @param tzId - Time zone identifier (e.g., `'Africa/Harare'`). See: {@link https://en.wikipedia.org/wiki/List_of_tz_database_time_zones IANA TZ Database on Wikipedia}.
 		 * @returns A new instance of `Chronos` with time in the given time zone identifier. Invalid input sets time-zone to `UTC`.
 		 */
-		timeZone(tzId: TimeZoneIdentifier): Chronos;
+		timeZone<Tz extends TimeZoneIdentifier>(tzId: Tz): Chronos<Tz>;
 
 		/**
 		 * @instance Creates a new instance of `Chronos` for the specified abbreviated time zone name.
@@ -39,7 +40,7 @@ declare module 'chronos-date' {
 		 * @param zone - Standard time zone abbreviation (e.g., `'IST'`, `'UTC'`, `'EST'` etc.). See: {@link https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations Time zone abbreviations on Wikipedia}.
 		 * @returns A new instance of `Chronos` with time in the given time zone abbreviation. Invalid input sets time-zone to `UTC`.
 		 */
-		timeZone(zone: TimeZone): Chronos;
+		timeZone<Tz extends TimeZone>(zone: Tz): Chronos<Tz>;
 
 		/**
 		 * @instance Creates a new instance of `Chronos` for the specified UTC offset.
@@ -49,7 +50,7 @@ declare module 'chronos-date' {
 		 * @param utc - UTC Offset in `UTC±HH:mm` format for fictional or unlisted time zone (e.g., `'UTC+06:15'`).
 		 * @returns A new instance of `Chronos` with time in the given utc offset. Invalid input sets time-zone to `UTC`.
 		 */
-		timeZone(utc: UTCOffset): Chronos;
+		timeZone<Tz extends UTCOffset>(utc: Tz): Chronos<Tz>;
 
 		/**
 		 * @instance Creates a new instance of `Chronos` for the specified time zone id, abbreviation or UTC offset.
@@ -62,7 +63,7 @@ declare module 'chronos-date' {
 		 * @param tz - A time zone identifier ({@link TimeZoneIdentifier}), time zone abbreviation ({@link TimeZone}), or UTC offset ({@link UTCOffset}).
 		 * @returns A new instance of `Chronos` with time in the given parameter. Invalid input sets time zone to `UTC`.
 		 */
-		timeZone(tz: TimeZoneIdentifier | TimeZone | UTCOffset): Chronos;
+		timeZone<Tz extends TimeZoneIdentifier | TimeZone | UTCOffset>(tz: Tz): Chronos<Tz>;
 
 		/**
 		 * @instance Returns the current time zone name as a full descriptive string (e.g. `"Bangladesh Standard Time"`).
@@ -228,7 +229,9 @@ export const timeZonePlugin = ($Chronos: $Chronos): void => {
 		}
 	};
 
-	$Chronos.prototype.timeZone = function (zone) {
+	$Chronos.prototype.timeZone = function <Tz extends Exclude<ChronosTimeZone, 'System'>>(
+		zone: Tz
+	) {
 		let offset: UTCOffset;
 		let tzId: TimeZoneId;
 

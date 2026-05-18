@@ -17,10 +17,10 @@ icon: Blocks
 A plugin is a function that takes the `Chronos` class constructor and augments it—usually by adding prototype methods.
 
 ```ts
-type ChronosPlugin = ($Chronos: typeof Chronos) => void;
+type ChronosPlugin = (Chronos: typeof Chronos) => void;
 ```
 
-You can inject plugins via the static [`Chronos.use()`](/docs/static-methods#use) or [`Chronos.register()`](/docs/static-methods#register) method or its wrapper function:
+You can inject plugins via the static [`Chronos.use()`](/docs/chronos/static-methods#use) or [`Chronos.register()`](/docs/chronos/static-methods#register) method or its wrapper function:
 
 ```ts
 Chronos.use(pluginName);

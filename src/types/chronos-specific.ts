@@ -7,10 +7,21 @@ import type {
 	Milliseconds,
 	TimeZone,
 	TimeZoneId,
+	TimeZoneIdentifier,
 	TimeZoneName,
 	UTCOffset,
 	WeekDay,
 } from './date-time';
+
+/**
+ * * Timezone identifier type for `Chronos`
+ *
+ *  - {@link $TimeZoneIdentifier} — e.g., `"Asia/Dhaka"`.
+ *  - {@link TimeZone} — e.g., `[ 'Asia/Calcutta', 'Asia/Colombo' ]`, used when multiple timezones share the same UTC offset such as `"UTC+05:30"`.
+ *  - {@link UTCOffset} — e.g., `"UTC+06:45"` or `"UTC+02:15"`, returned when no named timezone corresponds to a given offset.
+ *  - `'System'` — The current system timezone.
+ */
+export type ChronosTimeZone = TimeZoneIdentifier | TimeZone | UTCOffset | 'System';
 
 /**
  * * Options for `Chronos` _static_ method `with()`
@@ -48,14 +59,14 @@ export interface ChronosInternals {
 	 * @param tzTracker Optional tracker to identify the instance created by {@link https://toolbox.nazmul-nhb.dev/docs/classes/chronos/conversion#timezone timeZone} method.
 	 * @returns The `Chronos` instance with the specified origin and other properties.
 	 */
-	withOrigin(
+	withOrigin<Tz extends ChronosTimeZone>(
 		instance: Chronos,
 		method: PluginMethods,
 		offset?: UTCOffset,
 		tzName?: LooseLiteral<TimeZoneName>,
 		tzId?: TimeZoneId,
 		tzTracker?: $TimeZoneIdentifier | TimeZone | UTCOffset
-	): Chronos;
+	): Chronos<Tz>;
 
 	/**
 	 * * Access to `#toNewDate` private method
@@ -81,7 +92,7 @@ export interface ChronosInternals {
 	offset(instance: Chronos): UTCOffset;
 
 	/** * Ensures the input is a `Chronos` instance, creating one if necessary. */
-	cast(date: ChronosInput): Chronos;
+	cast<Tz extends ChronosTimeZone>(date: ChronosInput): Chronos<Tz>;
 }
 
 /** @internal Helper type to assign instance origin when creating new `Chronos` instance. */

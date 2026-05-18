@@ -21,7 +21,7 @@ declare module 'chronos-date' {
 		 * - For `'week'` unit, rounding is performed by comparing proximity to the start and end of the ISO week (Monday to Sunday).
 		 *   - If the date is closer to the next Monday, it rounds forward; otherwise, it rounds back to the previous Monday.
 		 */
-		round(unit: TimeUnit, nearest?: number): Chronos;
+		round(unit: TimeUnit, nearest?: number): this;
 	}
 }
 

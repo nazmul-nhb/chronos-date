@@ -43,6 +43,7 @@ import type {
 	ChronosPlugin,
 	StrictFormat,
 	TimeOnlyFormat,
+	ChronosTimeZone,
 } from './types';
 import { extractMinutesFromUTC, getNativeTimeZoneId } from './utils/utilities';
 
@@ -81,7 +82,7 @@ type $DateParts = {
  *
  * @returns Instance of `Chronos` with all methods and properties.
  */
-export class Chronos {
+export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	readonly #date: Date;
 	#offset: UTCOffset;
 	#ORIGIN: ChronosMethods | 'root';
@@ -419,7 +420,7 @@ export class Chronos {
 		tzName?: LooseLiteral<TimeZoneName>,
 		tzId?: TimeZoneId,
 		tzTracker?: $TimeZoneIdentifier | TimeZone | UTCOffset
-	): Chronos {
+	): Chronos<Tz> {
 		const instance = new Chronos(this.#date);
 		instance.#ORIGIN = origin;
 		instance.origin = origin;
@@ -444,7 +445,7 @@ export class Chronos {
 	 * @param origin Origin of the instates (which method created the instance).
 	 * @returns The provided instance with all the current states.
 	 */
-	#cloneStates(instance: Chronos, origin: ChronosMethods): Chronos {
+	#cloneStates(instance: Chronos, origin: ChronosMethods): Chronos<Tz> {
 		return instance.#withOrigin(
 			origin,
 			this.#offset,
@@ -586,7 +587,7 @@ export class Chronos {
 	// ! ======= Instance Methods ======= //
 
 	/** @instance Clones and returns exactly same `Chronos` instance. */
-	clone(): Chronos {
+	clone(): Chronos<Tz> {
 		return new Chronos(this.#date).#withOrigin(
 			this.#ORIGIN as ChronosMethods,
 			this.#offset,
@@ -699,7 +700,7 @@ export class Chronos {
 	 * @param seconds - Number of seconds to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addSeconds(seconds: number): Chronos {
+	addSeconds(seconds: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(seconds, 'second'), 'addSeconds');
 	}
 
@@ -708,7 +709,7 @@ export class Chronos {
 	 * @param minutes - Number of minutes to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addMinutes(minutes: number): Chronos {
+	addMinutes(minutes: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(minutes, 'minute'), 'addMinutes');
 	}
 
@@ -717,7 +718,7 @@ export class Chronos {
 	 * @param hours - Number of hours to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addHours(hours: number): Chronos {
+	addHours(hours: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(hours, 'hour'), 'addHours');
 	}
 
@@ -726,7 +727,7 @@ export class Chronos {
 	 * @param days - Number of days to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addDays(days: number): Chronos {
+	addDays(days: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(days, 'day'), 'addDays');
 	}
 
@@ -735,7 +736,7 @@ export class Chronos {
 	 * @param weeks - Number of weeks to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addWeeks(weeks: number): Chronos {
+	addWeeks(weeks: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(weeks, 'week'), 'addWeeks');
 	}
 
@@ -744,7 +745,7 @@ export class Chronos {
 	 * @param months - Number of months to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addMonths(months: number): Chronos {
+	addMonths(months: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(months, 'month'), 'addMonths');
 	}
 
@@ -753,7 +754,7 @@ export class Chronos {
 	 * @param years - Number of years to add.
 	 * @returns A new `Chronos` instance with the updated date.
 	 */
-	addYears(years: number): Chronos {
+	addYears(years: number): Chronos<Tz> {
 		return this.#cloneStates(this.add(years, 'year'), 'addYears');
 	}
 
@@ -786,10 +787,14 @@ export class Chronos {
 	/**
 	 * @instance Checks if another date is the same as this one in a specific unit.
 	 * @param other The other date to compare.
-	 * @param unit The unit to compare.
+	 * @param unit The unit to compare. Default is `'millisecond'`.
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
-	isSame(other: ChronosInput, unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): boolean {
+	isSame(
+		other: ChronosInput,
+		unit: TimeUnit = 'millisecond',
+		weekStartsOn: Enumerate<7> = 0
+	): boolean {
 		return (
 			this.startOf(unit, weekStartsOn).#timestamp ===
 			Chronos.#cast(other).startOf(unit, weekStartsOn).#timestamp
@@ -799,10 +804,14 @@ export class Chronos {
 	/**
 	 * @instance Checks if this date is before another date in a specific unit.
 	 * @param other The other date to compare.
-	 * @param unit The unit to compare.
+	 * @param unit The unit to compare. Default is ``millisecond``.
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
-	isBefore(other: ChronosInput, unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): boolean {
+	isBefore(
+		other: ChronosInput,
+		unit: TimeUnit = 'millisecond',
+		weekStartsOn: Enumerate<7> = 0
+	): boolean {
 		return (
 			this.startOf(unit, weekStartsOn).#timestamp <
 			Chronos.#cast(other).startOf(unit, weekStartsOn).#timestamp
@@ -812,10 +821,14 @@ export class Chronos {
 	/**
 	 * @instance Checks if this date is after another date in a specific unit.
 	 * @param other The other date to compare.
-	 * @param unit The unit to compare.
+	 * @param unit The unit to compare. Default is `'millisecond'`.
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
-	isAfter(other: ChronosInput, unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): boolean {
+	isAfter(
+		other: ChronosInput,
+		unit: TimeUnit = 'millisecond',
+		weekStartsOn: Enumerate<7> = 0
+	): boolean {
 		return (
 			this.startOf(unit, weekStartsOn).#timestamp >
 			Chronos.#cast(other).startOf(unit, weekStartsOn).#timestamp
@@ -825,12 +838,12 @@ export class Chronos {
 	/**
 	 * @instance Checks if this date is the same or before another date in a specific unit.
 	 * @param other The other date to compare.
-	 * @param unit The unit to compare.
+	 * @param unit The unit to compare. Default is `'millisecond'`.
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
 	isSameOrBefore(
 		other: ChronosInput,
-		unit: TimeUnit,
+		unit: TimeUnit = 'millisecond',
 		weekStartsOn: Enumerate<7> = 0
 	): boolean {
 		return (
@@ -841,12 +854,12 @@ export class Chronos {
 	/**
 	 * @instance Checks if this date is the same or after another date in a specific unit.
 	 * @param other The other date to compare.
-	 * @param unit The unit to compare.
+	 * @param unit The unit to compare. Default is `'millisecond'`.
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
 	isSameOrAfter(
 		other: ChronosInput,
-		unit: TimeUnit,
+		unit: TimeUnit = 'millisecond',
 		weekStartsOn: Enumerate<7> = 0
 	): boolean {
 		return (
@@ -915,13 +928,13 @@ export class Chronos {
 	}
 
 	/** @instance Returns a new `Chronos` instance set to the first day of the current month. */
-	firstDayOfMonth(): Chronos {
+	firstDayOfMonth(): Chronos<Tz> {
 		const firstDate = new Date(this.year, this.month, 1);
 		return this.#cloneStates(new Chronos(firstDate), 'firstDayOfMonth');
 	}
 
 	/** @instance Returns a new `Chronos` instance set to the last day of the current month. */
-	lastDayOfMonth(): Chronos {
+	lastDayOfMonth(): Chronos<Tz> {
 		const lastDate = new Date(this.year, this.month + 1, 0);
 		return this.#cloneStates(new Chronos(lastDate), 'lastDayOfMonth');
 	}
@@ -931,7 +944,7 @@ export class Chronos {
 	 * @param unit The unit to reset (e.g., year, month, day).
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
-	startOf(unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): Chronos {
+	startOf(unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): Chronos<Tz> {
 		const d = new Date(this.#date);
 
 		switch (unit) {
@@ -974,7 +987,7 @@ export class Chronos {
 	 * @param unit The unit to adjust (e.g., year, month, day).
 	 * @param weekStartsOn Optional: Day the week starts on (0 = Sunday, 1 = Monday). Applicable if week day is required. Default is `0`.
 	 */
-	endOf(unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): Chronos {
+	endOf(unit: TimeUnit, weekStartsOn: Enumerate<7> = 0): Chronos<Tz> {
 		const instance = this.startOf(unit, weekStartsOn).add(1, unit).add(-1, 'millisecond');
 
 		return this.#cloneStates(instance, 'endOf');
@@ -985,7 +998,7 @@ export class Chronos {
 	 * @param number The number of time unit to add (can be negative).
 	 * @param unit The time unit to add.
 	 */
-	add(number: number, unit: TimeUnit): Chronos {
+	add(number: number, unit: TimeUnit): Chronos<Tz> {
 		const d = new Date(this.#date);
 
 		switch (unit) {
@@ -1023,7 +1036,7 @@ export class Chronos {
 	 * @param number The number of time unit to subtract (can be negative).
 	 * @param unit The time unit to add.
 	 */
-	subtract(number: number, unit: TimeUnit): Chronos {
+	subtract(number: number, unit: TimeUnit): Chronos<Tz> {
 		return this.#cloneStates(this.add(-number, unit), 'subtract');
 	}
 
@@ -1057,7 +1070,7 @@ export class Chronos {
 	 * @param unit The unit to modify. Type of `value` is determined by `unit`.
 	 * @param value The value to set for the unit. Type of `value` is determined by `unit`.
 	 */
-	set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos {
+	set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos<Tz> {
 		const d = new Date(this.#date);
 
 		switch (unit) {
@@ -1189,7 +1202,7 @@ export class Chronos {
 	 * @param week The ISO week number (1–53) to set the date to.
 	 * @returns A new `Chronos` instance set to the start (Monday) of the specified week.
 	 */
-	setWeek(week: NumberRange<1, 53>): Chronos {
+	setWeek(week: NumberRange<1, 53>): Chronos<Tz> {
 		const d = new Date(this.#date);
 
 		const year = d.getFullYear();
@@ -1349,7 +1362,7 @@ export class Chronos {
 	}
 
 	/** @instance Returns new `Chronos` instance in UTC time */
-	toUTC(): Chronos {
+	toUTC(): Chronos<Tz> {
 		const offset = this.getTimeZoneOffsetMinutes();
 
 		const utc = new Date(this.#timestamp - offset * 60 * 1000);
@@ -1358,7 +1371,7 @@ export class Chronos {
 	}
 
 	/** @instance Returns new `Chronos` instance in local time */
-	toLocal(): Chronos {
+	toLocal(): Chronos<Tz> {
 		const offset = this.getTimeZoneOffsetMinutes() - this.getUTCOffsetMinutes();
 
 		const localTime = new Date(this.#timestamp - offset * 60 * 1000);

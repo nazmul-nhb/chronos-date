@@ -9,8 +9,14 @@ import type {
 	YearToken,
 } from './format-tokens';
 
+/**
+ * Type representing the two possible locales for Bangla date: Bangla or English.
+ * - `'bn'` for Bangla (default)
+ * - `'en'` for English
+ */
 export type $BnEn = 'bn' | 'en';
 
+/** Type representing ০ padded Bangla digits from '০০' to '০৯'. */
 type $BnOnesPadded = `০${$BnOnes}`;
 
 /** Bangla month from `১-১২` */
