@@ -3,12 +3,13 @@ import type { ChronosPlugin } from './chronos-plugins';
 import type {
 	ChronosInput,
 	ChronosProperties,
+	ChronosTimeZone,
 	ChronosWithOptions,
 	DateRangeOptions,
 	RelativeRangeOptions,
 	WeekdayOptions,
 } from './chronos-specific';
-import type { FormatOptions, WeekDay } from './date-time';
+import type { FormatOptions, ISODateTimeString, WeekDay } from './date-time';
 import type { TimeFormatToken } from './format-tokens';
 
 /** All the statics methods in `Chronos` class */
@@ -222,7 +223,7 @@ export interface ChronosStatics {
 	 * If omitted, the current system date/time is used.
 	 * @returns A new Chronos instance representing the UTC equivalent of the input.
 	 */
-	utc(dateLike?: ChronosInput): Chronos;
+	utc(dateLike?: ChronosInput): Chronos<'UTC'>;
 
 	/**
 	 * * Formats a time-only string into a formatted time string.
@@ -263,7 +264,10 @@ export interface ChronosStatics {
 	 * });
 	 * //=> [ '2025-05-28T15:17:10.812Z', '2025-06-04T15:17:10.812Z' ]
 	 */
-	getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): string[];
+	getDatesForDay(
+		day: WeekDay,
+		options?: RelativeRangeOptions
+	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
 	 * * Returns ISO date strings for each occurrence of a weekday between two fixed dates.
@@ -280,7 +284,10 @@ export interface ChronosStatics {
 	 * });
 	 * //=> [ '2025-01-06T...', '2025-01-13T...', ... ]
 	 */
-	getDatesForDay(day: WeekDay, options?: DateRangeOptions): string[];
+	getDatesForDay(
+		day: WeekDay,
+		options?: DateRangeOptions
+	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
 	 * * Returns ISO date strings for each occurrence of a weekday.
@@ -289,19 +296,22 @@ export interface ChronosStatics {
 	 * @param options - Relative range (e.g., 7 days, 4 weeks) or Absolute date range and output format.
 	 * @returns Array of ISO date strings in the specified format.
 	 */
-	getDatesForDay(day: WeekDay, options?: WeekdayOptions): string[];
+	getDatesForDay(
+		day: WeekDay,
+		options?: WeekdayOptions
+	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
 	 * * Returns earliest Chronos
 	 * @param dates Date inputs.
 	 */
-	min(...dates: ChronosInput[]): Chronos;
+	min(...dates: ChronosInput[]): Chronos<ChronosTimeZone>;
 
 	/**
 	 * * Returns latest Chronos
 	 * @param dates Date inputs.
 	 */
-	max(...dates: ChronosInput[]): Chronos;
+	max(...dates: ChronosInput[]): Chronos<ChronosTimeZone>;
 
 	/**
 	 * * Checks if the year in the date string or year (from 0 - 9999) is a leap year.
@@ -344,7 +354,7 @@ export interface ChronosStatics {
 	 * @param value - The value to test.
 	 * @returns `true` if the value is an instance of `Chronos`, otherwise `false`.
 	 */
-	isValidChronos(value: unknown): value is Chronos;
+	isValidChronos(value: unknown): value is Chronos<ChronosTimeZone>;
 
 	/**
 	 * * Checks if the given value has the necessary properties to be reconstructed into a `Chronos` instance.
@@ -363,5 +373,5 @@ export interface ChronosStatics {
 	 * @returns A new `Chronos` instance created from the provided properties.
 	 * @throws `TypeError` if the input value does not have the necessary properties for reconstruction.
 	 */
-	reconstruct(value: ChronosProperties): Chronos;
+	reconstruct(value: ChronosProperties): Chronos<ChronosTimeZone>;
 }

@@ -1665,7 +1665,10 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * });
 	 * //=> [ '2025-05-28T15:17:10.812Z', '2025-06-04T15:17:10.812Z' ]
 	 */
-	static getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): string[];
+	static getDatesForDay(
+		day: WeekDay,
+		options?: RelativeRangeOptions
+	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
 	 * @static Returns ISO date strings for each occurrence of a weekday between two fixed dates.
@@ -1688,7 +1691,10 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * });
 	 * //=> [ '2025-01-06T...', '2025-01-13T...', ... ]
 	 */
-	static getDatesForDay(day: WeekDay, options?: DateRangeOptions): string[];
+	static getDatesForDay(
+		day: WeekDay,
+		options?: DateRangeOptions
+	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
 	 * @static Returns ISO date strings for each occurrence of a weekday.
@@ -1699,7 +1705,10 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 *
 	 * - Please refer to {@link https://toolbox.nazmul-nhb.dev/docs/classes/chronos/statics#getdatesforday docs} for details.
 	 */
-	static getDatesForDay(day: WeekDay, options?: WeekdayOptions): string[] {
+	static getDatesForDay(
+		day: WeekDay,
+		options?: WeekdayOptions
+	): ISODateTimeString<'utc' | 'local'>[] {
 		let startDate = new Chronos(),
 			endDate = startDate.addWeeks(4);
 
@@ -1720,7 +1729,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			endDate = endDate.startOf('day');
 		}
 
-		const result: string[] = [];
+		const result: ISODateTimeString<'utc' | 'local'>[] = [];
 
 		// compute total days difference
 		const step = (startDate.isBefore(endDate, 'day') ? 1 : -1) * MS_PER_DAY;
@@ -1860,7 +1869,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * @param value - The value to test.
 	 * @returns `true` if the value is an instance of `Chronos`, otherwise `false`.
 	 */
-	static isValidChronos(value: unknown): value is Chronos {
+	static isValidChronos(value: unknown): value is Chronos<ChronosTimeZone> {
 		return value instanceof Chronos;
 	}
 

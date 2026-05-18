@@ -439,13 +439,13 @@ Returns ISO date strings for each occurrence of a weekday.
 
 ```ts
 // Relative range signature
-static getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): string[];
+static getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): ISODateTimeString<'utc' | 'local'>[];
 
 // Absolute range signature
-static getDatesForDay(day: WeekDay, options?: DateRangeOptions): string[];
+static getDatesForDay(day: WeekDay, options?: DateRangeOptions): ISODateTimeString<'utc' | 'local'>[];
 
 // Implementation signature
-static getDatesForDay(day: WeekDay, options?: WeekdayOptions): string[]
+static getDatesForDay(day: WeekDay, options?: WeekdayOptions): ISODateTimeString<'utc' | 'local'>[]
 ```
 
 ### Parameters
@@ -488,7 +488,7 @@ interface DateRangeOptions {
 
 ### Return Type
 
-`string[]` - Array of ISO-8601 formatted date strings
+`ISODateTimeString<'utc' | 'local'>[]` - Array of ISO-8601 formatted date strings
 
 ### Behavior
 

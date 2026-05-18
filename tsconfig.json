@@ -1,14 +1,14 @@
 {
 	"compilerOptions": {
 		"target": "ES2023",
-		"lib": ["DOM", "ESNext"],
+		"lib": ["ESNext"],
 		"paths": {
 			"*": ["./*"],
 			"chronos-date": ["./src/index"]
 		},
-		"module": "preserve",
 		"rootDir": "./",
 		"outDir": "./dist",
+		"module": "preserve",
 		"declaration": false,
 		"declarationMap": false,
 		"esModuleInterop": true,
@@ -26,8 +26,7 @@
 		"allowJs": true,
 		"pretty": true,
 		"checkJs": true,
-		"preserveWatchOutput": true,
-		"types": ["node"]
+		"preserveWatchOutput": true
 	},
 	"include": [
 		"src/**/*.ts",
