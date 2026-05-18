@@ -1,9 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import type { getMDXComponents } from '@/components/mdx';
 
-/** A generic type that represents either a value of type T or undefined. */
-export type Maybe<T> = T | undefined;
-
 /** Extra attributes that Shiki/Fumadocs attach to `<pre>` and `<code>` elements. */
 export interface ShikiProps {
 	runnable?: boolean;

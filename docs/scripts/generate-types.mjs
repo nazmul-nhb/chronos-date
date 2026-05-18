@@ -1,108 +1,171 @@
+// @ts-check
+
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Stylog } from 'nhb-toolbox/stylog';
+
+/**
+ * @import { PackageJson } from 'type-fest';
+ */
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pkgRoot = path.resolve(__dirname, '../../');
 const distDir = path.join(pkgRoot, 'dist');
 
+const LIB_DIR = path.resolve(pkgRoot, 'docs/lib');
+const CACHE_FILE = path.join(LIB_DIR, '.gen-cache.json');
+
+/* -------------------------------------------------------------------------- */
+/*                                    Utils                                   */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Fast hash for change detection
+ * @param {string} input
+ * @returns {string}
+ */
+function hash(input) {
+	return crypto.createHash('sha1').update(input).digest('hex');
+}
+
+/**
+ * Load cache file
+ * @returns {Record<string, string>}
+ */
+function loadCache() {
+	if (!fs.existsSync(CACHE_FILE)) return {};
+	return JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+}
+
+/**
+ * Save cache file
+ * @param {Record<string, string>} cache
+ */
+function saveCache(cache) {
+	fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true });
+	fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
+}
+
+/**
+ * Ensure directory exists
+ * @param {string} dir
+ */
+function ensureDir(dir) {
+	fs.mkdirSync(dir, { recursive: true });
+}
+
+/**
+ * Get all .d.ts and .d.cts files recursively
+ * @param {string} dir
+ * @param {string[]} files
+ * @returns {string[]}
+ */
 function getFiles(dir, files = []) {
 	const fileList = fs.readdirSync(dir);
+
 	for (const file of fileList) {
-		const name = `${dir}/${file}`;
+		const name = path.join(dir, file);
+
 		if (fs.statSync(name).isDirectory()) {
 			getFiles(name, files);
 		} else if (name.endsWith('.d.ts') || name.endsWith('.d.cts')) {
 			files.push(name);
 		}
 	}
+
 	return files;
 }
 
+/* -------------------------------------------------------------------------- */
+/*                              Main Generator                                */
+/* -------------------------------------------------------------------------- */
+
 function generateTypes() {
 	if (!fs.existsSync(distDir)) {
-		console.warn('Warning: dist/ does not exist! Please build chronos-date first!');
+		console.warn(
+			Stylog.ansi16('red').toANSI(
+				`Warning: ${Stylog.bold.toANSI('dist/')}${Stylog.ansi16('red').toANSI(' does not exist')}. Please build "chronos-date" first!`
+			)
+		);
 		return;
 	}
 
-	const files = getFiles(distDir);
-	const types = files.map((file) => {
-		let content = fs.readFileSync(file, 'utf-8');
-		let relativePath = path.relative(distDir, file);
+	ensureDir(LIB_DIR);
 
-		// Normalize .d.mts / .d.cts → .d.ts so Monaco resolves them without extensions
+	const cache = loadCache();
+	/** @type {Record<string, string>} */
+	const newCache = {};
+	let hasChanges = false;
+
+	const files = getFiles(distDir);
+
+	const types = [];
+
+	for (const file of files) {
+		const content = fs.readFileSync(file, 'utf-8');
+		const fileHash = hash(content);
+
+		newCache[file] = fileHash;
+
+		if (cache[file] !== fileHash) {
+			hasChanges = true;
+		}
+
+		let relativePath = path.relative(distDir, file);
 		relativePath = relativePath.replace(/\.d\.[mc]ts$/, '.d.ts');
 
-		// Rewrite sibling chunk imports from .cjs/.mjs → .d.ts so Monaco can follow
-		// the import chain (the dist files cross-reference each other via runtime
-		// extensions that don't exist in Monaco's virtual filesystem).
-		content = content.replace(/from\s+"(\.\.?\/[^"]+)\.(c|m)js"/g, 'from "$1.d.ts"');
+		const transformed = content.replace(
+			/from\s+"(\.\.?\/[^"]+)\.(c|m)js"/g,
+			'from "$1.d.ts"'
+		);
 
-		return {
-			content,
+		types.push({
+			content: transformed,
 			filePath: `file:///node_modules/chronos-date/dist/${relativePath.replace(/\\/g, '/')}`,
-		};
-	});
+		});
+	}
 
-	// Register the main entry types at file:///node_modules/chronos-date/index.d.ts
-	//
-	// WHY not `declare module 'chronos-date' { export * from '...' }`:
-	//   dist/index.d.ts is a pure re-export relay: it only does
-	//   `import { X } from "./chunk.cjs"; export { X }`.
-	//   Inside an ambient `declare module` block, TypeScript's `export *` only
-	//   carries TYPES through a re-export chain — values (class constructors,
-	//   functions) are stripped. That's why Chronos/chronos showed `any`.
-	//
-	// WHY not a virtual package.json:
-	//   `setExtraLibs` only processes .d.ts files; Monaco's TS worker ignores
-	//   .json files registered that way, so 'chronos-date' stayed unresolved (2307).
-	//
-	// THE FIX — direct file at index.d.ts:
-	//   With NodeJs module resolution, TypeScript looks for
-	//   `node_modules/chronos-date/index.d.ts` when there's no package.json types.
-	//   We read dist/index.d.cts, rewrite its relative imports to prepend `./dist/`
-	//   so they point to the already-registered chunk files, then register it at the
-	//   package root. Monaco follows the import chain naturally and gets the full
-	//   `declare class Chronos` definition — both type AND value.
+	/* ---------------------------- index.d.cts file --------------------------- */
+
 	const indexSrc = path.join(distDir, 'index.d.cts');
-	const indexContent = fs.readFileSync(indexSrc, 'utf-8');
+	const indexContentRaw = fs.readFileSync(indexSrc, 'utf-8');
+
+	const indexHash = hash(indexContentRaw);
+
+	newCache[indexSrc] = indexHash;
+
+	if (cache[indexSrc] !== indexHash) {
+		hasChanges = true;
+	}
 
 	types.push({
-		content: indexContent
-			// Rewrite .cjs/.mjs extensions to .d.ts (same as above)
+		content: indexContentRaw
 			.replace(/from\s+"(\.\.?\/[^"]+)\.(c|m)js"/g, 'from "$1.d.ts"')
-			// Rewrite relative imports like `"./foo"` → `"./dist/foo"`
-			// so that when this file lives at the package root it can still find the chunk files in dist/.
 			.replace(/from\s+"(\.\/)([^"]+)"/g, 'from "./dist/$2"'),
 		filePath: `file:///node_modules/chronos-date/index.d.ts`,
 	});
 
-	// ── Sub-path `declare module` blocks ─────────────────────────────────────
-	// Auto-generated from package.json#exports so new plugins/sub-modules
-	// are picked up automatically without manual updates.
-	//
-	// These work fine because the sub-module dist files have self-contained
-	// value declarations rather than relay re-exports, so `export *` carries
-	// both types and values correctly.
+	/* --------------------------- sub-path exports ---------------------------- */
+
 	const PKG = 'chronos-date';
+	/** @type {Record<string, any>} */
 	const pkgJson = JSON.parse(fs.readFileSync(path.join(pkgRoot, 'package.json'), 'utf-8'));
 
+	/** @type {string[]} */
 	const declareBlocks = [];
 
 	for (const [subpath, conditions] of Object.entries(pkgJson.exports ?? {})) {
-		// Skip main entry (handled above) and package.json self-reference
 		if (subpath === '.' || subpath === './package.json') continue;
 
-		// Derive the dist module name from the "import" or "require" condition.
-		// e.g. "./dist/plugins/banglaPlugin.mjs" → "plugins/banglaPlugin"
 		const runtimeFile = conditions?.import ?? conditions?.require ?? '';
-		const distRelative = runtimeFile
-			.replace(/^\.\/(dist\/)?/, '') // strip ./dist/ or ./
-			.replace(/\.(m|c)?js$/, ''); // strip extension
+
+		const distRelative = normalizeDistPath(runtimeFile).replace(/\.(m|c)?js$/, '');
 
 		if (!distRelative) continue;
 
-		const subpathName = subpath.replace(/^\.\//, ''); // e.g. "plugins/banglaPlugin"
+		const subpathName = subpath.replace(/^\.\//, '');
 
 		declareBlocks.push(
 			`declare module '${PKG}/${subpathName}' {\n\texport * from '${PKG}/dist/${distRelative}';\n}`
@@ -114,35 +177,56 @@ function generateTypes() {
 		filePath: `file:///node_modules/${PKG}/sub-paths.d.ts`,
 	});
 
-	// ── Auto-generate Playground module map ──────────────────────────────────
-	// Generates lib/generated-modules.ts so Playground.tsx doesn't need
-	// manual import updates when sub-paths change.
-	generateModuleMap(pkgJson);
+	/* ---------------------------- skip if unchanged -------------------------- */
 
-	fs.writeFileSync(path.resolve('lib/generated-types.json'), JSON.stringify(types, null, 2));
-	console.info('Successfully generated Monaco types in lib/generated-types.json');
+	if (!hasChanges && isValidCache(cache)) {
+		console.info(
+			Stylog.ansi16('cyan').toANSI('✓ No changes detected - Skipped type generation!')
+		);
+		return;
+	}
+
+	/* ------------------------------- write output ---------------------------- */
+
+	const resolvedPath = path.resolve(LIB_DIR, '.generated-types.json');
+
+	fs.writeFileSync(resolvedPath, JSON.stringify(types, null, 2));
+
+	saveCache(newCache);
+
+	console.info(
+		Stylog.ansi16('green').toANSI(
+			`✓ Successfully generated Monaco types in ${Stylog.bold.toANSI(resolvedPath)}`
+		)
+	);
+
+	/* --------------------------- module map stage ---------------------------- */
+
+	generateModuleMap(pkgJson);
 }
 
+/* -------------------------------------------------------------------------- */
+/*                         Playground Module Map                              */
+/* -------------------------------------------------------------------------- */
+
 /**
- * Generate lib/generated-modules.ts with auto-discovered imports and MODULES map.
- * Playground.tsx imports from this file instead of maintaining manual import lists.
+ * @param {PackageJson} pkgJson
  */
 function generateModuleMap(pkgJson) {
 	const PKG = 'chronos-date';
 
-	// Collect all sub-path names (e.g. "constants", "plugins/banglaPlugin")
 	const subpaths = [];
 
 	for (const subpath of Object.keys(pkgJson.exports ?? {})) {
 		if (subpath === '.' || subpath === './package.json') continue;
-		subpaths.push(subpath.replace(/^\.\//, ''));
+		subpaths.push(subpath.replace(/^\./, ''));
 	}
 
-	// Convert sub-path to a valid JS identifier: "plugins/banglaPlugin" → "PluginsBanglaPlugin"
+	/** @param {string} s */
 	const toIdentifier = (s) =>
 		s
 			.split('/')
-			.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+			.map((p) => p.charAt(0).toUpperCase() + p.slice(1))
 			.join('');
 
 	const importLines = [
@@ -152,14 +236,12 @@ function generateModuleMap(pkgJson) {
 		`import * as ChronosDate from '${PKG}';`,
 	];
 
-	for (const sp of subpaths) {
-		importLines.push(`import * as ${toIdentifier(sp)} from '${PKG}/${sp}';`);
-	}
-
 	const moduleEntries = [`\t'${PKG}': ChronosDate,`];
 
 	for (const sp of subpaths) {
-		moduleEntries.push(`\t'${PKG}/${sp}': ${toIdentifier(sp)},`);
+		const cleanedSP = normalizeSubpath(sp);
+		importLines.push(`import * as ${toIdentifier(cleanedSP)} from '${PKG}/${cleanedSP}';`);
+		moduleEntries.push(`\t'${PKG}/${cleanedSP}': ${toIdentifier(cleanedSP)},`);
 	}
 
 	const output = [
@@ -172,11 +254,61 @@ function generateModuleMap(pkgJson) {
 		`};`,
 		``,
 		`export { ChronosDate, type ChronosModule };`,
-		``,
 	].join('\n');
 
-	fs.writeFileSync(path.resolve('lib/generated-modules.ts'), output);
-	console.info('Successfully generated Playground module map in lib/generated-modules.ts');
+	ensureDir(LIB_DIR);
+
+	const resolvedPath = path.resolve(LIB_DIR, '.generated-modules.ts');
+
+	fs.writeFileSync(resolvedPath, output);
+
+	console.info(
+		Stylog.ansi16('green').toANSI(
+			`✓ Successfully generated Playground module map in ${Stylog.bold.toANSI(resolvedPath)}`
+		)
+	);
 }
+
+function outputsExist() {
+	return (
+		fs.existsSync(path.join(LIB_DIR, '.generated-types.json')) &&
+		fs.existsSync(path.join(LIB_DIR, '.generated-modules.ts'))
+	);
+}
+
+/**
+ *
+ * @param {Record<string, string>} cache
+ * @returns {boolean}
+ */
+function isValidCache(cache) {
+	return outputsExist() && Object.keys(cache).length > 0;
+}
+
+/**
+ * Normalize a runtime export path into a clean module path.
+ * @param {string} runtimeFile
+ * @returns {string}
+ */
+function normalizeDistPath(runtimeFile) {
+	return runtimeFile
+		.replace(/^\.\/?/, '') // remove leading ./
+		.replace(/^dist\//, '') // remove dist/
+		.replace(/\/+/g, '/'); // collapse multiple slashes
+}
+
+/**
+ * Normalize export subpath into consistent format: /constants
+ * @param {string} subpath
+ * @returns {string}
+ */
+function normalizeSubpath(subpath) {
+	return subpath
+		.replace(/^\.\//, '') // remove ./
+		.replace(/^\/+/, '') // remove leading slashes
+		.replace(/\/+/g, '/'); // collapse duplicates
+}
+
+/* -------------------------------------------------------------------------- */
 
 generateTypes();

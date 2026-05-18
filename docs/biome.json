@@ -31,6 +31,9 @@
 			"complexity": {
 				"noImportantStyles": "info"
 			},
+			"correctness": {
+				"useJsxKeyInIterable": "off"
+			},
 			"suspicious": {
 				"noArrayIndexKey": "info"
 			},

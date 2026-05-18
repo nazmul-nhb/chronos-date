@@ -5,8 +5,8 @@ import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
 import { useEffect, useId, useRef, useState } from 'react';
 import { transform } from 'sucrase';
 import { Copy } from '@/components/Copy';
-import { ChronosDate, type ChronosModule, MODULES } from '@/lib/generated-modules';
-import generatedTypes from '@/lib/generated-types.json';
+import { ChronosDate, type ChronosModule, MODULES } from '@/lib/.generated-modules';
+import generatedTypes from '@/lib/.generated-types.json';
 
 interface PlaygroundProps {
 	code: string;
@@ -150,7 +150,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 					defaultLanguage="typescript"
 					path={modelPath}
 					loading={
-						<div className="w-full h-full flex flex-col gap-2.5 p-4 bg-[#1e1e2e]">
+						<div className="size-full flex flex-col gap-2.5 p-4 bg-[#1e1e2e]">
 							<div className="h-4 w-1/2 bg-white/5 rounded animate-pulse" />
 							<div className="h-4 w-3/4 bg-white/5 rounded animate-pulse" />
 							<div className="h-4 w-2/5 bg-white/5 rounded animate-pulse" />

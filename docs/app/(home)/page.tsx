@@ -1,14 +1,16 @@
 import pkg from 'chronos-date/package.json';
 import Link from 'next/link';
+import type { SpecialCharacter } from 'nhb-toolbox/string/types';
+import type { Key, ReactNode } from 'react';
 
 export default function HomePage() {
 	return (
 		<main className="flex flex-col items-center justify-center flex-1 px-6 py-20 text-center">
 			<div className="max-w-3xl space-y-8">
 				<div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-400 text-sm font-medium mb-4">
-					<span className="relative flex h-2 w-2">
-						<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-						<span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+					<span className="relative flex size-2">
+						<span className="animate-ping absolute inline-flex size-full rounded-full bg-amber-400 opacity-75" />
+						<span className="relative inline-flex rounded-full size-2 bg-amber-500" />
 					</span>
 					Latest: v{pkg.version}
 				</div>
@@ -42,30 +44,48 @@ export default function HomePage() {
 				</div>
 
 				<div className="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-					<div className="p-4 rounded-xl border border-fd-border bg-fd-card">
-						<div className="text-amber-500 font-bold text-lg mb-1">⚡</div>
-						<h3 className="font-semibold text-fd-foreground mb-1">Lightweight</h3>
-						<p className="text-sm text-fd-muted-foreground">
-							Tree-shakable with zero runtime dependencies. Only ship what you
-							use.
-						</p>
-					</div>
-					<div className="p-4 rounded-xl border border-fd-border bg-fd-card">
-						<div className="text-amber-500 font-bold text-lg mb-1">🔌</div>
-						<h3 className="font-semibold text-fd-foreground mb-1">Plugin System</h3>
-						<p className="text-sm text-fd-muted-foreground">
-							Extend with timezone, zodiac, seasons, business days, and more.
-						</p>
-					</div>
-					<div className="p-4 rounded-xl border border-fd-border bg-fd-card">
-						<div className="text-amber-500 font-bold text-lg mb-1">🛡️</div>
-						<h3 className="font-semibold text-fd-foreground mb-1">Type-Safe</h3>
-						<p className="text-sm text-fd-muted-foreground">
-							Full TypeScript support with precise types and rich IntelliSense.
-						</p>
-					</div>
+					{features.map((feature) => (
+						<FeatureCard {...feature} />
+					))}
 				</div>
 			</div>
 		</main>
 	);
 }
+
+type FeatureProps = {
+	icon: SpecialCharacter;
+	title: ReactNode;
+	description: ReactNode;
+};
+
+function FeatureCard({ icon, title, description }: FeatureProps) {
+	return (
+		<div className="p-4 rounded-xl border border-fd-border bg-fd-card">
+			<div className="text-amber-500 font-bold text-lg mb-1">{icon}</div>
+			<h3 className="font-semibold text-fd-foreground mb-1">{title}</h3>
+			<p className="text-sm text-fd-muted-foreground">{description}</p>
+		</div>
+	);
+}
+
+const features: Array<{ key: Key } & FeatureProps> = [
+	{
+		key: 1,
+		icon: '⚡',
+		title: 'Lightweight',
+		description: 'Tree-shakable with zero runtime dependencies. Only ship what you use.',
+	},
+	{
+		key: 2,
+		icon: '🔌',
+		title: 'Plugin System',
+		description: 'Extend with timezone, zodiac, seasons, business days, and more.',
+	},
+	{
+		key: 3,
+		icon: '🛡️',
+		title: 'Type-Safe',
+		description: 'Full TypeScript support with precise types and rich IntelliSense.',
+	},
+];
