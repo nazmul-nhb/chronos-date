@@ -314,38 +314,6 @@ new Chronos('2025-01-10').isEqualOrAfter('2025-01-15'); // false
 
 ---
 
-## isPalindromeDate()
-
-<Callout type="error" title="Note">
-This method is provided by `palindromePlugin`. You must register it using `Chronos.use(palindromePlugin)` before calling `.isPalindromeDate()`. Once registered, all `Chronos` instances will have access to the `.isPalindromeDate()` method.
-</Callout>
-
-### Signature
-
-```ts
-isPalindromeDate(shortYear?: boolean): boolean
-```
-
-### Parameters
-
-- `shortYear`: Use 2-digit year (default: false)
-
-### Return Type
-
-`boolean` - Whether palindrome date
-
-### Example
-
-```ts
-import { palindromePlugin } from 'chronos-date/plugins/palindromePlugin';
-
-Chronos.use(palindromePlugin);
-
-new Chronos('2020-02-02').isPalindromeDate(); // true
-```
-
----
-
 ## isDST()
 
 ### Signature

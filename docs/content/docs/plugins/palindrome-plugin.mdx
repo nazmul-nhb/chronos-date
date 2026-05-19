@@ -1,0 +1,128 @@
+---
+title: Palindrome Plugin
+description: Palindrome Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Palindrome Plugin">
+Palindrome plugin is a plugin that adds palindrome date related functionalities to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Palindrome Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { palindromePlugin } from 'chronos-date/plugins/palindromePlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(palindromePlugin);
+    // or
+    chronos.use(palindromePlugin);
+    // or
+    Chronos.register(palindromePlugin);
+    // or
+    chronos.register(palindromePlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `palindromePlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const isPalindrome = c.isPalindromeDate();
+
+    console.log(isPalindrome);
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos } from "chronos-date";
+import { palindromePlugin } from "chronos-date/plugins/palindromePlugin";
+
+// Register the plugin globally
+Chronos.use(palindromePlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+const isPalindrome = c.isPalindromeDate();
+
+console.log(isPalindrome);
+
+console.log(new Chronos('2020-02-02').isPalindromeDate());
+```
+
+---
+
+## Overview
+
+The `palindromePlugin` adds comprehensive palindrome date functionalities to `Chronos`, enabling:
+
+- Determining whether a given date is a palindrome date
+- Determining whether a given date is a palindrome date with short year
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `palindromePlugin`. You must register it using `Chronos.use(palindromePlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                                  | Description                                                 | Returns   |
+| --------------------------------------- | ----------------------------------------------------------- | --------- |
+| [`isPalindromeDate`](#ispalindromedate) | Determines whether a given date is a palindrome date or not | `boolean` |
+
+---
+
+## API Reference
+
+### isPalindromeDate()
+
+#### Signature
+
+```ts
+isPalindromeDate(shortYear?: boolean): boolean
+```
+
+#### Parameters
+
+- `shortYear`: Use 2-digit year (default: false)
+
+#### Return Type
+
+`boolean` - Whether palindrome date
+
+#### Example
+
+```ts
+import { palindromePlugin } from 'chronos-date/plugins/palindromePlugin';
+
+Chronos.use(palindromePlugin);
+
+new Chronos('2020-02-02').isPalindromeDate(); // true
+```
+
+---
