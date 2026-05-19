@@ -60,17 +60,11 @@ Business plugin is a plugin that adds business-related methods to `Chronos`.
 ### Example Usage
 
 ```typescript pg
-import { Chronos, chronos } from "chronos-date";
+import { Chronos } from "chronos-date";
 import { businessPlugin } from "chronos-date/plugins/businessPlugin";
 
 // Register the plugin globally
 Chronos.use(businessPlugin);
-// or
-chronos.use(businessPlugin);
-// or
-Chronos.register(businessPlugin);
-// or
-chronos.register(businessPlugin);
 
 // Now use methods enabled by this plugin
 const c = new Chronos();

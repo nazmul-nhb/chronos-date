@@ -58,17 +58,11 @@ Timezone plugin is a plugin that adds timezone-related methods to `Chronos`.
 ### Example Usage
 
 ```typescript pg
-import { Chronos, chronos } from "chronos-date";
+import { Chronos } from "chronos-date";
 import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
 
 // Register the plugin globally
 Chronos.use(timeZonePlugin);
-// or
-chronos.use(timeZonePlugin);
-// or
-Chronos.register(timeZonePlugin);
-// or
-chronos.register(timeZonePlugin);
 
 // Now use methods enabled by this plugin
 const c = new Chronos();

@@ -56,17 +56,11 @@ Bangla plugin is a plugin that adds Bangla calendar-related methods to `Chronos`
 ### Example Usage
 
 ```typescript pg
-import { Chronos, chronos } from "chronos-date";
+import { Chronos } from "chronos-date";
 import { banglaPlugin } from "chronos-date/plugins/banglaPlugin";
 
 // Register the plugin globally
 Chronos.use(banglaPlugin);
-// or
-chronos.use(banglaPlugin);
-// or
-Chronos.register(banglaPlugin);
-// or
-chronos.register(banglaPlugin);
 
 // Now use Bangla calendar methods
 const c = new Chronos('2023-04-14');

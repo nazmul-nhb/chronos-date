@@ -61,17 +61,11 @@ Relative time plugin is a plugin that adds relative time manipulation and calcul
 ### Example Usage
 
 ```typescript pg
-import { Chronos, chronos } from "chronos-date";
+import { Chronos } from "chronos-date";
 import { relativeTimePlugin } from "chronos-date/plugins/relativeTimePlugin";
 
 // Register the plugin globally
 Chronos.use(relativeTimePlugin);
-// or
-chronos.use(relativeTimePlugin);
-// or
-Chronos.register(relativeTimePlugin);
-// or
-chronos.register(relativeTimePlugin);
 
 // Now use methods enabled by this plugin
 const c = new Chronos();
