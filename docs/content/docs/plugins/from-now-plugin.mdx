@@ -44,9 +44,9 @@ From now plugin is a plugin that adds from now related functionalities to `Chron
     Example usage of the `fromNowPlugin`:
 
     ```ts
-    const c = new Chronos();
+    const c = new Chronos('2024-08-05T00:00:00.0+06:00');
 
-    const fromNow = c.subtract(1, 'day').fromNow('hour');
+    const fromNow = c.fromNow('hour');
 
     console.log(fromNow);
     ```
@@ -65,9 +65,9 @@ import { fromNowPlugin } from "chronos-date/plugins/fromNowPlugin";
 Chronos.use(fromNowPlugin);
 
 // Now use methods enabled by this plugin
-const c = new Chronos();
+const c = new Chronos('2024-08-05T00:00:00.0+06:00');
 
-const fromNow = c.subtract(1, 'day').fromNow('hour');
+const fromNow = c.fromNow('hour');
 
 console.log(fromNow);
 ```
