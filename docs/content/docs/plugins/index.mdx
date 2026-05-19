@@ -73,21 +73,19 @@ chronos().enabledMethod()
 
 ## 📦 Official Plugins
 
-| Plugin Names         | Imports Statements                          | Methods Registered                             |
-| :------------------- | :-----------------------------------------: | :--------------------------------------------- |
-| `relativeTimePlugin` | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugins';" /> | [compare](comparison#compare), [getRelativeYear](comparison#getrelativeyear), [getRelativeMonth](comparison#getrelativemonth), [getRelativeWeek](comparison#getrelativeweek), [getRelativeDay](comparison#getrelativeday), [getRelativeHour](comparison#getrelativehour), [getRelativeMinute](comparison#getrelativeminute), [getRelativeSecond](comparison#getrelativesecond), [getRelativeMilliSecond](comparison#getrelativemillisecond), [isToday](checkers#istoday), [isTomorrow](checkers#istomorrow), [isYesterday](checkers#isyesterday) |
-| `timeZonePlugin`     | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';" />         | [timeZone](conversion#timezone), [getTimeZoneName](names#gettimezonename), [getTimeZoneNameShort](names#gettimezonenameshort) |
-| `durationPlugin`     | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { durationPlugin } from 'chronos-date/plugins/durationPlugin';" />         | [duration](calculation#duration), [durationString](calculation#durationstring) |
-| `dateRangePlugin`     | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';" />         | [getDatesInRange](calculation#getdatesinrange) |
-| `fromNowPlugin`      | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { fromNowPlugin } from 'chronos-date/plugins/fromNowPlugin';" />           | [fromNow](format#fromnow) |
-| `businessPlugin`     | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { businessPlugin } from 'chronos-date/plugins/businessPlugin';" />         | [isWeekend](checkers#isweekend), [isWorkday](checkers#isworkday), [isBusinessHour](checkers#isbusinesshour), [nextWorkday](conversion#nextworkday), [nextWeekend](conversion#nextweekend), [previousWorkday](conversion#previousworkday), [previousWeekend](conversion#previousweekend), [workdaysBetween](get-set#workdaysbetween), [workdaysInMonth](get-set#workdaysinmonth), [workdaysInYear](get-set#workdaysinyear), [weekendsBetween](get-set#weekendsbetween), [weekendsInMonth](get-set#weekendsinmonth), [weekendsInYear](get-set#weekendsinyear), [toAcademicYear](extras#toacademicyear), [toFiscalQuarter](extras#tofiscalquarter) |
-| `seasonPlugin`       | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { seasonPlugin } from 'chronos-date/plugins/seasonPlugin';" />             | [season](names#season), [getSeasonName](names#season) |
-| `dayPartPlugin`      | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { dayPartPlugin } from 'chronos-date/plugins/dayPartPlugin';" />           | [getPartOfDay](names#getpartofday) |
-| `zodiacPlugin`       | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { zodiacPlugin } from 'chronos-date/plugins/zodiacPlugin';" />         | [getZodiacSign](names#getzodiacsign), [zodiac](names#getzodiacsign), [getZodiacMeta](names#getzodiacmeta) |
-| `palindromePlugin`   | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { palindromePlugin } from 'chronos-date/plugins/palindromePlugin';" />     | [isPalindromeDate](checkers#ispalindromedate) |
-| `greetingPlugin`   | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { greetingPlugin  } from 'chronos-date/plugins/greetingPlugin';" />     | [getGreeting](format#getgreeting) |
-| `roundPlugin`   | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { roundPlugin  } from 'chronos-date/plugins/roundPlugin';" />     | [round](calculation#round) |
-| `banglaPlugin`   | <Copy message="Import Statement Copied!" afterCopy="Import Statement Copied!" text="import { banglaPlugin } from 'chronos-date/plugins/banglaPlugin';" />     | [Bangla calendar methods](./docs/plugins/bangla-plugin#-methods-added-by-this-plugin) |
+- [`banglaPlugin`](/docs/plugins/bangla-plugin) - Integrate Bangla calendar system
+- [`timezonePlugin`](/docs/plugins/timezone-plugin) - Handle time zone conversions and display time zone names
+- [`relativeTimePlugin`](/docs/plugins/relative-time-plugin) - Handle relative time calculations and comparisons
+- [`businessPlugin`](/docs/plugins/business-plugin) - Handle business hours and workdays
+- [`durationPlugin`](/docs/plugins/duration-plugin) - Handle duration calculations and formatting
+- [`dateRangePlugin`](/docs/plugins/date-range-plugin) - Handle date range calculations
+- [`fromNowPlugin`](/docs/plugins/from-now-plugin) - Handle relative time calculations
+- [`seasonPlugin`](/docs/plugins/season-plugin) - Handle season calculations
+- [`dayPartPlugin`](/docs/plugins/day-part-plugin) - Handle day part calculations
+- [`zodiacPlugin`](/docs/plugins/zodiac-plugin) - Handle zodiac calculations
+- [`greetingPlugin`](/docs/plugins/greeting-plugin) - Handle greeting calculations
+- [`roundPlugin`](/docs/plugins/round-plugin) - Handle round calculations
+- [`palindromePlugin`](/docs/plugins/palindrome-plugin) - Handle palindrome date calculations
 
 ---
 
@@ -239,7 +237,7 @@ export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
 
 <Callout type="error" title="Important">
 
-1. Always augment `Chronos` via module augmentation to ensure TypeScript recognizes your new methods using this subpath: `'chronos-date'`
+1. Always augment `Chronos` via module augmentation to ensure TypeScript recognizes new methods using the main module path: `'chronos-date'`
 2. Import `Chronos` and `INTERNALS` from `'chronos-date'` in your plugin file
 3. Always use the static `[INTERNALS]` interface rather than trying to access private fields directly
 4. The `withOrigin` method should be used when creating new `Chronos` instances to maintain proper origin tracking
