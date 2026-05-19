@@ -1,0 +1,148 @@
+---
+title: From Now Plugin
+description: From Now Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About From Now Plugin">
+From now plugin is a plugin that adds from now related functionalities to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the From Now Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { fromNowPlugin } from 'chronos-date/plugins/fromNowPlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(fromNowPlugin);
+    // or
+    chronos.use(fromNowPlugin);
+    // or
+    Chronos.register(fromNowPlugin);
+    // or
+    chronos.register(fromNowPlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `fromNowPlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const fromNow = c.subtract(1, 'day').fromNow('hour');
+
+    console.log(fromNow);
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos } from "chronos-date";
+import { fromNowPlugin } from "chronos-date/plugins/fromNowPlugin";
+
+// Register the plugin globally
+Chronos.use(fromNowPlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+const fromNow = c.subtract(1, 'day').fromNow('hour');
+
+console.log(fromNow);
+```
+
+---
+
+## Overview
+
+The `fromNowPlugin` adds from now functionalities to `Chronos`, enabling:
+
+- Calculating the elapsed time difference between two dates.
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `fromNowPlugin`. You must register it using `Chronos.use(fromNowPlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                | Description                                               | Returns  |
+| --------------------- | --------------------------------------------------------- | -------- |
+| [`fromNow`](#fromnow) | Calculates the elapsed time difference between two dates. | `string` |
+---
+
+## API Reference
+
+### fromNow()
+
+<Callout type="info" title="Info">
+
+- This method calculates the **elapsed time difference** (excludes the end day), consistent with libraries like `Day.js` and `Luxon`.
+- If you need an *inclusive calendar-style* difference (counting both start and end days), adjust one day manually before calling `fromNow()`.
+- The smallest unit included can be customized via the `level` parameter (from `'year'` to `'millisecond'`).
+- Returns `"0 <unit>"` if no time difference is detected at the requested precision.
+
+</Callout>
+
+#### Signature
+
+```ts
+fromNow(level?: FromNowUnit, withSuffixPrefix?: boolean, time?: ChronosInput): string
+```
+
+#### Parameters
+
+- `level`: Smallest unit to include (default: `'second'`)
+- `withSuffixPrefix`: Include `"ago"` or `"in"` depending on the time direction (default: `true`)
+- `time`: Optional comparison time (`string`, `number`, `Date`, or `Chronos` instance). Defaults to `now`.
+
+#### Return Type
+
+`string` - Human-readable duration
+
+#### Type Definition
+
+```ts
+/** Name of time unit from `'year'` to `'millisecond'`, excluding `'week'` */
+type FromNowUnit = "year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond";
+```
+
+#### Example
+
+```ts
+import { fromNowPlugin } from 'chronos-date/plugins/fromNowPlugin';
+
+Chronos.use(fromNowPlugin);
+
+new Chronos().fromNow(); // "0 second ago"
+new Chronos().add(3, 'hours').fromNow(); // "in 3 hours"
+new Chronos().subtract(2, 'days').fromNow(); // "2 days ago"
+
+new Chronos('2020-03-16').fromNow('day', false, '2025-10-01'); 
+// "5 years 6 months 15 days" (exclusive of end day)
+
+new Chronos('2020-03-16').subtract(1, 'day').fromNow('day', false, '2025-10-01'); 
+// "5 years 6 months 16 days" (inclusive of end day)
+```
