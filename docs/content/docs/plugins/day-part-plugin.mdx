@@ -1,0 +1,137 @@
+---
+title: Day Part Plugin
+description: Day Part Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Day Part Plugin">
+Day Part plugin is a plugin that adds day part related functionalities to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Day Part Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { dayPartPlugin } from 'chronos-date/plugins/dayPartPlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(dayPartPlugin);
+    // or
+    chronos.use(dayPartPlugin);
+    // or
+    Chronos.register(dayPartPlugin);
+    // or
+    chronos.register(dayPartPlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `dayPartPlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const partOfDay = c.getPartOfDay();
+
+    console.log(partOfDay);
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos } from "chronos-date";
+import { dayPartPlugin } from "chronos-date/plugins/dayPartPlugin";
+
+// Register the plugin globally
+Chronos.use(dayPartPlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+const partOfDay = c.getPartOfDay();
+
+console.log(partOfDay);
+```
+
+---
+
+## Overview
+
+The `dayPartPlugin` adds day part functionalities to `Chronos`, enabling:
+
+- Determining the current part of the day
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `dayPartPlugin`. You must register it using `Chronos.use(dayPartPlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                          | Description                        | Returns   |
+| ------------------------------- | ---------------------------------- | --------- |
+| [`getPartOfDay`](#getpartofday) | Determines the current part of day | `DayPart` |
+
+---
+
+## API Reference
+
+### getPartOfDay()
+
+#### Signature
+
+```ts
+getPartOfDay(config?: Partial<DayPartConfig>): DayPart
+```
+
+#### Parameters
+
+- `config`: Custom day part ranges
+
+#### Return Type
+
+`DayPart` - Current part of day
+
+#### Default Ranges
+
+| Part        | Range         |
+| ----------- | ------------- |
+| `midnight`  | `00:00-01:00` |
+| `lateNight` | `02:00-04:00` |
+| `morning`   | `05:00-11:00` |
+| `afternoon` | `12:00-16:00` |
+| `evening`   | `17:00-20:00` |
+| `night`     | `21:00-23:00` |
+
+#### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { dayPartPlugin } from 'chronos-date/plugins/dayPartPlugin';
+
+Chronos.use(dayPartPlugin);
+
+const part = new Chronos('2025-01-15T09:00:00').getPartOfDay(); 
+console.log(part)
+// "morning"
+```
