@@ -1,0 +1,176 @@
+---
+title: Round Plugin
+description: Round Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Round Plugin">
+Round plugin is a plugin that adds rounding functionalities to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Round Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { roundPlugin } from 'chronos-date/plugins/roundPlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(roundPlugin);
+    // or
+    chronos.use(roundPlugin);
+    // or
+    Chronos.register(roundPlugin);
+    // or
+    chronos.register(roundPlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `roundPlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const rounded = c.round();
+
+    console.log(rounded);
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos } from "chronos-date";
+import { roundPlugin } from "chronos-date/plugins/roundPlugin";
+
+// Register the plugin globally
+Chronos.use(roundPlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos('2025-01-15T14:35:30');
+
+const rounded = c.round('minute');
+
+console.log(rounded);
+```
+
+---
+
+## Overview
+
+The `roundPlugin` adds comprehensive rounding related functionalities to `Chronos`, enabling:
+
+- Rounding dates to the nearest unit
+- Rounding dates to the nearest multiple of a unit
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `roundPlugin`. You must register it using `Chronos.use(roundPlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method            | Description                                                                 | Returns  |
+| ----------------- | --------------------------------------------------------------------------- | -------- |
+| [`round`](#round) | Rounds a `Chronos` instance to the nearest point based on the specified unit and granularity. | `Chronos` |
+
+---
+
+## API Reference
+
+### round()
+
+#### Signature
+
+```ts
+round(unit: TimeUnit, nearest?: number): Chronos
+```
+
+#### Parameters
+
+- `unit`: The time unit to round to. Valid units: `'year'`, `'month'`, `'week'`, `'day'`, `'hour'`, `'minute'`, `'second'`, `'millisecond'`
+- `nearest`: *(optional)*: The nearest multiple to round to. Defaults to `1`.
+
+#### Return Type
+
+`Chronos` - Returns a new `Chronos` instance rounded to the nearest point based on the specified unit and granularity. If an invalid unit is passed, the original instance is returned unchanged.
+
+#### Behavior & Notes
+
+- Rounding is based on the **proximity to the start or end** of the specified time unit
+- Rounding uses sub-unit fractions (e.g., seconds within minutes, minutes within hours) to determine proximity precisely.
+- `nearest` defines the multiple to round to (e.g., 15-minute intervals), internally uses [**roundToNearest** from `nhb-toolbox`](https://toolbox.nazmul-nhb.dev/docs/utilities/number/roundToNearest).
+- Rounding applies fractional logic based on how far into the unit the date is.
+- If an invalid unit is passed, returns the original instance unchanged.
+- Returns a new immutable `Chronos` instance *(does not modify the original)*.
+
+#### Unit-specific Behavior
+
+- **Milliseconds/Seconds/Minutes/Hours**:
+  - Rounds based on fractional components
+  - Example: `14:35:30` rounded to nearest 15 minutes becomes `14:30:00`
+
+- **Days**:
+  - Rounds to nearest day based on time of day
+  - Example: `2025-05-23T18:00:00` rounds to `2025-05-24T00:00:00`
+
+- **Weeks**:
+  - Uses *ISO 8601* convention: **weeks start on Monday**.
+  - Rounds to *nearest Monday* based on proximity
+  - Rounding is determined by comparing the current date to:
+    - The **start of the current week** (Monday at 00:00),
+    - The **start of the next week** (the following Monday at 00:00).
+  - If the current date is **closer to the next Monday**, it rounds forward. Otherwise, it rounds back to the previous (or same) Monday.
+  - Rounded weeks are treated as **0-indexed** relative to the year.
+  - Example: Once the current date passes *midweek* (e.g., *late Wednesday* or *beyond*), it becomes closer to the *next Monday*, so rounding moves forward to that *Monday’s start*.
+
+- **Months**:
+  - Rounds based on progress through the month (midpoint is day 15)
+  - Example: `2025-01-20` rounds to `2025-02-01`
+
+- **Years**:
+  - Considers day-of-year progress relative to leap years
+  - Example: `2025-07-01` (midyear) rounds to `2026-01-01`
+
+#### Examples
+
+```ts
+import { roundPlugin } from 'chronos-date/plugins/roundPlugin';
+
+Chronos.use(roundPlugin);
+
+// Round to nearest hour
+new Chronos('2025-01-15T14:35:30').round('hour'); 
+// Returns: 2025-01-15T15:00:00
+
+// Round to nearest 15 minutes
+new Chronos('2025-01-15T14:35:30').round('minute', 15);  
+// Returns: 2025-01-15T14:30:00
+
+// Round to nearest month (past midpoint)
+new Chronos('2025-01-20').round('month');
+// Returns: 2025-02-01T00:00:00
+
+// Round to nearest week (closer to next Monday)
+new Chronos('2025-01-16T18:00:00').round('week');
+// Returns: 2025-01-20T00:00:00 (next Monday)
+```
