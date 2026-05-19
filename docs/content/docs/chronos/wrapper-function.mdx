@@ -8,6 +8,7 @@ description: Chronos Wrapper Function — Chronos Documentation.
 <Callout type="info" title="Info">
 Function wrapper around the [`Chronos`](/docs/chronos) class that provides identical functionality with a simpler interface. All [`Chronos`](/docs/chronos) features are available through this function.
 </Callout>
+
 ## Key Features
 
 - Same functionality as `new Chronos()` but with function syntax
@@ -74,43 +75,43 @@ date.formatStrict() // Formatted date string
 
 The wrapper provides access to all `Chronos` methods through the returned instance:
 
-- **[Public/Protected Properties](/docs/chronos#public--protected-properties)** - Public/protected properties for debugging and easy access
-- **[Getters](/docs/api/getters)** - Access date components
-- **[Format Methods](/docs/api/format)** - Date display formatting
-- **[Calculation Methods](/docs/api/calculation)** - Date math operations
-- **[Name Getter Methods](/docs/api/names)** - Get names of the date parts (day-name, month-name, time zone etc.)
-- **[Checker Methods](/docs/api/checkers)** - Date validation
-- **[Conversion Methods](/docs/api/conversion)** - Type transformations
-- **[Comparison Methods](/docs/api/comparison)** - Date relation checks
-- **[Get & Set Methods](/docs/api/get-set)** - Set and get date part(s)
-- **[String Methods](/docs/api/strings)** - Get time as string
-- **[Extra Time Information](/docs/api/comparison)** - Get extra information about part of year, month, day/date etc.
+- **[Public/Protected Properties](/docs/chronos#public--protected-properties)** - Public/protected properties for easy access
+- **[Getters](/docs/chronos/getters)** - Access date components
+- **[Format Methods](/docs/chronos/format)** - Date display formatting
+- **[Calculation Methods](/docs/chronos/calculation)** - Date math operations
+- **[Name Getter Methods](/docs/chronos/names)** - Get names of the date parts (day-name, month-name, time zone etc.)
+- **[Checker Methods](/docs/chronos/checkers)** - Date validation
+- **[Conversion Methods](/docs/chronos/conversion)** - Type transformations
+- **[Get & Set Methods](/docs/chronos/get-set)** - Set and get date part(s)
+- **[String Methods](/docs/chronos/strings)** - Get time as string
+- **[Extra Time Information](/docs/chronos/extras)** - Get extra information about part of year, month, day/date etc.
+- **[Plugin Methods](/docs/plugins)** - Plugin methods
 
 ## Static Methods
 
-All [`Chronos static methods`](/docs/api/static-methods) are available directly on the wrapper function:
+All [`Chronos static methods`](/docs/chronos/static-methods) are available directly on the wrapper function:
 
 <details>
   <summary>**List of Static Methods**</summary>
- | Method                                                      | Short Description                                                |
- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
- | [now()](/docs/api/static-methods#now)                       | Returns the number of milliseconds since 1970-01-01 UTC.         |
- | [use()](/docs/api/static-methods#use)                       | Injects a plugin into the `Chronos` system.                      |
- | [register()](/docs/api/static-methods#register)             | Alias for [`use()`](/docs/api/static-methods#use)                |
- | [utc()](/docs/api/static-methods#utc)                       | Creates a UTC-based `Chronos` instance.                          |
- | [with()](/docs/api/static-methods#with)                     | Creates a new instance with the provided time component(s).      |
- | [parse()](/docs/api/static-methods#parse)                   | Parses a date string with a given format (limited support only). |
- | [max()](/docs/api/static-methods#max)                       | Returns latest Chronos.                                          |
- | [min()](/docs/api/static-methods#min)                       | Returns earliest Chronos.                                        |
- | [today()](/docs/api/static-methods#today)                   | Returns the current date in a specified format in local time.    |
- | [tomorrow()](/docs/api/static-methods#tomorrow)             | Returns a new `Chronos` instance representing tomorrow's date.   |
- | [yesterday()](/docs/api/static-methods#yesterday)           | Returns a new `Chronos` instance representing yesterday's date.  |
- | [formatTimePart()](/docs/api/static-methods#formattimepart) | Formats a time-only string into a formatted time string.         |
- | [getDatesForDay()](/docs/api/static-methods#getdatesforday) | Returns ISO date strings for each occurrence of a weekday.       |
- | [isLeapYear()](/docs/api/static-methods#isleapyear)         | Checks if the year in the date or year is a leap year.           |
- | [isValidChronos()](/docs/api/static-methods#isvalidchronos) | Checks if the given value is an instance of `Chronos`.           |
- | [isValidDate()](/docs/api/static-methods#isvaliddate)       | Checks if the given value is a valid `Date` object.              |
- | [isDateString()](/docs/api/static-methods#isdatestring)     | Checks if the given value is a valid date string.                |
+ | Method                                                          | Short Description                                                |
+ | --------------------------------------------------------------- | ---------------------------------------------------------------- |
+ | [now()](/docs/chronos/static-methods#now)                       | Returns the number of milliseconds since 1970-01-01 UTC.         |
+ | [use()](/docs/chronos/static-methods#use)                       | Injects a plugin into the `Chronos` system.                      |
+ | [register()](/docs/chronos/static-methods#register)             | Alias for [`use()`](/docs/chronos/static-methods#use)            |
+ | [utc()](/docs/chronos/static-methods#utc)                       | Creates a UTC-based `Chronos` instance.                          |
+ | [with()](/docs/chronos/static-methods#with)                     | Creates a new instance with the provided time component(s).      |
+ | [parse()](/docs/chronos/static-methods#parse)                   | Parses a date string with a given format (limited support only). |
+ | [max()](/docs/chronos/static-methods#max)                       | Returns latest Chronos.                                          |
+ | [min()](/docs/chronos/static-methods#min)                       | Returns earliest Chronos.                                        |
+ | [today()](/docs/chronos/static-methods#today)                   | Returns the current date in a specified format in local time.    |
+ | [tomorrow()](/docs/chronos/static-methods#tomorrow)             | Returns a new `Chronos` instance representing tomorrow's date.   |
+ | [yesterday()](/docs/chronos/static-methods#yesterday)           | Returns a new `Chronos` instance representing yesterday's date.  |
+ | [formatTimePart()](/docs/chronos/static-methods#formattimepart) | Formats a time-only string into a formatted time string.         |
+ | [getDatesForDay()](/docs/chronos/static-methods#getdatesforday) | Returns ISO date strings for each occurrence of a weekday.       |
+ | [isLeapYear()](/docs/chronos/static-methods#isleapyear)         | Checks if the year in the date or year is a leap year.           |
+ | [isValidChronos()](/docs/chronos/static-methods#isvalidchronos) | Checks if the given value is an instance of `Chronos`.           |
+ | [isValidDate()](/docs/chronos/static-methods#isvaliddate)       | Checks if the given value is a valid `Date` object.              |
+ | [isDateString()](/docs/chronos/static-methods#isdatestring)     | Checks if the given value is a valid date string.                |
 </details>
 
 ### Some Examples

@@ -7,6 +7,9 @@ allowBuilds:
   esbuild: true
   sharp: true
 
+minimumReleaseAgeExclude:
+  - nhb-toolbox
+
 onlyBuiltDependencies:
   - esbuild
   - sharp
