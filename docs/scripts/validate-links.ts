@@ -8,6 +8,7 @@ async function checkLinks() {
 
 		populate: {
 			'docs/[[...slug]]': source.getPages().map((page) => {
+				console.log(page.data.toc);
 				return {
 					value: {
 						slug: page.slugs,
@@ -18,25 +19,28 @@ async function checkLinks() {
 		},
 	});
 
-	printErrors(
-		await validateFiles(await getFiles(), {
-			scanned,
-			// check `href` attributes in different MDX components
-			markdown: {
-				components: {
-					Card: { attributes: ['href'] },
-				},
+	const errors = await validateFiles(await getFiles(), {
+		scanned,
+		// check `href` attributes in different MDX components
+		markdown: {
+			components: {
+				Card: { attributes: ['href'] },
 			},
-			ignoreFragment: true,
-			// check relative paths
-			checkRelativePaths: 'as-url',
-		}),
-		false
-	);
+		},
+		// ignoreFragment: true,
+		// check relative paths
+		checkRelativePaths: 'as-url',
+	});
+
+	printErrors(errors, false);
 }
 
 function getHeadings({ data }: (typeof source)['$inferPage']): string[] {
-	return (data.toc || []).map((item) => item.url.slice(1));
+	return (data.toc || []).map((item) => {
+		console.log(item);
+
+		return item.url.slice(1);
+	});
 }
 
 function getFiles() {

@@ -1,3 +1,4 @@
+import { getGithubLastEdit } from 'fumadocs-core/content/github';
 import {
 	DocsBody,
 	DocsDescription,
@@ -9,6 +10,7 @@ import {
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { formatDate } from 'nhb-toolbox';
 import { getMDXComponents } from '@/components/mdx';
 import { gitConfig } from '@/lib/shared';
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
@@ -20,6 +22,12 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 
 	const MDX = page.data.body;
 	const markdownUrl = getPageMarkdownUrl(page).url;
+
+	const lastModified = await getGithubLastEdit({
+		owner: gitConfig.user,
+		repo: gitConfig.repo,
+		path: `content/docs/${page.path}`,
+	});
 
 	return (
 		<DocsPage
@@ -45,6 +53,11 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 					})}
 				/>
 			</DocsBody>
+			{lastModified && (
+				<p className="text-sm text-fd-muted-foreground text-right">
+					Last updated: {formatDate({ date: lastModified })}
+				</p>
+			)}
 		</DocsPage>
 	);
 }

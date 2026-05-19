@@ -173,13 +173,13 @@ Represents the current timezone context, which can be a single identifier, an ar
 
 **Possible return types:**
 
-- **`$TimeZoneIdentifier`** — e.g., `"Asia/Dhaka"`. Returned when the [`timeZone()`](/docs/chronos/conversion#timezone) method has not been invoked (default behavior).
+- **`$TimeZoneIdentifier`** — e.g., `"Asia/Dhaka"`. Returned when the [`timeZone()`](/docs/plugins/time-zone-plugin#timezone) method has not been invoked (default behavior).
 - **Array of `$TimeZoneIdentifier`** — e.g., `['Asia/Kathmandu', 'Asia/Katmandu']`, used when multiple timezones share the same UTC offset such as `"UTC+05:45"`.
 - **`UTCOffset`** — e.g., `"UTC+06:45"` or `"UTC+02:15"`, returned when no named timezone corresponds to a given offset.
 
 <Callout type="info" title="Remarks">
 
-- By default, when [`timeZone()`](/docs/chronos/conversion#timezone) is not applied, a single `$TimeZoneIdentifier` string is provided.
+- By default, when [`timeZone()`](/docs/plugins/time-zone-plugin#timezone) is not applied, a single `$TimeZoneIdentifier` string is provided.
 - When applied, it may instead return a single identifier string, an array of equivalent identifiers, or a UTC offset string.
 - To retrieve the local system's native timezone identifier, use the [`$getNativeTimeZoneId()`](/docs/chronos/names#getnativetimezoneid) instance method.
 
@@ -209,7 +209,7 @@ This property is mutable, but modifying it has no effect on the `Chronos` instan
 #### $tzTracker
 
 <Callout type="error" title="Warning">
-**Protected** Internal flag used to track instances created via the [`timeZone()`](/docs/chronos/conversion#timezone) method. This value participates in the internal resolution of time-zone name, identifier, and offset. _Although it is protected_, it can still be mutated in JavaScript/TypeScript; and doing so may de-synchronize these time-zone properties and lead to inconsistent results. _Avoid modifying this field unless you fully understand the implications_.
+**Protected** Internal flag used to track instances created via the [`timeZone()`](/docs/plugins/time-zone-plugin#timezone) method. This value participates in the internal resolution of time-zone name, identifier, and offset. _Although it is protected_, it can still be mutated in JavaScript/TypeScript; and doing so may de-synchronize these time-zone properties and lead to inconsistent results. _Avoid modifying this field unless you fully understand the implications_.
 </Callout>
 
 ```ts pg
