@@ -1,0 +1,305 @@
+---
+title: Date Range Plugin
+description: Date Range Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Date Range Plugin">
+Date range plugin is a plugin that adds date range related functionalities to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Date Range Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(dateRangePlugin);
+    // or
+    chronos.use(dateRangePlugin);
+    // or
+    Chronos.register(dateRangePlugin);
+    // or
+    chronos.register(dateRangePlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `dateRangePlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const datesInRange = c.getDatesInRange({
+        from: '2025-01-01',
+        to: '2025-01-31',
+        skipDays: ['Saturday', 'Sunday'] // or [6, 0]
+    });
+
+    console.log(datesInRange);
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos } from "chronos-date";
+import { dateRangePlugin } from "chronos-date/plugins/dateRangePlugin";
+
+// Register the plugin globally
+Chronos.use(dateRangePlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+const datesInRange = c.getDatesInRange({
+    from: '2025-01-01',
+    to: '2025-01-31',
+    // format: "utc",
+    skipDays: ['Saturday', 'Sunday'] // or [6, 0]
+});
+
+console.log(datesInRange);
+```
+
+---
+
+## Overview
+
+The `dateRangePlugin` adds comprehensive date range functionalities to `Chronos`, enabling:
+
+- Generating an array of ISO date strings within a specified date range
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `dateRangePlugin`. You must register it using `Chronos.use(dateRangePlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                                | Description                                                          | Returns    |
+| ------------------------------------- | -------------------------------------------------------------------- | ---------- |
+| [`getDatesInRange`](#getdatesinrange) | Generate an array of ISO date strings within a specified date range. | `string[]` |
+---
+
+## API Reference
+
+
+### getDatesInRange()
+
+Generate an array of ISO date strings within a specified date range.
+
+#### Signatures
+
+```ts tab="Fixed Range"
+getDatesInRange(options?: RangeWithDates): ISODateTimeString<'utc' | 'local'>[]
+```
+
+```ts tab="Relative Range"
+getDatesInRange(options?: RelativeDateRange): ISODateTimeString<'utc' | 'local'>[]
+```
+
+```ts tab="Implementation"
+getDatesInRange(options?: DatesInRangeOptions): ISODateTimeString<'utc' | 'local'>[]
+```
+
+#### Overview
+
+Generates dates between two points in time with:
+
+- Fixed date ranges (`from`/`to`) or relative ranges (`span`/`unit`)
+- Weekday filtering (`skipDays`/`onlyDays`)
+- Format control (`local`/`utc`)
+- Date boundary rounding
+
+#### Parameters
+
+##### `options` *(Optional)*
+
+Configuration object accepting either fixed or relative range parameters:
+
+| Parameter   | Type                             | Default          | Description                                                      |
+| ----------- | -------------------------------- | ---------------- | ---------------------------------------------------------------- |
+| `from`      | `ChronosInput`                   | Current date     | Start date (inclusive)                                           |
+| `to`        | `ChronosInput`                   | 4 weeks from now | End date (inclusive)                                             |
+| `span`      | `number`                         | 4                | Number of time units                                             |
+| `unit`      | `'year'\|'month'\|'week'\|'day'` | 'week'           | Unit of time for relative ranges                                 |
+| `format`    | `'local'\|'utc'`                 | 'local'          | Output format for ISO strings                                    |
+| `skipDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`             | Weekdays to exclude (e.g. `['Sunday', 'Saturday']` or `[0, 6]`)  |
+| `onlyDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`             | Include these (e.g. `['Monday']` or `[1]`, overrides `skipDays`) |
+| `roundDate` | `boolean`                        | `false`          | Round dates to start of day                                      |
+
+
+```ts tab="Fixed Range Options"
+interface RangeWithDates {
+  /** Start date (inclusive). Default: current date */
+  from?: ChronosInput;
+  /** End date (inclusive). Default: 4 weeks from now */
+  to?: ChronosInput;
+  /** Output format. Default: 'local' */
+  format?: 'local' | 'utc';
+ /**
+  * An array of weekdays to exclude from the date range.
+  * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+  * - Ignored if `onlyDays` is provided.
+  */
+ skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
+ /**
+  * An array of weekdays to explicitly include in the date range.
+  * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+  * - When provided, this overrides `skipDays` and includes only the specified days.
+  */
+ onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /** Round dates to start of day. Default: false */
+  roundDate?: boolean;
+}
+```
+
+```ts tab="Relative Range Options"
+interface RelativeDateRange {
+  /** Number of time units. Default: 4 */
+  span?: number;
+  /** Unit of time. Default: 'week' */
+  unit?: 'year' | 'month' | 'week' | 'day';
+  /** Output format. Default: 'local' */
+  format?: 'local' | 'utc';
+  /**
+  * An array of weekdays to exclude from the date range.
+  * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+  * - Ignored if `onlyDays` is provided.
+  */
+  skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /**
+  * An array of weekdays to explicitly include in the date range.
+  * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+  * - When provided, this overrides `skipDays` and includes only the specified days.
+  */
+  onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /** Round dates to start of day. Default: false */
+  roundDate?: boolean;
+}
+```
+
+```ts tab="Implementation Options"
+/** - Unified type that supports either a fixed or relative date range configuration. */
+type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
+```
+
+#### Return Value
+
+`ISODateTimeString<'utc' | 'local'>[]` - Array of ISO date strings
+
+#### Behavior
+
+- **Fixed ranges**: Includes all dates between `from` and `to` (inclusive)
+- **Relative ranges**: Generates dates forward from current date
+- `onlyDays` takes precedence over `skipDays` when both are provided
+- Defaults to `4-week range` when no options provided
+
+<Callout type="caution" title="Note">
+
+- When using `Chronos` instances for `from` and/or `to`, ensure both are created in the **same time zone** to avoid mismatched boundaries.
+- Mixing zones may shift the interpreted start or end by several hours, which can cause the range to include or exclude incorrect weekdays.
+
+</Callout>
+
+#### Examples
+
+```ts tab="Fixed Range"
+import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
+
+Chronos.use(dateRangePlugin);
+
+// Get all dates in January 2025
+new Chronos().getDatesInRange({
+  from: '2025-01-01',
+  to: '2025-01-31',
+  skipDays: ['Saturday', 'Sunday'] // or [6, 0]
+});
+
+// Include only Fridays in a full month range
+const now = new Chronos();
+now.getDatesInRange({
+  from: now.startOf('month'),
+  to: now.endOf('month'),
+  onlyDays: ['Friday'],
+  roundDate: true
+});
+
+// Include only Mondays and Wednesdays in the range
+new Chronos().getDatesInRange({
+  from: '2025-07-01',
+  to: '2025-07-15',
+  onlyDays: ['Monday', 'Wednesday']
+});
+```
+
+```ts tab="Relative Range"
+import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
+
+Chronos.use(dateRangePlugin);
+
+// Get UTC dates for next 10 business days
+new Chronos().getDatesInRange({
+  span: 10,
+  unit: 'day',
+  skipDays: ['Saturday', 'Sunday'], // or [6, 0]
+  format: 'utc'
+});
+
+// Include only Tuesdays (2) and Thursdays (4) over the next 10 days
+new Chronos().getDatesInRange({
+  span: 10,
+  unit: 'day',
+  onlyDays: [2, 4],
+});
+```
+
+```ts tab="With Rounding"
+import { dateRangePlugin } from 'chronos-date/plugins/dateRangePlugin';
+
+Chronos.use(dateRangePlugin);
+
+// Get rounded dates for current month as local ISO string
+const now = new Chronos();
+now.getDatesInRange({
+  from: now.startOf('month'),
+  to: now.endOf('month'),
+  roundDate: true
+});
+```
+
+#### Notes
+
+<Callout type="error" title="Important">
+
+- Weekday names must exactly match: `'Monday'`, `'Tuesday'`, etc. (case-sensitive)
+- When using `onlyDays`, all other days are excluded regardless of `skipDays`
+
+</Callout>
+
+<Callout type="info" title="Similar Static Method">
+
+- [getDatesForDay](statics#getdatesforday)
+
+</Callout>

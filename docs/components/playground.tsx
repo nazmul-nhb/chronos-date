@@ -3,7 +3,7 @@
 import Editor, { type OnMount, useMonaco } from '@monaco-editor/react';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
-import { isObject } from 'nhb-toolbox';
+import { isArray, isObject } from 'nhb-toolbox';
 import { useEffect, useId, useRef, useState } from 'react';
 import { transform } from 'sucrase';
 import { Copy } from '@/components/copy';
@@ -214,9 +214,9 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 										structure: 'classic',
 										mergeWhitespaces: 'never',
 									}}
-									lang={isObject(output) ? 'json' : 'text'}
+									lang={isObject(output) || isArray(output) ? 'json' : 'text'}
 									code={
-										isObject(output)
+										isObject(output) || isArray(output)
 											? JSON.stringify(output, null, 2)
 											: String(output)
 									}
