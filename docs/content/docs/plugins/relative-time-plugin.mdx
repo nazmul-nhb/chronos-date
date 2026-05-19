@@ -1,0 +1,528 @@
+---
+title: Relative Time Plugin
+description: Relative Time Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Relative Time Plugin">
+Relative time plugin is a plugin that adds relative time manipulation and calculation methods to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Relative Time Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(relativeTimePlugin);
+    // or
+    chronos.use(relativeTimePlugin);
+    // or
+    Chronos.register(relativeTimePlugin);
+    // or
+    chronos.register(relativeTimePlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `relativeTimePlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    console.log({ 
+        isToday: c.isToday(),
+        isYesterday: c.isYesterday(),
+        isTomorrow: c.isTomorrow(),
+        compare: c.add(3, 'day').compare('day')
+    });
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos, chronos } from "chronos-date";
+import { relativeTimePlugin } from "chronos-date/plugins/relativeTimePlugin";
+
+// Register the plugin globally
+Chronos.use(relativeTimePlugin);
+// or
+chronos.use(relativeTimePlugin);
+// or
+Chronos.register(relativeTimePlugin);
+// or
+chronos.register(relativeTimePlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+console.log({ 
+    isToday: c.isToday(),
+    isYesterday: c.isYesterday(),
+    isTomorrow: c.isTomorrow(),
+    compare: c.add(3, 'day').compare('day')
+});
+```
+
+---
+
+## Overview
+
+The `relativeTimePlugin` adds comprehensive relative time functionalities to `Chronos`, enabling:
+
+- Time differences calculation
+- Is today, yesterday, tomorrow checks
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `relativeTimePlugin`. You must register it using `Chronos.use(relativeTimePlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                                              | Description                                                      | Returns   |
+| --------------------------------------------------- | ---------------------------------------------------------------- | --------- |
+| [`compare()`](#compare)                             | Returns the difference between two dates in the specified units. | `number`  |
+| [`getRelativeYear`](#getrelativeyear)               | Returns the difference between two dates in years.               | `number`  |
+| [`getRelativeMonth`](#getrelativemonth)             | Returns the difference between two dates in months.              | `number`  |
+| [`getRelativeWeek`](#getrelativeweek)               | Returns the difference between two dates in weeks.               | `number`  |
+| [`getRelativeDay`](#getrelativeday)                 | Returns the difference between two dates in days.                | `number`  |
+| [`getRelativeHour`](#getrelativehour)               | Returns the difference between two dates in hours.               | `number`  |
+| [`getRelativeMinute`](#getrelativeminute)           | Returns the difference between two dates in minutes.             | `number`  |
+| [`getRelativeSecond`](#getrelativesecond)           | Returns the difference between two dates in seconds.             | `number`  |
+| [`getRelativeMillisecond`](#getrelativemillisecond) | Returns the difference between two dates in milliseconds.        | `number`  |
+| [`isToday`](#istoday)                               | Checks if the current date is today.                             | `boolean` |
+| [`isYesterday`](#isyesterday)                       | Checks if the current date is yesterday.                         | `boolean` |
+| [`isTomorrow`](#istomorrow)                         | Checks if the current date is tomorrow.                          | `boolean` |
+
+---
+
+### API Reference
+
+
+### compare()
+
+#### Signature
+
+```ts
+compare(unit: TimeUnit = 'minute', time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `unit`: Time unit for comparison (default: 'minute')
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Difference in specified units
+
+#### Notes
+
+- Negative value indicates past time relative to comparison time
+- Positive value indicates future time
+- Wrapper around the various `getRelativeUnit` methods
+
+<Callout type="info" title="Note">
+To calculate accurate difference use [**diff()**](./calculation#diff) method.
+</Callout>
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const pastDate = new Chronos().subtract(2, 'days');
+pastDate.compare('day'); // -2
+
+const futureDate = new Chronos().add(3, 'hours'); 
+futureDate.compare('hour'); // 3
+```
+
+---
+
+### getRelativeYear()
+
+#### Signature
+
+```ts
+getRelativeYear(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Full year difference
+
+#### Notes
+
+- Counts complete years between dates
+- Accounts for month/day position
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const date = new Chronos('2020-06-15');
+date.getRelativeYear('2023-05-01'); // -2 (not quite 3 years)
+date.getRelativeYear('2023-07-01'); // -3
+```
+
+---
+
+### getRelativeMonth()
+
+#### Signature
+
+```ts
+getRelativeMonth(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Full month difference
+
+#### Notes
+
+- Counts complete months between dates
+- Accounts for day position
+
+#### Example
+
+```javascript
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const date = new Chronos('2023-01-15');
+date.getRelativeMonth('2023-03-10'); // -1 (not quite 2 months)
+date.getRelativeMonth('2023-03-20'); // -2
+```
+
+---
+
+### getRelativeWeek()
+
+#### Signature
+
+```ts
+getRelativeWeek(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Week difference
+
+#### Notes
+
+- Based on 7-day periods
+- Uses same calculation as `getRelativeDay()` divided by 7
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+new Chronos().getRelativeWeek('2023-01-01'); // Weeks between dates
+```
+
+---
+
+### getRelativeDay()
+
+#### Signature
+
+```ts
+getRelativeDay(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Day difference
+
+#### Special Values
+
+- `-1`: Yesterday
+- `0`: Today
+- `1`: Tomorrow
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const today = new Chronos();
+today.getRelativeDay(); // 0
+
+const yesterday = new Chronos().subtract(1, 'day');
+yesterday.getRelativeDay(); // -1
+
+const tomorrow = new Chronos().add(1, 'day');
+tomorrow.getRelativeDay(); // 1
+```
+
+---
+
+### getRelativeHour()
+
+#### Signature
+
+```ts
+getRelativeHour(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Hour difference
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const date = new Chronos().add(90, 'minutes');
+date.getRelativeHour(); // 1 (full hours)
+```
+
+---
+
+### getRelativeMinute()
+
+#### Signature
+
+```ts
+getRelativeMinute(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Minute difference
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const date = new Chronos().add(150, 'seconds');
+date.getRelativeMinute(); // 2 (full minutes)
+```
+
+---
+
+### getRelativeSecond()
+
+#### Signature
+
+```ts
+getRelativeSecond(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Second difference
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const date = new Chronos().add(1500, 'milliseconds');
+date.getRelativeSecond(); // 1 (full seconds)
+```
+
+---
+
+### getRelativeMilliSecond()
+
+#### Signature
+
+```ts
+getRelativeMilliSecond(time?: ChronosInput): number
+```
+
+#### Parameters
+
+- `time`: Optional comparison time (default: now)
+
+#### Return Type
+
+`number` - Millisecond difference
+
+#### Notes
+
+- Most precise relative comparison
+- Returns raw millisecond delta
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+const date = new Chronos().add(500, 'milliseconds');
+date.getRelativeMilliSecond(); // 500
+```
+
+These relative comparison methods provide:
+
+- Multiple granularities (years to milliseconds)
+- Signed values indicating past/future
+- Flexible comparison points
+- Consistent immutable return types
+
+The relative methods are particularly useful for:
+
+- Age calculations
+- Countdowns/timers
+- Expiration checks
+- Time-sensitive conditional logic
+
+---
+
+### isToday()
+
+#### Signature
+
+```ts
+isToday(): boolean
+```
+
+#### Return Type
+
+`boolean` - Whether date is today
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+new Chronos().isToday(); // true
+```
+
+---
+
+### isTomorrow()
+
+#### Signature
+
+```ts
+isTomorrow(): boolean
+```
+
+#### Return Type
+
+`boolean` - Whether date is tomorrow
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+new Chronos().add(1, 'day').isTomorrow(); // true
+```
+
+---
+
+### isYesterday()
+
+#### Signature
+
+```ts
+isYesterday(): boolean
+```
+
+#### Return Type
+
+`boolean` - Whether date is yesterday
+
+#### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+import { relativeTimePlugin } from 'chronos-date/plugins/relativeTimePlugin';
+
+Chronos.use(relativeTimePlugin);
+
+new Chronos().subtract(1, 'day').isYesterday(); // true
+```
+
+---
