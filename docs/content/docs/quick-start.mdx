@@ -74,7 +74,7 @@ console.log({
 
 Extend Chronos with plugins for additional functionality:
 
-```ts
+```ts pg
 import { Chronos } from "chronos-date";
 import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
 import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
@@ -83,10 +83,13 @@ import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
 Chronos.use(timeZonePlugin);
 Chronos.use(seasonPlugin);
 
-// Now you can use plugin methods
 const date = new Chronos();
-date.timeZone("America/New_York"); // Convert to timezone
-date.season(); // Get current season
+console.log({
+    original: date,
+    // Now you can use plugin methods
+    timeZone: date.timeZone("America/New_York"), // Convert to timezone
+    season: date.season() // Get current season
+})
 ```
 
 <Callout type="info" title="Important">
