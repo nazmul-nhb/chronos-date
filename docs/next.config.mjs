@@ -8,6 +8,7 @@ const config = {
 	images: {
 		qualities: [100, 75],
 	},
+	typedRoutes: true,
 	reactStrictMode: true,
 	serverExternalPackages: ['typescript', 'twoslash'],
 	turbopack: {

@@ -1,5 +1,6 @@
 import pkg from 'chronos-date/package.json';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
+import type { Route } from 'next';
 import Link from 'next/link';
 import type { SpecialCharacter } from 'nhb-toolbox/string/types';
 import type { Key, ReactNode } from 'react';
@@ -29,7 +30,7 @@ export default function HomePage() {
 
 				<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 					<Link
-						href="/docs"
+						href={'/docs' as Route}
 						className="inline-flex items-center px-6 py-3 rounded-xl bg-linear-to-r from-amber-500 to-orange-500 text-white font-semibold shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-200 hover:scale-105"
 					>
 						Get Started →

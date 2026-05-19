@@ -26,7 +26,8 @@
 		"allowJs": true,
 		"pretty": true,
 		"checkJs": true,
-		"preserveWatchOutput": true
+		"preserveWatchOutput": true,
+		"types": ["node"]
 	},
 	"include": [
 		"src/**/*.ts",

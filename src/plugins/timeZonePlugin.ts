@@ -276,6 +276,7 @@ export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
 			.replace(/\W/g, '');
 	};
 
+	// @ts-ignore: Misleading TS2590
 	$Chronos.prototype.getTimeZoneNameShort = function (utc) {
 		const tracker = this?.$tzTracker;
 		const UTC = utc || offset(this);
