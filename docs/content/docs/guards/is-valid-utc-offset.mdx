@@ -1,0 +1,55 @@
+---
+title: Check UTC Offset
+description: Type guard that checks if a value is a valid UTC offset string.
+---
+
+## isValidUTCOffset
+
+Type guard that checks if a value is a valid UTC offset string.
+
+### Function Signature
+
+```ts
+isValidUTCOffset(value: unknown): value is UTCOffset;
+```
+
+### Parameters
+
+- **`value`**: The value to check (any type)
+
+### Returns
+
+`true` if the value is a valid UTC offset string, `false` otherwise
+
+### Example Usage
+
+```ts pg
+import { isValidUTCOffset } from 'chronos-date/guards';
+
+console.log(isValidUTCOffset("UTC+05:30")); // true
+console.log(isValidUTCOffset("UTC-14:00")); // true
+console.log(isValidUTCOffset("GMT+08:00")); // false (invalid prefix)
+console.log(isValidUTCOffset("UTC+25:00")); // false (invalid hour)
+```
+
+### Validation Rules
+
+1. Must start with "UTC" prefix
+2. Must be followed by + or - sign
+3. Hours must be 1-2 digits
+4. Must include colon separator
+5. Minutes must be exactly 2 digits
+6. Followed by valid time components (hours 00-14, minutes 00/15/30/45)
+
+### Alias
+
+This guard is also available as following aliases:
+
+- `isValidUTC`
+- `isValidUTCOffSet`
+
+### Type Definition
+
+```ts
+type UTCOffset = `UTC${PositiveUTCHour | NegativeUTCHour}:${UTCMinute}`;
+```

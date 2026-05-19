@@ -19,7 +19,7 @@ getUTCOffset(): $UTCOffset
 
 Returns the **system’s current UTC offset** in string format.
 
-<Callout type="caution" title="Note">
+<Callout type="warn" title="Note">
 Unlike JavaScript's [`Date.prototype.getTimezoneOffset()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset) which returns the offset in **minutes behind UTC** (positive for locations west of UTC), this method returns a human-readable offset using **time zone sign conventions** (e.g., `+06:00` means 6 hours ahead of UTC).
 </Callout>
 

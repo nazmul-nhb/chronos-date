@@ -10,6 +10,7 @@ icon: Blocks
 - Plugins can be official (maintained by the core team) or custom (developed by users). [See the list of official plugins below](#-official-plugins) or [learn how to write your own plugin](#️-writing-a-custom-plugin).
 
 </Callout>
+
 ---
 
 ## 🧩 What Is a Plugin?
@@ -20,31 +21,17 @@ A plugin is a function that takes the `Chronos` class constructor and augments i
 type ChronosPlugin = (Chronos: typeof Chronos) => void;
 ```
 
-You can inject plugins via the static [`Chronos.use()`](/docs/chronos/static-methods#use) or [`Chronos.register()`](/docs/chronos/static-methods#register) method or its wrapper function:
-
-```ts
-Chronos.use(pluginName);
-
-// or 
-chronos.use(pluginName);
-
-// or
-Chronos.register(pluginName);
-
-// or 
-chronos.register(pluginName);
-```
+You can inject plugins via the static [`Chronos.use()`](/docs/chronos/static-methods#use) or [`Chronos.register()`](/docs/chronos/static-methods#register) method or its wrapper function.
 
 <Callout type="info" title="Info">
 - Each plugin is only applied once, even if `use()` or `register()` is called multiple times with the same plugin.
 - If a plugin enables multiple methods, injecting once will enable all the methods by that particular plugin. [See the list below](#-official-plugins)
 
 </Callout>
----
 
-## ✅ Using a Plugin
+### ✅ Using a Plugin
 
-To enable a plugin, use the static [`Chronos.use()`](/docs/api/static-methods#use) or [`Chronos.register()`](/docs/api/static-methods#register) method **before creating instances**:
+To enable a plugin, use the static [`Chronos.use()`](/docs/chronos/static-methods#use) or [`Chronos.register()`](/docs/chronos/static-methods#register) method **before creating instances**:
 
 ```ts
 import { Chronos, chronos } from "chronos-date";
@@ -189,7 +176,7 @@ interface ChronosInternals {
 }
 ```
 
-#### 🚀 Usage Example
+#### 🚀 Create a Plugin Example
 
 > Here's a real example (simplified version of the original method) from the package itself: plugin that adds a `timeZone` method to `Chronos` instances, allowing users to convert the instance to a specified time zone using some internal methods and properties:
 
@@ -244,4 +231,3 @@ export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
 5. For native js `Date` manipulation in your plugin, prefer using `toNewDate` from `ChronosInternals` interface rather than creating `Date` objects directly to maintain consistency with internal handling of `Chronos`
 
 </Callout>
----

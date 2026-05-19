@@ -3,7 +3,7 @@ id: checkers
 title: Checker Methods
 ---
 
-<Callout type="info">
+<Callout type="info" title="Info">
 
 When comparing weeks, the `weekStartsOn` parameter (when available) determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
 
@@ -388,13 +388,13 @@ new Chronos('2025-01-31').isLastDayOfMonth(); // true
 
 Checks if the current year is a leap year.
 
-<Callout type="info">
+<Callout type="idea" title="Note">
 
 - A year is a leap year if it is divisible by 4.
 - However, years divisible by 100 are not leap years **unless** they are also divisible by 400.
 - For example:
 
-  - `2000`, `2400` → leap years ✅
+  - `2000`, `2020`, `2400` → leap years ✅
   - `1900`, `2100` → not leap years ❌
 
 </Callout>
@@ -413,7 +413,7 @@ isLeapYear(year?: number): boolean
 
  `boolean` — Returns `true` if the year is a leap year, otherwise `false`.
 
-### **Example Usage**
+### Example Usage
 
 ```ts
 new Chronos().isLeapYear(2024); // true

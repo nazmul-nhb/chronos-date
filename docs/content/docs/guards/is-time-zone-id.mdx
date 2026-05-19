@@ -1,109 +1,6 @@
 ---
-id: time-guards  
-title: Time Guards  
----
-
-## isValidTime
-
-Type guard that checks if a value is a valid time string in "HH:MM" format.
-
-### Function Signature
-
-```ts
-isValidTime(value: unknown): value is Time;
-```
-
-### Parameters
-
-- **`value`**: The value to check (any type)
-
-### Returns
-
-`true` if the value is a valid 24-hour time string, `false` otherwise
-
-### Example Usage
-
-```ts
-import { isValidTime } from 'chronos-date/guards';
-
-console.log(isValidTime("14:30")); // true
-console.log(isValidTime("25:00")); // false (invalid hour)
-console.log(isValidTime("12:60")); // false (invalid minute)
-console.log(isValidTime(1234));    // false (not a string)
-```
-
-### Validation Rules
-
-1. Must be a string in "HH:MM" format
-2. Hours must be between 00-23
-3. Minutes must be between 00-59
-4. Leading zeros required for single-digit values
-
-### Alias
-
-- `isValidTimeString`
-
-### Type Definition
-
-```ts
-type ClockTime = `${ClockHour}:${ClockMinute}`;
-type ClockHour = '00'|'01'|...|'23';
-type ClockMinute = '00'|'01'|...|'59';
-```
-
----
-
-## isValidUTCOffset
-
-Type guard that checks if a value is a valid UTC offset string.
-
-### Function Signature
-
-```ts
-isValidUTCOffset(value: unknown): value is UTCOffset;
-```
-
-### Parameters
-
-- **`value`**: The value to check (any type)
-
-### Returns
-
-`true` if the value is a valid UTC offset string, `false` otherwise
-
-### Example Usage
-
-```ts
-import { isValidUTCOffset } from 'chronos-date/guards';
-
-console.log(isValidUTCOffset("UTC+05:30")); // true
-console.log(isValidUTCOffset("UTC-14:00")); // true
-console.log(isValidUTCOffset("GMT+08:00")); // false (invalid prefix)
-console.log(isValidUTCOffset("UTC+25:00")); // false (invalid hour)
-```
-
-### Validation Rules
-
-1. Must start with "UTC" prefix
-2. Must be followed by + or - sign
-3. Hours must be 1-2 digits
-4. Must include colon separator
-5. Minutes must be exactly 2 digits
-6. Followed by valid time components (hours 00-14, minutes 00/15/30/45)
-
-### Alias
-
-This guard is also available as following aliases:
-
-- `isValidUTC`
-- `isValidUTCOffSet`
-
-### Type Definition
-
-```ts
-type UTCOffset = `UTC${PositiveUTCHour | NegativeUTCHour}:${UTCMinute}`;
-```
-
+title: Check Timezone Identifiers
+description: Check whether provided value is a timezone identifier or not using native JS API or comprehensive TZ database.
 ---
 
 ## isValidTimeZoneId()
@@ -128,7 +25,7 @@ isValidTimeZoneId(value: unknown): value is $TimeZoneIdentifier
 
 ### Example
 
-```ts
+```ts pg
 import { isValidTimeZoneId } from 'chronos-date/guards';
 
 // Valid IANA identifiers (including modern canonical names)
@@ -199,6 +96,8 @@ if (!isValidTimeZoneId(config.timezone)) {
     throw new Error('Invalid timezone identifier in configuration');
 }
 ```
+
+---
 
 ## isNativeTimeZoneId()
 
@@ -277,17 +176,25 @@ import { TIME_ZONES_NATIVE } from 'chronos-date/constants';
 
 ### Typical Use Cases
 
-```ts
+```ts pg
+import { isNativeTimeZoneId } from 'chronos-date/guards';
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
 // Validate user input for maximum JS engine compatibility
 const userInput = 'Asia/Calcutta'; // JS engines recognize this
 if (isNativeTimeZoneId(userInput)) {
     const ch = new Chronos().timeZone(userInput); // Type-safe usage
+    console.log(ch);
 }
 
 // Filter valid native timezone identifiers
 const potentialZones = ['Asia/Dhaka', 'EST', 'Asia/Kolkata', 'Asia/Calcutta'];
 const validZones = potentialZones.filter(isNativeTimeZoneId);
 // → ['Asia/Dhaka', 'Asia/Calcutta'] (only natively supported names)
+console.log(validZones);
 
 // Configuration validation for JS engine compatibility
 const config = { timezone: 'Asia/Calcutta' };
@@ -296,12 +203,11 @@ if (!isNativeTimeZoneId(config.timezone)) {
 }
 ```
 
-<Callout type="info" title="\`isValidTimeZoneId\` vs \`isNativeTimeZoneId\`">
-<br/>
-| Aspect           | \`isValidTimeZoneId\`                    | \`isNativeTimeZoneId\`                            |
+<Callout type="info" title="`isValidTimeZoneId` vs `isNativeTimeZoneId`">
+| Aspect           | `isValidTimeZoneId`                    | `isNativeTimeZoneId`                            |
 | ---------------- | -------------------------------------- | ----------------------------------------------- |
 | **Coverage**     | 597 identifiers (full IANA database)   | 418 identifiers (engine-dependent legacy names) |
-| **Modern Names** | ✅ Includes \`Asia/Kolkata\` (canonical) | ❌ Usually only \`Asia/Calcutta\` (legacy)        |
+| **Modern Names** | ✅ Includes `Asia/Kolkata` (canonical) | ❌ Usually only `Asia/Calcutta` (legacy)        |
 | **Bundle Size**  | Larger (includes array of identifiers) | Minimal (uses native APIs)                      |
 | **Performance**  | Good                                   | Excellent (native optimized)                    |
 | **Use Case**     | Modern apps, future-proofing           | JS engine compatibility, performance            |
@@ -336,9 +242,9 @@ This means \`isNativeTimeZoneId\` is stricter about what the engine explicitly "
 
 </Callout>
 
-**Practical Example**
+## Practical Example
 
-```ts
+```ts pg
 import { isValidTimeZoneId, isNativeTimeZoneId } from 'chronos-date/guards';
 
 // Modern name - valid in IANA but not in native JS list
@@ -366,102 +272,3 @@ console.log(new Intl.DateTimeFormat('en', {
 For most applications, **use `isValidTimeZoneId`** as it provides modern, future-proof validation. Use `isNativeTimeZoneId` only when you specifically need to validate against what the JS engine explicitly reports as supported.
 </Callout>
 
-
-
----
-
-## isTimeWithUnit
-
-Type guard that checks if a value is a valid time string with supported units.
-
-### Function Signature
-
-```ts
-isTimeWithUnit(value: unknown): value is TimeWithUnit
-```
-
-### Description
-
-Checks whether a given value matches the pattern for time duration strings (e.g., `"30s"`, `"2h"`, `"1.5 days"`). Returns `true` for valid time strings and narrows TypeScript type to `TimeWithUnit`.
-
-### Parameters
-
-| Parameter | Type      | Required | Description    |
-| --------- | --------- | -------- | -------------- |
-| `value`   | `unknown` | Yes      | Value to check |
-
-### Returns
-
-- `boolean` - `true` if value is a valid time string, `false` otherwise
-
-### Type Guard Behavior
-
-When this function returns `true`, TypeScript narrows the type to `TimeWithUnit`:
-
-```ts
-const input: unknown = getUserInput();
-if (isTimeWithUnit(input)) {
-  // input is now typed as TimeWithUnit
-  const ms = parseMSec(input); // Type-safe
-}
-```
-
-### Supported Formats
-
-**Valid examples:**
-
-- `"30s"`, `"2h"`, `"1.5d"`
-- `"1 hour"`, `"2 weeks"`, `"500 milliseconds"`
-- `"1H"`, `"2HOURS"`, `"3Min"` (case-insensitive)
-- `"-5m"`, `"+2.5h"` (sign optional)
-- All combinations from `TIME_UNIT_VARIANTS`
-
-**Invalid examples:**
-
-- `"30"` (no unit)
-- `"s"` (no number)
-- `"30 unknown"` (invalid unit)
-- Non-string values
-
-### Supported Units
-
-| Unit        | Variants                                             |
-| ----------- | ---------------------------------------------------- |
-| Year        | `y`, `yr`, `yrs`, `year`, `years`                    |
-| Month       | `mo`, `month`, `months`                              |
-| Week        | `w`, `week`, `weeks`                                 |
-| Day         | `d`, `day`, `days`                                   |
-| Hour        | `h`, `hr`, `hrs`, `hour`, `hours`                    |
-| Minute      | `m`, `min`, `mins`, `minute`, `minutes`              |
-| Second      | `s`, `sec`, `secs`, `second`, `seconds`              |
-| Millisecond | `ms`, `msec`, `msecs`, `millisecond`, `milliseconds` |
-
-### Usage Examples
-
-```ts
-import { isTimeWithUnit } from 'chronos-date/guards';
-import { parseMSec } from 'chronos-date/utils';
-
-// Input validation
-function validateTimeout(input: string): TimeWithUnit {
-  if (!isTimeWithUnit(input)) {
-    throw new Error(`Invalid time format: ${input}`);
-  }
-  return input; // Type narrowed
-}
-
-// Configuration parsing
-const envTimeout = process.env.TIMEOUT;
-const timeout = isTimeWithUnit(envTimeout) 
-  ? parseMSec(envTimeout)
-  : parseMSec('30s'); // Default
-
-// Array filtering
-const times = ['30s', 'invalid', '2h', 'unknown', '1.5d'];
-const validTimes = times.filter(isTimeWithUnit);
-// Result: ['30s', '2h', '1.5d']
-```
-
-### Related
-
-- [`parseMSec`](/docs/utilities/date/parse-time#parsemsec) - Parse time strings to milliseconds/seconds

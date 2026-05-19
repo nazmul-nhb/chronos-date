@@ -1,11 +1,20 @@
 ---
-id: time-checkers  
-title: Time Checkers  
+title: Check Leap Year
+description: Check if a year is a leap year.
 ---
 
 ## isLeapYear
 
 Checks if a given year is a leap year according to the Gregorian calendar rules.
+
+<Callout type="idea" title="Leap Year Rules">
+- A year is a leap year if it is divisible by 4.
+- However, years divisible by 100 are not leap years **unless** they are also divisible by 400.
+- For example:
+
+  - `2000`, `2020`, `2400` → leap years ✅
+  - `1900`, `2100` → not leap years ❌
+</Callout>
 
 ### Function Signature
 
@@ -21,17 +30,9 @@ isLeapYear(year: Numeric): boolean;
 
 `true` if the year is a leap year, `false` otherwise
 
-### Leap Year Rules
-
-A year is a leap year if:
-
-1. It's divisible by 4 **AND** not divisible by 100  
-   **OR**  
-2. It's divisible by 400
-
 ### Example Usage
 
-```ts
+```ts pg
 import { isLeapYear } from 'chronos-date/guards';
 
 console.log(isLeapYear(2000));  // true (divisible by 400)
@@ -61,18 +62,8 @@ type Numeric = number | `${number}`;
 - Date arithmetic
 - Financial year calculations
 
-### Conclusion
+### Key Points
 
-The `isLeapYear` function provides:
+- **Accurate** leap year detection
+- **Flexible** input (numbers or numeric string)
 
-1. **Accurate** leap year detection
-2. **Flexible** input (numbers or strings)
-3. **Historical accuracy** for BC dates
-4. **Simple integration** with date logic
-
-Ideal for applications requiring:
-
-- Calendar displays
-- Date pickers
-- Age verification
-- Time-sensitive calculations

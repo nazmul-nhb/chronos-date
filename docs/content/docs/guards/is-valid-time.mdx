@@ -1,0 +1,52 @@
+---
+title: Check Formatted Time
+description: Type guard that checks if a value is a valid time string in "HH:MM" format.
+---
+
+## isValidTime
+
+Type guard that checks if a value is a valid time string in `"HH:MM"` format.
+
+### Function Signature
+
+```ts
+isValidTime(value: unknown): value is Time;
+```
+
+### Parameters
+
+- **`value`**: The value to check (any type)
+
+### Returns
+
+`true` if the value is a valid 24-hour time string, `false` otherwise
+
+### Example Usage
+
+```ts pg
+import { isValidTime } from 'chronos-date/guards';
+
+console.log(isValidTime("14:30")); // true
+console.log(isValidTime("25:00")); // false (invalid hour)
+console.log(isValidTime("12:60")); // false (invalid minute)
+console.log(isValidTime(1234));    // false (not a string)
+```
+
+### Validation Rules
+
+1. Must be a string in "HH:MM" format
+2. Hours must be between 00-23
+3. Minutes must be between 00-59
+4. Leading zeros required for single-digit values
+
+### Alias
+
+- `isValidTimeString`
+
+### Type Definition
+
+```ts
+type ClockTime = `${ClockHour}:${ClockMinute}`;
+type ClockHour = '00'|'01'|...|'23';
+type ClockMinute = '00'|'01'|...|'59';
+```
