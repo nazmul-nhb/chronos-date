@@ -1,0 +1,142 @@
+---
+title: Greeting Plugin
+description: Greeting Plugin — Chronos Documentation.
+---
+
+<Callout type="idea" title="About Greeting Plugin">
+Greeting plugin is a plugin that adds greeting related functionalities to `Chronos`.
+</Callout>
+
+## Import & Usage
+
+<Steps>
+
+<Step>
+    <Callout type="info" title="Import">
+    To use the Greeting Plugin, import it first:
+
+    ```ts
+    import { Chronos, chronos } from "chronos-date";
+    import { greetingPlugin } from 'chronos-date/plugins/greetingPlugin';
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Register">
+    Now you can use the plugin's methods:
+
+    ```ts
+    // Register the plugin globally
+    Chronos.use(greetingPlugin);
+    // or
+    chronos.use(greetingPlugin);
+    // or
+    Chronos.register(greetingPlugin);
+    // or
+    chronos.register(greetingPlugin);
+    ```
+    </Callout>
+</Step>
+
+<Step>
+    <Callout type="info" title="Usage">
+    Example usage of the `greetingPlugin`:
+
+    ```ts
+    const c = new Chronos();
+
+    const greeting = c.getGreeting();
+
+    console.log(greeting);
+    ```
+    </Callout>
+</Step>
+
+</Steps>
+
+### Example Usage
+
+```typescript pg
+import { Chronos } from "chronos-date";
+import { greetingPlugin } from "chronos-date/plugins/greetingPlugin";
+
+// Register the plugin globally
+Chronos.use(greetingPlugin);
+
+// Now use methods enabled by this plugin
+const c = new Chronos();
+
+const greeting = c.getGreeting();
+
+console.log(greeting);
+```
+
+---
+
+## Overview
+
+The `greetingPlugin` adds comprehensive greeting related functionalities to `Chronos`, enabling:
+
+- Get a greeting message based on current or provided time periods
+
+---
+
+## Methods Added by the Plugin
+
+<Callout type="error" title="Note">
+All these methods are provided by `greetingPlugin`. You must register it using `Chronos.use(greetingPlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
+</Callout>
+
+| Method                        | Description                                                                     | Returns  |
+| ----------------------------- | ------------------------------------------------------------------------------- | -------- |
+| [`getGreeting`](#getgreeting) | Returns a time-appropriate greeting message based on configurable time periods. | `string` |
+
+---
+
+## API Reference
+
+### getGreeting()
+
+Returns a time-appropriate greeting message based on configurable time periods. Supports custom messages and time thresholds.
+
+#### Signature
+
+```ts
+getGreeting(configs?: GreetingConfigs): string;
+```
+
+#### Parameters
+
+- `configs`: Configurations options, e.g. times, msgs.
+
+#### Return Type
+
+`string` - The appropriate greeting message.
+
+#### Alias
+
+- `greet` is an alias for `getGreeting` method.
+
+#### Example
+
+```ts
+import { greetingPlugin } from 'chronos-date/plugins/greetingPlugin';
+
+Chronos.use(greetingPlugin);
+
+// Use with default configs
+new Chronos().getGreeting(); // Greeting msg e.g. "Good Afternoon!"
+
+// Custom msg and times
+new Chronos().getGreeting({
+  morningEnds: '10:00',
+  noonEnds: '14:00',
+  afternoonEnds: '18:00',
+  eveningEnds: '22:00',
+  midnightMessage: 'Working late?',
+  currentTime: '01:30'
+});
+```
+
+> This method internally uses [getGreeting](/docs/utils/get-greeting) function. For detailed usage please refer to the docs.
