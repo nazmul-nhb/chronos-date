@@ -10,7 +10,7 @@ import {
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { formatDate } from 'nhb-toolbox';
+import { formatDate, getTimeZoneDetails } from 'nhb-toolbox';
 import { getMDXComponents } from '@/components/mdx';
 import { gitConfig } from '@/lib/shared';
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
@@ -26,7 +26,8 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 	const lastModified = await getGithubLastEdit({
 		owner: gitConfig.user,
 		repo: gitConfig.repo,
-		path: `content/docs/${page.path}`,
+		path: `docs/content/docs/${page.path}`,
+		token: `Bearer ${process.env.GIT_TOKEN}`,
 	});
 
 	return (
@@ -55,7 +56,10 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 			</DocsBody>
 			{lastModified && (
 				<p className="text-sm text-fd-muted-foreground text-right">
-					Last updated: {formatDate({ date: lastModified })}
+					{`Last updated: ${formatDate({
+						date: lastModified,
+						format: 'dd, mmm DD, YYYY hh:mm:ssa',
+					})} (${getTimeZoneDetails().tzNameLong})`}
 				</p>
 			)}
 		</DocsPage>
