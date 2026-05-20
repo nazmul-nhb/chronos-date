@@ -4,8 +4,6 @@ description: Chronos - Play with Time and Date, Be a Time Master like Chronos
 icon: Clock
 ---
 
-## `Chronos`
-
 <Callout type="idea" title="About Chronos" >
 In ancient Greek mythology, **Chronos** is the primordial embodiment of time — not merely tracking moments, but **defining their very existence**. Like its mythological namesake, the `Chronos` class offers **precise, immutable, and expressive control** over time within your application.
 
@@ -229,8 +227,8 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
 
 ### Available Methods
 
-<details>
-  <summary>[**Getter Methods**](/docs/chronos/getters)</summary>
+<Accordions type="multiple">
+  <Accordion title="Getter Methods">
     | Method                                                   | Short Description                                                      |
     | -------------------------------------------------------- | ---------------------------------------------------------------------- |
     | [year](/docs/chronos/getters#year)                       | Gets the full year of the date.                                        |
@@ -246,10 +244,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [unix](/docs/chronos/getters#unix)                       | Returns the Unix timestamp (seconds since the Unix epoch).             |
     | [timestamp](/docs/chronos/getters#timestamp)             | Gets the time value in milliseconds since midnight, 1970-01-01 UTC.    |
     | [lastDateOfMonth](/docs/chronos/getters#lastdateofmonth) | Gets the last date (number) of the current month `(28, 29, 30 or 31)`. |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Format Methods**](/docs/chronos/format)</summary>
+  <Accordion title="Format Methods">
     | Method                                              | Short Description                                                         |
     | --------------------------------------------------- | ------------------------------------------------------------------------- |
     | [format()](/docs/chronos/format#format)             | Formats the current date into a custom string format.                     |
@@ -260,10 +257,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [fromNowShort()](/docs/chronos/format#fromnowshort) | Returns a short human-readable string like "2h ago", "in 5m".             |
     | [getGreeting()](/docs/chronos/format#getgreeting)   | Returns a greeting message based on `Chronos` instance or provided time.  |
     | [greet()](/docs/chronos/format#alias)               | Alias for [`getGreeting()`](/docs/chronos/format#getgreeting)             |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Calculation Methods**](/docs/chronos/calculation)</summary>
+  <Accordion title="Calculation Methods">
     | Method                                                         | Short Description                                                    |
     | -------------------------------------------------------------- | -------------------------------------------------------------------- |
     | [valueOf()](/docs/chronos/calculation#valueof)                 | Enables arithmetic and comparison operations (e.g., +new Chronos()). |
@@ -281,10 +277,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [durationString()](/docs/chronos/calculation#durationstring)   | Returns a human-readable formatted duration string between 2 dates.  |
     | [round()](/docs/chronos/calculation#round)                     | Rounds the current date-time to the nearest unit and interval.       |
     | [getDatesInRange()](/docs/chronos/calculation#getdatesinrange) | Generates a list of ISO date strings within a specified range.       |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Name Getter Methods**](/docs/chronos/names)</summary>
+  <Accordion title="Name Getter Methods">
     | Method                                                                | Short Description                                                |
     | --------------------------------------------------------------------- | ---------------------------------------------------------------- |
     | [day()](/docs/chronos/names#day)                                      | Returns the name of the current day or optional day index.       |
@@ -299,10 +294,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [getZodiacSign()](/docs/chronos/names#getzodiacsign)                  | Returns the zodiac sign based on current date or `birthDate`.    |
     | [zodiac()](/docs/chronos/names#getzodiacsign)                         | Alias for [`getZodiacSign()`](/docs/chronos/names#getzodiacsign) |
     | [getPartOfDay()](/docs/chronos/names#getpartofday)                    | Returns the part of day based on the current hour.               |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Checker Methods**](/docs/chronos/checkers)</summary>
+  <Accordion title="Checker Methods">
     | Method                                                          | Short Description                                                    |
     | --------------------------------------------------------------- | -------------------------------------------------------------------- |
     | [isAfter()](/docs/chronos/checkers#isafter)                     | Checks if this date is after another date in a specific unit.        |
@@ -325,10 +319,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [isLeapYear()](/docs/chronos/checkers#isleapyear)               | Checks if the current year is a leap year.                           |
     | [isPalindromeDate()](/docs/chronos/checkers#ispalindromedate)   | Checks if the current date (date part only) is a palindrome.         |
     | [isDST()](/docs/chronos/checkers#isdst)                         | Checks if the date is within daylight saving time (DST).             |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Conversion Methods**](/docs/chronos/conversion)</summary>
+  <Accordion title="Conversion Methods">
     | Method                                          | Short Description                                                            |
     | ----------------------------------------------- | ---------------------------------------------------------------------------- |
     | [clone()](/docs/chronos/conversion#clone)       | Clones and returns exactly same `Chronos` instance.                          |
@@ -338,10 +331,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [toDate()](/docs/chronos/conversion#todate)     | Gets the native `Date` instance.                                             |
     | [toArray()](/docs/chronos/conversion#toarray)   | Converts to array with all date unit part                                    |
     | [toObject()](/docs/chronos/conversion#toobject) | Converts to object with all date unit parts                                  |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Comparison Methods**](/docs/plugins/relative-time-plugin)</summary>
+  <Accordion title="Comparison Methods">
     | Method                                                                                | Short Description                                |
     | ------------------------------------------------------------------------------------- | ------------------------------------------------ |
     | [compare()](/docs/plugins/relative-time-plugin#compare)                               | Returns difference of 2 dates in specified unit. |
@@ -353,10 +345,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [getRelativeWeek()](/docs/plugins/relative-time-plugin#getrelativeweek)               | Returns number of weeks between 2 dates.         |
     | [getRelativeMonth()](/docs/plugins/relative-time-plugin#getrelativemonth)             | Returns number of months between 2 dates.        |
     | [getRelativeYear()](/docs/plugins/relative-time-plugin#getrelativeyear)               | Returns number of years between 2 dates.         |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Get & Set Methods**](/docs/chronos/get-set)</summary>
+  <Accordion title="Get & Set Methods">
     | Method                                                     | Short Description                                                       |
     | ---------------------------------------------------------- | ----------------------------------------------------------------------- |
     | [get()](/docs/chronos/get-set#get)                         | Gets the value of a specific time unit from the date.                   |
@@ -372,10 +363,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [daysInMonth()](/docs/chronos/get-set#daysinmonth)         | Returns number of days in current month.                                |
     | [firstDayOfMonth()](/docs/chronos/get-set#firstdayofmonth) | Returns a new instance set to the first day of the current month.       |
     | [lastDayOfMonth()](/docs/chronos/get-set#lastdayofmonth)   | Returns a new instance set to the last day of the current month.        |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**String Methods**](/docs/chronos/strings)</summary>
+  <Accordion title="String Methods">
     | Method                                                       | Short Description                                                    |
     | ------------------------------------------------------------ | -------------------------------------------------------------------- |
     | [toString()](/docs/chronos/strings#tostring)                 | Returns a string representation of a date.                           |
@@ -384,10 +374,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [toLocaleString()](/docs/chronos/strings#tolocalestring)     | Wrapper over native JS `toLocaleString` with improved type system.   |
     | [toJSON()](/docs/chronos/strings#tojson)                     | Enables `JSON.stringify` to show readable output.                    |
     | [inspect()](/docs/chronos/strings#inspect)                   | Returns a debug-friendly string for `console.log` or `util.inspect`. |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Extra Time Information**](/docs/chronos/extras)</summary>
+  <Accordion title="Extra Time Information">
     | Method                                                                      | Short Description                                       |
     | --------------------------------------------------------------------------- | ------------------------------------------------------- |
     | [getUTCOffset()](/docs/chronos/extras#getutcoffset)                         | Returns the system's UTC offset formatted as `±HH:mm`   |
@@ -397,10 +386,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [toQuarter()](/docs/chronos/extras#toquarter)                               | Returns the calendar quarter (1 to 4) of the instance.  |
     | [toFiscalQuarter()](/docs/chronos/extras#tofiscalquarter)                   | Returns the fiscal quarter based on custom start month. |
     | [toAcademicYear()](/docs/chronos/extras#toacademicyear)                     | Returns the academic year in format `YYYY-YYYY`.        |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Static Methods**](/docs/chronos/static-methods)</summary>
+  <Accordion title="Static Methods">
     | Method                                                          | Short Description                                                      |
     | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
     | [now()](/docs/chronos/static-methods#now)                       | Get the number of milliseconds elapsed since midnight, 1970-01-01 UTC. |
@@ -420,10 +408,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [isValidChronos()](/docs/chronos/static-methods#isvalidchronos) | Checks if the given value is an instance of `Chronos`.                 |
     | [isValidDate()](/docs/chronos/static-methods#isvaliddate)       | Checks if the given value is a valid `Date` object.                    |
     | [isDateString()](/docs/chronos/static-methods#isdatestring)     | Checks if the given value is a valid date string.                      |
-</details>
+  </Accordion>
 
-<details>
-  <summary>[**Symbol Methods**](/docs/chronos/symbols)</summary>
+  <Accordion title="Symbol Methods">
     | Method                                                                      | Short Description                                        |
     | --------------------------------------------------------------------------- | -------------------------------------------------------- |
     | [Symbol.iterator](/docs/chronos/symbols#symboliterator)                     | Returns the default iterator for an object.              |
@@ -434,4 +421,10 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [Symbol.match](/docs/chronos/symbols#symbolmatch)                           | `RegExp` method, matches the `RegExp` against a string.  |
     | [Symbol.toStringTag](/docs/chronos/symbols#symboltostringtag)               | Called by the built-in `Object.prototype.toString`.      |
     | [Symbol.isConcatSpreadable](/docs/chronos/symbols#symbolisconcatspreadable) | Enables to be spread with the spread operator `...`      |
-</details>
+  </Accordion>
+
+  {/* <Accordion title="">
+    
+  </Accordion> */}
+</Accordions>
+

@@ -1,4 +1,5 @@
 import * as Twoslash from 'fumadocs-twoslash/ui';
+import * as AccordionComponents from 'fumadocs-ui/components/accordion';
 import * as TabsComponents from 'fumadocs-ui/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
@@ -7,7 +8,7 @@ import type { Maybe } from 'nhb-toolbox/types';
 import type { ReactElement, ReactNode } from 'react';
 import { Copy } from '@/components/copy';
 import { Playground } from '@/components/playground';
-import { Step, Steps } from '@/components/steps';
+import * as StepsComponents from '@/components/steps';
 import type { CodeChildProps, PreProps } from '@/types/index';
 
 function isNodeCodeChild(node: unknown): node is ReactElement<CodeChildProps> {
@@ -28,10 +29,10 @@ export function getMDXComponents(components?: MDXComponents) {
 		...defaultMdxComponents,
 		...Twoslash,
 		...TabsComponents,
+		...StepsComponents,
+		...AccordionComponents,
 		Playground,
 		Copy,
-		Steps,
-		Step,
 		pre: (props: PreProps) => {
 			const child = props.children;
 
