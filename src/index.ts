@@ -50,12 +50,12 @@ import { extractMinutesFromUTC, getNativeTimeZoneId } from './utils/utilities';
 /** Date parts for `Chronos` as `Record<part, number>` */
 type $DateParts = {
 	year: number;
-	month: number;
-	date: number;
-	hour: number;
-	minute: number;
-	second: number;
-	millisecond: number;
+	month: NumberRange<1, 12>;
+	date: NumberRange<1, 31>;
+	hour: Enumerate<24>;
+	minute: Enumerate<60>;
+	second: Enumerate<60>;
+	millisecond: Milliseconds;
 };
 
 /**
@@ -223,12 +223,12 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 */
 	constructor(
 		year: number,
-		month: number,
-		date?: number,
-		hours?: number,
-		minutes?: number,
-		seconds?: number,
-		ms?: number
+		month?: NumberRange<1, 12>,
+		date?: NumberRange<1, 31>,
+		hours?: Enumerate<24>,
+		minutes?: Enumerate<60>,
+		seconds?: Enumerate<60>,
+		ms?: Milliseconds
 	);
 
 	/**
@@ -263,12 +263,12 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 */
 	constructor(
 		valueOrYear?: ChronosInput,
-		month?: number,
-		date?: number,
-		hours?: number,
-		minutes?: number,
-		seconds?: number,
-		ms?: number
+		month?: NumberRange<1, 12>,
+		date?: NumberRange<1, 31>,
+		hours?: Enumerate<24>,
+		minutes?: Enumerate<60>,
+		seconds?: Enumerate<60>,
+		ms?: Milliseconds
 	) {
 		if (isNumber(valueOrYear) && isNumber(month)) {
 			this.#date = new Date(
@@ -1492,7 +1492,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 					num += num < 100 ? 2000 : 0;
 				}
 
-				parts[key] = num;
+				parts[key] = num as NumberRange<1, 12>;
 			}
 		}
 
