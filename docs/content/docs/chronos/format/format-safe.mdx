@@ -1,0 +1,42 @@
+---
+title: formatSafe
+description: Safely format a date in local timezone with with typed tokens.
+---
+
+## `formatSafe()`
+
+<Callout type="info" title="Notes">
+`formatSafe()` is just a wrapper around the [`format()`](./format) method that provides type-safe formatting with IntelliSense support.
+</Callout>
+
+### Signature
+
+```ts
+formatSafe(format?: SafeFormat, useUTC?: boolean): string
+```
+
+### Parameters
+
+- `format`: Predefined `SafeFormat` format
+- `useUTC`: Use UTC time (default: `false`)
+
+### Return Type
+
+`string` - Formatted date
+
+### Notes
+
+- Provides type-safe formatting with IntelliSense support
+- See `SafeFormat` type for available formats
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15T14:30:00');
+
+// Using string format
+const formatted = date.formatSafe('YYYY-MM-DD'); 
+console.log(formatted); // → "2025-01-15"
+```

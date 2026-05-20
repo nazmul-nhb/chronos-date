@@ -1,0 +1,39 @@
+---
+title: formatUTC
+description: Format a date in UTC timezone using format tokens
+---
+
+## `formatUTC()`
+
+<Callout type="info" title="Notes">
+`formatUTC()` is just a wrapper around the [`format()`](./format) method with the `useUTC` option set to `true`. It is provided for convenience and backward compatibility.
+</Callout>
+
+### Signature
+
+```ts
+formatUTC(format?: string): string
+```
+
+### Parameters
+
+- `format`: Format string (default: `'dd, mmm DD, YYYY HH:mm:ss:mss'`)
+
+### Return Type
+
+`string` - Formatted UTC date
+
+### Notes
+
+- Always uses UTC time regardless of instance configuration
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15T14:30:00Z');
+const formatted = date.formatUTC('YYYY-MM-DD HH:mm:ss'); 
+
+console.log(formatted); // → "2025-01-15 14:30:00"
+```

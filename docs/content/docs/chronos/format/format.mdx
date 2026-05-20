@@ -1,0 +1,38 @@
+---
+title: format
+description: Format a date in local timezone using format tokens
+---
+
+## `format()`
+
+Format a date in local timezone using [**format tokens**](./#format-tokens). It's the most versatile formatting method in `Chronos`, allowing you to create custom date strings for any purpose.
+
+### Signature
+
+```ts
+format(format?: string, useUTC?: boolean): string
+```
+
+### Parameters
+
+- `format`: Format string (default: `'dd, mmm DD, YYYY HH:mm:ss'`)
+- `useUTC`: Use UTC time (default: `false`)
+
+### Return Type
+
+`string` - Formatted date
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15T14:30:00');
+
+console.log({
+    fmt1: date.format(),
+    fmt2: date.format('YYYY-MM-DD'),
+    fmt3: date.format('ddd, mmmm Do YYYY'),
+    fmt4: date.format('h:mm A'),
+});
+```

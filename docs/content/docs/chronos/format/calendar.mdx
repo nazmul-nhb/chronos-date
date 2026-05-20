@@ -1,0 +1,38 @@
+---
+title: calendar
+description: Format a date in local timezone using calendar-based representations.
+---
+
+## `calendar()`
+
+Format a date in local timezone using calendar-based representations.
+
+### Signature
+
+```ts
+calendar(baseDate?: ChronosInput): string
+```
+
+### Parameters
+
+- `baseDate`: Reference date (default: now)
+
+### Return Type
+
+`string` - Human-readable relative date
+
+### Notes
+
+- Returns strings like "Today at 3:00 PM", "Yesterday at 2:30 AM"
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date1 = new Chronos().addDays(1);
+console.log(date1.calendar()); // → "Tomorrow at [time]" 
+
+const date2 = new Chronos().addDays(-1);
+console.log(date2.calendar()); // → "Yesterday at [time]"
+```

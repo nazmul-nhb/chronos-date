@@ -249,12 +249,12 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Format Methods">
     | Method                                                 | Short Description                                                         |
     | ------------------------------------------------------ | ------------------------------------------------------------------------- |
-    | [format()](./chronos/format#format)                    | Formats the current date into a custom string format.                     |
-    | [formatSafe()](./chronos/format#formatsafe)            | Formats the date into a predefined strict string format.                  |
-    | [formatUTC()](./chronos/format#formatutc)              | Formats the date into a custom string format (UTC time).                  |
-    | [calendar()](./chronos/format#calendar)                | Returns a human-readable relative calendar time like `"Today at 3:00 PM"` |
+    | [format()](./chronos/format/format)                    | Formats the current date into a custom string format.                     |
+    | [formatSafe()](./chronos/format/format-safe)           | Formats the date into a predefined strict string format.                  |
+    | [formatUTC()](./chronos/format/format-utc)             | Formats the date into a custom string format (UTC time).                  |
+    | [calendar()](./chronos/format/calendar)                | Returns a human-readable relative calendar time like `"Today at 3:00 PM"` |
     | [fromNow()](./plugins/from-now-plugin#fromnow)         | Returns full time difference as string down to a given level.             |
-    | [fromNowShort()](./chronos/format#fromnowshort)        | Returns a short human-readable string like "2h ago", "in 5m".             |
+    | [fromNowShort()](./chronos/format/from-now-short)      | Returns a short human-readable string like "2h ago", "in 5m".             |
     | [getGreeting()](./plugins/greeting-plugin#getgreeting) | Returns a greeting message based on `Chronos` instance or provided time.  |
     | [greet()](./plugins/greeting-plugin#alias)             | Alias for [`getGreeting()`](./plugins/greeting-plugin#getgreeting).       |
   </Accordion>
@@ -372,7 +372,7 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [toISOString()](./chronos/strings#toisostring)           | Returns a date as a string value in ISO format (UTC).                |
     | [toLocalISOString()](./chronos/strings#tolocalisostring) | Returns ISO time string in appropriate time zone with offset.        |
     | [toLocaleString()](./chronos/strings#tolocalestring)     | Wrapper over native JS `toLocaleString` with improved type system.   |
-    | [toJSON()](./chronos/strings#tojson)                     | Enables `JSON.stringify` to show readable output.                    |
+    | [toJSON()](./chronos/strings#tojson)                     | Enables `JSON.stringify` to display readable output.                 |
     | [inspect()](./chronos/strings#inspect)                   | Returns a debug-friendly string for `console.log` or `util.inspect`. |
   </Accordion>
 

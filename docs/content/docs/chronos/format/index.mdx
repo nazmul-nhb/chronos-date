@@ -1,12 +1,16 @@
 ---
-id: format
 title: Format Methods
+description: Format Methods - Chronos Documentation.
 ---
+
+## Overview
+
+`Chronos` provides versatile date formatting capabilities through the [`format()`](./format/format), [`formatUTC()`](./format/format-utc), [`formatSafe()`](./format/format-safe), [`calendar()`](./format/calendar) and [`fromNowShort()`](./format/from-now-short). These methods allow you to transform `Chronos` instances into custom string representations using a comprehensive set of format tokens. The formatting behavior is consistent across all three methods, enabling seamless switching based on your specific requirements.
 
 ## Format Tokens
 
 <Callout type="info" title="Info">
-`Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](#format), [`formatUTC`](#formatutc), and [`formatSafe`](#formatsafe) methods as well as for other methods and utilities like [`formatDate`](/docs/utils/format-date#formatdate) that accept a format, and behave similarly to libraries like `Moment.js` or `Day.js`.
+`Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](./format/format), [`formatUTC`](./format/format-utc), and [`formatSafe`](./format/format-safe) methods as well as for other methods and utilities like [`formatDate`](/docs/utils/format-date#formatdate) that accept a format parameter, and behave similarly to libraries like `Moment.js` or `Day.js`.
 </Callout>
 
 Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
@@ -42,149 +46,8 @@ Below is a list of all supported tokens:
 | <Copy text="ZZ" />                           | TZ Offset ±HH:mm       | +06:00 or Z (UTC) |
 
 <Callout type="error" title="Note">
-
 - To output raw text (i.e., not interpreted as a date token), wrap it in square brackets.
 - For example, `[Today is] ddd` results in `Today is Sunday`, and `YYYY[ year]` results in `2025 year`.
-
 - Supported format tokens include: `YYYY`, `YY`, `MMMM`, `MMM`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
 - *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
-
 </Callout>
-
-## format()
-
-### Signature
-
-```ts
-format(format?: string, useUTC?: boolean): string
-```
-
-### Parameters
-
-- `format`: Format string (default: `'dd, mmm DD, YYYY HH:mm:ss'`)
-- `useUTC`: Use UTC time (default: `false`)
-
-### Return Type
-
-`string` - Formatted date
-
-### Example
-
-```ts
-const date = new Chronos('2025-01-15T14:30:00');
-date.format('YYYY-MM-DD'); // "2025-01-15"
-date.format('ddd, mmmm Do YYYY'); // "Wednesday, January 15th 2025"
-date.format('h:mm A'); // "2:30 PM"
-```
-
----
-
-## formatUTC()
-
-### Signature
-
-```ts
-formatUTC(format?: string): string
-```
-
-### Parameters
-
-- `format`: Format string (default: `'dd, mmm DD, YYYY HH:mm:ss:mss'`)
-
-### Return Type
-
-`string` - Formatted UTC date
-
-### Notes
-
-- Always uses UTC time regardless of instance configuration
-
-### Example
-
-```ts
-const date = new Chronos('2025-01-15T14:30:00Z');
-date.formatUTC('YYYY-MM-DD HH:mm:ss'); // "2025-01-15 14:30:00"
-```
-
----
-
-## formatSafe()
-
-### Signature
-
-```ts
-formatSafe(format?: SafeFormat, useUTC?: boolean): string
-```
-
-### Parameters
-
-- `format`: Predefined strict format
-- `useUTC`: Use UTC time (default: `false`)
-
-### Return Type
-
-`string` - Formatted date
-
-### Notes
-
-- Provides type-safe formatting with IntelliSense support
-- See `SafeFormat` type for available formats
-
-### Example
-
-```ts
-date.formatSafe('YYYY-MM-DD'); // Type-safe format
-```
-
----
-
-## calendar()
-
-### Signature
-
-```ts
-calendar(baseDate?: ChronosInput): string
-```
-
-### Parameters
-
-- `baseDate`: Reference date (default: now)
-
-### Return Type
-
-`string` - Human-readable relative date
-
-### Notes
-
-- Returns strings like "Today at 3:00 PM", "Yesterday at 2:30 AM"
-
-### Example
-
-```ts
-const date = new Chronos().subtract(1, 'day');
-date.calendar(); // "Yesterday at [time]"
-```
-
----
-
-## fromNowShort()
-
-### Signature
-
-```ts
-fromNowShort(): string
-```
-
-### Return Type
-
-`string` - Short duration string, from `year` to `second`
-
-### Notes
-
-- Returns strings like "2h ago", "in 5m"
-
-### Example
-
-```ts
-new Chronos().subtract(150, 'minutes').fromNowShort(); // "2h ago"
-```

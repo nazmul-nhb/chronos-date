@@ -1,0 +1,35 @@
+---
+title: fromNowShort
+description: Formats the date as a relative time string (e.g., "5m ago", "in 2h") using locale-specific formatting.
+---
+
+## `fromNowShort()`
+
+Formats the date as a relative time string (e.g., "5m ago", "in 2h") using locale-specific formatting.
+
+### Signature
+
+```ts
+fromNowShort(): string
+```
+
+### Return Type
+
+`string` - Short duration string, from `year` to `second`
+
+### Notes
+
+- Returns strings like "2h ago", "in 5m"
+
+### Example
+
+```ts
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos().addDays(-1);
+console.log(date.calendar()); // → "Yesterday at [time]" (if now is 2025-01-02)
+```
+
+<Callout type="info" title="Info">
+For detailed usage please refer to [`fromNow`](/docs/plugins/from-now-plugin)
+</Callout>
