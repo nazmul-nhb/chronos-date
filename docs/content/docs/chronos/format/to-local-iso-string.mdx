@@ -1,0 +1,31 @@
+---
+title: toLocalIsoString
+description: Returns ISO time string in appropriate time zone with offset.
+---
+
+## toLocalISOString()
+
+Returns ISO time string in appropriate time zone with offset.
+
+### Signature
+
+```ts
+toLocalISOString(): ISODateTimeString<'local'>
+```
+
+### Return Type
+
+`ISODateTimeString<'local'>` - ISO string with time zone offset
+
+### Notes
+
+- Similar to [`toISOString()`](./to-iso-string) but preserves time zone offset
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos();
+console.log(date.toLocalISOString());
+```

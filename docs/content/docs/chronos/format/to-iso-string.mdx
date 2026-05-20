@@ -1,0 +1,33 @@
+---
+title: toIsoString
+description: Returns a date as a string value in ISO format (UTC).
+---
+
+## `toISOString()`
+
+Returns a date as a string value in ISO format (UTC).
+
+### Signature
+
+```ts
+toISOString(): ISODateTimeString<'utc'>
+```
+
+### Return Type
+
+`ISODateTimeString<'utc'>` - Standard ISO 8601 string
+
+### Notes
+
+- Always returns UTC time
+- Consistent with native `Date` behavior
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-01T00:00:00-05:00');
+console.log(date.toISOString());
+// "2025-01-01T05:00:00.000Z"
+```
