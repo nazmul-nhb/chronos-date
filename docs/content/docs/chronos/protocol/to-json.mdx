@@ -1,0 +1,39 @@
+---
+title: toJSON
+description: Converts the Chronos instance to a JSON string representation.
+---
+
+## `toJSON()`
+
+Enables `JSON.stringify` to show readable output. Calls [**toLocalISOString**](../format/to-local-iso-string) method.
+
+### Signature
+
+```ts
+toJSON(): string
+```
+
+### Return Type
+
+`string` - ISO string
+
+### Notes
+
+- Used by `JSON.stringify()`
+- Same as `toLocalISOString()`
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15');
+const jsonString = JSON.stringify({ date });
+
+console.log(jsonString);
+// '{"date":"2025-01-15T06:00:00.000+06:00"}'
+
+// Equivalent to calling toLocalISOString():
+console.log(jsonString === date.toLocalISOString());
+// true
+``` 

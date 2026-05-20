@@ -1,0 +1,50 @@
+---
+title: valueOf
+description: Returns the timestamp (milliseconds since Unix epoch) of the `Chronos` instance
+---
+
+## `valueOf()`
+
+Returns the timestamp (milliseconds since Unix epoch) of the `Chronos` instance
+
+### Signature
+
+```ts
+valueOf(): number
+```
+
+### Return Type
+
+`number` - Timestamp (milliseconds since Unix epoch)
+
+### Behavior & Notes
+
+- Enables arithmetic and comparison operations when used with primitive conversion
+- Automatically called when `Chronos` instance is used in numeric context
+- Equivalent to `getTimeStamp()` method
+- Returns same value as JavaScript Date's `valueOf()`
+
+### Examples
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+// Numeric comparison
+const date1 = new Chronos('2025-01-01');
+const date2 = new Chronos('2025-01-02');
+console.log(date2 > date1); // true (automatically calls valueOf())
+
+// Arithmetic operations
+const diff = +new Chronos('2025-01-02') - +new Chronos('2025-01-01');
+console.log(diff); // 86400000 (1 day in milliseconds)
+
+// Explicit conversion
+const timestamp = new Chronos().valueOf();
+console.log(timestamp); // current time in milliseconds
+```
+
+### Use Cases
+
+- Sorting arrays of `Chronos` instances
+- Calculating time differences
+- Interoperability with libraries expecting numeric timestamps

@@ -257,7 +257,6 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [fromNowShort()](./chronos/format/from-now-short)          | Returns a short human-readable string like "2h ago", "in 5m".             |
     | [getGreeting()](./plugins/greeting-plugin#getgreeting)     | Returns a greeting message based on `Chronos` instance or provided time.  |
     | [greet()](./plugins/greeting-plugin#alias)                 | Alias for [`getGreeting()`](./plugins/greeting-plugin#getgreeting).       |
-    | [toString()](./chronos/format/to-string)                   | Returns a string representation of a date.                                |
     | [toISOString()](./chronos/format/to-iso-string)            | Returns a date as a string value in ISO format (UTC).                     |
     | [toLocalISOString()](./chronos/format/to-local-iso-string) | Returns ISO time string in appropriate time zone with offset.             |
     | [toLocaleString()](./chronos/format/to-locale-string)      | Wrapper over native JS `toLocaleString` with improved type system.        |
@@ -266,7 +265,6 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Calculation Methods">
     | Method                                                           | Short Description                                                    |
     | ---------------------------------------------------------------- | -------------------------------------------------------------------- |
-    | [valueOf()](./chronos/calculation#valueof)                       | Enables arithmetic and comparison operations (e.g., +new Chronos()). |
     | [add()](./chronos/calculation#add)                               | Returns a new `Chronos` instance with the specified unit added.      |
     | [addDays()](./chronos/calculation#alternatives)                  | Adds days and returns a new immutable instance.                      |
     | [addHours()](./chronos/calculation#alternatives)                 | Adds hours and returns a new immutable instance.                     |
@@ -369,12 +367,13 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [lastDayOfMonth()](./chronos/get-set#lastdayofmonth)   | Returns a new instance set to the last day of the current month.        |
   </Accordion>
 
-  <Accordion title="String Methods">
-    | Method | Short Description |
-    | ------ | ----------------- |
-
-    | [toJSON()](./chronos/strings#tojson) | Enables `JSON.stringify` to display readable output. |
-    | [----------------------------------) | R--------------------------------------------------. |
+  <Accordion title="Protocol Methods">
+    | Method                                     | Short Description                                                    |
+    | ------------------------------------------ | -------------------------------------------------------------------- |
+    | [valueOf()](./chronos/protocol/value-of)   | Enables arithmetic and comparison operations (e.g., +new Chronos()). |
+    | [toJSON()](./chronos/protocol/to-json)     | Enables `JSON.stringify` to display readable output.                 |
+    | [toString()](./chronos/protocol/to-string) | Returns a string representation of a date.                           |
+    | [inspect()](./chronos/protocol/inspect)    | Returns a debug-friendly string for `console.log` or `util.inspect`. |
   </Accordion>
 
   <Accordion title="Extra Time Information">

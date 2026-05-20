@@ -1,0 +1,30 @@
+---
+title: Protocol Methods
+description: Methods that enables Chronos to follow JavaScript runtime protocols
+---
+
+## Overview
+
+Protocol methods participate in JavaScript/runtime “protocols” or language conventions.
+
+## Available Protocol Methods
+
+- [valueOf](./protocol/value-of) - Enable `Number` coercion.
+- [toJSON](./protocol/to-json) - Enable `JSON` serialization.
+- [toString](./protocol/to-string) - Enable `String` coercion.
+- [inspect](./protocol/inspect) - Returns a debug-friendly string representation for `console.log` and Node.js `util.inspect`.
+
+## Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const ch = new Chronos('2025-01-01');
+
+console.log({
+    valueOf: ch.valueOf(),
+    toJSON: ch.toJSON(),
+    toString: ch.toString(),
+    inspect: ch.inspect(),
+});
+```

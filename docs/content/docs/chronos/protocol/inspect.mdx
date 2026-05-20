@@ -1,0 +1,33 @@
+---
+title: inspect
+description: Returns a debug-friendly string representation of the Chronos instance for use with console.log and Node.js util.inspect.
+---
+
+## `inspect()`
+
+Returns a debug-friendly string for `console.log` or `util.inspect`.
+
+### Signature
+
+```ts
+inspect(): string
+```
+
+### Return Type
+
+`string` - Debug-friendly string
+
+### Notes
+
+- Used by `Node.js` `util.inspect`
+- Includes `Chronos` prefix
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15');
+console.log(date.inspect());
+// "[Chronos 2025-01-15T00:00:00.000-05:00]"
+```
