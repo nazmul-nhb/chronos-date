@@ -3,9 +3,15 @@ title: Format UTC Offset
 description: Format UTC Offset — Chronos Documentation.
 ---
 
-## formatUTCOffset
+## `formatUTCOffset`
 
 Converts a minute-based offset to a standardized UTC offset string in `UTC±HH:MM` format.
+
+### Import
+
+```typescript
+import { formatUTCOffset } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -23,7 +29,7 @@ A formatted UTC offset string (e.g., `UTC+05:30` or `UTC-04:00`)
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { formatUTCOffset } from "chronos-date/utils";
 
 // Positive offset
@@ -42,8 +48,6 @@ console.log(formatUTCOffset(0)); // "UTC+00:00"
 - Pads hours and minutes with leading zeros
 - Handles both positive and negative offsets
 - Returns valid `UTCOffset` type strings only
-
----
 
 ### Aliases
 
@@ -116,10 +120,3 @@ The `formatUTCOffset` function and associated types provide:
 2. **Type-safe** offset strings
 3. **Consistent** timezone representation
 4. **Validation** through type constraints
-
-Ideal for applications requiring:
-
-- Timezone-aware displays
-- Internationalization support
-- Time conversion utilities
-- Standardized timezone data handling

@@ -3,9 +3,15 @@ title: Get Time Zone Details
 description: Get Time Zone Details — Chronos Documentation.
 ---
 
-## getTimeZoneDetails
+## `getTimeZoneDetails`
 
 Retrieves comprehensive time zone information using the Internationalization API (`Intl`): time zone identifiers, localized names, and GMT offset information.
+
+### Import
+
+```typescript
+import { getTimeZoneDetails } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -33,9 +39,7 @@ Returns a [`TimeZoneDetails`](#type-definitions) object containing:
 
 ### Example Usage
 
-#### Basic Usage
-
-```typescript
+```typescript pg tab="Basic Usage"
 import { getTimeZoneDetails } from "chronos-date/utils";
 
 // Get details for current system timezone
@@ -49,9 +53,9 @@ console.log(systemTZ);
 // }
 ```
 
-#### Specific Time Zone
+```typescript pg tab="Specific Time Zone"
+import { getTimeZoneDetails } from "chronos-date/utils";
 
-```typescript
 // Get details for London timezone
 const londonTZ = getTimeZoneDetails('Europe/London');
 console.log(londonTZ);
@@ -59,13 +63,13 @@ console.log(londonTZ);
 //   tzIdentifier: 'Europe/London',
 //   tzNameLong: 'Greenwich Mean Time',
 //   tzNameLongGeneric: 'United Kingdom Time',
-//   tzNameLongOffset: 'GMT'
+//   tzNameLongOffset: 'GMT' // or 'GMT+01:00' if daylight saving time is active 
 // }
 ```
 
-#### International Time Zones
+```typescript pg tab="International Time Zones"
+import { getTimeZoneDetails } from "chronos-date/utils";
 
-```typescript
 // Various international time zones
 const timeZones = (
  ['Asia/Tokyo', 'Australia/Sydney', 'Europe/Paris', 'Pacific/Honolulu'] as const
@@ -75,8 +79,8 @@ timeZones.forEach(tz => {
   console.log(`${tz.tzIdentifier}: ${tz.tzNameLong} (${tz.tzNameLongOffset})`);
 });
 // Asia/Tokyo: Japan Standard Time (GMT+09:00)
-// Australia/Sydney: Australian Eastern Daylight Time (GMT+11:00)
-// Europe/Paris: Central European Standard Time (GMT+01:00)
+// Australia/Sydney: Australian Eastern Standard Time (GMT+10:00) or Australian Eastern Daylight Time (GMT+11:00)
+// Europe/Paris: Central European Standard Time (GMT+01:00) or Central European Summer Time (GMT+02:00)
 // Pacific/Honolulu: Hawaii-Aleutian Standard Time (GMT-10:00)
 ```
 
@@ -118,9 +122,15 @@ const formatter = new Intl.DateTimeFormat('en', {
 
 ---
 
-## getNativeTimeZoneId
+## `getNativeTimeZoneId`
 
 Retrieves the current system's IANA time zone identifier using the Internationalization API (`Intl.DateTimeFormat`).
+
+### Import
+
+```typescript
+import { getNativeTimeZoneId } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -134,12 +144,12 @@ Returns a `TimeZoneIdNative` string representing the system's current IANA time 
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { getNativeTimeZoneId } from "chronos-date/utils";
 
 const currentTimeZone = getNativeTimeZoneId();
 console.log(currentTimeZone);
-// 'America/New_York'
+// 'America/New_York' or System Timezone Identifier
 ```
 
 ### Implementation Details
@@ -153,9 +163,15 @@ The function uses `Intl.DateTimeFormat().resolvedOptions().timeZone` to retrieve
 
 ---
 
-## getTimeZoneIds
+## `getTimeZoneIds`
 
 Resolves all IANA time zone identifiers that match a given UTC offset.
+
+### Import
+
+```typescript
+import { getTimeZoneIds } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -175,7 +191,7 @@ Returns an array of `TimeZoneIdNative` strings representing all IANA time zone i
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { getTimeZoneIds } from "chronos-date/utils";
 
 const zonesForUTCPlus5 = getTimeZoneIds('UTC+05:00');

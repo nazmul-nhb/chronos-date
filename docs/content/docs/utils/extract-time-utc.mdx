@@ -3,7 +3,7 @@ title: Extract Time From UTC
 description: Extract Time From UTC — Chronos Documentation.
 ---
 
-## extractTimeFromUTC
+## `extractTimeFromUTC`
 
 Extracts the time portion from a UTC offset string, converting it to `±HH:MM` format.
 
@@ -28,7 +28,7 @@ The time portion in `±HH:MM` format:
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { extractTimeFromUTC } from "chronos-date/utils";
 
 // Positive offset
@@ -75,10 +75,3 @@ The `extractTimeFromUTC` function provides:
 2. **Consistent formatting** in `±HH:MM` format
 3. **Simple integration** with time-related operations
 4. **Type-safe** input/output handling
-
-Ideal for applications requiring:
-
-- Timezone-aware displays
-- UTC string manipulation
-- Time formatting utilities
-- Internationalization support

@@ -3,13 +3,19 @@ title: Parse Time Value
 description: Parse Time Value — Chronos Documentation.
 ---
 
-## parseMSec
+## `parseMSec`
 
 Converts time values with units to milliseconds or seconds.
 
 ### Overview
 
 The `parseMSec` function parses time strings with units (like `"2h"`, `"30m"`, `"1.5d"`) or numeric values into milliseconds or seconds. It's useful for handling time durations in configuration files, command-line arguments, or any scenario where human-readable time strings need to be converted to programmatic time values.
+
+### Import
+
+```typescript
+import { parseMSec } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -56,9 +62,7 @@ type TimeWithUnit = `${number}${$UnitAnyCase}` | `${number} ${$UnitAnyCase}`;
 
 ### Usage Examples
 
-#### Basic Usage
-
-```typescript
+```typescript pg tab="Basic Usage"
 import { parseMSec } from "chronos-date/utils";
 
 // Convert time strings to milliseconds
@@ -75,27 +79,30 @@ console.log(parseMSec(120));         // 120000 (120 seconds in ms)
 console.log(parseMSec('300'));       // 300000 (300 seconds in ms)
 ```
 
-#### Practical Scenarios
+```typescript pg tab="Practical Scenarios"
+import { parseMSec } from "chronos-date/utils";
+import type { TimeWithUnit } from "chronos-date/types";
 
-```typescript
 // Setting timeouts
-const timeoutDuration = parseMSec('5m');
+const timeoutDuration = parseMSec('5s');
 setTimeout(() => {
-  console.log('Timeout fired after 5 minutes');
+  console.log('Timeout fired after 5 seconds');
 }, timeoutDuration);
 
 // Configuring intervals
-const pollInterval = parseMSec('30s');
-setInterval(fetchData, pollInterval);
+// const pollInterval = parseMSec('30s');
+// setInterval(fetchData, pollInterval);
 
 // Parsing user input
 function parseUserTimeout(input: string): number {
-  const ms = parseMSec(input);
+  const ms = parseMSec(input as TimeWithUnit);
   if (isNaN(ms)) {
     throw new Error(`Invalid time format: ${input}`);
   }
   return ms;
 }
+
+console.log(parseUserTimeout('1d'));
 
 // Working with configuration files
 const config = {
@@ -103,6 +110,7 @@ const config = {
   sessionTimeout: parseMSec('2h', true),
   backupInterval: parseMSec('1w')
 };
+console.log(config);
 ```
 
 ### Input Format Rules
@@ -300,6 +308,6 @@ scheduleRecurringJob('backup', '6h', backupDatabase);
 
 - `parseMs`
 
----
-
-**Note**: This function is designed for parsing time into ms/sec, not absolute timestamps. For date/time parsing and manipulation, consider using [Chronos](/docs/chronos) class or other [date utilities](/docs/utils).
+<Callout type="info" title="Note">
+  This function is designed for parsing time into ms/sec, not absolute timestamps. For date/time parsing and manipulation, consider using [Chronos](/docs/chronos) class or other [date utilities](/docs/utils).
+</Callout>

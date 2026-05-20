@@ -3,9 +3,15 @@ title: Extract Total Minutes
 description: Extract Total Minutes — Chronos Documentation.
 ---
 
-## getTotalMinutes
+## `getTotalMinutes`
 
 Converts a time string in `HH:MM` or `-HH:MM` format into total minutes from `00:00`.
+
+### Import
+
+```typescript
+import { getTotalMinutes } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -29,7 +35,7 @@ Total minutes elapsed since `00:00`:
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { getTotalMinutes } from "chronos-date/utils";
 
 // Positive time
@@ -85,11 +91,3 @@ The `getTotalMinutes` function provides:
 2. **Accurate time math** for calculations
 3. **Consistent handling** of signed times
 4. **Type-safe operations** through strict input validation
-
-Ideal for applications requiring:
-
-- Time-based calculations
-- Duration measurements
-- Timezone conversions
-- Scheduling logic
-- Time arithmetic operations

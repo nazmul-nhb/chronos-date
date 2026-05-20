@@ -3,7 +3,7 @@ title: Extract Minutes From UTC
 description: Extract Minutes From UTC — Chronos Documentation.
 ---
 
-## extractMinutesFromUTC
+## `extractMinutesFromUTC`
 
 Converts a UTC offset string in `UTC±HH:MM` format into total minutes as a number.
 
@@ -29,7 +29,7 @@ The total minutes represented by the UTC offset:
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { extractMinutesFromUTC,  getMinutesFromUTC } from "chronos-date/utils";
 
 // Positive offset
@@ -46,6 +46,11 @@ const utcString = "UTC-06:30";
 // Convert to minutes
 const totalMinutes = extractMinutesFromUTC(utcString); // -390
 const altMinutes = getMinutesFromUTC(utcString);      // -390 (alias)
+
+console.log({
+  totalMinutes,
+  altMinutes
+});
 ```
 
 ### Notes
@@ -68,7 +73,7 @@ const altMinutes = getMinutesFromUTC(utcString);      // -390 (alias)
 - International time comparisons
 - UTC conversion utilities
 
-## Type Definitions
+### Type Definitions
 
 ```typescript
 type PositiveUTCHour = '+00'|'+01'|...|'+14';
@@ -87,10 +92,3 @@ The `extractMinutesFromUTC` function provides:
 2. **Accurate timezone math** for calculations
 3. **Consistent handling** of positive/negative offsets
 4. **Type-safe operations** through strict input validation
-
-Ideal for applications requiring:
-
-- Timezone conversions
-- Global scheduling features
-- Time arithmetic operations
-- UTC-based time calculations

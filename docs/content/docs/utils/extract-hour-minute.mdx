@@ -1,11 +1,17 @@
 ---
-title: Extract Hour & Minute from Time
+title: Extract Hour & Minute
 description: Extract Hour & Minute from Time — Chronos Documentation.
 ---
 
-## extractHourMinute
+## `extractHourMinute`
 
 Extracts the hour and minute components from a time string in `HH:MM` or `-HH:MM` format and returns them as a numeric tuple.
+
+### Import
+
+```typescript
+import { extractHourMinute } from "chronos-date/utils";
+```
 
 ### Function Signature
 
@@ -28,7 +34,7 @@ A tuple containing:
 
 ### Example Usage
 
-```typescript
+```typescript pg
 import { extractHourMinute } from "chronos-date/utils";
 
 // Positive time
@@ -82,10 +88,3 @@ The `extractHourMinute` function provides:
 2. **Simple** time component extraction
 3. **Consistent** numeric output
 4. **Flexible** handling of signed times
-
-Ideal for applications requiring:
-
-- Precise time parsing
-- Time arithmetic operations
-- Timezone conversions
-- Duration calculations

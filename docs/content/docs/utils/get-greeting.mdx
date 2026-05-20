@@ -3,7 +3,7 @@ title: Get Time-Based Greeting
 description: Get Time-Based Greeting — Chronos Documentation.
 ---
 
-## getGreeting
+## `getGreeting`
 
 Returns a time-appropriate greeting message based on configurable time periods. Supports custom messages and time thresholds.
 
@@ -42,9 +42,7 @@ getGreeting(configs?: GreetingConfigs): string;
 
 ### Example Usage
 
-#### Basic Usage
-
-```typescript
+```typescript pg tab="Basic Usage"
 import { getGreeting } from "chronos-date/utils";
 
 // Uses current time
@@ -52,16 +50,16 @@ console.log(getGreeting());
 // "Good Morning!" (if between 03:00-11:59)
 ```
 
-#### Custom Time
+```typescript pg tab="Custom Time"
+import { getGreeting } from "chronos-date/utils";
 
-```typescript
 console.log(getGreeting({ currentTime: '15:30' }));
 // "Good Afternoon!"
 ```
 
-#### Custom Messages
+```typescript pg tab="Custom Messages"
+import { getGreeting } from "chronos-date/utils";
 
-```typescript
 console.log(getGreeting({
   afternoonMessage: 'Top of the afternoon!',
   prependToMsg: '👋 '
@@ -69,9 +67,9 @@ console.log(getGreeting({
 // "👋 Top of the afternoon!"
 ```
 
-#### Full Customization
+```typescript pg tab="Full Customization"
+import { getGreeting } from "chronos-date/utils";
 
-```typescript
 console.log(getGreeting({
   morningEnds: '10:00',
   noonEnds: '14:00',
@@ -83,11 +81,10 @@ console.log(getGreeting({
 // "Working late?"
 ```
 
-#### Using Aliases
-
-```typescript
+```typescript pg tab="Using Aliases"
 import { greet } from "chronos-date/utils";
-greet({ morningMessage: 'Rise and shine!' });
+
+console.log(greet({ morningMessage: 'Rise and shine!' }));
 ```
 
 ### Type Definitions
@@ -150,10 +147,3 @@ The `getGreeting` function and its aliases provide:
 2. **Type-safe** time string handling
 3. **Multiple entry points** through aliases
 4. **Customizable** greeting messages
-
-Ideal for applications requiring:
-
-- Contextual user greetings
-- Time-aware interfaces
-- Localized time handling
-- Personalized messaging

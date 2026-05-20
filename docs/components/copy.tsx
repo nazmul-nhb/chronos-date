@@ -17,7 +17,7 @@ interface Props {
 	message?: string;
 }
 
-export function Copy({ text, label, afterCopy = '✅', message = 'Token Copied!' }: Props) {
+export function Copy({ text, label, afterCopy = 'Copied!', message = 'Token Copied!' }: Props) {
 	const { resolvedTheme } = useTheme();
 
 	const { copiedText, copyToClipboard } = useCopyText({

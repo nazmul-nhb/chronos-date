@@ -3,9 +3,15 @@ title: Get Timestamp
 description: Get Timestamp — Chronos Documentation.
 ---
 
-## getTimestamp
+## `getTimestamp`
 
 Generates an ISO 8601 timestamp string from a date input, or from the current time when no input is provided.
+
+### Import
+
+```typescript
+import { getTimestamp } from "chronos-date/utils";
+```
 
 ### Function Signatures
 
@@ -32,37 +38,32 @@ If `format` is `'local'`, the output includes the local time & timezone offset l
 
 ### Example Usage
 
-#### Overload: No Arguments
-
-```typescript
+```typescript pg tab="No Arguments"
 import { getTimestamp } from "chronos-date/utils";
 
 const ts = getTimestamp();
+
 console.log(ts); // "2025-04-06T16:11:55.000Z" (example)
 ```
 
-#### Overload: Value and Format
-
-```typescript
+```typescript pg tab="Value and Format"
 import { getTimestamp } from "chronos-date/utils";
 
 const tsUtc = getTimestamp(new Date(2025, 3, 6, 16, 11, 55), 'utc');
-const tsLocal = getTimestamp(new Date(2025, 3, 6, 16, 11, 55), 'local');
+const tsLocal = getTimestamp(new Date(2025, 3, 6, 16, 11, 55), 'local'); // With current timezone offset
 
-console.log(tsUtc);   // "2025-04-06T16:11:55.000Z"
-console.log(tsLocal); // "2025-04-06T22:11:55.000+05:30" (time + offset varies)
+console.log(tsUtc);   // "2025-04-06T10:11:55.000Z"
+console.log(tsLocal); // "2025-04-06T16:11:55.000+06:00"
 ```
 
-#### Overload: Options Object
-
-```typescript
+```typescript pg tab="Options Object" 
 import { getTimestamp } from "chronos-date/utils";
 
 const ts1 = getTimestamp({ value: 1712748715000, format: 'utc' });
-const ts2 = getTimestamp({ format: 'local' });
+const ts2 = getTimestamp({ format: 'local' });  // With current timezone offset
 
 console.log(ts1); // "2024-04-10T11:31:55.000Z"
-console.log(ts2); // "2025-04-06T16:11:55.000+05:30" (example, offset varies)
+console.log(ts2); // "2026-05-20T12:59:42.794+06:00"
 ```
 
 ### Notes
@@ -108,10 +109,3 @@ The `getTimestamp` utility provides:
 2. **Flexible inputs** via `Date`, string, or numeric timestamp
 3. **UTC or local formatting** depending on your needs
 4. **Safe defaults** for invalid or missing inputs
-
-Ideal for applications requiring:
-
-- Consistent timestamp formatting
-- Quick conversion of date inputs
-- UTC-first data storage
-- Local time presentation with offset
