@@ -9,6 +9,7 @@
 		"build": "tsdown",
 		"dev:pkg": "tsdown --watch",
 		"dev": "pnpm --filter chronos-date-docs dev",
+		"start": "pnpm --filter chronos-date-docs start",
 		"build:docs": "pnpm --filter chronos-date-docs build",
 		"gen": "pnpm --filter chronos-date-docs gen",
 		"typegen": "pnpm --filter chronos-date-docs typegen",
