@@ -85,7 +85,7 @@ type TokenConnector = ' ' | ', ' | '; ' | ' - ';
 export type TimeOnlyFormat = LooseLiteral<TimeFormatToken>;
 
 /** Pre-defined literal types for formatting date and time. Optionally can pass any string. */
-export type StrictFormat = LooseLiteral<
+export type SafeFormat = LooseLiteral<
 	| DateTimeISO
 	| DateFormatToken
 	| TimeFormatToken

@@ -11,7 +11,7 @@ import type {
 	HourMinutes,
 	ISODateFormat,
 	ISODateTimeString,
-	StrictFormat,
+	SafeFormat,
 	TimeOnlyFormat,
 	TimestampOptions,
 	TimeZoneDetails,
@@ -273,7 +273,7 @@ export function formatTimePart(time: string, format?: TimeOnlyFormat): string {
  * formatDateRelative(Date.now() + 2 * 3600000); // "2h from now"
  * formatDateRelative(Date.now() - 10 * 86400000); // "Apr 6, 2026 04:11 PM" (formatted date string)
  */
-export function formatDateRelative(date: Maybe<DateArgs>, format?: StrictFormat): string {
+export function formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string {
 	const $date = _dateArgsToDate(date);
 
 	if (isNaN($date.getTime())) {

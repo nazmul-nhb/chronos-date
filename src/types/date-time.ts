@@ -15,7 +15,7 @@ import type {
 	TIME_ZONES_NATIVE,
 } from '../constants/timezone';
 import type { ChronosStatics } from './chronos-statics';
-import type { StrictFormat } from './format-tokens';
+import type { SafeFormat } from './format-tokens';
 
 /** - Represents the full name of a weekday, e.g., 'Monday', 'Tuesday' etc. */
 export type WeekDay = (typeof DAYS)[number];
@@ -82,7 +82,7 @@ export type MonthDateString = Exclude<
 export interface DateFormatOptions extends FormatOptions {
 	/** - Date to format, must be parsable by {@link Date} constructor. Can be string, number or `Date`. Defaults to current time. */
 	date?: DateArgs;
-	format?: StrictFormat;
+	format?: SafeFormat;
 }
 
 /** Interface representing a date-like object. */

@@ -6,7 +6,7 @@ title: Format Methods
 ## Format Tokens
 
 <Callout type="info" title="Info">
-`Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](#format), [`formatUTC`](#formatutc), and [`formatStrict`](#formatstrict) methods as well as for other methods and utilities like [`formatDate`](/docs/utils/format-date#formatdate) that accept a format, and behave similarly to libraries like `Moment.js` or `Day.js`.
+`Chronos` supports a rich set of format tokens that you can use to customize how a date is displayed. These tokens work across [`format`](#format), [`formatUTC`](#formatutc), and [`formatSafe`](#formatsafe) methods as well as for other methods and utilities like [`formatDate`](/docs/utils/format-date#formatdate) that accept a format, and behave similarly to libraries like `Moment.js` or `Day.js`.
 </Callout>
 
 Use square brackets (`[ ]`) to escape literal text. Unescaped characters will be treated as formatting tokens and replaced accordingly.
@@ -108,12 +108,12 @@ date.formatUTC('YYYY-MM-DD HH:mm:ss'); // "2025-01-15 14:30:00"
 
 ---
 
-## formatStrict()
+## formatSafe()
 
 ### Signature
 
 ```ts
-formatStrict(format?: StrictFormat, useUTC?: boolean): string
+formatSafe(format?: SafeFormat, useUTC?: boolean): string
 ```
 
 ### Parameters
@@ -128,12 +128,12 @@ formatStrict(format?: StrictFormat, useUTC?: boolean): string
 ### Notes
 
 - Provides type-safe formatting with IntelliSense support
-- See `StrictFormat` type for available formats
+- See `SafeFormat` type for available formats
 
 ### Example
 
 ```ts
-date.formatStrict('YYYY-MM-DD'); // Type-safe format
+date.formatSafe('YYYY-MM-DD'); // Type-safe format
 ```
 
 ---

@@ -409,7 +409,7 @@ static formatTimePart(time: string, format?: TimeOnlyFormat): string
 <Callout type="warn" title="Warning">
 *If no offset is provided with time string, local (system) timezone will be used. The current date will be used as the base date for the time internally.*
 </Callout>
-- `format`: Format string accepted by the `formatStrict()` method for time component.
+- `format`: Format string accepted by the `formatSafe()` method for time component.
   **Default**: `'hh:mm:ss a'` → e.g., `"02:33:36 pm"`
 
 ### Return Type

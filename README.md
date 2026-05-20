@@ -88,7 +88,7 @@ console.log(now.format('dd, mmm DD, YYYY'));
 
 // Using the function wrapper
 const tomorrow = chronos().addDays(1);
-console.log(tomorrow.formatStrict('YYYY-MM-DD'));
+console.log(tomorrow.formatSafe('YYYY-MM-DD'));
 
 // Calculate differences
 const eventDate = new Chronos('2025-12-31');

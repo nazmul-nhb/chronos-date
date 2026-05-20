@@ -41,7 +41,7 @@ import type {
 	RelativeRangeOptions,
 	WeekdayOptions,
 	ChronosPlugin,
-	StrictFormat,
+	SafeFormat,
 	TimeOnlyFormat,
 	ChronosTimeZone,
 } from './types';
@@ -673,7 +673,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 *                 Defaults to `false` (local time).
 	 * @returns A formatted date string in the specified format.
 	 */
-	formatStrict(format?: StrictFormat, useUTC = false): string {
+	formatSafe(format?: SafeFormat, useUTC = false): string {
 		return this.#format(format || 'dd, mmm DD, YYYY HH:mm:ss', useUTC);
 	}
 
@@ -1634,7 +1634,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 *
 	 * - *Input will default to today's date and assume local timezone if no offset is provided.*
 	 *
-	 * @param format - Format tokens accepted by {@link formatStrict()} method ({@link TimeOnlyFormat}) for time part only.
+	 * @param format - Format tokens accepted by {@link formatSafe()} method ({@link TimeOnlyFormat}) for time part only.
 	 *                 Default: `hh:mm:ss a` → 02:33:36 pm.
 	 * @returns Formatted time string in local (System) time.
 	 */

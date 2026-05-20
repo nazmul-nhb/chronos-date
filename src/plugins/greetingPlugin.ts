@@ -28,7 +28,7 @@ declare module 'chronos-date' {
 /** * Plugin to inject `getGreeting`/`greet` method */
 export const greetingPlugin: ChronosPlugin = ($Chronos) => {
 	$Chronos.prototype.getGreeting = function (configs) {
-		const currentTime = this.formatStrict('HH:mm') as ClockTime;
+		const currentTime = this.formatSafe('HH:mm') as ClockTime;
 
 		return getGreeting({ currentTime, ...configs });
 	};

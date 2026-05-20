@@ -53,13 +53,13 @@ import { chronos } from "chronos-date";
 const date = chronos('2023-12-31')
 
 date.year // 2023
-date.formatStrict() // Formatted date string
+date.formatSafe() // Formatted date string
 
 // Class style (equivalent)
 const date = new Chronos('2023-12-31')
 
 date.year // 2023
-date.formatStrict() // Formatted date string
+date.formatSafe() // Formatted date string
 ```
 
 ### With Components
@@ -68,7 +68,7 @@ date.formatStrict() // Formatted date string
 const date = chronos(2023, 12, 31, 15, 30)
 
 date.year // 2023
-date.formatStrict() // Formatted date string
+date.formatSafe() // Formatted date string
 ```
 
 ## Available Methods & Properties

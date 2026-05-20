@@ -36,8 +36,8 @@ declare module 'chronos-date' {
 /** * Plugin to inject `isPalindromeDate` method */
 export const palindromePlugin: ChronosPlugin = ($Chronos) => {
 	$Chronos.prototype.isPalindromeDate = function (shortYear = false) {
-		const padded = this.formatStrict(shortYear ? 'YY-MM-DD' : 'YYYY-MM-DD');
-		const normal = this.formatStrict(shortYear ? 'YY-M-D' : 'YYYY-M-D');
+		const padded = this.formatSafe(shortYear ? 'YY-MM-DD' : 'YYYY-MM-DD');
+		const normal = this.formatSafe(shortYear ? 'YY-M-D' : 'YYYY-M-D');
 		return isPalindrome(padded) || isPalindrome(normal);
 	};
 };

@@ -28,7 +28,7 @@ interface DateFormatOptions {
     /** Date to format, must be parsable by `Date` constructor. Can be string, number or `Date`. Defaults to current time. */
     date?: string | number | Date;
     /** The desired format (Default format is `'dd, mmm DD, YYYY HH:mm:ss'` = `'Sun, Apr 06, 2025 16:11:55'`). */
-    format?: StrictFormat; // 21,000+ predefined formats + any string that uses tokens
+    format?: SafeFormat; // 21,000+ predefined formats + any string that uses tokens
     /** Whether to use UTC time. Defaults to `false`. */
     useUTC?: boolean;
 }
@@ -188,7 +188,7 @@ import { formatDateRelative } from "chronos-date/utils";
 ### Signature
 
 ```typescript
-formatDateRelative(date: Maybe<DateArgs>, format?: StrictFormat): string
+formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string
 ```
 
 ### Parameters

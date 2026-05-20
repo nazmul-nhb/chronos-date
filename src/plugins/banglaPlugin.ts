@@ -13,7 +13,7 @@ import type {
 	BnCalendarConfig,
 	BnCalendarVariant,
 	ChronosPlugin,
-	StrictFormat,
+	SafeFormat,
 } from '../types';
 import {
 	_bnDaysMonthIdx,
@@ -101,7 +101,7 @@ declare module 'chronos-date' {
 		 * - For example, `[আজ] ddd` results in `আজ রবিবার`, and `[year ]YYYY` results in `year ২০২৫`.
 		 * - *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
 		 */
-		formatBangla(format?: StrictFormat, options?: BnCalendarConfig): string;
+		formatBangla(format?: SafeFormat, options?: BnCalendarConfig): string;
 
 		/**
 		 * @instance Gets the Bangla calendar year for the current date.
