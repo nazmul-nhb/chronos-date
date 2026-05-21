@@ -1,0 +1,40 @@
+---
+title: Get & Set Methods
+description: Get and Set time components and time-related values.
+---
+
+## Overview
+
+This section provides all the methods for getting and setting time components and time-related values in a `Chronos` instance.
+
+## Examples
+
+```typescript pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos();
+
+// Getters
+const timeStamp = date.getTimeStamp();
+const week = date.getWeek();
+const weekYear = date.getWeekYear();
+const weekOfYear = date.getWeekOfYear();
+const daysInMonth = date.daysInMonth();
+const dayOfYear = date.getDayOfYear();
+
+// Setters
+const set = date.set('month', 6);
+const setWeek = date.setWeek(33);
+
+console.log({ 
+    date,
+    timeStamp, 
+    week,
+    weekYear, 
+    weekOfYear, 
+    daysInMonth, 
+    dayOfYear, 
+    set, 
+    setWeek
+ });
+```

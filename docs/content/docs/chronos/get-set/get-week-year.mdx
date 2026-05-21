@@ -1,0 +1,30 @@
+---
+title: getWeekYear
+description: Gets the ISO week-numbering year.
+---
+
+## `getWeekYear()`
+
+Gets the ISO week-numbering year.
+
+### Signature
+
+```ts
+getWeekYear(weekStartsOn?: Enumerate<7>): number
+```
+
+### Parameters
+
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`number` - ISO week-numbering year
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(new Chronos().getWeekYear()); // ISO week-numbering year
+```

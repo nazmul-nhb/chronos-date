@@ -1,0 +1,59 @@
+---
+title: set
+description: Returns a new Chronos instance with the specified unit set to the given value.
+---
+
+## `set()`
+
+Returns a new `Chronos` instance with the specified unit set to the given value.
+
+### Signature
+
+```ts
+set<Unit extends TimeUnit>(unit: Unit, value: TimeUnitValue<Unit>): Chronos
+```
+
+### Parameters
+
+- `unit`: Time unit to set: [`TimeUnit`](#type-definitions)
+- `value`: Value to set: [`TimeUnitValue<Unit>`](#type-definitions)
+
+### Return Type
+
+`Chronos` - New instance with updated value
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15T15:30:55');
+const newDate = date.set('month', 6);
+
+console.log({ date, newDate });
+```
+
+<Callout type="info" title="N.B.">
+Unit `month` is `1` based (`1`: January, `12`: December)
+</Callout>
+
+<Callout type="info" title="See Also">
+[`with`](/docs/chronos/static/with) static method for more options
+</Callout>
+
+### Type Definitions
+
+```ts
+/** Name of time unit from `year` to `millisecond` */
+type TimeUnit = 'year' | 'month' | 'day' | 'week' | 'hour' | 'minute' | 'second' | 'millisecond';
+
+/** Conditional value for `TimeUnit` */
+type TimeUnitValue<Unit extends TimeUnit> =
+ Unit extends 'month' ? NumberRange<1, 12> // 1-12
+ : Unit extends 'week' ? NumberRange<1, 53> // 1-51
+ : Unit extends 'day' ? NumberRange<1, 31> // 1-31
+ : Unit extends 'hour' ? Enumerate<24> // 0-23
+ : Unit extends 'minute' | 'second' ? Enumerate<60> // 0-59
+ : Unit extends 'millisecond' ? Milliseconds // 0-999
+ : number;
+```

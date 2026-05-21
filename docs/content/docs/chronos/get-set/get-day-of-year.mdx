@@ -1,0 +1,26 @@
+---
+title: getDayOfYear
+description: Returns day of year (1 - 366).
+---
+
+## `getDayOfYear()`
+
+Returns day of year (1 - 366)
+
+### Signature
+
+```ts
+getDayOfYear(): NumberRange<1, 366>
+```
+
+### Return Type
+
+`NumberRange<1, 366>` - Day of year (1-366)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(new Chronos().getDayOfYear());
+```

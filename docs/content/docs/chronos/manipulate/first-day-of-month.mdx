@@ -1,0 +1,32 @@
+---
+title: firstDayOfMonth
+description: Returns a new Chronos instance set to the first day of the current month.
+---
+
+## `firstDayOfMonth()`
+
+Returns a new `Chronos` instance set to the first day of the current month.
+
+### Signature
+
+```ts
+firstDayOfMonth(): Chronos
+```
+
+### Return Type
+
+`Chronos` - First day of month
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-15');
+const firstDayOfMonth = original.firstDayOfMonth();
+
+console.log({
+    original,
+    firstDayOfMonth,
+});
+```

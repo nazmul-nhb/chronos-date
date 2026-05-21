@@ -1,0 +1,26 @@
+---
+title: daysInMonth
+description: Returns number of days in current month.
+---
+
+## `daysInMonth()`
+
+Returns number of days in current month.
+
+### Signature
+
+```ts
+daysInMonth(): NumberRange<28, 31>
+```
+
+### Return Type
+
+`NumberRange<28, 31>` - Days in month (`28 | 29 | 30 | 31`)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(new Chronos().daysInMonth());
+```

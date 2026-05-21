@@ -1,0 +1,37 @@
+---
+title: endOf
+description: Returns a new Chronos instance at the end of a given unit.
+---
+
+## `endOf()`
+
+Returns a new `Chronos` instance at the end of a given unit.
+
+### Signature
+
+```ts
+endOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
+```
+
+### Parameters
+
+- `unit`: Unit to end at
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`Chronos` - End of period
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-15');
+const endOfMoth = original.endOf('month');
+
+console.log({
+  original,
+  endOfMoth,
+});
+```

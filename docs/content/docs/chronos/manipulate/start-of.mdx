@@ -1,0 +1,37 @@
+---
+title: startOf
+description: Returns a new Chronos instance at the start of a given unit.
+---
+
+## `startOf()`
+
+Returns a new `Chronos` instance at the start of a given unit.
+
+### Signature
+
+```ts
+startOf(unit: TimeUnit, weekStartsOn?: Enumerate<7>): Chronos
+```
+
+### Parameters
+
+- `unit`: Unit to start from
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`Chronos` - Start of period
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-15');
+const startOfMoth = original.startOf('month');
+
+console.log({
+    original,
+    startOfMoth,
+});
+```

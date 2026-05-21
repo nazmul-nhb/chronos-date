@@ -1,0 +1,50 @@
+---
+title: getTimeStamp
+description: Returns the timestamp (in milliseconds) of the Chronos instance.
+---
+
+## `getTimeStamp()`
+
+<Callout type="info" title="Note">
+
+- The getter method [`timestamp`](/docs/chronos/getters#timestamp) and `getTimeStamp()` returns the same value (milliseconds).
+
+- The **timestamp in seconds** (which some people considers as `timestamp`) can be accessed using [`unix`](/docs/chronos/getters#unix) getter method.
+
+</Callout>
+
+### Signature
+
+```ts
+getTimeStamp(): number
+  ```
+
+### Return Type
+
+`number` - Milliseconds since Unix epoch (January 1, 1970 UTC)
+
+### Behavior & Notes
+
+- Equivalent to JavaScript [`Date.getTime()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime)
+- Returns the primitive timestamp value of the `Chronos` instance
+- Useful for interoperability with other date libraries or storage
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const timestamp = new Chronos('2025-01-01').getTimeStamp();
+console.log(timestamp);
+// Returns: 1735689600000 (exact timestamp for midnight Jan 1, 2025 UTC)
+
+// Comparison with native Date
+const jsDate = new Date('2025-01-01');
+console.log(jsDate.getTime() === new Chronos(jsDate).getTimeStamp()); // true
+```
+
+### Use Cases
+
+- Storing dates in databases as timestamps
+- Performance-critical operations where primitive numbers are preferred
+- Interfacing with systems that expect Unix timestamps

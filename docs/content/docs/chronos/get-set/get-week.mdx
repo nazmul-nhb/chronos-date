@@ -1,0 +1,26 @@
+---
+title: getWeek
+description: Returns the ISO 8601 week number of the year.
+---
+
+## `getWeek()`
+
+Returns the ISO 8601 week number of the year.
+
+### Signature
+
+```ts
+getWeek(): NumberRange<1, 53>
+```
+
+### Return Type
+
+`NumberRange<1, 53>` - ISO week number (1-53)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(new Chronos('2022-01-01').getWeek()); // 52 (previous year)
+```

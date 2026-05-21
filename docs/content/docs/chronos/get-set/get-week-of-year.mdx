@@ -1,0 +1,30 @@
+---
+title: getWeekOfYear
+description: Gets the week number of the year based on custom week start.
+---
+
+## `getWeekOfYear()`
+
+Gets the week number of the year based on custom week start
+
+### Signature
+
+```ts
+getWeekOfYear(weekStartsOn?: Enumerate<7>): NumberRange<1, 53>
+```
+
+### Parameters
+
+- `weekStartsOn`: Week start day (from `0-6`) (default: 0)
+
+### Return Type
+
+`NumberRange<1, 53>` - Week number (`1-53`)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(new Chronos().getWeekOfYear()); // ISO 8601 week number of the year
+```

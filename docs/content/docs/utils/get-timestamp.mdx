@@ -74,7 +74,7 @@ console.log(ts2); // "2026-05-20T12:59:42.794+06:00"
 - `'utc'` output matches `Date.prototype.toISOString()` for valid inputs.
 - The output is always a string typed as `ISODateTimeString<'utc'>` or `ISODateTimeString<'local'>` for type safety and clarity in codebases.
 - The output value (whether UTC or local) is always in ISO 8601 format and returns the same instance of `Date` when used as `new Date(getTimestamp(some-value))` for valid inputs, ensuring consistency across formats.
-- Exported as `getTimestamp` (lowercase `s`), separate from [`Chronos.getTimeStamp()`](/docs/chronos/get-set#gettimestamp) which returns timestamp in milliseconds.
+- Exported as `getTimestamp` (lowercase `s`), separate from [`Chronos.getTimeStamp()`](/docs/chronos/get-set/get-timestamp) which returns timestamp in milliseconds.
 
 ### Type Definitions
 

@@ -1,0 +1,32 @@
+---
+title: lastDayOfMonth
+description: Returns a new Chronos instance set to the last day of the current month.
+---
+
+## `lastDayOfMonth()`
+
+Returns a new `Chronos` instance set to the last day of the current month.
+
+### Signature
+
+```ts
+lastDayOfMonth(): Chronos
+```
+
+### Return Type
+
+`Chronos` - Last day of month
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-15');
+const lastDayOfMonth = original.lastDayOfMonth();
+
+console.log({
+  original,
+  lastDayOfMonth,
+});
+```

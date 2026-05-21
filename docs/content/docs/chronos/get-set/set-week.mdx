@@ -1,0 +1,33 @@
+---
+title: setWeek
+description: Sets the date to the Monday of the specified ISO week number within the current year.
+---
+
+## `setWeek()`
+
+Sets the date to the Monday of the specified ISO week number within the current year.
+
+### Signature
+
+```ts
+setWeek(week: NumberRange<1, 53>): Chronos
+```
+
+### Parameters
+
+- `week`: Week number to set (from `1-53`)
+
+### Return Type
+
+`Chronos` - Instance at start of week
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos();
+const newDate = original.setWeek(1);
+
+console.log({ original, newDate });
+```

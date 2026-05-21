@@ -1,0 +1,59 @@
+---
+title: get
+description: Gets the value of a specific time unit from the date.
+---
+
+## `get()`
+
+Gets the value of a specific time unit from the date.
+
+### Signature
+
+```ts
+get<Unit extends TimeUnit>(unit: Unit): TimeUnitValue<Unit>
+```
+
+### Parameters
+
+- `unit`: Time unit to get: [`TimeUnit`](#type-definitions)
+
+### Return Type
+
+[`TimeUnitValue<Unit>`](#type-definitions) - Component value
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15T15:30:55');
+
+const month = date.get('month'); // 1 (January)
+const minute = date.get('minute'); // 30
+
+console.log({ date, month, minute });
+```
+
+<Callout type="info" title="Notes">
+
+- Return value for `month` is `1` based (`1`: January, `12`: December)
+- ISO weeks start on Monday, and the first week of the year is the one containing January 4th.
+
+</Callout>
+
+### Type Definitions
+
+```ts
+/** Name of time unit from `year` to `millisecond` */
+type TimeUnit = 'year' | 'month' | 'day' | 'week' | 'hour' | 'minute' | 'second' | 'millisecond';
+
+/** Conditional value for `TimeUnit` */
+type TimeUnitValue<Unit extends TimeUnit> =
+ Unit extends 'month' ? NumberRange<1, 12> // 1-12
+ : Unit extends 'week' ? NumberRange<1, 53> // 1-51
+ : Unit extends 'day' ? NumberRange<1, 31> // 1-31
+ : Unit extends 'hour' ? Enumerate<24> // 0-23
+ : Unit extends 'minute' | 'second' ? Enumerate<60> // 0-59
+ : Unit extends 'millisecond' ? Milliseconds // 0-999
+ : number;
+```
