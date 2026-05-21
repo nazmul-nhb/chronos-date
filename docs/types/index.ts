@@ -21,6 +21,8 @@ declare global {
 	type MDXProvidedComponents = ReturnType<typeof getMDXComponents>;
 }
 
+export type Params<Key extends string = 'slug'> = { params: Promise<{ [K in Key]: string }> };
+
 export type GitHubRepo = Partial<{
 	id: number;
 	node_id: string;

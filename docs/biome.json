@@ -53,7 +53,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["**/og/**/*/route.*"],
+			"includes": ["**/og/**/*/route.*", "**/*/opengraph-image.tsx"],
 			"linter": {
 				"rules": {
 					"performance": {
