@@ -56,7 +56,7 @@ export interface ChronosInternals {
 	 * @param offset Optional UTC offset in `UTC±HH:mm` format.
 	 * @param tzName Optional time zone name to set.
 	 * @param tzId Optional time zone identifier(s) to set.
-	 * @param tzTracker Optional tracker to identify the instance created by {@link https://toolbox.nazmul-nhb.dev/docs/classes/chronos/conversion#timezone timeZone} method.
+	 * @param tzTracker Optional tracker to identify the instance created by {@link https://chronos.nazmul-nhb.dev/docs/plugins/timezone-plugin#timezone timeZone} method.
 	 * @returns The `Chronos` instance with the specified origin and other properties.
 	 */
 	withOrigin<Tz extends ChronosTimeZone>(

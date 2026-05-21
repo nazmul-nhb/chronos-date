@@ -21,7 +21,7 @@ declare module 'chronos-date' {
 
 		/**
 		 * @instance Returns the zodiac sign based on current date or `birthDate` option.
-		 * @remarks This method is an alias for {@link https://toolbox.nazmul-nhb.dev/docs/classes/chronos/names#getzodiacsign getZodiacSign} method.
+		 * @remarks This method is an alias for {@link getZodiacSign} method.
 		 *
 		 * @param options Optional config to choose preset or provide custom zodiac date ranges.
 		 * @returns The matching zodiac sign from preset/custom list.
