@@ -1,0 +1,11 @@
+{
+	"pages": [
+		"add-years",
+		"add-months",
+		"add-weeks",
+		"add-days",
+		"add-hours",
+		"add-minutes",
+		"add-seconds"
+	]
+}

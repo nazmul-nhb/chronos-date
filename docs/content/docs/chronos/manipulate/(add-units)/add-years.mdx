@@ -1,0 +1,37 @@
+---
+title: addYears
+description: Adds years and returns a new immutable Chronos instance.
+---
+
+## `addYears()`
+
+Adds years and returns a new immutable `Chronos` instance.
+
+### Signature
+
+```ts
+addYears(years: number): Chronos
+```
+
+### Parameters
+
+- `years`: Number of years to add
+
+### Return Type
+
+`Chronos` - New instance with added years
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const added = original.addYears(1);
+
+console.log({ original, added });
+```
+
+### Alternative
+
+- You can also use [`add`](./add) method as `original.add(1, 'year')`.

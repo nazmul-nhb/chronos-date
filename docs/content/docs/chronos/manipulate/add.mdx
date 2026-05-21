@@ -1,0 +1,50 @@
+---
+title: add
+description: Returns a new Chronos instance with the specified unit added.
+---
+
+## `add()`
+
+Returns a new `Chronos` instance with the specified unit added.
+
+### Signature
+
+```ts
+add(amount: number, unit: TimeUnit): Chronos
+```
+
+### Parameters
+
+- `amount`: Number of units to add
+- `unit`: Time unit to add ('year', 'month', 'day', etc.)
+
+### Return Type
+
+`Chronos` - New instance with added time
+
+### Notes
+
+- Returns new immutable instance
+- Handles month/year overflow automatically
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const added = original.add(1, 'month');
+
+console.log({ original, added });
+```
+
+### Alternatives
+
+- You can also use one/all of these methods as per your need, they're self-explanatory:
+  - [`addSeconds()`](./add-seconds)
+  - [`addMinutes()`](./add-minutes)
+  - [`addHours()`](./add-hours)
+  - [`addDays()`](./add-days)
+  - [`addWeeks()`](./add-weeks)
+  - [`addMonths()`](./add-months)
+  - [`addYears()`](./add-years)

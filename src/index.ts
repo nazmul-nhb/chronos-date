@@ -1130,17 +1130,15 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	/**
 	 * @instance Returns the difference between current and another date in the given unit.
 	 * @param other The other date to compare.
-	 * @param unit The unit in which to return the difference.
+	 * @param unit The unit in which to return the difference. Defaults to `'millisecond'`.
 	 * @returns Difference in number (either `integer` or `float`).
 	 */
-	diff(other: ChronosInput, unit: TimeUnit): number {
+	diff(other: ChronosInput, unit: TimeUnit = 'millisecond'): number {
 		const time = Chronos.#cast(other);
 
 		const msDiff = this.#timestamp - time.#timestamp;
 
 		switch (unit) {
-			case 'millisecond':
-				return msDiff;
 			case 'second':
 				return msDiff / 1e3;
 			case 'minute':
@@ -1162,6 +1160,9 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			}
 			case 'year':
 				return this.diff(time, 'month') / 12;
+			case 'millisecond':
+			default:
+				return msDiff;
 		}
 	}
 

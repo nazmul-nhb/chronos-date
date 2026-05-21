@@ -1,0 +1,38 @@
+---
+title: subtract
+description: Returns a new Chronos instance with the specified unit subtracted.
+---
+
+## `subtract()`
+
+Returns a new `Chronos` instance with the specified unit subtracted.
+
+### Signature
+
+```ts
+subtract(amount: number, unit: TimeUnit): Chronos
+```
+
+### Parameters
+
+- `amount`: Number of units to subtract
+- `unit`: Time unit to subtract
+
+### Return Type
+
+`Chronos` - New instance with subtracted time
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-03-31');
+const subtracted = original.subtract(1, 'month');
+
+console.log({ original, subtracted });
+```
+
+<Callout type="idea" title="Info">
+ Internally it uses [`add`](./add) method such as `new Chronos(...).add(-amount, unit)`.
+</Callout>

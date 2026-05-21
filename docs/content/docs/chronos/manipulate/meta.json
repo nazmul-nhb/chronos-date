@@ -1,3 +1,12 @@
 {
-	"pages": ["start-of", "end-of", "first-day-of-month", "last-day-of-month", "..."]
+	"pages": [
+		"start-of",
+		"end-of",
+		"add",
+		"...(add-units)",
+		"subtract",
+		"first-day-of-month",
+		"last-day-of-month",
+		"..."
+	]
 }

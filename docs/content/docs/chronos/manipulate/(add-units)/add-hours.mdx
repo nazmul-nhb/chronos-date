@@ -1,0 +1,37 @@
+---
+title: addHours
+description: Adds hours and returns a new immutable instance.
+---
+
+## `addHours()`
+
+Adds hours and returns a new immutable `Chronos` instance.
+
+### Signature
+
+```ts
+addHours(hours: number): Chronos
+```
+
+### Parameters
+
+- `hours`: Number of hours to add
+
+### Return Type
+
+`Chronos` - New instance with added hours
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const added = original.addHours(1);
+
+console.log({ original, added });
+```
+
+### Alternative
+
+- You can also use [`add`](./add) method as `original.add(1, 'hour')`.

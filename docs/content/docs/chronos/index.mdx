@@ -265,16 +265,16 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Calculation Methods">
     | Method                                                           | Short Description                                                    |
     | ---------------------------------------------------------------- | -------------------------------------------------------------------- |
-    | [add()](./chronos/calculation#add)                               | Returns a new `Chronos` instance with the specified unit added.      |
-    | [addDays()](./chronos/calculation#alternatives)                  | Adds days and returns a new immutable instance.                      |
-    | [addHours()](./chronos/calculation#alternatives)                 | Adds hours and returns a new immutable instance.                     |
-    | [addMinutes()](./chronos/calculation#alternatives)               | Adds minutes and returns a new immutable instance.                   |
-    | [addMonths()](./chronos/calculation#alternatives)                | Adds months and returns a new immutable instance.                    |
-    | [addSeconds()](./chronos/calculation#alternatives)               | Adds seconds and returns a new immutable instance.                   |
-    | [addWeeks()](./chronos/calculation#alternatives)                 | Adds weeks and returns a new immutable instance.                     |
-    | [addYears()](./chronos/calculation#alternatives)                 | Adds years and returns a new immutable instance.                     |
-    | [subtract()](./chronos/calculation#subtract)                     | Returns a new `Chronos` instance with the specified unit subtracted. |
-    | [diff()](./chronos/calculation#diff)                             | Returns the difference between current and another date.             |
+    | [add()](./chronos/manipulate/add)                                | Returns a new `Chronos` instance with the specified unit added.      |
+    | [addDays()](./chronos/manipulate/add-days)                       | Adds days and returns a new immutable instance.                      |
+    | [addHours()](./chronos/manipulate/add-hours)                     | Adds hours and returns a new immutable instance.                     |
+    | [addMinutes()](./chronos/manipulate/add-minutes)                 | Adds minutes and returns a new immutable instance.                   |
+    | [addMonths()](./chronos/manipulate/add-months)                   | Adds months and returns a new immutable instance.                    |
+    | [addSeconds()](./chronos/manipulate/add-seconds)                 | Adds seconds and returns a new immutable instance.                   |
+    | [addWeeks()](./chronos/manipulate/add-weeks)                     | Adds weeks and returns a new immutable instance.                     |
+    | [addYears()](./chronos/manipulate/add-years)                     | Adds years and returns a new immutable instance.                     |
+    | [subtract()](./chronos/manipulate/subtract)                      | Returns a new `Chronos` instance with the specified unit subtracted. |
+    | [diff()](./chronos/get-set/diff)                                 | Returns the difference between current and another date.             |
     | [duration()](./plugins/duration-plugin#duration)                 | Returns full time duration between current and another time object.  |
     | [durationString()](./plugins/duration-plugin#durationstring)     | Returns a human-readable formatted duration string between 2 dates.  |
     | [round()](./plugins/round-plugin#round)                          | Rounds the current date-time to the nearest unit and interval.       |

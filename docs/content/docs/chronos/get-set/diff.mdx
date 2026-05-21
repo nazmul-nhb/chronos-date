@@ -1,0 +1,39 @@
+---
+id: diff
+title: Get difference between 2 dates in specified unit
+---
+
+## `diff()`
+
+Returns the difference between current and another date in the given unit.
+
+### Signature
+
+```ts
+diff(other: ChronosInput, unit: TimeUnit): number
+```
+
+### Parameters
+
+- `other`: Date to compare with
+- `unit`: Unit for difference. Defaults to `'millisecond'`.
+
+### Return Type
+
+`number` - Difference in specified units
+
+<Callout type="info" title="Note">
+Returns signed difference (negative if other is after this date)
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date1 = new Chronos('2025-01-01');
+const date2 = new Chronos('2025-01-15');
+
+console.log(date2.diff(date1, 'day'));
+console.log(date1.diff(date2, 'day'));
+```

@@ -1,0 +1,37 @@
+---
+title: addWeeks
+description: Adds weeks and returns a new immutable Chronos instance.
+---
+
+## `addWeeks()`
+
+Adds weeks and returns a new immutable `Chronos` instance.
+
+### Signature
+
+```ts
+addWeeks(weeks: number): Chronos
+```
+
+### Parameters
+
+- `weeks`: Number of weeks to add
+
+### Return Type
+
+`Chronos` - New instance with added weeks
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const added = original.addWeeks(1);
+
+console.log({ original, added });
+```
+
+### Alternative
+
+- You can also use [`add`](./add) method as `original.add(1, 'week')`.
