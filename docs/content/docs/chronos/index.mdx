@@ -17,7 +17,7 @@ Whether you're building a calendar, a countdown, or scheduling logic, `Chronos` 
 This documentation provides a detailed guide to the `Chronos` class, a comprehensive date and time manipulation class. The methods are grouped into logical categories for easier navigation.
 
 <Callout type="info" title="For chronos function">
-For `chronos` function, a `Chronos` wrapper, refer to [**chronos/wrapper-function**](./chronos/wrapper-function)
+For `chronos` function, a `Chronos` wrapper, refer to the [**Wrapper Function**](./chronos/wrapper-function)
 </Callout>
 
 ### Import
@@ -220,9 +220,11 @@ Chronos.use(timeZonePlugin);
 // Can access but TypeScript may complain
 
 const ch = new Chronos('2025-01-01');
+// @ts-ignore: Protected method but still accessible
 console.log(ch.$tzTracker); // → undefined
 
 const custom = ch.timeZone('Asia/Kolkata');
+// @ts-ignore: Protected method but still accessible
 console.log(custom.$tzTracker); // → "Asia/Kolkata"
 ```
 
@@ -263,43 +265,27 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [toLocaleString()](./chronos/format/to-locale-string)      | Wrapper over native JS `toLocaleString` with improved type system.        |
   </Accordion>
 
-  <Accordion title="Calculation Methods">
-    | Method                                                           | Short Description                                                    |
-    | ---------------------------------------------------------------- | -------------------------------------------------------------------- |
-    | [add()](./chronos/manipulate/add)                                | Returns a new `Chronos` instance with the specified unit added.      |
-    | [addDays()](./chronos/manipulate/add-days)                       | Adds days and returns a new immutable instance.                      |
-    | [addHours()](./chronos/manipulate/add-hours)                     | Adds hours and returns a new immutable instance.                     |
-    | [addMinutes()](./chronos/manipulate/add-minutes)                 | Adds minutes and returns a new immutable instance.                   |
-    | [addMonths()](./chronos/manipulate/add-months)                   | Adds months and returns a new immutable instance.                    |
-    | [addSeconds()](./chronos/manipulate/add-seconds)                 | Adds seconds and returns a new immutable instance.                   |
-    | [addWeeks()](./chronos/manipulate/add-weeks)                     | Adds weeks and returns a new immutable instance.                     |
-    | [addYears()](./chronos/manipulate/add-years)                     | Adds years and returns a new immutable instance.                     |
-    | [subtract()](./chronos/manipulate/subtract)                      | Returns a new `Chronos` instance with the specified unit subtracted. |
-    | [diff()](./chronos/get-set/diff)                                 | Returns the difference between current and another date.             |
-    | [duration()](./plugins/duration-plugin#duration)                 | Returns full time duration between current and another time object.  |
-    | [durationString()](./plugins/duration-plugin#durationstring)     | Returns a human-readable formatted duration string between 2 dates.  |
-    | [round()](./plugins/round-plugin#round)                          | Rounds the current date-time to the nearest unit and interval.       |
-    | [getDatesInRange()](./plugins/date-range-plugin#getdatesinrange) | Generates a list of ISO date strings within a specified range.       |
+  <Accordion title="Manipulation Methods">
+    | Method                                                       | Short Description                                                    |
+    | ------------------------------------------------------------ | -------------------------------------------------------------------- |
+    | [clone()](./chronos/manipulate/clone)                        | Clones and returns exactly same `Chronos` instance.                  |
+    | [add()](./chronos/manipulate/add)                            | Returns a new `Chronos` instance with the specified unit added.      |
+    | [addDays()](./chronos/manipulate/add-days)                   | Adds days and returns a new immutable instance.                      |
+    | [addHours()](./chronos/manipulate/add-hours)                 | Adds hours and returns a new immutable instance.                     |
+    | [addMinutes()](./chronos/manipulate/add-minutes)             | Adds minutes and returns a new immutable instance.                   |
+    | [addMonths()](./chronos/manipulate/add-months)               | Adds months and returns a new immutable instance.                    |
+    | [addSeconds()](./chronos/manipulate/add-seconds)             | Adds seconds and returns a new immutable instance.                   |
+    | [addWeeks()](./chronos/manipulate/add-weeks)                 | Adds weeks and returns a new immutable instance.                     |
+    | [addYears()](./chronos/manipulate/add-years)                 | Adds years and returns a new immutable instance.                     |
+    | [subtract()](./chronos/manipulate/subtract)                  | Returns a new `Chronos` instance with the specified unit subtracted. |
+    | [round()](./plugins/round-plugin#round)                      | Rounds the current date-time to the nearest unit and interval.       |
+    | [startOf()](./chronos/manipulate/start-of)                   | Returns a new `Chronos` instance at the start of a given unit.       |
+    | [endOf()](./chronos/manipulate/end-of)                       | Returns a new `Chronos` instance at the end of a given unit.         |
+    | [firstDayOfMonth()](./chronos/manipulate/first-day-of-month) | Returns a new instance set to the first day of the current month.    |
+    | [lastDayOfMonth()](./chronos/manipulate/last-day-of-month)   | Returns a new instance set to the last day of the current month.     |
   </Accordion>
 
-  <Accordion title="Name Getter Methods">
-    | Method                                                                   | Short Description                                             |
-    | ------------------------------------------------------------------------ | ------------------------------------------------------------- |
-    | [day()](./chronos/get-set/day)                                           | Gets name of the current day or optional day index.           |
-    | [monthName()](./chronos/get-set/month-name)                                 | Gets name of the current month or optional month index.       |
-    | [getTimeZoneName()](./plugins/timezone-plugin#gettimezonename)           | Gets current time zone name in descriptive string.            |
-    | [getTimeZoneNameShort()](./plugins/timezone-plugin#gettimezonenameshort) | Gets current time zone abbreviation (e.g. `"BST"`).           |
-    | [getTimeZoneNameAbbr()](./plugins/timezone-plugin#gettimezonenameshort)  | Gets time zone abbreviation (`getTimeZoneNameShort()`).       |
-    | [season()](./plugins/season-plugin#season)                               | Gets current season name based on options.                    |
-    | [getSeasonName()](./plugins/season-plugin#season)                        | Alias for `season()`.                                         |
-    | [getZodiacSign()](./plugins/zodiac-plugin#getzodiacsign)                 | Gets zodiac sign based on current date or `birthDate`.        |
-    | [zodiac()](./plugins/zodiac-plugin#getzodiacsign)                        | Alias for `getZodiacSign()`.                                  |
-    | [getPartOfDay()](./plugins/day-part-plugin#getpartofday)                 | Returns the part of day based on the current hour.            |
-    | [$getNativeTimeZoneName()](./chronos/get-set/get-native-timezone-name) | Retrieves the local system's current timezone name.           |
-    | [$getNativeTimeZoneId()](./chronos/get-set/get-native-timezone-id)     | Retrieves the IANA time zone identifier for the local system. |
-  </Accordion>
-
-  <Accordion title="Checker Methods">
+  <Accordion title="Query/Checker Methods">
     | Method                                                       | Short Description                                                    |
     | ------------------------------------------------------------ | -------------------------------------------------------------------- |
     | [isAfter()](./chronos/query/is-after)                        | Checks if this date is after another date in a specific unit.        |
@@ -327,7 +313,6 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Conversion Methods">
     | Method                                           | Short Description                                                            |
     | ------------------------------------------------ | ---------------------------------------------------------------------------- |
-    | [clone()](./chronos/manipulate/clone)            | Clones and returns exactly same `Chronos` instance.                          |
     | [toUTC()](./chronos/convert/to-utc)              | Returns new `Chronos` instance in UTC time.                                  |
     | [toLocal()](./chronos/convert/to-local)          | Returns new `Chronos` instance in local time.                                |
     | [timeZone()](./plugins/timezone-plugin#timezone) | Creates a new instance of `Chronos` for the specified time zone information. |
@@ -351,21 +336,36 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   </Accordion>
 
   <Accordion title="Get & Set Methods">
-    | Method                                                       | Short Description                                                       |
-    | ------------------------------------------------------------ | ----------------------------------------------------------------------- |
-    | [get()](./chronos/get-set/get)                               | Gets the value of a specific time unit from the date.                   |
-    | [set()](./chronos/get-set/set)                               | Returns a new instance with the specified unit set to the given value.  |
-    | [startOf()](./chronos/manipulate/start-of)                   | Returns a new `Chronos` instance at the start of a given unit.          |
-    | [endOf()](./chronos/manipulate/end-of)                       | Returns a new `Chronos` instance at the end of a given unit.            |
-    | [getWeek()](./chronos/get-set/get-week)                      | Calculates the ISO 8601 week number of the year.                        |
-    | [setWeek()](./chronos/get-set/set-week)                      | Sets the date to the specified ISO week number within the current year. |
-    | [getWeekOfYear()](./chronos/get-set/get-week-of-year)        | Calculates the week number of the year based on custom week start.      |
-    | [getWeekYear()](./chronos/get-set/get-week-year)             | Returns the ISO week-numbering year for the current date.               |
-    | [getDayOfYear()](./chronos/get-set/get-day-of-year)          | Returns day of year (1 - 366).                                          |
-    | [getTimeStamp()](./chronos/get-set/get-timestamp)            | Returns the time value in milliseconds since midnight, 1970-01-01 UTC.  |
-    | [daysInMonth()](./chronos/get-set/days-in-month)             | Returns number of days in current month.                                |
-    | [firstDayOfMonth()](./chronos/manipulate/first-day-of-month) | Returns a new instance set to the first day of the current month.       |
-    | [lastDayOfMonth()](./chronos/manipulate/last-day-of-month)   | Returns a new instance set to the last day of the current month.        |
+    | Method                                                                   | Short Description                                                    |
+    | ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+    | [get()](./chronos/get-set/get)                                           | Gets the value of a specific time unit from the date.                |
+    | [set()](./chronos/get-set/set)                                           | Returns new instance with the specified unit set to the given value. |
+    | [diff()](./chronos/get-set/diff)                                         | Returns the difference between current and another date.             |
+    | [getWeek()](./chronos/get-set/get-week)                                  | Calculates the ISO 8601 week number of the year.                     |
+    | [setWeek()](./chronos/get-set/set-week)                                  | Sets date to the specified ISO week number within the current year.  |
+    | [getWeekOfYear()](./chronos/get-set/get-week-of-year)                    | Calculates the week number of the year based on custom week start.   |
+    | [getWeekYear()](./chronos/get-set/get-week-year)                         | Returns the ISO week-numbering year for the current date.            |
+    | [getDayOfYear()](./chronos/get-set/get-day-of-year)                      | Returns day of year (1 - 366).                                       |
+    | [getTimeStamp()](./chronos/get-set/get-timestamp)                        | Returns time value in milliseconds since midnight, 1970-01-01 UTC.   |
+    | [daysInMonth()](./chronos/get-set/days-in-month)                         | Returns number of days in current month.                             |
+    | [getDatesInRange()](./plugins/date-range-plugin#getdatesinrange)         | Generates a list of ISO date strings within a specified range.       |
+    | [getQuarter()](./chronos/get-set/get-quarter)                            | Returns calendar quarter (1 to 4) of the instance.                   |
+    | [getFiscalQuarter()](./plugins/business-plugin#getfiscalquarter)         | Returns the fiscal quarter based on custom start month.              |
+    | [getAcademicYear()](./plugins/business-plugin#getacademicyear)           | Returns the academic year in format `YYYY-YYYY`.                     |
+    | [duration()](./plugins/duration-plugin#duration)                         | Returns full time duration between two dates.                        |
+    | [durationString()](./plugins/duration-plugin#durationstring)             | Returns a human-readable formatted duration string.                  |
+    | [day()](./chronos/get-set/day)                                           | Gets name of the current day or optional day index.                  |
+    | [monthName()](./chronos/get-set/month-name)                              | Gets name of the current month or optional month index.              |
+    | [getTimeZoneName()](./plugins/timezone-plugin#gettimezonename)           | Gets current time zone name in descriptive string.                   |
+    | [getTimeZoneNameShort()](./plugins/timezone-plugin#gettimezonenameshort) | Gets current time zone abbreviation (e.g. `"BST"`).                  |
+    | [getTimeZoneNameAbbr()](./plugins/timezone-plugin#gettimezonenameshort)  | Gets time zone abbreviation (`getTimeZoneNameShort()`).              |
+    | [season()](./plugins/season-plugin#season)                               | Gets current season name based on options.                           |
+    | [getSeasonName()](./plugins/season-plugin#season)                        | Alias for `season()`.                                                |
+    | [getZodiacSign()](./plugins/zodiac-plugin#getzodiacsign)                 | Gets zodiac sign based on current date or `birthDate`.               |
+    | [zodiac()](./plugins/zodiac-plugin#getzodiacsign)                        | Alias for `getZodiacSign()`.                                         |
+    | [getPartOfDay()](./plugins/day-part-plugin#getpartofday)                 | Returns the part of day based on the current hour.                   |
+    | [$getNativeTimeZoneName()](./chronos/get-set/get-native-timezone-name)   | Retrieves the local system's current timezone name.                  |
+    | [$getNativeTimeZoneId()](./chronos/get-set/get-native-timezone-id)       | Retrieves the IANA time zone identifier for the local system.        |
   </Accordion>
 
   <Accordion title="Protocol Methods">
@@ -377,16 +377,13 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [inspect()](./chronos/protocol/inspect)    | Returns a debug-friendly string for `console.log` or `util.inspect`. |
   </Accordion>
 
-  <Accordion title="Extra Time Information">
-    | Method                                                                     | Short Description                                       |
-    | -------------------------------------------------------------------------- | ------------------------------------------------------- |
-    | [getUTCOffset()](./chronos/offset/get-utc-offset)                          | Returns the system's UTC offset formatted as `±HH:mm`   |
-    | [getTimeZoneOffset()](./chronos/offset/get-timezone-offset)                | Returns the timezone offset in `±HH:mm` format          |
-    | [getUTCOffsetMinutes()](./chronos/offset/get-utc-offset-minutes)           | Gets difference in mins between UTC and local system.   |
-    | [getTimeZoneOffsetMinutes()](./chronos/offset/get-timezone-offset-minutes) | Returns the current instance's UTC offset in minutes.   |
-    | [getQuarter()](./chronos/get-set/get-quarter)                              | Returns the calendar quarter (1 to 4) of the instance.  |
-    | [getFiscalQuarter()](./plugins/business-plugin#getfiscalquarter)           | Returns the fiscal quarter based on custom start month. |
-    | [getAcademicYear()](./plugins/business-plugin#getacademicyear)             | Returns the academic year in format `YYYY-YYYY`.        |
+  <Accordion title="Offset Extraction Methods">
+    | Method                                                                     | Short Description                                     |
+    | -------------------------------------------------------------------------- | ----------------------------------------------------- |
+    | [getUTCOffset()](./chronos/offset/get-utc-offset)                          | Returns the system's UTC offset formatted as `±HH:mm` |
+    | [getTimeZoneOffset()](./chronos/offset/get-timezone-offset)                | Returns the timezone offset in `±HH:mm` format        |
+    | [getUTCOffsetMinutes()](./chronos/offset/get-utc-offset-minutes)           | Gets difference in mins between UTC and local system. |
+    | [getTimeZoneOffsetMinutes()](./chronos/offset/get-timezone-offset-minutes) | Returns the current instance's UTC offset in minutes. |
   </Accordion>
 
   <Accordion title="Static Methods">
@@ -425,9 +422,4 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [Symbol.toStringTag](./chronos/symbols#symboltostringtag)               | Called by the built-in `Object.prototype.toString`.      |
     | [Symbol.isConcatSpreadable](./chronos/symbols#symbolisconcatspreadable) | Enables to be spread with the spread operator `...`      |
   </Accordion>
-
-  {/* <Accordion title="">
-    
-  </Accordion> */}
 </Accordions>
-
