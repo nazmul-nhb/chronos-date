@@ -1,0 +1,46 @@
+---
+title: formatTimePart
+description: Formats a time-only string into a formatted time string.
+---
+
+## `formatTimePart()`
+
+### Signature
+
+```ts
+static formatTimePart(time: string, format?: TimeOnlyFormat): string
+```
+
+### Parameters
+
+- `time`: Time string to be formatted. Supported formats include:
+
+  - `HH:mm` → e.g., `'14:50'`
+  - `HH:mm:ss` → e.g., `'14:50:00'`
+  - `HH:mm:ss.mss` → e.g., `'14:50:00.800'`
+  - `HH:mm+TimeZoneOffset(HH)` → e.g., `'14:50-06'`
+  - `HH:mm:ss+TimeZoneOffset(HH)` → e.g., `'14:50:00+06'`
+  - `HH:mm:ss.mss+TimeZoneOffset(HH)` → e.g., `'14:50:00.800-06'`
+  - `HH:mm+TimeZoneOffset(HH:mm)` → e.g., `'14:50+06:00'`
+  - `HH:mm:ss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00+05:30'`
+  - `HH:mm:ss.mss+TimeZoneOffset(HH:mm)` → e.g., `'14:50:00.800+06:30'`
+
+<Callout type="warn" title="Warning">
+*If no offset is provided with time string, local (system) timezone will be used. The current date will be used as the base date for the time internally.*
+</Callout>
+- `format`: Format string accepted by the `formatSafe()` method for time component.
+  **Default**: `'hh:mm:ss a'` → e.g., `"02:33:36 pm"`
+
+### Return Type
+
+`string` – Formatted time string in local system time.
+
+### Example
+
+ ```ts pg
+console.log(Chronos.formatTimePart('14:50')); 
+// "02:50:00 pm"
+
+console.log(Chronos.formatTimePart('14:50:00.800+05:30', 'HH:mm:ss'));
+// "14:50:00"
+```

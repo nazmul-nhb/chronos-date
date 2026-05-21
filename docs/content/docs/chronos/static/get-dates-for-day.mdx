@@ -1,0 +1,127 @@
+---
+title: getDatesForDay
+description: Returns ISO date strings for each occurrence of a weekday.
+---
+
+## `getDatesForDay()`
+
+Returns ISO date strings for each occurrence of a weekday.
+
+### Signature
+
+```ts
+// Relative range signature
+static getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): ISODateTimeString<'utc' | 'local'>[];
+
+// Absolute range signature
+static getDatesForDay(day: WeekDay, options?: DateRangeOptions): ISODateTimeString<'utc' | 'local'>[];
+
+// Implementation signature
+static getDatesForDay(day: WeekDay, options?: WeekdayOptions): ISODateTimeString<'utc' | 'local'>[]
+```
+
+### Parameters
+
+| Parameter   | Type             | Required | Default          | Description                                           |
+| ----------- | ---------------- | -------- | ---------------- | ----------------------------------------------------- |
+| `day`       | `WeekDay`        | ✅       | -                | Target weekday name (case-sensitive)                  |
+| `span`      | `number`         | ❌       | 4                | Number of time units for relative range               |
+| `unit`      | `TimeUnit`       | ❌       | 'week'           | Unit for relative range ('day'/'week'/'month'/'year') |
+| `from`      | `ChronosInput`   | ❌       | Current date     | Start date for absolute range                         |
+| `to`        | `ChronosInput`   | ❌       | 4 weeks from now | End date for absolute range                           |
+| `format`    | `'local'\|'utc'` | ❌       | 'local'          | Output format for ISO strings                         |
+| `roundDate` | `boolean`        | ❌       | false            | Round dates to start of day                           |
+
+#### Common Parameter
+
+- `day`: The weekday to match (case-sensitive full day name)
+  - Type: `WeekDay` (`'Monday' | 'Tuesday' | ... | 'Sunday'`)
+  - Example: `'Wednesday'`, `'Friday'`
+
+#### Options (Differ by Signature)
+
+```ts tab="Relative Range Options"
+interface RelativeRangeOptions {
+  span?: number;    // Duration quantity (default: 4)
+  unit?: TimeUnit;  // 'day' | 'week' | 'month' | 'year' (default: 'week')
+  format?: 'local' | 'utc'; // Output format (default: 'local')
+  roundDate?: boolean; // Round to start of day (default: false)
+}
+```
+
+```ts tab="Absolute Range Options"
+interface DateRangeOptions {
+  from?: ChronosInput; // Start date (default: now)
+  to?: ChronosInput;   // End date (default: 4 weeks from now)
+  format?: 'local' | 'utc'; // Output format (default: 'local')
+  roundDate?: boolean; // Round to start of day (default: false)
+}
+```
+
+### Return Type
+
+`ISODateTimeString<'utc' | 'local'>[]` - Array of ISO-8601 formatted date strings
+
+### Behavior
+
+- Finds all occurrences of the specified weekday within:
+  - A relative time span from now (when using `span`/`unit`)
+  - Or between two fixed dates (when using `from`/`to`)
+- Returns dates in chronological order
+- Empty array if no matches found in range
+
+<Callout type="warn" title="Note">
+- When using `Chronos` instances for `from` and/or `to`, ensure both are created in the **same time zone** to avoid mismatched boundaries.
+- Mixing zones may shift the interpreted start or end by several hours, which can cause the range to include or exclude incorrect weekdays.
+
+</Callout>
+### Examples
+
+
+```ts pg tab="Relative Range"
+import { Chronos } from 'chronos-date';
+
+// Get rounded UTC Wednesdays for next month
+const dates = Chronos.getDatesForDay('Wednesday', { 
+  span: 1,
+  unit: 'month',
+  format: 'utc',
+  roundDate: true
+});
+//=> ['2025-05-28T00:00:00.000Z', '2025-06-04T00:00:00.000Z', ...]
+
+console.log(dates);
+```
+
+```ts pg tab="Absolute Range"
+import { Chronos } from 'chronos-date';
+
+// Get local Fridays in Q3 2025 (rounded)
+const dates = Chronos.getDatesForDay('Friday', {
+  from: '2025-07-01',
+  to: '2025-09-30',
+  roundDate: true
+});
+//=> ['2025-07-04T00:00:00+06:00', '2025-07-11T00:00:00+06:00', ...]
+
+console.log(dates);
+```
+
+### Notes
+
+- When `format: 'local'` (default):
+  - Output includes local timezone offset (e.g., `+06:00`)
+  - Uses `toLocalISOString()` internally
+- When `format: 'utc'`:
+  - Output is in UTC/Zulu time (ends with `Z`)
+  - Uses `toISOString()` internally
+- The method always starts searching from:
+  - Current date (for relative ranges)
+  - The `from` date (for absolute ranges)
+- Weekday names must exactly match: `'Monday'`, `'Tuesday'`, etc. (case-sensitive English day-names)
+- When `roundDate: true`, all times are set to `00:00:00`
+- Default range is `4 weeks` when no dates specified
+
+<Callout type="info" title="Similar Instance Method">
+- [getDatesInRange](/docs/plugins/date-range-plugin#getdatesinrange)
+</Callout>

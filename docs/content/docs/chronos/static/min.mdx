@@ -1,0 +1,41 @@
+---
+title: min
+description: Returns the earliest Chronos instance based on the underlying universal timestamp.
+---
+
+## `min()`
+
+Returns the earliest `Chronos` instance based on the underlying universal timestamp.
+
+### Signature
+
+```ts
+static min(...dates: ChronosInput[]): Chronos
+```
+
+### Parameters
+
+- `dates`: Dates to compare
+
+### Return Type
+
+`Chronos` - Earliest moment
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const min = Chronos.min('2025-01-01', '2025-02-01');
+console.log(min); // Jan 1 ('2025-01-01')
+
+const min2 = Chronos.min('2012-12-25', new Chronos('2012-12-01').timeZone('Asia/Kolkata'), '2012-12-17', new Date());
+console.log(min2); // 2012-12-01T05:30:00.000+05:30
+```
+
+### Notes
+
+- All inputs are normalized to `Chronos` instances before comparison.
+- Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
+- When exactly two values are provided, the first value becomes the initial candidate; if the second value represents an earlier moment in time, it replaces the candidate.
+- The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.

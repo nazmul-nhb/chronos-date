@@ -1,0 +1,34 @@
+---
+title: isValidDate
+description: Checks if the given value is a valid Date object.
+---
+
+## `isValidDate()`
+
+Checks if the given value is a valid `Date` object.
+
+<Callout type="idea" title="Note">
+    Internally uses `instanceof Date` to check if the given value is a valid `Date` object.
+</Callout>
+
+### Signature
+
+```ts
+static isValidDate(value: unknown): value is Date
+```
+
+### Parameters
+
+- `value`: Value to check
+
+### Return Type
+
+`boolean` - Whether valid Date
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.isValidDate(new Date())); // true
+```

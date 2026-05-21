@@ -1,0 +1,62 @@
+---
+title: register
+description: Injects a plugin into the Chronos system.
+---
+
+## `register()`
+
+<Callout type="info" title="Info">
+  This is just an alias for [**use**](./use) method. It internally uses [`Chronos.use()`](./use).
+</Callout>
+
+Injects a plugin into the `Chronos` system. This enables dynamic extension of the `Chronos` class at runtime by registering external functionality as methods on its prototype.
+
+<Callout type="info" title="One-time Injection">
+  A plugin is only injected once per runtime. Re-registering the same plugin has no effect.
+</Callout>
+
+<Callout type="info" title="Info">
+- Plugins should be injected **before** any instance creation.
+- Internally, `Chronos` maintains a `#plugins` set to prevent duplicate injections.
+- This system is ideal for modular features like `seasons`, `zodiac`, or `timeZone` etc. support.
+</Callout>
+
+### Signature
+
+```ts
+static register(plugin: ChronosPlugin): void
+```
+
+### Parameters
+
+| Name   | Type            | Description                                                                      |
+| ------ | --------------- | -------------------------------------------------------------------------------- |
+| plugin | `ChronosPlugin` | A plugin function that receives the `Chronos` class constructor and augments it. |
+
+### Example
+
+```ts
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+
+Chronos.register(timeZonePlugin); // Injects timeZone() and other timezone specific methods
+```
+
+Once injected, the plugin methods become available on all `Chronos` instances:
+
+```ts pg
+import { Chronos } from "chronos-date";
+import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
+
+Chronos.register(timeZonePlugin); // Injects timeZone() and other timezone specific methods
+
+const c = new Chronos();
+const tz = c.timeZone('UTC+06:30'); // Chronos instance for timezone with `UTC+06:30`
+
+console.log(tz);
+```
+
+### Notes
+
+- Using [**use**](./use) method in `React` projects may trigger *linter error* like `"React Hooks must be called in a React function component or a custom React Hook function."`
+- To prevent this incorrect *linter error* in `React` projects, prefer using this (`register`) method over [**use**](./use) method.

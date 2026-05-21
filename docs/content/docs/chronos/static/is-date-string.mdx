@@ -1,0 +1,35 @@
+---
+title: isDateString
+description: Checks if the given value is a valid date string.
+---
+
+## `isDateString()`
+
+Checks if the given value is a valid date string.
+
+<Callout type="idea" title="Note">
+   - A value is considered a valid date string if it is a string and can be parsed by `Date.parse()`.
+   - This uses the native JavaScript date parser internally.
+</Callout>
+
+### Signature
+
+```ts
+static isDateString(value: unknown): value is string
+```
+
+### Parameters
+
+- `value`: Value to check
+
+### Return Type
+
+`boolean` - Whether valid date string
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.isDateString('2025-01-01')); // true
+```

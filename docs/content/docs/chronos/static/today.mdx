@@ -1,0 +1,38 @@
+---
+title: today
+description: Returns the current date and time in a specified format in local time.
+---
+
+## `today()`
+
+Returns the current date and time in a specified format in local time.
+
+### Signature
+
+```ts
+static today(options?: FormatOptions): string
+```
+
+### Parameters
+
+- `options`: Formatting options
+
+```ts
+interface FormatOptions {
+  format?: string;
+  useUTC?: boolean;
+}
+```
+
+### Return Type
+
+`string` - Formatted current date
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.today({format: 'YYYY-MM-DD'})); 
+console.log(Chronos.today({format: 'ddd, mmm DD, YYYY'}));
+```

@@ -1,0 +1,32 @@
+---
+title: isValidChronos
+description: Checks if the given value is an instance of Chronos.
+---
+
+## `isValidChronos()`
+
+<Callout type="idea" title="Note">
+    Internally uses `instanceof Chronos` to check if the given value is an instance of `Chronos`.
+</Callout>
+
+### Signature
+
+```ts
+static isValidChronos(value: unknown): value is Chronos
+```
+
+### Parameters
+
+- `value`: Value to check
+
+### Return Type
+
+`boolean` - Whether `Chronos` instance
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.isValidChronos(new Chronos())); // true
+```

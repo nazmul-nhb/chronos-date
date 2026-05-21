@@ -1,0 +1,48 @@
+---
+title: isReconstructable
+description: Checks whether a value has the required shape to safely reconstruct a Chronos instance.
+---
+
+## `isReconstructable()`
+
+Checks whether a value has the required `ChronosProperties` shape to safely reconstruct a `Chronos` instance.
+
+### Signature
+
+```ts
+static isReconstructable(value: unknown): value is ChronosProperties
+```
+
+### Parameters
+
+- `value`: Unknown value to validate for reconstruction compatibility
+
+### Return Type
+
+`boolean` - `true` when the value has the required reconstruction properties, otherwise `false`
+
+### Example
+
+```ts pg
+import { Chronos } from "chronos-date";
+
+const payload: unknown = {
+  native: '2025-01-01T00:00:00.000Z',
+  origin: 'utc',
+  utcOffset: 'UTC+00:00',
+  timeZoneName: 'Coordinated Universal Time',
+  timeZoneId: 'UTC+00:00'
+};
+
+if (Chronos.isReconstructable(payload)) {
+  // payload is narrowed to ChronosProperties here
+  const c = Chronos.reconstruct(payload);
+  console.log(c.toISOString()); // "2025-01-01T00:00:00.000Z"
+}
+```
+
+### Notes
+
+- Useful as a runtime type guard for serialized or external input.
+- Helps avoid runtime errors before calling [`reconstruct`](./reconstruct).
+- This method only validates shape for reconstruction, not business validity of your source data.

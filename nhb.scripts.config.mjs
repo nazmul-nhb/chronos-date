@@ -30,7 +30,7 @@ export default defineScriptConfig({
 			},
 			docs: {
 				createFolder: false,
-				destination: 'docs/content/docs/chronos/query',
+				destination: 'docs/content/docs',
 				files: generateDocs,
 			},
 		},

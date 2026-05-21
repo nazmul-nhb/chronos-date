@@ -1,0 +1,39 @@
+---
+title: isLeapYear
+description: Checks if the year in the date string or year (from 0 - 9999) is a leap year.
+---
+
+## `isLeapYear()`
+
+Checks if the year in the date string or year (from 0 - 9999) is a leap year.
+
+<Callout type="idea" title="Info">
+- A year is a leap year if it is divisible by 4.
+- However, years divisible by 100 are not leap years **unless** they are also divisible by 400.
+- For example:
+
+  - `2000`, `2400` → leap years ✅
+  - `1900`, `2100` → not leap years ❌s
+
+</Callout>
+### Signature
+
+```ts
+static isLeapYear(date: ChronosInput): boolean
+```
+
+### Parameters
+
+- `date`: Date to check
+
+### Return Type
+
+`boolean` - Whether year is leap
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.isLeapYear(2024)); // true
+```

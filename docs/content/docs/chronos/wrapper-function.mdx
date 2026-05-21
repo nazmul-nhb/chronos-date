@@ -77,31 +77,31 @@ The wrapper provides access to all `Chronos` [**methods**](../chronos#available-
 
 ### Static Methods
 
-All [`Chronos static methods`](/docs/chronos/static-methods) are available directly on the wrapper function:
+All [`Chronos static methods`](/docs/chronos/static) are available directly on the wrapper function:
 
 <Accordions type="single">
   <Accordion title="List of Static Methods">
-   | Method                                                  | Short Description                                                  |
-   | ------------------------------------------------------- | ------------------------------------------------------------------ |
-   | [now()](./static-methods#now)                           | Returns the number of milliseconds since 1970-01-01 UTC.           |
-   | [use()](./static-methods#use)                           | Injects a plugin into the `Chronos` system.                        |
-   | [register()](./static-methods#register)                 | Alias for [`use()`](./static-methods#use)                          |
-   | [utc()](./static-methods#utc)                           | Creates a UTC-based `Chronos` instance.                            |
-   | [with()](./static-methods#with)                         | Creates a new instance with the provided time component(s).        |
-   | [parse()](./static-methods#parse)                       | Parses a date string with a given format (limited support only).   |
-   | [max()](./static-methods#max)                           | Returns latest Chronos.                                            |
-   | [min()](./static-methods#min)                           | Returns earliest Chronos.                                          |
-   | [today()](./static-methods#today)                       | Returns the current date in a specified format in local time.      |
-   | [tomorrow()](./static-methods#tomorrow)                 | Returns a new `Chronos` instance representing tomorrow's date.     |
-   | [yesterday()](./static-methods#yesterday)               | Returns a new `Chronos` instance representing yesterday's date.    |
-   | [formatTimePart()](./static-methods#formattimepart)     | Formats a time-only string into a formatted time string.           |
-   | [getDatesForDay()](./static-methods#getdatesforday)     | Returns ISO date strings for each occurrence of a weekday.         |
-   | [isLeapYear()](./static-methods#isleapyear)             | Checks if the year in the date or year is a leap year.             |
-   | [isValidChronos()](./static-methods#isvalidchronos)     | Checks if the given value is an instance of `Chronos`.             |
-   | [isValidDate()](./static-methods#isvaliddate)           | Checks if the given value is a valid `Date` object.                |
-   | [isDateString()](./static-methods#isdatestring)         | Checks if the given value is a valid date string.                  |
-   | [isReconstructable](./static-methods#isreconstructable) | Checks if a value can be used to reconstruct a `Chronos` instance. |
-   | [reconstruct](./static-methods#reconstruct)             | Reconstructs a `Chronos` instance from a given value.              |
+   | Method                                           | Short Description                                                  |
+   | ------------------------------------------------ | ------------------------------------------------------------------ |
+   | [now()](./static/now)                            | Returns the number of milliseconds since 1970-01-01 UTC.           |
+   | [use()](./static/use)                            | Injects a plugin into the `Chronos` system.                        |
+   | [register()](./static/register)                  | Alias for [`use()`](./static/use)                                  |
+   | [utc()](./static/utc)                            | Creates a UTC-based `Chronos` instance.                            |
+   | [with()](./static/with)                          | Creates a new instance with the provided time component(s).        |
+   | [reconstruct](./static/reconstruct)              | Reconstructs a `Chronos` instance from a given value.              |
+   | [parse()](./static/parse)                        | Parses a date string with a given format (limited support only).   |
+   | [max()](./static/max)                            | Returns latest Chronos.                                            |
+   | [min()](./static/min)                            | Returns earliest Chronos.                                          |
+   | [today()](./static/today)                        | Returns the current date in a specified format in local time.      |
+   | [tomorrow()](./static/tomorrow)                  | Returns a new `Chronos` instance representing tomorrow's date.     |
+   | [yesterday()](./static/yesterday)                | Returns a new `Chronos` instance representing yesterday's date.    |
+   | [formatTimePart()](./static/format-time-part)    | Formats a time-only string into a formatted time string.           |
+   | [getDatesForDay()](./static/get-dates-for-day)   | Returns ISO date strings for each occurrence of a weekday.         |
+   | [isLeapYear()](./static/is-leap-year)            | Checks if the year in the date or year is a leap year.             |
+   | [isValidChronos()](./static/is-valid-chronos)    | Checks if the given value is an instance of `Chronos`.             |
+   | [isValidDate()](./static/is-valid-date)          | Checks if the given value is a valid `Date` object.                |
+   | [isDateString()](./static/is-date-string)        | Checks if the given value is a valid date string.                  |
+   | [isReconstructable](./static/is-reconstructable) | Checks if a value can be used to reconstruct a `Chronos` instance. |
   </Accordion>
 </Accordions>
 

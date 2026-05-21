@@ -301,26 +301,26 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Checker Methods">
     | Method                                                       | Short Description                                                    |
     | ------------------------------------------------------------ | -------------------------------------------------------------------- |
-    | [isAfter()](./chronos/query/is-after)                      | Checks if this date is after another date in a specific unit.        |
-    | [isBefore()](./chronos/query/is-before)                    | Checks if this date is before another date in a specific unit.       |
-    | [isBetween()](./chronos/query/is-between)                  | Checks if the current date is between the given start and end dates. |
-    | [isSame()](./chronos/query/is-same)                        | Checks if another date is the same as this one in a specific unit.   |
+    | [isAfter()](./chronos/query/is-after)                        | Checks if this date is after another date in a specific unit.        |
+    | [isBefore()](./chronos/query/is-before)                      | Checks if this date is before another date in a specific unit.       |
+    | [isBetween()](./chronos/query/is-between)                    | Checks if the current date is between the given start and end dates. |
+    | [isSame()](./chronos/query/is-same)                          | Checks if another date is the same as this one in a specific unit.   |
     | [isSameOrAfter()](./chronos/query/is-same-or-after)          | Checks if this date is same or after another in a specific unit.     |
     | [isSameOrBefore()](./chronos/query/is-same-or-before)        | Checks if this date is same or before another in a specific unit.    |
-    | [isEqual()](./chronos/query/is-equal)                      | Checks if another date is exactly equal to this one.                 |
+    | [isEqual()](./chronos/query/is-equal)                        | Checks if another date is exactly equal to this one.                 |
     | [isEqualOrAfter()](./chronos/query/is-equal-or-after)        | Checks if another date is exactly equal to or after this one.        |
     | [isEqualOrBefore()](./chronos/query/is-equal-or-before)      | Checks if another date is exactly equal to or before this one.       |
     | [isBusinessHour()](./plugins/business-plugin#isbusinesshour) | Checks if the current date and time fall within business hours.      |
     | [isWeekend()](./plugins/business-plugin#isweekend)           | Checks if the current date falls on a weekend.                       |
     | [isWorkday()](./plugins/business-plugin#isworkday)           | Checks if the current date is a workday.                             |
-    | [isFirstDayOfMonth()](./chronos/query/is-first-day-of-month)  | Checks if current day is the first day of the current month.         |
-    | [isLastDayOfMonth()](./chronos/query/is-last-day-of-month)    | Checks if current day is the last day of the current month.          |
+    | [isFirstDayOfMonth()](./chronos/query/is-first-day-of-month) | Checks if current day is the first day of the current month.         |
+    | [isLastDayOfMonth()](./chronos/query/is-last-day-of-month)   | Checks if current day is the last day of the current month.          |
     | [isToday()](./plugins/relative-time-plugin#istoday)          | Checks if the current date is today.                                 |
     | [isTomorrow()](./plugins/relative-time-plugin#istomorrow)    | Checks if the current date is tomorrow.                              |
     | [isYesterday()](./plugins/relative-time-plugin#isyesterday)  | Checks if the current date is yesterday.                             |
-    | [isLeapYear()](./chronos/query/is-leap-year)                | Checks if the current year is a leap year.                           |
+    | [isLeapYear()](./chronos/query/is-leap-year)                 | Checks if the current year is a leap year.                           |
     | [isPalindromeDate()](./plugins/palindrome-plugin)            | Checks if the current date (date part only) is a palindrome.         |
-    | [isDST()](./chronos/query/is-dst)                          | Checks if the date is within daylight saving time (DST).             |
+    | [isDST()](./chronos/query/is-dst)                            | Checks if the date is within daylight saving time (DST).             |
   </Accordion>
 
   <Accordion title="Conversion Methods">
@@ -389,27 +389,27 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   </Accordion>
 
   <Accordion title="Static Methods">
-    | Method                                                          | Short Description                                                      |
-    | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
-    | [now()](./chronos/static-methods#now)                           | Get the number of milliseconds elapsed since midnight, 1970-01-01 UTC. |
-    | [use()](./chronos/static-methods#use)                           | Injects a plugin into the `Chronos` system.                            |
-    | [register()](./chronos/static-methods#register)                 | Alias for [`use()`](./chronos/static-methods#use)                      |
-    | [utc()](./chronos/static-methods#utc)                           | Creates a UTC-based `Chronos` instance.                                |
-    | [with()](./chronos/static-methods#with)                         | Creates a new `Chronos` instance with the provided time component(s).  |
-    | [parse()](./chronos/static-methods#parse)                       | Parses a date string with a given format (limited support only).       |
-    | [max()](./chronos/static-methods#max)                           | Returns latest Chronos.                                                |
-    | [min()](./chronos/static-methods#min)                           | Returns earliest Chronos.                                              |
-    | [today()](./chronos/static-methods#today)                       | Returns the current date and time in a specified format in local time. |
-    | [tomorrow()](./chronos/static-methods#tomorrow)                 | Returns a new `Chronos` instance representing tomorrow's date.         |
-    | [yesterday()](./chronos/static-methods#yesterday)               | Returns a new `Chronos` instance representing yesterday's date.        |
-    | [formatTimePart()](./chronos/static-methods#formattimepart)     | Formats a time-only string into a formatted time string.               |
-    | [getDatesForDay()](./chronos/static-methods#getdatesforday)     | Returns ISO date strings for each occurrence of a weekday.             |
-    | [isLeapYear()](./chronos/static-methods#isleapyear)             | Checks if the year in the date or year (from 0 - 9999) is a leap year. |
-    | [isValidChronos()](./chronos/static-methods#isvalidchronos)     | Checks if the given value is an instance of `Chronos`.                 |
-    | [isValidDate()](./chronos/static-methods#isvaliddate)           | Checks if the given value is a valid `Date` object.                    |
-    | [isDateString()](./chronos/static-methods#isdatestring)         | Checks if the given value is a valid date string.                      |
-    | [isReconstructable](./chronos/static-methods#isreconstructable) | Checks if a value can be used to reconstruct a `Chronos` instance.     |
-    | [reconstruct](./chronos/static-methods#reconstruct)             | Reconstructs a `Chronos` instance from a given value.                  |
+    | Method                                                   | Short Description                                                      |
+    | -------------------------------------------------------- | ---------------------------------------------------------------------- |
+    | [now()](./chronos/static/now)                            | Get the number of milliseconds elapsed since midnight, 1970-01-01 UTC. |
+    | [use()](./chronos/static/use)                            | Injects a plugin into the `Chronos` system.                            |
+    | [register()](./chronos/static/register)                  | Alias for [`use()`](./chronos/static/use)                              |
+    | [utc()](./chronos/static/utc)                            | Creates a UTC-based `Chronos` instance.                                |
+    | [with()](./chronos/static/with)                          | Creates a new `Chronos` instance with the provided time component(s).  |
+    | [reconstruct](./chronos/static/reconstruct)              | Reconstructs a `Chronos` instance from a given value.                  |
+    | [parse()](./chronos/static/parse)                        | Parses a date string with a given format (limited support only).       |
+    | [max()](./chronos/static/max)                            | Returns latest Chronos.                                                |
+    | [min()](./chronos/static/min)                            | Returns earliest Chronos.                                              |
+    | [today()](./chronos/static/today)                        | Returns the current date and time in a specified format in local time. |
+    | [tomorrow()](./chronos/static/tomorrow)                  | Returns a new `Chronos` instance representing tomorrow's date.         |
+    | [yesterday()](./chronos/static/yesterday)                | Returns a new `Chronos` instance representing yesterday's date.        |
+    | [formatTimePart()](./chronos/static/format-time-part)    | Formats a time-only string into a formatted time string.               |
+    | [getDatesForDay()](./chronos/static/get-dates-for-day)   | Returns ISO date strings for each occurrence of a weekday.             |
+    | [isLeapYear()](./chronos/static/is-leap-year)            | Checks if the year in the date or year (from 0 - 9999) is a leap year. |
+    | [isValidChronos()](./chronos/static/is-valid-chronos)    | Checks if the given value is an instance of `Chronos`.                 |
+    | [isValidDate()](./chronos/static/is-valid-date)          | Checks if the given value is a valid `Date` object.                    |
+    | [isDateString()](./chronos/static/is-date-string)        | Checks if the given value is a valid date string.                      |
+    | [isReconstructable](./chronos/static/is-reconstructable) | Checks if a value can be used to reconstruct a `Chronos` instance.     |
   </Accordion>
 
   <Accordion title="Symbol Methods">

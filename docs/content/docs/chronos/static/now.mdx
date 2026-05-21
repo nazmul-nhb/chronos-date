@@ -1,0 +1,30 @@
+---
+title: now
+description: Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC).
+---
+
+## `now()`
+
+Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC).
+
+### Signature
+
+```ts
+static now(): number
+```
+
+### Return Type
+
+`number` - Current timestamp
+
+### Notes
+
+- Same as [`Date.now()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.now());
+```

@@ -1,0 +1,43 @@
+---
+title: max
+description: Returns the latest Chronos instance based on the underlying universal timestamp.
+---
+
+## `max()`
+
+Returns the latest `Chronos` instance based on the underlying universal timestamp.
+
+### Signature
+
+```ts
+static max(...dates: ChronosInput[]): Chronos
+```
+
+### Parameters
+
+- `dates`: Dates to compare
+
+### Return Type
+
+`Chronos` - Latest moment
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const dates = Chronos.max('2025-01-01', '2025-02-01');
+
+console.log(dates); // Feb 1 ('2025-02-01')
+
+const dates2 = Chronos.max('2012-12-25', new Chronos('2012-12-31').timeZone('Asia/Kolkata'), '2012-12-17', new Date('2012-12-16'));
+
+console.log(dates2); // 2012-12-31T05:30:00.000+05:30
+```
+
+### Notes
+
+- All inputs are normalized to `Chronos` instances before comparison.
+- Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
+- When exactly two values are provided, the first value becomes the initial candidate; if the second value represents a later moment in time, it replaces the candidate.
+- The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.

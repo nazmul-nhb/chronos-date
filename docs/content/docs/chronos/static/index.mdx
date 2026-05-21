@@ -1,0 +1,46 @@
+---
+title: Static Methods
+description: Static methods of Chronos
+---
+
+## Overview
+
+Chronos static methods are methods that are called on the `Chronos` class itself, rather than on an instance of `Chronos`. They are used to perform operations that are not specific to any particular `Chronos` instance.
+
+## Available Static Methods
+
+| Method                                           | Short Description                                                  |
+| ------------------------------------------------ | ------------------------------------------------------------------ |
+| [now()](./static/now)                            | Returns the number of milliseconds since 1970-01-01 UTC.           |
+| [use()](./static/use)                            | Injects a plugin into the `Chronos` system.                        |
+| [register()](./static/register)                  | Alias for [`use()`](./static/use)                                  |
+| [utc()](./static/utc)                            | Creates a UTC-based `Chronos` instance.                            |
+| [with()](./static/with)                          | Creates a new instance with the provided time component(s).        |
+| [reconstruct](./static/reconstruct)              | Reconstructs a `Chronos` instance from a given value.              |
+| [parse()](./static/parse)                        | Parses a date string with a given format (limited support only).   |
+| [max()](./static/max)                            | Returns latest Chronos.                                            |
+| [min()](./static/min)                            | Returns earliest Chronos.                                          |
+| [today()](./static/today)                        | Returns the current date in a specified format in local time.      |
+| [tomorrow()](./static/tomorrow)                  | Returns a new `Chronos` instance representing tomorrow's date.     |
+| [yesterday()](./static/yesterday)                | Returns a new `Chronos` instance representing yesterday's date.    |
+| [formatTimePart()](./static/format-time-part)    | Formats a time-only string into a formatted time string.           |
+| [getDatesForDay()](./static/get-dates-for-day)   | Returns ISO date strings for each occurrence of a weekday.         |
+| [isLeapYear()](./static/is-leap-year)            | Checks if the year in the date or year is a leap year.             |
+| [isValidChronos()](./static/is-valid-chronos)    | Checks if the given value is an instance of `Chronos`.             |
+| [isValidDate()](./static/is-valid-date)          | Checks if the given value is a valid `Date` object.                |
+| [isDateString()](./static/is-date-string)        | Checks if the given value is a valid date string.                  |
+| [isReconstructable](./static/is-reconstructable) | Checks if a value can be used to reconstruct a `Chronos` instance. |
+
+## Examples
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Chronos.isValidChronos(new Chronos())); // true
+
+console.log(Chronos.isDateString('2025-01-01')); // true
+
+console.log(Chronos.isValidDate(new Date())); // true
+
+console.log(Chronos.now());
+```
