@@ -3,6 +3,7 @@
 		"bangla-plugin",
 		"timezone-plugin",
 		"business-plugin",
+		"relative-time-plugin",
 		"date-range-plugin",
 		"round-plugin",
 		"season-plugin",
