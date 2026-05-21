@@ -73,8 +73,8 @@ const isWorkday = c.isWorkday();
 const isWeekend = c.isWeekend();
 const isBusinessHour = c.isBusinessHour();
 
-const toAcademicYear = c.toAcademicYear();
-const toFiscalQuarter = c.toFiscalQuarter();
+const getAcademicYear = c.getAcademicYear();
+const getFiscalQuarter = c.getFiscalQuarter();
 
 const workdaysInMonth = c.workdaysInMonth();
 const weekendsInMonth = c.weekendsInMonth();
@@ -85,8 +85,8 @@ console.log({
     isWorkday,
     isWeekend,
     isBusinessHour,
-    toAcademicYear,
-    toFiscalQuarter,
+    getAcademicYear,
+    getFiscalQuarter,
     workdaysInMonth,
     weekendsInMonth,
     workdaysInYear,
@@ -128,8 +128,8 @@ All these methods are provided by `businessPlugin`. You must register it using `
 | [`isWeekend`](#isweekend)             | Checks if the current date is a weekend day.              | `boolean` |
 | [`isWorkday`](#isworkday)             | Checks if the current date is a workday.                  | `boolean` |
 | [`isBusinessHour`](#isbusinesshour)   | Checks if the current date is a business hour.            | `boolean` |
-| [`toAcademicYear`](#toacademicyear)   | Converts the current date to the academic year.           | `number`  |
-| [`toFiscalQuarter`](#tofiscalquarter) | Converts the current date to the fiscal quarter.          | `number`  |
+| [`getAcademicYear`](#getacademicyear)   | Converts the current date to the academic year.           | `number`  |
+| [`getFiscalQuarter`](#getfiscalquarter) | Converts the current date to the fiscal quarter.          | `number`  |
 
 ---
 
@@ -806,12 +806,12 @@ Weekends are determined by `weekStartsOn` and `weekendLength` or `weekdays` arra
 
 ---
 
-### toAcademicYear()
+### getAcademicYear()
 
 #### Signature
 
 ```ts
-toAcademicYear(): `${number}-${number}`
+getAcademicYear(): `${number}-${number}`
 ```
 
 #### Return Type
@@ -830,18 +830,18 @@ import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
-new Chronos('2025-01-15').toAcademicYear(); // "2022-2025"
-new Chronos('2025-08-15').toAcademicYear(); // "2025-2024"
+new Chronos('2025-01-15').getAcademicYear(); // "2022-2025"
+new Chronos('2025-08-15').getAcademicYear(); // "2025-2024"
 ```
 
 ---
 
-### toFiscalQuarter()
+### getFiscalQuarter()
 
 #### Signature
 
 ```ts
-toFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter
+getFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter
 ```
 
 #### Parameters
@@ -864,6 +864,6 @@ import { businessPlugin } from 'chronos-date/plugins/businessPlugin';
 
 Chronos.use(businessPlugin);
 
-new Chronos('2025-01-15').toFiscalQuarter(); // 3 (July-start year)
-new Chronos('2025-01-15').toFiscalQuarter(10); // 2 (October-start year)
+new Chronos('2025-01-15').getFiscalQuarter(); // 3 (July-start year)
+new Chronos('2025-01-15').getFiscalQuarter(10); // 2 (October-start year)
 ```

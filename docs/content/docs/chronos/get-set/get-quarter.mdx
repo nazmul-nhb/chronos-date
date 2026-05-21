@@ -1,0 +1,39 @@
+---
+title: getQuarter
+description: Returns the calendar quarter (1 to 4) of the current date.
+---
+
+## `getQuarter()`
+
+Returns the **calendar quarter** (1 to 4) of the current date.
+
+<Callout type="idea" title="Note">
+ Uses the standard definition where quarters begin in January, April, July, and October.
+</Callout>
+
+This method strictly uses the **calendar year**. For fiscal quarters, use [`getFiscalQuarter`](/docs/plugins/business-plugin#getfiscalquarter) instead.
+
+### Signature
+
+```ts
+getQuarter(): Quarter
+```
+
+### Return Type
+
+`Quarter` - Calendar quarter (`1-4`)
+
+### Notes
+
+- Q1: Jan-Mar, Q2: Apr-Jun, Q3: Jul-Sep, Q4: Oct-Dec
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const q1 = new Chronos('2025-01-15').getQuarter(); // 1
+const q2 = new Chronos('2025-04-01').getQuarter(); // 2
+
+console.log({ q1, q2 });
+```

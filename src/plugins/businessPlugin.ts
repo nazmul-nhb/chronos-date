@@ -481,14 +481,14 @@ declare module 'chronos-date' {
 		 * @instance Returns the academic year based on a typical start in `July` and end in `June`.
 		 * @returns The academic year in format `YYYY-YYYY`.
 		 */
-		toAcademicYear(): AcademicYear;
+		getAcademicYear(): AcademicYear;
 
 		/**
 		 * @instance Returns the fiscal quarter based on custom fiscal year start (defaults to July).
 		 * @param startMonth - The fiscal year start month (1-12), default is July (`7`).
 		 * @returns The fiscal quarter (1-4).
 		 */
-		toFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter;
+		getFiscalQuarter(startMonth?: NumberRange<1, 12>): Quarter;
 	}
 }
 
@@ -712,13 +712,13 @@ export const businessPlugin: ChronosPlugin = ($Chronos) => {
 		return this.isWorkday(weekStartsOn, weekendLength) && _isBusinessHour();
 	};
 
-	$Chronos.prototype.toFiscalQuarter = function (startMonth = 7) {
+	$Chronos.prototype.getFiscalQuarter = function (startMonth = 7) {
 		const adjusted = (this.isoMonth - startMonth + 12) % 12;
 
 		return (Math.floor(adjusted / 3) + 1) as Quarter;
 	};
 
-	$Chronos.prototype.toAcademicYear = function (this) {
+	$Chronos.prototype.getAcademicYear = function (this) {
 		const year = this.year;
 
 		if (this.month >= 6) {

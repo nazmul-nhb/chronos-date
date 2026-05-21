@@ -115,7 +115,7 @@ Returns the current UTC offset in `UTC±HH:mm` format (e.g., `"UTC+06:00"`, `"UT
 
 <Callout type="info" title="Info">
 
-- Also accessible via [`getTimeZoneOffset()`](./chronos/extras#gettimezoneoffset) instance method without `UTC` prefix (returns in `±HH:mm` format).
+- Also accessible via [`getTimeZoneOffset()`](./chronos/offset/get-timezone-offset) instance method without `UTC` prefix (returns in `±HH:mm` format).
 - This value is automatically updated when using timezone or UTC manipulation methods.
 
 </Callout>
@@ -377,15 +377,15 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   </Accordion>
 
   <Accordion title="Extra Time Information">
-    | Method                                                                  | Short Description                                       |
-    | ----------------------------------------------------------------------- | ------------------------------------------------------- |
-    | [getUTCOffset()](./chronos/extras#getutcoffset)                         | Returns the system's UTC offset formatted as `±HH:mm`   |
-    | [getTimeZoneOffset()](./chronos/extras#gettimezoneoffset)               | Returns the timezone offset in `±HH:mm` format          |
-    | [getUTCOffsetMinutes()](./chronos/extras#getutcoffsetminutes)           | Gets difference in mins between UTC and local system.   |
-    | [getTimeZoneOffsetMinutes()](./chronos/extras#gettimezoneoffsetminutes) | Returns the current instance's UTC offset in minutes.   |
-    | [toQuarter()](./chronos/extras#toquarter)                               | Returns the calendar quarter (1 to 4) of the instance.  |
-    | [toFiscalQuarter()](./plugins/business-plugin#tofiscalquarter)          | Returns the fiscal quarter based on custom start month. |
-    | [toAcademicYear()](./plugins/business-plugin#toacademicyear)            | Returns the academic year in format `YYYY-YYYY`.        |
+    | Method                                                                     | Short Description                                       |
+    | -------------------------------------------------------------------------- | ------------------------------------------------------- |
+    | [getUTCOffset()](./chronos/offset/get-utc-offset)                          | Returns the system's UTC offset formatted as `±HH:mm`   |
+    | [getTimeZoneOffset()](./chronos/offset/get-timezone-offset)                | Returns the timezone offset in `±HH:mm` format          |
+    | [getUTCOffsetMinutes()](./chronos/offset/get-utc-offset-minutes)           | Gets difference in mins between UTC and local system.   |
+    | [getTimeZoneOffsetMinutes()](./chronos/offset/get-timezone-offset-minutes) | Returns the current instance's UTC offset in minutes.   |
+    | [getQuarter()](./chronos/get-set/get-quarter)                              | Returns the calendar quarter (1 to 4) of the instance.  |
+    | [getFiscalQuarter()](./plugins/business-plugin#getfiscalquarter)           | Returns the fiscal quarter based on custom start month. |
+    | [getAcademicYear()](./plugins/business-plugin#getacademicyear)             | Returns the academic year in format `YYYY-YYYY`.        |
   </Accordion>
 
   <Accordion title="Static Methods">

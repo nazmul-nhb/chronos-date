@@ -1,0 +1,36 @@
+---
+title: getUTCOffset
+description: Returns the system's current UTC offset formatted as ±HH:mm.
+---
+
+## `getUTCOffset()`
+
+Returns the system's current UTC offset formatted as `±HH:mm` (`+06:00` or `-07:00`).
+
+### Signature
+
+```ts
+getUTCOffset(): $UTCOffset
+```
+
+### Return Type
+
+`$UTCOffset` — Offset string in the format `±HH:mm` (e.g., `+05:30`, `-06:00`)
+
+### Description
+
+Returns the **system’s current UTC offset** in string format.
+
+<Callout type="warn" title="Note">
+Unlike JavaScript's [`Date.prototype.getTimezoneOffset()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset) which returns the offset in **minutes behind UTC** (positive for locations west of UTC), this method returns a human-readable offset using **time zone sign conventions** (e.g., `+06:00` means 6 hours ahead of UTC).
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const offset = new Chronos('2025-01-15').getUTCOffset();
+
+console.log(offset);
+```

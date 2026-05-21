@@ -1,0 +1,39 @@
+---
+title: getUTCOffsetMinutes
+description: Gets the difference in minutes between Universal Coordinated Time (UTC) and the time on the local system.
+---
+
+## `getUTCOffsetMinutes()`
+
+Gets the difference in minutes between Universal Coordinated Time (UTC) and the time on the local system.
+
+### Signature
+
+```ts
+getUTCOffsetMinutes(): number
+```
+
+### Return Type
+
+`number` — The offset in minutes
+
+### Description
+
+Returns the **system’s UTC offset in minutes**, but using a **flipped sign convention** from JavaScript's native API:
+
+- Returns a **positive value** if the local time is ahead of UTC.
+- Returns a **negative value** if behind UTC.
+
+<Callout type="info" title="Note">
+🧠 This matches the intuitive reading of `+06:00 → 360`, `-05:30 → -330`, unlike [`Date.prototype.getTimezoneOffset()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset) which reverses this.
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const offsetMins = new Chronos().getUTCOffsetMinutes();
+
+console.log(offsetMins); // 360 for UTC+06:00
+```

@@ -1322,15 +1322,15 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * - `Q3`: July to September
 	 * - `Q4`: October to December
 	 *
-	 * This method strictly uses the **calendar year**. For fiscal quarters, use {@link toFiscalQuarter} instead.
+	 * This method strictly uses the **calendar year**. For fiscal quarters, use {@link getFiscalQuarter} instead.
 	 *
 	 * @example
-	 * new Chronos('2025-02-14').toQuarter(); // 1
-	 * new Chronos('2025-08-09').toQuarter(); // 3
+	 * new Chronos('2025-02-14').getQuarter(); // 1
+	 * new Chronos('2025-08-09').getQuarter(); // 3
 	 *
 	 * @returns The calendar quarter number (1–4).
 	 */
-	toQuarter(): Quarter {
+	getQuarter(): Quarter {
 		const month = this.#date.getMonth();
 		return (Math.floor(month / 3) + 1) as Quarter;
 	}
@@ -1354,7 +1354,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	/**
 	 * @instance Returns the timezone offset of this `Chronos` instance in `±HH:mm` format maintaining current timezone.
 	 *
-	 * - *Unlike JavaScript's {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset `Date.prototype.getTimezoneOffset()`}, which returns the offset in minutes **behind** UTC (positive for locations west of UTC and negative for east), this method returns the more intuitive sign format used in timezone representations (e.g., `+06:00` means 6 hours **ahead** of UTC).*
+	 * @remarks *Unlike JavaScript's {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset `Date.prototype.getTimezoneOffset()`}, which returns the offset in minutes **behind** UTC (positive for locations west of UTC and negative for east), this method returns the more intuitive sign format used in timezone representations (e.g., `+06:00` means 6 hours **ahead** of UTC).*
 	 *
 	 * @returns The timezone offset string in `±HH:mm` format maintaining the current timezone regardless of system having different one.
 	 */
@@ -1363,7 +1363,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/**
-	 * @instance Gets the difference in minutes between Universal Coordinated Time (UTC) and the time on the local computer.
+	 * @instance Gets the difference in minutes between Universal Coordinated Time (UTC) and the time on the local system.
 	 *
 	 * - *Unlike JavaScript's {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTimezoneOffset `Date.prototype.getTimezoneOffset()`}, this method returns a positive value if the local time is ahead of UTC, and negative if behind UTC.*
 	 *
@@ -1376,12 +1376,11 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/**
-	 * @instance Returns the current `Chronos` instance's UTC offset in minutes.
+	 * @instance Returns the current `Chronos` instance's timezone offset in minutes.
 	 *
-	 * This reflects the parsed or stored offset used internally by `Chronos` and follows the same
-	 * sign convention: positive for timezones ahead of UTC, negative for behind.
+	 * @remarks This reflects the parsed or stored offset used internally by `Chronos` and follows sign convention: positive for timezones ahead of UTC, negative for behind.
 	 *
-	 * @returns The UTC offset in minutes maintaining the current timezone regardless of system having different one.
+	 * @returns The timezone offset in minutes maintaining the current timezone regardless of system having different one.
 	 */
 	getTimeZoneOffsetMinutes(): number {
 		return extractMinutesFromUTC(this.#offset);

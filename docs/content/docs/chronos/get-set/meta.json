@@ -2,12 +2,12 @@
 	"pages": [
 		"get",
 		"set",
-		"daysInMonth",
-
+		"diff",
 		"getWeek",
 		"setWeek",
 		"getWeekOfYear",
 		"getWeekYear",
+		"daysInMonth",
 		"..."
 	]
 }

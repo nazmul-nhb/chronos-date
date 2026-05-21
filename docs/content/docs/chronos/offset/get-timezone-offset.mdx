@@ -1,0 +1,46 @@
+---
+title: getTimeZoneOffset
+description: Returns the timezone offset of Chronos instance in ±HH:mm format maintaining current timezone.
+---
+
+## `getTimeZoneOffset()`
+
+Returns the timezone offset of `Chronos` instance in `±HH:mm` format maintaining current timezone.
+
+### Signature
+
+```ts
+getTimeZoneOffset(): $UTCOffset
+```
+
+### Return Type
+
+`$UTCOffset` — Offset string in the format `±HH:mm`
+
+### Description
+
+Returns the **offset string of this `Chronos` instance’s stored timezone**, regardless of the current system's timezone.
+
+- Useful for working with date instances that were parsed with or set to a specific timezone.
+
+<Callout type="info" title="Note">
+Follows the same sign convention as [**getUTCOffset()**](./get-utc-offset) — positive if ahead of UTC, negative if behind.
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const base = new Chronos();
+
+const tzOffset = base.timeZone('IST-India').getTimeZoneOffset();
+
+console.log({
+    baseOffset: base.getTimeZoneOffset(),
+    tzOffset,
+});
+```
