@@ -1,0 +1,25 @@
+---
+title: Query/Checker Methods
+description: Check or compare dates with zero effort.
+---
+
+## Overview
+
+Query methods are used to check or compare dates.
+
+### Examples
+
+```typescript pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-05-29');
+
+console.log({
+    yearFromInstance: date.isLeapYear(), //false
+    yearFromArg: date.isLeapYear(2024), //true
+	isAfter: date.isAfter('2025-05-30'), //false
+	isBefore: date.isBefore('2025-05-30'), //true
+    isEqual: date.isSame('2025-05-30', 'month'), //true
+});
+```
+

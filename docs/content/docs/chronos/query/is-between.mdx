@@ -1,0 +1,44 @@
+---
+title: isBetween
+description: Checks if a date falls within a specified date range (inclusive or exclusive).
+---
+
+## `isBetween()`
+
+Checks if a date falls within a specified date range (inclusive or exclusive).
+
+### Signature
+
+```ts
+isBetween(start: ChronosInput, end: ChronosInput, inclusive?: '[]' | '[)' | '(]' | '()'): boolean
+```
+
+### Parameters
+
+- `start`: Start of date range
+- `end`: End of date range
+- `inclusive`: (Optional) Range boundary inclusion:
+  - `[]`: Include both start and end
+  - `[)` Include start, exclude end
+  - `(]`: Exclude start, include end
+  - `()`: Exclude both boundaries (default)
+
+### Return Type
+
+`boolean` - Returns `true` if the date falls within the specified range
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15');
+
+console.log({
+    exclusive: date.isBetween('2025-01-01', '2025-01-31'), // true
+    inclusive: date.isBetween('2025-01-15', '2025-01-20', '[]'); // true
+    exclusive_end: date.isBetween('2025-01-01', '2025-01-15', '(]'); // true
+    exclusive_start: date.isBetween('2025-01-15', '2025-01-20', '[)'); // true
+    exclusive_range: date.isBetween('2025-01-01', '2025-01-15', '()'); // false
+});
+```

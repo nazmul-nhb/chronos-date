@@ -301,26 +301,26 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Checker Methods">
     | Method                                                       | Short Description                                                    |
     | ------------------------------------------------------------ | -------------------------------------------------------------------- |
-    | [isAfter()](./chronos/checkers#isafter)                      | Checks if this date is after another date in a specific unit.        |
-    | [isBefore()](./chronos/checkers#isbefore)                    | Checks if this date is before another date in a specific unit.       |
-    | [isBetween()](./chronos/checkers#isbetween)                  | Checks if the current date is between the given start and end dates. |
-    | [isSame()](./chronos/checkers#issame)                        | Checks if another date is the same as this one in a specific unit.   |
-    | [isSameOrAfter()](./chronos/checkers#issameorafter)          | Checks if this date is same or after another in a specific unit.     |
-    | [isSameOrBefore()](./chronos/checkers#issameorbefore)        | Checks if this date is same or before another in a specific unit.    |
-    | [isEqual()](./chronos/checkers#isequal)                      | Checks if another date is exactly equal to this one.                 |
-    | [isEqualOrAfter()](./chronos/checkers#isequalorafter)        | Checks if another date is exactly equal to or after this one.        |
-    | [isEqualOrBefore()](./chronos/checkers#isequalorbefore)      | Checks if another date is exactly equal to or before this one.       |
+    | [isAfter()](./chronos/query/is-after)                      | Checks if this date is after another date in a specific unit.        |
+    | [isBefore()](./chronos/query/is-before)                    | Checks if this date is before another date in a specific unit.       |
+    | [isBetween()](./chronos/query/is-between)                  | Checks if the current date is between the given start and end dates. |
+    | [isSame()](./chronos/query/is-same)                        | Checks if another date is the same as this one in a specific unit.   |
+    | [isSameOrAfter()](./chronos/query/is-same-or-after)          | Checks if this date is same or after another in a specific unit.     |
+    | [isSameOrBefore()](./chronos/query/is-same-or-before)        | Checks if this date is same or before another in a specific unit.    |
+    | [isEqual()](./chronos/query/is-equal)                      | Checks if another date is exactly equal to this one.                 |
+    | [isEqualOrAfter()](./chronos/query/is-equal-or-after)        | Checks if another date is exactly equal to or after this one.        |
+    | [isEqualOrBefore()](./chronos/query/is-equal-or-before)      | Checks if another date is exactly equal to or before this one.       |
     | [isBusinessHour()](./plugins/business-plugin#isbusinesshour) | Checks if the current date and time fall within business hours.      |
     | [isWeekend()](./plugins/business-plugin#isweekend)           | Checks if the current date falls on a weekend.                       |
     | [isWorkday()](./plugins/business-plugin#isworkday)           | Checks if the current date is a workday.                             |
-    | [isFirstDayOfMonth()](./chronos/checkers#isfirstdayofmonth)  | Checks if current day is the first day of the current month.         |
-    | [isLastDayOfMonth()](./chronos/checkers#islastdayofmonth)    | Checks if current day is the last day of the current month.          |
+    | [isFirstDayOfMonth()](./chronos/query/is-first-day-of-month)  | Checks if current day is the first day of the current month.         |
+    | [isLastDayOfMonth()](./chronos/query/is-last-day-of-month)    | Checks if current day is the last day of the current month.          |
     | [isToday()](./plugins/relative-time-plugin#istoday)          | Checks if the current date is today.                                 |
     | [isTomorrow()](./plugins/relative-time-plugin#istomorrow)    | Checks if the current date is tomorrow.                              |
     | [isYesterday()](./plugins/relative-time-plugin#isyesterday)  | Checks if the current date is yesterday.                             |
-    | [isLeapYear()](./chronos/checkers#isleapyear)                | Checks if the current year is a leap year.                           |
+    | [isLeapYear()](./chronos/query/is-leap-year)                | Checks if the current year is a leap year.                           |
     | [isPalindromeDate()](./plugins/palindrome-plugin)            | Checks if the current date (date part only) is a palindrome.         |
-    | [isDST()](./chronos/checkers#isdst)                          | Checks if the date is within daylight saving time (DST).             |
+    | [isDST()](./chronos/query/is-dst)                          | Checks if the date is within daylight saving time (DST).             |
   </Accordion>
 
   <Accordion title="Conversion Methods">

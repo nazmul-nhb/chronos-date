@@ -1,0 +1,46 @@
+---
+title: isSame
+description: Checks if another date is the same as Chronos instance in a specific unit.
+---
+
+## `isSame()`
+
+Checks if this date is the same as another date at a specified unit level (year, month, week, day, hour, minute, or second/millisecond).
+
+<Callout type="info" title="Note">
+  When comparing weeks, the `weekStartsOn` parameter determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
+</Callout>
+
+### Signature
+
+```ts
+isSame(other: ChronosInput, unit?: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+- `unit`: The granularity for comparison ('year', 'month', 'week', 'day', 'hour', 'minute', 'second')
+- `weekStartsOn`: (Optional) Which day (0-6, Sunday-Saturday) to consider as the start of the week (default: `0`/Sunday)
+
+### Return Type
+
+`boolean` - Returns `true` if dates match at the specified precision level
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15');
+
+console.log({
+    // Same month but different days
+    sameMonth: date.isSame('2025-01-20', 'month'), // true
+    sameDay: date.isSame('2025-01-20', 'day'), // false
+})
+```
+
+### Notes
+
+- For checking exact match, use [**isEqual()**](./is-equal) method instead.

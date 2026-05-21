@@ -1,0 +1,52 @@
+---
+title: isSameOrAfter
+description: Checks if this date occurs at the same time or after another date.
+---
+
+## `isSameOrAfter()`
+
+Checks if this date occurs at the same time or after another date.
+
+<Callout type="info" title="Note">
+  When comparing weeks, the `weekStartsOn` parameter determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
+</Callout>
+
+### Signature
+
+```ts
+isSameOrAfter(other: ChronosInput, unit?: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+- `unit`: The granularity for comparison ('year', 'month', 'week', 'day', 'hour', 'minute', 'second')
+- `weekStartsOn`: (Optional) Which day (0-6, Sunday-Saturday) to consider as the start of the week (default: `0`/Sunday)
+
+### Return Type
+
+`boolean` - Returns `true` if the current `Chronos` date is either:
+
+- Exactly equal to the comparison date at the specified unit level, OR
+- Occurs after the comparison date at the specified unit level
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-20');
+
+console.log({
+    // Same month
+    sameMonth: date.isSameOrAfter('2025-01-15', 'month'), // true
+    // Later month
+    laterMonth: date.isSameOrAfter('2025-02-01', 'month'), // true
+    // Earlier month
+    earlierMonth: date.isSameOrAfter('2024-12-15', 'month'), // true
+    // Same month with different time (but still same)
+    sameMonthDifferentTime: date.isSameOrAfter('2025-01-20T12:00:00', 'month'), // true
+    // Same month with different time (but still same)
+    sameMonthDifferentTime2: date.isSameOrAfter('2025-01-20T12:00:00', 'month'), // true
+});
+```

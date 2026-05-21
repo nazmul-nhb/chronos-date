@@ -236,6 +236,31 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 *
 	 * **Note**: *If a date is provided **without a time component**, the instance will default to `00:00:00.000` UTC and convert it to the **equivalent local time** using the current environment's UTC offset.*
 	 *
+	 * @param year The full year designation is required for cross-century date accuracy. If year is between 0 and 99, year is assumed to be 1900 + year.
+	 * @param month The month as a `number` between 1 and 12 (January to December).
+	 * @param date The date as a `number` between 1 and 31.
+	 * @param hours Must be supplied if minutes is supplied. A `number` from 0 to 23 (midnight to 11pm) that specifies the hour.
+	 * @param minutes Must be supplied if seconds is supplied. A `number` from 0 to 59 that specifies the minutes.
+	 * @param seconds Must be supplied if milliseconds is supplied. A `number` from 0 to 59 that specifies the seconds.
+	 * @param ms A `number` from 0 to 999 that specifies the milliseconds.
+	 *
+	 * @returns Instance of `Chronos` with all methods and properties.
+	 */
+	constructor(
+		year: number,
+		month?: number,
+		date?: number,
+		hours?: number,
+		minutes?: number,
+		seconds?: number,
+		ms?: number
+	);
+
+	/**
+	 * * Creates a new immutable `Chronos` instance.
+	 *
+	 * **Note**: *If a date is provided **without a time component**, the instance will default to `00:00:00.000` UTC and convert it to the **equivalent local time** using the current environment's UTC offset.*
+	 *
 	 * @param value - A date value (`number`, `string`, `Date`, or `Chronos` object).
 	 * - If a `string` is provided, it should be in a format that can be parsed by the `Date` constructor.
 	 * - If a `number` is provided, it should be a timestamp (milliseconds since the Unix epoch).

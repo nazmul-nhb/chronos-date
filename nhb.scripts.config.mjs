@@ -1,6 +1,8 @@
 // @ts-check
 
 import { defineScriptConfig } from 'nhb-scripts';
+import { isCamelCase } from 'nhb-toolbox';
+import { convertStringCase, toCamelCase } from 'nhb-toolbox/change-case';
 
 export default defineScriptConfig({
 	commit: {
@@ -25,6 +27,11 @@ export default defineScriptConfig({
 				createFolder: false,
 				destination: 'src/plugins',
 				files: generatePlugin,
+			},
+			docs: {
+				createFolder: false,
+				destination: 'docs/content/docs/chronos/query',
+				files: generateDocs,
 			},
 		},
 	},
@@ -58,6 +65,25 @@ export const ${pluginName}Plugin: ChronosPlugin = ($Chronos) => {
         // Logic
     };
 };`,
+		},
+	];
+}
+
+/** @type { FileGenerator } */
+function generateDocs(docTitle) {
+	/** @type { string } */
+	const camelTitle = isCamelCase(docTitle) ? docTitle : toCamelCase(docTitle);
+
+	return [
+		{
+			name: `${convertStringCase(camelTitle, 'kebab-case')}.mdx`,
+			content: `---
+title: ${camelTitle}
+description: ${camelTitle} Description.
+---
+
+## \`${camelTitle}()\`
+`,
 		},
 	];
 }

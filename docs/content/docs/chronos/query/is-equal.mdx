@@ -1,0 +1,35 @@
+---
+title: isEqual
+description: Checks if two Chronos instances represent the exact same point in time.
+---
+
+## `isEqual()`
+
+Checks if two Chronos instances represent the exact same point in time.
+
+### Signature
+
+```ts
+isEqual(other: ChronosInput): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+
+### Return Type
+
+`boolean` - Returns `true` if the current `Chronos` date is exactly equal to the comparison date (including time components)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log({
+    // Exact timestamp match
+    exact: new Chronos('2025-01-01T12:00:00').isEqual('2025-01-01T12:00:00'), // true
+    // Different time components
+    different: new Chronos('2025-01-01T12:00:00').isEqual('2025-01-01T12:00:01'), // false
+});
+```

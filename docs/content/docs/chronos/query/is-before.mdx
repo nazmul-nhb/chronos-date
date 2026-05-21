@@ -1,0 +1,38 @@
+---
+title: isBefore
+description: Checks if this date occurs before a specified date for a unit.
+---
+
+## `isBefore()`
+
+Checks if this date occurs before a specified date for a unit.
+
+<Callout type="info" title="Note">
+  When comparing weeks, the `weekStartsOn` parameter determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
+</Callout>
+
+### Signature
+
+```ts
+isBefore(other: ChronosInput, unit?: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+- `unit`: The granularity for comparison ('year', 'month', 'week', 'day', 'hour', 'minute', 'second')
+- `weekStartsOn`: (Optional) Which day (0-6, Sunday-Saturday) to consider as the start of the week (default: `0` -> Sunday)
+
+### Return Type
+
+`boolean` - Returns `true` if the current `Chronos` date is before the comparison date
+
+### Example
+
+```ts
+// Compare entire date: milliseconds granularity
+new Chronos('2025-01-01').isBefore('2025-02-01'); // true
+
+// Compare just the months
+new Chronos('2025-01-15').isBefore('2025-02-01', 'month'); // true
+```

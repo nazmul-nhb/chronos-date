@@ -1,0 +1,31 @@
+---
+title: isFirstDayOfMonth
+description: Checks if the current date is the first day of the month.
+---
+
+## `isFirstDayOfMonth()`
+
+Checks if the current date is the first day of the month.
+
+### Signature
+
+```ts
+isFirstDayOfMonth(): boolean
+```
+
+### Return Type
+
+`boolean` - Whether first day
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log({
+    // First day
+    firstDay: new Chronos('2025-01-01').isFirstDayOfMonth(), // true
+    // Not first day
+    notFirstDay: new Chronos('2025-01-02').isFirstDayOfMonth(), // false
+});
+```

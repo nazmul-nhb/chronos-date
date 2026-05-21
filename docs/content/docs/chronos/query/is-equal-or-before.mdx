@@ -1,0 +1,40 @@
+---
+title: isEqualOrBefore
+description: Checks if the current date is equal to or before a specified date.
+---
+
+## `isEqualOrBefore()`
+
+Checks if the current date is equal to or before a specified date.
+
+### Signature
+
+```ts
+isEqualOrBefore(other: ChronosInput): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+
+### Return Type
+
+`boolean` - Returns `true` if the current `Chronos` date is either:
+
+- Exactly equal to the comparison date, OR
+- Occurs before the comparison date
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log({
+    // Equal dates
+    equal: new Chronos('2025-01-15').isEqualOrBefore('2025-01-15'), // true
+    // Earlier date
+    earlier: new Chronos('2025-01-10').isEqualOrBefore('2025-01-15'), // true
+    // Later date
+    later: new Chronos('2025-01-20').isEqualOrBefore('2025-01-15'), // false
+});
+```

@@ -1,0 +1,37 @@
+---
+title: isDST
+description: Checks if a date falls within a Daylight Saving Time period.
+---
+
+## `isDST()`
+
+Checks if a date falls within a Daylight Saving Time period.
+
+### Signature
+
+```ts
+isDST(): boolean
+```
+
+### Return Type
+
+`boolean` - Returns `true` if the date is in Daylight Saving Time for the current timezone
+
+<Callout type="info" title="Note">
+- Detection is based on the system's timezone settings
+- Only accurate for timezones that observe DST
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log({
+    // Northern hemisphere summer
+    summer: new Chronos('2025-07-01').isDST(), // true
+
+    // Northern hemisphere winter
+    winter: new Chronos('2025-01-01').isDST(), // false
+})
+```

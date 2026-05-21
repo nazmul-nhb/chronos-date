@@ -1,0 +1,48 @@
+---
+title: isSameOrBefore
+description: Checks if this date occurs at the same time or before another date.
+---
+
+## `isSameOrBefore()`
+
+Checks if this date occurs at the same time or before another date.
+
+<Callout type="info" title="Note">
+  When comparing weeks, the `weekStartsOn` parameter determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
+</Callout>
+
+### Signature
+
+```ts
+isSameOrBefore(other: ChronosInput, unit?: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+- `unit`: The granularity for comparison ('year', 'month', 'week', 'day', 'hour', 'minute', 'second')
+- `weekStartsOn`: (Optional) Which day (0-6, Sunday-Saturday) to consider as the start of the week (default: `0`/Sunday)
+
+### Return Type
+
+`boolean` - Returns `true` if the current `Chronos` date is either:
+
+- Exactly equal to the comparison date at the specified unit level, OR
+- Occurs before the comparison date at the specified unit level
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const date = new Chronos('2025-01-15');
+
+console.log({
+    // Same month
+    sameMonth: date.isSameOrBefore('2025-01-20', 'month'), // true
+    // Earlier month
+    earlierMonth: date.isSameOrBefore('2025-02-01', 'month'), // true
+    // Later month
+    laterMonth: date.isSameOrBefore('2025-02-15', 'month'), // false
+});
+```

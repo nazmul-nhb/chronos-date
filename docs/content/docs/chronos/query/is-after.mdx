@@ -1,0 +1,41 @@
+---
+title: isAfter
+description: Checks if this date occurs after a specified date for a unit.
+---
+
+## `isAfter()`
+
+Checks if this date occurs after a specified date for a unit.
+
+<Callout type="info" title="Note">
+  When comparing weeks, the `weekStartsOn` parameter determines how weeks are calculated. For example, if `weekStartsOn` is `1` (Monday), then a date on Sunday would be considered part of the previous week.
+</Callout>
+
+### Signature
+
+```ts
+isAfter(other: ChronosInput, unit?: TimeUnit, weekStartsOn?: Enumerate<7>): boolean
+```
+
+### Parameters
+
+- `other`: The date to compare against (can be string, Date, or `Chronos` instance)
+- `unit`: The granularity for comparison ('year', 'month', 'week', 'day', 'hour', 'minute', 'second')
+- `weekStartsOn`: (Optional) Which day (0-6, Sunday-Saturday) to consider as the start of the week (default: `0` -> Sunday)
+
+### Return Type
+
+`boolean` - Returns `true` if the current date occurs after the comparison date
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log({
+    // Basic date comparison: milliseconds granularity
+    basic: new Chronos('2025-02-01').isAfter('2025-01-01'), // true
+    // Compare specific units
+    hour: new Chronos('2025-01-15T12:00:00').isAfter('2025-01-15T10:00:00', 'hour'), // true
+})
+```
