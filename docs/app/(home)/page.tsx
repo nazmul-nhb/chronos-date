@@ -53,8 +53,8 @@ export default function HomePage() {
 					</div>
 
 					<div className="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-						{features.map((feature) => (
-							<FeatureCard {...feature} />
+						{features.map(({ key, ...feature }) => (
+							<FeatureCard key={key} {...feature} />
 						))}
 					</div>
 				</div>

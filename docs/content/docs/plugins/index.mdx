@@ -1,6 +1,6 @@
 ---
 title: Plugins
-description: Chronos Plugins — Chronos Documentation.
+description: Extend Chronos with built-in or custom plugins.
 icon: Blocks
 ---
 
@@ -8,7 +8,6 @@ icon: Blocks
 - `Chronos` supports a powerful **plugin system** that allows developers to inject additional methods or utilities into the `Chronos` class **without modifying its core**. This enables clean separation of concerns, tree-shaking, modular feature design, and maintainability.
 
 - Plugins can be official (maintained by the core team) or custom (developed by users). [See the list of official plugins below](#-official-plugins) or [learn how to write your own plugin](#️-writing-a-custom-plugin).
-
 </Callout>
 
 ---
@@ -80,7 +79,66 @@ chronos().enabledMethod()
 
 Here's the basic structure of a `Chronos` plugin with access to *protected and/or private* internals:
 
-```ts
+<Steps>
+  <Step>
+    <Callout type="idea" title="Create a Plugin">
+    ```ts
+    import { Chronos, INTERNALS } from "chronos-date";
+    import type { ChronosPlugin } from "chronos-date/types";
+
+    // Create a module augmentation to add your custom method to the `Chronos` interface
+    // This allows TypeScript to recognize the new method on `Chronos` instances
+    // This should be inside a `d.ts` file or at the top of your plugin file (must be a `.ts` file)
+    declare module 'chronos-date' {
+      interface Chronos {
+        /**
+        * @instance Custom `Chronos` method to greet a user with the current date.
+        * @param user The name of the user to greet.
+        * @returns A greeting message including the user's name and the current ISO dates.
+        */
+        customMethod(user: string): string;
+      }
+    }
+
+    // The plugin function must be in a `.ts` or `.js` file
+    /** * Plugin to inject `customMethod` into Chronos instances. */
+    export const customPlugin: ChronosPlugin = ($Chronos) => {
+      $Chronos.prototype.customMethod = function (user) {
+        // Example of accessing internals through protected static interface
+        const internalDate = $Chronos[INTERNALS].internalDate(this);
+        return `Hello ${user}, Welcome to custom plugin! Current date: { local: ${this} } { utc: ${internalDate.toISOString()} }`;
+      };
+    };
+    ```
+    </Callout>
+  </Step>
+  <Step>
+    <Callout type="success" title="Consume the Plugin">
+    > Now consume the plugin in the same file or another file where you want to use your custom method
+    
+    ```ts
+    import { Chronos } from "chronos-date";
+    import { customPlugin } from './path-to-your-plugin-file';
+
+    // Use the plugin in your application's root/entry file or where you initialize `Chronos`
+    Chronos.use(customPlugin);
+    // or
+    Chronos.register(customPlugin);
+
+    new Chronos().customMethod('NHB');
+    // => "Hello NHB, Welcome to custom plugin! Current date: { local: 2025-09-22T14:47:44.132+06:00 } { utc: 2025-09-22T08:47:44.132Z }"
+    ```
+    </Callout>
+  </Step>
+</Steps>
+
+### Try in Playground
+
+<Callout type="idea" title="Tips">
+ You can consume the custom plugin in the same file or another file where you want to use your custom method.
+</Callout>
+
+```ts pg
 import { Chronos, INTERNALS } from "chronos-date";
 import type { ChronosPlugin } from "chronos-date/types";
 
@@ -100,27 +158,20 @@ declare module 'chronos-date' {
 
 // The plugin function must be in a `.ts` or `.js` file
 /** * Plugin to inject `customMethod` into Chronos instances. */
-export const customPlugin: ChronosPlugin = ($Chronos) => {
+const customPlugin: ChronosPlugin = ($Chronos) => {
   $Chronos.prototype.customMethod = function (user) {
     // Example of accessing internals through protected static interface
     const internalDate = $Chronos[INTERNALS].internalDate(this);
     return `Hello ${user}, Welcome to custom plugin! Current date: { local: ${this} } { utc: ${internalDate.toISOString()} }`;
   };
 };
-```
-
-> Now consume the plugin in the same file or another file where you want to use your custom method
-
-```ts
-import { Chronos } from "chronos-date";
-import { customPlugin } from './path-to-your-plugin-file';
 
 // Use the plugin in your application's root/entry file or where you initialize `Chronos`
 Chronos.use(customPlugin);
 // or
-Chronos.register(customPlugin);
+// Chronos.register(customPlugin);
 
-new Chronos().customMethod('NHB');
+console.log(new Chronos().customMethod('NHB'));
 // => "Hello NHB, Welcome to custom plugin! Current date: { local: 2025-09-22T14:47:44.132+06:00 } { utc: 2025-09-22T08:47:44.132Z }"
 ```
 

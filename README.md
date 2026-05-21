@@ -60,7 +60,7 @@ Designed to go beyond the native `Date` object, it empowers you to manipulate, f
 - **Plugin System:** Extend core capabilities seamlessly using `Chronos.use(plugin)`. Over a dozen official plugins exist for advanced operations like business hours, seasons, zodiacs, relative times, and more.
 - **Time Zone Support:** Advanced formatting and tracking of UTC offsets and Native time zone properties.
 - **Date Utilities:** Extra utilities, type guards, types and constants for light weight date operations without the need of core class.
-- **Comprehensive TypeScript IntelliSense:** Built with first-class TypeScript types and granular tracking for strict date formatting tokens.
+- **TypeScript IntelliSense:** Built with first-class TypeScript types and TSDoc documentation for better IDE support and autocompletion.
 - **Cross-environment compatibility:** Works anywhere JS runs (Node.js, Browser, Deno, Bun).
 
 ---
@@ -178,6 +178,7 @@ For full documentation, API reference, and interactive playgrounds, visit the [*
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
+
 You are free to use, modify, and distribute this project under the terms of the Apache 2.0 License, provided that appropriate credit is given.
 
 ---
