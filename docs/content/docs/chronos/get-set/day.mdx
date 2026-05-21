@@ -1,0 +1,39 @@
+---
+title: day
+description: Get the name of a weekday.
+---
+
+## `day()`
+
+Get the name of a weekday
+
+### Signature
+
+```ts
+day(index?: Enumerate<7>): WeekDay.
+```
+
+### Parameter
+
+- `index` *(optional)*: A number from `0` to `6` representing the day of the week, where `0` is Sunday and `6` is Saturday. If omitted, it defaults to the current day from the `Chronos` instance.
+
+### Return Value
+
+- `WeekDay` — The full name of the corresponding weekday (`"Sunday"`, `"Monday"`, ..., `"Saturday"`).
+
+### Example Usage
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const today = new Chronos('2025-05-29').day(); // "Thursday"
+console.log(today);
+
+const sunday = new Chronos().day(0);            // "Sunday"
+console.log(sunday);
+```
+
+<Callout type="info" title="Remarks">
+- This method supports overriding the current day with a specific index.
+- Internally, it maps indices `0–6` to the English names of the weekdays.
+</Callout>

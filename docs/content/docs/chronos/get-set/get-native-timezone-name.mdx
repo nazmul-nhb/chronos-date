@@ -1,0 +1,60 @@
+---
+title: $getNativeTimeZoneName
+description: Retrieve the local system's current timezone name.
+---
+
+## `$getNativeTimeZoneName()`
+
+Retrieves the local system's current timezone name, falling back to its IANA timezone identifier if the name cannot be determined.
+
+### Signature
+
+```ts
+$getNativeTimeZoneName(tzId?: $TimeZoneIdentifier): LooseLiteral<TimeZoneNameNative | $TimeZoneIdentifier>
+```
+
+### Parameters  
+
+- `tzId` *Optional* time zone identifier to get time zone name for that identifier.
+
+### Return Type
+
+- `LooseLiteral<TimeZoneNameNative | $TimeZoneIdentifier>` - The resolved timezone name or IANA identifier as fallback
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const ch = new Chronos('2025-01-15');
+
+// Get native timezone name
+console.log(ch.$getNativeTimeZoneName());
+// → "Bangladesh Standard Time" (if in Asia/Dhaka)
+// → "Eastern Standard Time" (if in America/New_York)
+// → "Asia/Dhaka" (fallback if name unavailable)
+```
+
+### Remarks
+
+- **Always reflects the local machine's timezone name** regardless of whether `timeZone()`, `utc()`, or `toUTC()` methods have been applied
+- **For modified instances**, use the `timeZoneName` public property instead to get the current instance's timezone context
+- Uses `Intl.DateTimeFormat` with `timeZoneName: 'long'` to resolve the display name
+- Falls back to the IANA identifier when no display name can be determined
+
+### Usage Notes
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const ch = new Chronos().timeZone('Asia/Kathmandu');
+
+// These reflect the modified instance's timezone
+console.log(ch.timeZoneName); // → "Nepal Time"
+
+// These always reflect the native system timezone
+console.log(ch.$getNativeTimeZoneName());   // → "Bangladesh Standard Time" or whatever the current system's timezone name is.
+```

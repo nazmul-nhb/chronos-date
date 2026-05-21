@@ -8,6 +8,8 @@
 		"getWeekOfYear",
 		"getWeekYear",
 		"daysInMonth",
-		"..."
+		"...",
+		"get-native-timezone-id",
+		"get-native-timezone-name"
 	]
 }

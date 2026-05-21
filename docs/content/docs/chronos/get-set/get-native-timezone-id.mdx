@@ -1,0 +1,56 @@
+---
+title: $getNativeTimeZoneId
+description: Retrieve the local system's current timezone identifier.
+---
+
+## `$getNativeTimeZoneId()`
+
+Retrieves the IANA timezone identifier for the local system's current timezone.
+
+### Signature
+
+```ts
+$getNativeTimeZoneId(): TimeZoneIdNative
+```
+
+### Return Type
+
+- **`TimeZoneIdNative`** - The local system's IANA timezone identifier
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const ch = new Chronos();
+
+// Get native IANA timezone identifier
+console.log(ch.$getNativeTimeZoneId());
+// → "Asia/Dhaka" (if in Bangladesh)
+// → "America/New_York" (if in Eastern Time)
+// → "Europe/London" (if in UK)
+```
+
+### Remarks
+
+- **Always returns the local machine's timezone identifier** regardless of whether `timeZone()`, `utc()`, or `toUTC()` methods have been applied
+- **For modified instances**, use the `timeZoneId` public property instead to get the current instance's timezone context
+- Directly accesses `Intl.DateTimeFormat().resolvedOptions().timeZone` for the system identifier
+- Returns standardized IANA timezone identifiers (e.g., `"Asia/Dhaka"`, `"America/New_York"`)
+
+### Usage Notes
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const ch = new Chronos().timeZone('Asia/Kathmandu');
+
+// These reflect the modified instance's timezone
+console.log(ch.timeZoneId); // → "Asia/Kathmandu"
+
+// These always reflect the native system timezone
+console.log(ch.$getNativeTimeZoneId()); // → "Asia/Dhaka" or whatever the current system's timezone id is.
+```
