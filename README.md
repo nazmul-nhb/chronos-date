@@ -117,6 +117,8 @@ import { MONTHS } from "chronos-date/constants";
 // Plugins (imported individually)
 import { timeZonePlugin } from "chronos-date/plugins/timeZonePlugin";
 import { seasonPlugin } from "chronos-date/plugins/seasonPlugin";
+// All plugin imports share the same pattern
+import { pluginName } from "chronos-date/plugins/pluginName";
 ```
 
 ---
@@ -176,3 +178,8 @@ For full documentation, API reference, and interactive playgrounds, visit the [*
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
+You are free to use, modify, and distribute this project under the terms of the Apache 2.0 License, provided that appropriate credit is given.
+
+---
+
+Built with ❤️ by [**Nazmul Hassan**](https://nazmul-nhb.dev)
