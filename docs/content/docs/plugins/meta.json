@@ -1,0 +1,12 @@
+{
+	"pages": [
+		"bangla-plugin",
+		"timezone-plugin",
+		"business-plugin",
+		"date-range-plugin",
+		"round-plugin",
+		"season-plugin",
+		"zodiac-plugin",
+		"..."
+	]
+}
