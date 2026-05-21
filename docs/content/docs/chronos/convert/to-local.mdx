@@ -1,0 +1,30 @@
+---
+title: toLocal
+description: Converts the current Chronos instance to local (System) time.
+---
+
+## `toLocal()`
+
+Converts the current `Chronos` instance to local (System) time.
+
+### Signature
+
+```ts
+toLocal(): Chronos
+```
+
+### Return Type
+
+`Chronos` - Local time instance
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const ch = Chronos.utc();
+const localCh = ch.toLocal();
+
+console.log(ch.timeZoneName); // Greenwich Mean Time
+console.log(localCh.timeZoneName); // System Dependent
+```

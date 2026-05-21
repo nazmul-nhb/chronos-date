@@ -1,0 +1,29 @@
+---
+title: toArray
+description: Converts to array with all date unit parts.
+---
+
+## `toArray()`
+
+Converts to array with all date unit parts
+
+### Signature
+
+```ts
+toArray(): TupleOf<number, 12>
+```
+
+### Return Type
+
+`TupleOf<number, 12>` - Date component values as array (tuple) of numbers (12 elements, the values of `ChronosObject` from [toObject](./to-object) method)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const chronosArr = new Chronos('2025-01-15').toArray();
+// [ 2025, 0, 1, 15, 3, 3, 6, 0, 0, 0, 1736899200000, 1736899200 ]
+
+console.log(chronosArr);
+```

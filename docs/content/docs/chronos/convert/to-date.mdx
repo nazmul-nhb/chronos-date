@@ -1,0 +1,38 @@
+---
+title: toDate
+description: Gets the Date instance of the current Chronos instance.
+---
+
+## `toDate()`
+
+Gets the native `Date` instance of the current `Chronos`.
+
+### Signature
+
+```ts
+toDate(): Date
+```
+
+### Return Type
+
+`Date` - Native Date object
+
+### Notes
+
+- Returns new Date instance
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const chr = new Chronos();
+const dateD = new Date();
+const dateC = chr.toDate();
+
+console.log({ chr, dateC, dateD }); // dateC is converted Date instance from Chronos, dateD is instance of Date. Both should be same value (may differ in milliseconds for device dependent).
+```
+
+<Callout type="idea" title="Tips">
+Native `Date` object can also be accessed by [`native`](/docs/chronos#native) public property.
+</Callout>

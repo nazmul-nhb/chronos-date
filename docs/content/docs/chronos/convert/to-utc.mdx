@@ -1,0 +1,30 @@
+---
+title: toUTC
+description: Converts the current Chronos instance to UTC time.
+---
+
+## `toUTC()`
+
+Converts the current `Chronos` instance to UTC time.
+
+### Signature
+
+```ts
+toUTC(): Chronos
+```
+
+### Return Type
+
+`Chronos` - UTC instance
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const chr = new Chronos();
+const dateD = new Date();
+const dateC = chr.toUTC();
+
+console.log({ chr, dateC, dateD }); // dateC is converted Date instance from Chronos, dateD is instance of Date. All three should be same value (may differ in milliseconds for device dependent).
+```

@@ -80,7 +80,7 @@ However, in JavaScript, these properties _can technically be mutated_ (Compile-t
 Returns the underlying native JavaScript `Date` object used internally by the `Chronos` instance. This is useful for interoperability with APIs or libraries that expect a native `Date`.
 
 <Callout type="info" title="Info">
-Equivalent to [`toDate()`](./chronos/conversion#todate) instance method.
+Equivalent to [`toDate()`](./chronos/convert/to-date) instance method.
 </Callout>
 
 ```ts pg
@@ -326,13 +326,13 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   <Accordion title="Conversion Methods">
     | Method                                           | Short Description                                                            |
     | ------------------------------------------------ | ---------------------------------------------------------------------------- |
-    | [clone()](./chronos/conversion#clone)            | Clones and returns exactly same `Chronos` instance.                          |
-    | [toUTC()](./chronos/conversion#toutc)            | Returns new `Chronos` instance in UTC time.                                  |
-    | [toLocal()](./chronos/conversion#tolocal)        | Returns new `Chronos` instance in local time.                                |
+    | [clone()](./chronos/manipulate/clone)            | Clones and returns exactly same `Chronos` instance.                          |
+    | [toUTC()](./chronos/convert/to-utc)              | Returns new `Chronos` instance in UTC time.                                  |
+    | [toLocal()](./chronos/convert/to-local)          | Returns new `Chronos` instance in local time.                                |
     | [timeZone()](./plugins/timezone-plugin#timezone) | Creates a new instance of `Chronos` for the specified time zone information. |
-    | [toDate()](./chronos/conversion#todate)          | Gets the native `Date` instance.                                             |
-    | [toArray()](./chronos/conversion#toarray)        | Converts to array with all date unit part                                    |
-    | [toObject()](./chronos/conversion#toobject)      | Converts to object with all date unit parts                                  |
+    | [toDate()](./chronos/convert/to-date)            | Gets the native `Date` instance.                                             |
+    | [toArray()](./chronos/convert/to-array)          | Converts to array with all date unit part                                    |
+    | [toObject()](./chronos/convert/to-object)        | Converts to object with all date unit parts                                  |
   </Accordion>
 
   <Accordion title="Comparison Methods">
@@ -350,19 +350,19 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   </Accordion>
 
   <Accordion title="Get & Set Methods">
-    | Method                                                 | Short Description                                                       |
-    | ------------------------------------------------------ | ----------------------------------------------------------------------- |
-    | [get()](./chronos/get-set/get)                         | Gets the value of a specific time unit from the date.                   |
-    | [set()](./chronos/get-set/set)                         | Returns a new instance with the specified unit set to the given value.  |
-    | [startOf()](./chronos/manipulate/start-of)                 | Returns a new `Chronos` instance at the start of a given unit.          |
-    | [endOf()](./chronos/manipulate/end-of)                     | Returns a new `Chronos` instance at the end of a given unit.            |
-    | [getWeek()](./chronos/get-set/get-week)                 | Calculates the ISO 8601 week number of the year.                        |
-    | [setWeek()](./chronos/get-set/set-week)                 | Sets the date to the specified ISO week number within the current year. |
-    | [getWeekOfYear()](./chronos/get-set/get-week-of-year)     | Calculates the week number of the year based on custom week start.      |
-    | [getWeekYear()](./chronos/get-set/get-week-year)         | Returns the ISO week-numbering year for the current date.               |
-    | [getDayOfYear()](./chronos/get-set/get-day-of-year)       | Returns day of year (1 - 366).                                          |
-    | [getTimeStamp()](./chronos/get-set/get-timestamp)       | Returns the time value in milliseconds since midnight, 1970-01-01 UTC.  |
-    | [daysInMonth()](./chronos/get-set/days-in-month)         | Returns number of days in current month.                                |
+    | Method                                                       | Short Description                                                       |
+    | ------------------------------------------------------------ | ----------------------------------------------------------------------- |
+    | [get()](./chronos/get-set/get)                               | Gets the value of a specific time unit from the date.                   |
+    | [set()](./chronos/get-set/set)                               | Returns a new instance with the specified unit set to the given value.  |
+    | [startOf()](./chronos/manipulate/start-of)                   | Returns a new `Chronos` instance at the start of a given unit.          |
+    | [endOf()](./chronos/manipulate/end-of)                       | Returns a new `Chronos` instance at the end of a given unit.            |
+    | [getWeek()](./chronos/get-set/get-week)                      | Calculates the ISO 8601 week number of the year.                        |
+    | [setWeek()](./chronos/get-set/set-week)                      | Sets the date to the specified ISO week number within the current year. |
+    | [getWeekOfYear()](./chronos/get-set/get-week-of-year)        | Calculates the week number of the year based on custom week start.      |
+    | [getWeekYear()](./chronos/get-set/get-week-year)             | Returns the ISO week-numbering year for the current date.               |
+    | [getDayOfYear()](./chronos/get-set/get-day-of-year)          | Returns day of year (1 - 366).                                          |
+    | [getTimeStamp()](./chronos/get-set/get-timestamp)            | Returns the time value in milliseconds since midnight, 1970-01-01 UTC.  |
+    | [daysInMonth()](./chronos/get-set/days-in-month)             | Returns number of days in current month.                                |
     | [firstDayOfMonth()](./chronos/manipulate/first-day-of-month) | Returns a new instance set to the first day of the current month.       |
     | [lastDayOfMonth()](./chronos/manipulate/last-day-of-month)   | Returns a new instance set to the last day of the current month.        |
   </Accordion>
