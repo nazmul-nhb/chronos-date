@@ -1,3 +1,13 @@
 {
-	"pages": ["wrapper-function", "getters", "format", "query", "convert", "get-set", "..."]
+	"pages": [
+		"wrapper-function",
+		"getters",
+		"format",
+		"query",
+		"convert",
+		"get-set",
+		"...",
+		"static",
+		"symbols"
+	]
 }

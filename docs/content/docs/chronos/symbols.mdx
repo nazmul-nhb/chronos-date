@@ -3,7 +3,7 @@ id: symbols
 title: Symbol Methods
 ---
 
-## [Symbol.iterator]
+## `Symbol.iterator`
 
 Enables iteration over date components, allowing destructuring and array spreading.
 
@@ -25,27 +25,17 @@ Enables iteration over date components, allowing destructuring and array spreadi
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 for (const [key, value] of new Chronos()) {
-  console.log(key, value);
+  console.log({[key]: value});
 }
-// year 2025
-// month 4
-// isoMonth 5
-// date 10
-// weekDay 6
-// isoWeekDay 7
-// hour 14
-// minute 38
-// second 9
-// millisecond 329
-// timestamp 1746866289329
-// unix 1746866289
 ```
 
 ---
 
-## [Symbol.toPrimitive]
+## `Symbol.toPrimitive`
 
 Provides primitive value conversion for mathematical operations and string interpolation.
 
@@ -71,14 +61,18 @@ Provides primitive value conversion for mathematical operations and string inter
 
 ### Example
 
-```ts
-+new Chronos(); // timestamp 1746866213184
-`${new Chronos()}`; // ISO string 2025-05-10T14:37:20.105+06:00
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log({
+  timestamp: +new Chronos(),
+  isoString: `${new Chronos()}`,
+})
 ```
 
 ---
 
-## [Symbol.replace]
+## `Symbol.replace`
 
 Enables `Chronos` instances to be used as search patterns in `String.prototype.replace()`.
 
@@ -105,17 +99,19 @@ Enables `Chronos` instances to be used as search patterns in `String.prototype.r
 
 ### Example
 
-```ts
-const chronos = new Chronos('2025-09-01T13:26:00');
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const c = new Chronos('2025-09-01T13:26:00');
 const text = 'Event scheduled for 2025-09-01T13:26:00';
 
-text.replace(chronos, '2025.10.15');
-// Returns: 'Event scheduled for 2025-10-15'
+console.log(text.replace(c, '2025.10.15'));
+// Returns: 'Event scheduled for 2025.10.15'
 ```
 
 ---
 
-## [Symbol.search]
+## `Symbol.search`
 
 Enables `Chronos` instances to be used as search patterns in `String.prototype.search()`.
 
@@ -141,16 +137,18 @@ Enables `Chronos` instances to be used as search patterns in `String.prototype.s
 
 ### Example
 
-```ts
-const chronos = new Chronos('2025-09-01T00:00:00');
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const c = new Chronos('2025-09-01T00:00:00');
 const text = 'Meeting on 2025-09-01T00:00:00 at conference room';
 
-text.search(chronos); // Returns: 11
+console.log(text.search(c)); // Returns: 11
 ```
 
 ---
 
-## [Symbol.split]
+## `Symbol.split`
 
 Enables `Chronos` instances to be used as separators in `String.prototype.split()`.
 
@@ -176,17 +174,19 @@ Enables `Chronos` instances to be used as separators in `String.prototype.split(
 
 ### Example
 
-```ts
-const chronos = new Chronos('2025-09-01T00:00:00.000+06:00');
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const c = new Chronos('2025-09-01T00:00:00.000+06:00');
 const text = 'Log entries: Error2025-09-01T00:00:00Nothing Serious';
 
-text.split(chronos);
+console.log(text.split(c));
 // Returns: [ 'Log entries: Error', 'Nothing Serious' ]
 ```
 
 ---
 
-## [Symbol.match]
+## `Symbol.match`
 
 Enables `Chronos` instances to be used as regex patterns in string matching operations.
 
@@ -232,8 +232,10 @@ Enables `Chronos` instances to be used as regex patterns in string matching oper
 
 ### Example
 
-```ts
-const chronosInstance = new Chronos('2025-09-01T13:26:00');
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const c = new Chronos('2025-09-01T13:26:00');
 
 // Match various date formats
 const text1 = 'Meeting on 2025-09-01';
@@ -242,16 +244,18 @@ const text3 = 'Meeting on 20250901';
 const text4 = 'Meeting at 2025-09-01T13:26:00';
 const text5 = 'Meeting at 2025/09/01 13.26.00';
 
-text1.match(chronosInstance)[0]; // ✅ ["2025-09-01"]
-text2.match(chronosInstance)[0]; // ✅ ["2025/09/01"]
-text3.match(chronosInstance)[0]; // ✅ ["20250901"]
-text4.match(chronosInstance)[0]; // ✅ ["2025-09-01T13:26:00"]
-text5.match(chronosInstance)[0]; // ✅ ["2025/09/01 13.26.00"]
+console.log({
+  text1: text1.match(c)[0], // ✅ ["2025-09-01"]
+  text2: text2.match(c)[0], // ✅ ["2025/09/01"]
+  text3: text3.match(c)[0], // ✅ ["20250901"]
+  text4: text4.match(c)[0], // ✅ ["2025-09-01T13:26:00"]
+  text5: text5.match(c)[0], // ✅ ["2025/09/01 13.26.00"]
+});
 ```
 
 ---
 
-## [Symbol.toStringTag]
+## `Symbol.toStringTag`
 
 Customizes the default string description of the object.
 
@@ -273,13 +277,15 @@ get [Symbol.toStringTag](): string
 
 ### Example
 
-```ts
-Object.prototype.toString.call(new Chronos()); // [object 2025-11-11T00:29:01.599+06:00]
+```ts pg
+import { Chronos } from 'chronos-date';
+
+console.log(Object.prototype.toString.call(new Chronos())); // [object ISO String]
 ```
 
 ---
 
-## [Symbol.isConcatSpreadable]
+## `Symbol.isConcatSpreadable`
 
 Enables Chronos instances to be spread when used with array concatenation.
 
@@ -301,7 +307,9 @@ get [Symbol.isConcatSpreadable](): boolean
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 const chronosInstance = new Chronos('2023-12-31');
 const array1 = [1, 2, 3];
 const array2 = [4, 5, 6];
