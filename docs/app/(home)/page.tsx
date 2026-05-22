@@ -5,36 +5,35 @@ import Link from 'next/link';
 import type { SpecialCharacter } from 'nhb-toolbox/string/types';
 import type { Key, ReactNode } from 'react';
 import { WatermarkContent } from '@/components/watermark';
-import { appLogo } from '@/lib/shared';
+import { appLogo, appName } from '@/lib/shared';
 
 export default function HomePage() {
 	return (
 		<main className="flex flex-col items-center justify-center flex-1 px-6 py-20 text-center">
 			<WatermarkContent bgSize="unset" cardShadow={false} logo={appLogo}>
 				<div className="max-w-3xl space-y-8">
-					<div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 dark:text-amber-400 text-amber-800 text-sm font-medium mb-4">
+					<div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 dark:text-brand-400 text-brand-800 text-sm font-medium mb-4">
 						<span className="relative flex size-2">
-							<span className="animate-ping absolute inline-flex size-full rounded-full bg-amber-400 opacity-75" />
-							<span className="relative inline-flex rounded-full size-2 bg-amber-500" />
+							<span className="animate-ping absolute inline-flex size-full rounded-full bg-brand-400 opacity-75" />
+							<span className="relative inline-flex rounded-full size-2 bg-brand-500" />
 						</span>
 						Latest: v{pkg.version}
 					</div>
 
 					<h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl">
-						<span className="bg-linear-to-r from-amber-500 via-amber-700 to-orange-500 bg-clip-text text-transparent">
-							Chronos
+						<span className="bg-linear-to-r from-brand-500 via-brand-700 to-brand-600 bg-clip-text text-transparent">
+							{appName}
 						</span>
 					</h1>
 
 					<p className="text-xl text-fd-muted-foreground max-w-2xl mx-auto leading-relaxed">
-						A flexible, plugin-driven date-time library for any JavaScript and
-						TypeScript environment. Lightweight, immutable, and fully tree-shakable.
+						{pkg.description}
 					</p>
 
 					<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
 						<Link
 							href={'/docs' as Route}
-							className="inline-flex items-center px-6 py-3 rounded-xl bg-linear-to-r from-amber-500 via-amber-800 to-orange-500 text-white font-semibold shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-200 hover:scale-105"
+							className="inline-flex items-center px-6 py-3 rounded-xl bg-linear-to-r from-brand-500 via-brand-800 to-brand-700 text-white font-semibold shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 hover:scale-105"
 						>
 							Get Started →
 						</Link>
@@ -72,7 +71,7 @@ type FeatureProps = {
 function FeatureCard({ icon, title, description }: FeatureProps) {
 	return (
 		<div className="p-4 rounded-xl border border-fd-border bg-fd-card">
-			<div className="text-amber-500 font-bold text-lg mb-1">{icon}</div>
+			<div className="text-brand-500 font-bold text-lg mb-1">{icon}</div>
 			<h3 className="font-semibold text-fd-foreground mb-1">{title}</h3>
 			<p className="text-sm text-fd-muted-foreground">{description}</p>
 		</div>
