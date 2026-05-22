@@ -132,8 +132,14 @@ For full documentation, API reference, and interactive playgrounds, visit the [*
 ## 🔗 Related Packages
 
 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+  <a target="_blank" href="https://www.npmjs.com/package/toolbox-x">
+    <img src="https://img.shields.io/badge/Toolbox--X-toolbox--x-steelblue" alt="toolbox-x" />
+  </a>
+</div>
+
+<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
   <a target="_blank" href="https://www.npmjs.com/package/nhb-toolbox">
-    <img src="https://img.shields.io/badge/NHB_Toolbox-nhb--toolbox-steelblue" alt="nhb-toolbox" />
+    <img src="https://img.shields.io/badge/NHB_Toolbox-nhb--toolbox-darkred" alt="nhb-toolbox" />
   </a>
 </div>
 
@@ -177,7 +183,11 @@ For full documentation, API reference, and interactive playgrounds, visit the [*
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the [Apache License 2.0](LICENSE) with the following additional requirement:
+
+**Additional Requirement:**
+
+> Any fork, derivative work, or redistribution of this project must include clear attribution to [**Nazmul Hassan**](https://github.com/nazmul-nhb) in both the source code and any publicly available documentation.
 
 You are free to use, modify, and distribute this project under the terms of the Apache 2.0 License, provided that appropriate credit is given.
 
