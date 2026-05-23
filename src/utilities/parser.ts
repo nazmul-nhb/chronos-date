@@ -1,8 +1,8 @@
+import { MS_MAP } from 'src/constants/basic';
+import { isTimeWithUnit } from 'src/guards';
+import type { $TimeUnitVar, TimeWithUnit } from 'src/types';
 import { isNonEmptyString, isNumber, isNumericString } from 'toolbox-x/guards';
 import type { Numeric } from 'toolbox-x/types';
-import { MS_MAP } from '../constants/basic';
-import { isTimeWithUnit } from '../guards';
-import type { $TimeUnitVar, TimeWithUnit } from '../types';
 
 /**
  * * Parse the given value to milliseconds or optionally to seconds.

@@ -44,7 +44,7 @@
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"biome.lsp.trace.server": "messages",
-	// "typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"js/ts.preferences.importModuleSpecifierEnding": "index",
 	"typescript.preferences.importModuleSpecifierEnding": "index",
 	"files.autoSave": "onFocusChange",

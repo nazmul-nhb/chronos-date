@@ -1,5 +1,5 @@
-import type { ChronosPlugin, ClockTime, GreetingConfigs } from '../types';
-import { getGreeting } from '../utils/greet';
+import type { ChronosPlugin, ClockTime, GreetingConfigs } from 'src/types';
+import { getGreeting } from 'src/utilities/greet';
 
 declare module 'chronos-date' {
 	interface Chronos {

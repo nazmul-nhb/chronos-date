@@ -1,5 +1,5 @@
-import { INTERNALS } from '../constants/basic';
-import type { ChronosInput, ChronosPlugin, TimeUnit } from '../types';
+import { INTERNALS } from 'src/constants/basic';
+import type { ChronosInput, ChronosPlugin, TimeUnit } from 'src/types';
 
 declare module 'chronos-date' {
 	interface Chronos {

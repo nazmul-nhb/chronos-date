@@ -1,5 +1,5 @@
-import type { Chronos } from '../index';
-import type { ChronosPlugin } from './chronos-plugins';
+import type { Chronos } from 'src/index';
+import type { ChronosPlugin } from 'src/types/chronos-plugins';
 import type {
 	ChronosInput,
 	ChronosProperties,
@@ -8,9 +8,9 @@ import type {
 	DateRangeOptions,
 	RelativeRangeOptions,
 	WeekdayOptions,
-} from './chronos-specific';
-import type { FormatOptions, ISODateTimeString, WeekDay } from './date-time';
-import type { TimeFormatToken } from './format-tokens';
+} from 'src/types/chronos-specific';
+import type { FormatOptions, ISODateTimeString, WeekDay } from 'src/types/date-time';
+import type { TimeFormatToken } from 'src/types/format-tokens';
 
 /** All the statics methods in `Chronos` class */
 export interface ChronosStatics {

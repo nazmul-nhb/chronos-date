@@ -2,8 +2,8 @@ export {
 	getGreeting as generateGreeting,
 	getGreeting,
 	getGreeting as greet,
-} from './utils/greet';
-export { parseMSec as parseMs, parseMSec } from './utils/parser';
+} from 'src/utilities/greet';
+export { parseMSec as parseMs, parseMSec } from 'src/utilities/parser';
 export {
 	convertMinutesToTime as convertMinutesToHourMinutes,
 	convertMinutesToTime,
@@ -32,4 +32,4 @@ export {
 	getTotalMinutes as extractTotalMinutesFromTime,
 	getTotalMinutes,
 	getTotalMinutes as getTotalMinutesFromTime,
-} from './utils/utilities';
+} from 'src/utilities/utils';

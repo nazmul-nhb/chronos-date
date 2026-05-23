@@ -1,5 +1,4 @@
-import { digitToBangla } from 'toolbox-x';
-import { BN_DAYS, BN_MONTHS, INTERNALS } from '../constants/basic';
+import { BN_DAYS, BN_MONTHS, INTERNALS } from 'src/constants/basic';
 import type {
 	$BanglaMonth,
 	$BanglaMonthDate,
@@ -14,7 +13,7 @@ import type {
 	BnCalendarVariant,
 	ChronosPlugin,
 	SafeFormat,
-} from '../types';
+} from 'src/types';
 import {
 	_bnDaysMonthIdx,
 	_formatDateCore,
@@ -22,7 +21,8 @@ import {
 	_getBnYear,
 	_isBnLeapYear,
 	_padShunno,
-} from '../utils/helpers';
+} from 'src/utilities/helpers';
+import { digitToBangla } from 'toolbox-x';
 
 declare module 'chronos-date' {
 	interface Chronos {

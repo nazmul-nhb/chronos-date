@@ -1,21 +1,21 @@
-import type { Maybe } from 'toolbox-x/types';
-import type { Enumerate, LocaleCode, NumberRange } from 'toolbox-x/types/number';
-import type { LooseLiteral, Split } from 'toolbox-x/types/utils';
 import type {
 	DAYS,
 	LOCALE_CALENDARS,
 	LOCALE_NUMBERING_SYSTEMS,
 	MONTHS,
 	TIME_UNIT_VARIANTS,
-} from '../constants/basic';
+} from 'src/constants/basic';
 import type {
 	TIME_ZONE_IDS,
 	TIME_ZONE_LABELS,
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
-} from '../constants/timezone';
-import type { ChronosStatics } from './chronos-statics';
-import type { SafeFormat } from './format-tokens';
+} from 'src/constants/timezone';
+import type { ChronosStatics } from 'src/types';
+import type { SafeFormat } from 'src/types/format-tokens';
+import type { Maybe } from 'toolbox-x/types';
+import type { Enumerate, LocaleCode, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral, Split } from 'toolbox-x/types/utils';
 
 /** - Represents the full name of a weekday, e.g., 'Monday', 'Tuesday' etc. */
 export type WeekDay = (typeof DAYS)[number];

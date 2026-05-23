@@ -1,8 +1,5 @@
-import { normalizeNumber } from 'toolbox-x';
-import { isObject, isUndefined } from 'toolbox-x/guards';
-import type { Maybe, Numeric } from 'toolbox-x/types';
-import { NATIVE_TZ_IDS } from '../constants/timezone';
-import { isValidUTCOffset } from '../guards';
+import { NATIVE_TZ_IDS } from 'src/constants/timezone';
+import { isValidUTCOffset } from 'src/guards';
 import type {
 	$DateUnit,
 	$TimeZoneIdentifier,
@@ -18,14 +15,17 @@ import type {
 	TimeZoneDetails,
 	TimeZoneIdNative,
 	UTCOffset,
-} from '../types';
+} from 'src/types';
 import {
 	_dateArgsToDate,
 	_formatDate,
 	_gmtToUtcOffset,
 	_normalizeOffset,
 	_resolveNativeTzName,
-} from './helpers';
+} from 'src/utilities/helpers';
+import { normalizeNumber } from 'toolbox-x';
+import { isObject, isUndefined } from 'toolbox-x/guards';
+import type { Maybe, Numeric } from 'toolbox-x/types';
 
 /**
  * * Extracts the hour and minute from a time string in `HH:MM` or `-HH:MM` format.

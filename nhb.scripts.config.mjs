@@ -50,7 +50,7 @@ function generatePlugin(pluginName) {
 	return [
 		{
 			name: `${pluginName}Plugin.ts`,
-			content: `import type { ChronosPlugin } from '../types';
+			content: `import type { ChronosPlugin } from 'src/types';
 
 declare module 'chronos-date' {
     interface Chronos {

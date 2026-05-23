@@ -1,6 +1,6 @@
+import { INTERNALS } from 'src/constants/basic';
+import type { $DateUnit, ChronosInput, ChronosPlugin, FromNowUnit } from 'src/types';
 import { formatUnitWithPlural } from 'toolbox-x';
-import { INTERNALS } from '../constants/basic';
-import type { $DateUnit, ChronosInput, ChronosPlugin, FromNowUnit } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {

@@ -1,4 +1,3 @@
-import type { LooseLiteral } from 'toolbox-x/types/utils';
 import type {
 	DATE_FORMATS,
 	DAY_FORMATS,
@@ -9,7 +8,8 @@ import type {
 	SECOND_FORMATS,
 	TIME_FORMATS,
 	YEAR_FORMATS,
-} from '../constants/basic';
+} from 'src/constants/basic';
+import type { LooseLiteral } from 'toolbox-x/types/utils';
 
 /** Year in either 4 or 2 digits format */
 export type YearToken = (typeof YEAR_FORMATS)[number];

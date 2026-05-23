@@ -3,16 +3,16 @@
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
 import { Check, LinkIcon } from 'lucide-react';
 import { type ComponentProps, type ReactNode, useEffect, useRef, useState } from 'react';
-import { cn } from '@/lib/cn';
-import { mergeRefs } from '@/lib/merge-refs';
 import {
 	AccordionContent,
 	AccordionHeader,
 	AccordionItem,
 	AccordionTrigger,
 	Accordion as Root,
-} from './ui/accordion';
-import { buttonVariants } from './ui/button';
+} from '@/components/ui/accordion';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/cn';
+import { mergeRefs } from '@/lib/merge-refs';
 
 export function Accordions({
 	type = 'single',

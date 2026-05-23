@@ -1,6 +1,6 @@
+import { DATE_PART_RANGES } from 'src/constants/basic';
+import type { ChronosPlugin, DayPart, DayPartConfig } from 'src/types';
 import { isValidObject } from 'toolbox-x/guards';
-import { DATE_PART_RANGES } from '../constants/basic';
-import type { ChronosPlugin, DayPart, DayPartConfig } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {

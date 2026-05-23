@@ -1,8 +1,6 @@
-import type { Any, Maybe } from 'toolbox-x/types';
-import type { LooseLiteral } from 'toolbox-x/types/utils';
-import { INTERNALS } from '../constants/basic';
-import { NATIVE_TZ_IDS, TIME_ZONE_LABELS, TIME_ZONES } from '../constants/timezone';
-import { isValidUTCOffset } from '../guards';
+import { INTERNALS } from 'src/constants/basic';
+import { NATIVE_TZ_IDS, TIME_ZONE_LABELS, TIME_ZONES } from 'src/constants/timezone';
+import { isValidUTCOffset } from 'src/guards';
 import type {
 	$TimeZoneIdentifier,
 	$TZLabelKey,
@@ -13,9 +11,11 @@ import type {
 	TimeZoneIdentifier,
 	TimeZoneName,
 	UTCOffset,
-} from '../types';
-import { _gmtToUtcOffset, _resolveNativeTzName } from '../utils/helpers';
-import { extractMinutesFromUTC } from '../utils/utilities';
+} from 'src/types';
+import { _gmtToUtcOffset, _resolveNativeTzName } from 'src/utilities/helpers';
+import { extractMinutesFromUTC } from 'src/utilities/utils';
+import type { Any, Maybe } from 'toolbox-x/types';
+import type { LooseLiteral } from 'toolbox-x/types/utils';
 
 /** Record of time zone name and abbreviation */
 type $TZNameAbbr = { tzAbbr: TimeZone; tzName: TimeZoneName };

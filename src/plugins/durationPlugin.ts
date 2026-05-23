@@ -1,4 +1,4 @@
-import { INTERNALS } from '../constants/basic';
+import { INTERNALS } from 'src/constants/basic';
 import type {
 	$DateUnit,
 	ChronosInput,
@@ -6,7 +6,7 @@ import type {
 	DurationKey,
 	DurationOptions,
 	TimeDuration,
-} from '../types';
+} from 'src/types';
 
 declare module 'chronos-date' {
 	interface Chronos {

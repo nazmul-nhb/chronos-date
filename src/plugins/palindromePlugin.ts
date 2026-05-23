@@ -1,5 +1,5 @@
+import type { ChronosPlugin } from 'src/types';
 import { isPalindrome } from 'toolbox-x/guards';
-import type { ChronosPlugin } from '../types';
 
 declare module 'chronos-date' {
 	interface Chronos {

@@ -1,6 +1,4 @@
-import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
-import type { LooseLiteral } from 'toolbox-x/types/utils';
-import type { Chronos } from '../index';
+import type { Chronos } from 'src/index';
 import type {
 	$TimeZoneIdentifier,
 	ISODateFormat,
@@ -11,7 +9,9 @@ import type {
 	TimeZoneName,
 	UTCOffset,
 	WeekDay,
-} from './date-time';
+} from 'src/types/date-time';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral } from 'toolbox-x/types/utils';
 
 /**
  * * Timezone identifier type for `Chronos`

@@ -1,7 +1,4 @@
-import { isUndefined, isValidArray } from 'toolbox-x/guards';
-import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
-import type { RangeTuple } from 'toolbox-x/types/utils';
-import { INTERNALS } from '../constants/basic';
+import { INTERNALS } from 'src/constants/basic';
 import type {
 	AcademicYear,
 	BusinessOptionsBasic,
@@ -9,7 +6,10 @@ import type {
 	ChronosInput,
 	ChronosPlugin,
 	Quarter,
-} from '../types';
+} from 'src/types';
+import { isUndefined, isValidArray } from 'toolbox-x/guards';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
+import type { RangeTuple } from 'toolbox-x/types/utils';
 
 declare module 'chronos-date' {
 	interface Chronos {

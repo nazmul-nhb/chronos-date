@@ -1,7 +1,7 @@
 import type * as CSS from 'csstype';
 import { Fragment } from 'react/jsx-runtime';
 import type { Maybe } from 'toolbox-x/types';
-import { cn } from '../lib/cn';
+import { cn } from '@/lib/cn';
 
 type WatermarkProps = {
 	// opacity?: Enumerate<101>;

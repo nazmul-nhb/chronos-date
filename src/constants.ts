@@ -3,7 +3,7 @@ export {
 	VEDIC_ZODIAC_SIGNS,
 	DAYS as WEEK_DAYS,
 	WESTERN_ZODIAC_SIGNS,
-} from './constants/basic';
+} from 'src/constants/basic';
 
 export {
 	IANA_TZ_IDS,
@@ -13,7 +13,7 @@ export {
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
 	TIME_ZONES as TZ_ABBREVIATIONS,
-} from './constants/timezone';
+} from 'src/constants/timezone';
 
 export {
 	AUSTRALIA_SEASONS,
@@ -27,4 +27,4 @@ export {
 	SEASON_PRESETS,
 	US_ACADEMIC_SEASONS,
 	DEFAULT_SEASONS as WESTERN_SEASONS,
-} from './constants/seasons';
+} from 'src/constants/seasons';

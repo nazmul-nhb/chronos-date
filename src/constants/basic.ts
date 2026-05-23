@@ -1,4 +1,4 @@
-import type { $TimeUnitVar, ClockHour, DayPart } from '../types';
+import type { $TimeUnitVar, ClockHour, DayPart } from 'src/types';
 
 /** @internal Symbol for accessing Chronos internals (plugin author use only) */
 export const INTERNALS = Symbol('Internals');

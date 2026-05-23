@@ -1,6 +1,6 @@
-import { isValidTime } from '../guards';
-import type { GreetingConfigs } from '../types/date-time';
-import { extractHourMinute, getTotalMinutes } from './utilities';
+import { isValidTime } from 'src/guards';
+import type { GreetingConfigs } from 'src/types/date-time';
+import { extractHourMinute, getTotalMinutes } from 'src/utilities/utils';
 
 /**
  * * Returns a greeting message based on the provided time or current time.

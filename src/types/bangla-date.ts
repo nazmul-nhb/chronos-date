@@ -1,13 +1,13 @@
-import type { $BnOnes, BanglaDigit, NumberRange } from 'toolbox-x/types/number';
-import type { LooseLiteral, Repeat } from 'toolbox-x/types/utils';
-import type { BN_DAYS, BN_MONTH_TABLES, BN_MONTHS, BN_SEASONS } from '../constants/basic';
+import type { BN_DAYS, BN_MONTH_TABLES, BN_MONTHS, BN_SEASONS } from 'src/constants/basic';
 import type {
 	DateFormatToken,
 	DateToken,
 	DayToken,
 	MonthToken,
 	YearToken,
-} from './format-tokens';
+} from 'src/types/format-tokens';
+import type { $BnOnes, BanglaDigit, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral, Repeat } from 'toolbox-x/types/utils';
 
 /**
  * Type representing the two possible locales for Bangla date: Bangla or English.

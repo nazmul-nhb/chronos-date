@@ -15,10 +15,10 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import type { ChatUIMessage, SearchTool } from '../../app/api/chat/route';
-import { cn } from '../../lib/cn';
-import { Markdown } from '../markdown';
-import { buttonVariants } from '../ui/button';
+import type { ChatUIMessage, SearchTool } from '@/app/api/chat/route';
+import { Markdown } from '@/components/markdown';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/cn';
 
 const Context = createContext<{
 	open: boolean;

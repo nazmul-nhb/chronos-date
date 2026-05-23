@@ -1,15 +1,15 @@
 import { isNumber } from 'toolbox-x/guards';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { LooseLiteral, TupleOf } from 'toolbox-x/types/utils';
-import { DAYS, INTERNALS, MONTHS, MS_PER_DAY } from './constants/basic';
-import { isDateString, isLeapYear } from './guards';
+import { DAYS, INTERNALS, MONTHS, MS_PER_DAY } from 'src/constants/basic';
+import { isDateString, isLeapYear } from 'src/guards';
 import {
 	_dateArgsToDate,
 	_formatDate,
 	_hasChronosProperties,
 	_normalizeOffset,
 	_resolveNativeTzName,
-} from './utils/helpers';
+} from 'src/utilities/helpers';
 import type {
 	$DateUnit,
 	$NativeTzNameOrId,
@@ -44,8 +44,8 @@ import type {
 	SafeFormat,
 	TimeOnlyFormat,
 	ChronosTimeZone,
-} from './types';
-import { extractMinutesFromUTC, getNativeTimeZoneId } from './utils/utilities';
+} from 'src/types';
+import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utilities/utils';
 
 /** Date parts for `Chronos` as `Record<part, number>` */
 type $DateParts = {
@@ -1981,7 +1981,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 }
 
-export { chronos } from './utils/chronos-fn';
+export { chronos } from 'src/utilities/chronos-fn';
 
 // ! Chronos `INTERNALS` Symbol for plugin authors
-export { INTERNALS } from './constants/basic';
+export { INTERNALS } from 'src/constants/basic';

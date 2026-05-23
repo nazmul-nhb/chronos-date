@@ -1,5 +1,4 @@
-import type { NumberRange } from 'toolbox-x/types/number';
-import { ZODIAC_PRESETS } from '../constants/basic';
+import { ZODIAC_PRESETS } from 'src/constants/basic';
 import type {
 	ChronosPlugin,
 	ZodiacArray,
@@ -7,8 +6,9 @@ import type {
 	ZodiacMetaOptions,
 	ZodiacOptions,
 	ZodiacSign,
-} from '../types';
-import { _padZero } from '../utils/helpers';
+} from 'src/types';
+import { _padZero } from 'src/utilities/helpers';
+import type { NumberRange } from 'toolbox-x/types/number';
 
 declare module 'chronos-date' {
 	interface Chronos {

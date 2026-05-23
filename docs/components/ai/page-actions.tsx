@@ -3,9 +3,9 @@ import { usePathname } from 'fumadocs-core/framework';
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
 import { Check, ChevronDown, Copy, ExternalLinkIcon, TextIcon } from 'lucide-react';
 import { type ComponentProps, useMemo, useState } from 'react';
-import { cn } from '../../lib/cn';
-import { buttonVariants } from '../ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { buttonVariants } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/cn';
 
 const cache = new Map<string, Promise<string>>();
 

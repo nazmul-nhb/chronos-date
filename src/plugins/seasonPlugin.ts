@@ -1,5 +1,5 @@
-import { SEASON_PRESETS } from '../constants/seasons';
-import type { ChronosPlugin, SeasonOptions } from '../types';
+import { SEASON_PRESETS } from 'src/constants/seasons';
+import type { ChronosPlugin, SeasonOptions } from 'src/types';
 
 declare module 'chronos-date' {
 	interface Chronos {

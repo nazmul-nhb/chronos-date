@@ -1,6 +1,6 @@
+import { Chronos } from 'src/index';
+import type { ChronosInput, ChronosStaticKey, ChronosStatics } from 'src/types';
 import { isFunction, isNumber } from 'toolbox-x/guards';
-import { Chronos } from '../index';
-import type { ChronosInput, ChronosStaticKey, ChronosStatics } from '../types';
 
 /**
  * * Converts a date into a Chronos object and access to all `Chronos` methods and properties.

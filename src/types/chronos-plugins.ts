@@ -1,9 +1,9 @@
+import type { DATE_PARTS, WESTERN_ZODIAC_SIGNS, ZODIAC_PRESETS } from 'src/constants/basic';
+import type { SEASON_PRESETS } from 'src/constants/seasons';
+import type { $Chronos, ChronosInput } from 'src/types/chronos-specific';
+import type { ClockHour, MonthDateString } from 'src/types/date-time';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { RangeTuple } from 'toolbox-x/types/utils';
-import type { DATE_PARTS, WESTERN_ZODIAC_SIGNS, ZODIAC_PRESETS } from '../constants/basic';
-import type { SEASON_PRESETS } from '../constants/seasons';
-import type { $Chronos, ChronosInput } from './chronos-specific';
-import type { ClockHour, MonthDateString } from './date-time';
 
 /** * A plugin that augments the `Chronos` class with methods or properties. */
 export type ChronosPlugin = (Chronos: $Chronos) => void;

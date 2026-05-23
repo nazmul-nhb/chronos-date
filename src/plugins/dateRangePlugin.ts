@@ -1,11 +1,11 @@
-import { isNumber, isValidArray } from 'toolbox-x/guards';
-import { DAYS, INTERNALS, MS_PER_DAY } from '../constants/basic';
+import { DAYS, INTERNALS, MS_PER_DAY } from 'src/constants/basic';
 import type {
 	ChronosPlugin,
 	ISODateTimeString,
 	RangeWithDates,
 	RelativeDateRange,
-} from '../types';
+} from 'src/types';
+import { isNumber, isValidArray } from 'toolbox-x/guards';
 
 declare module 'chronos-date' {
 	interface Chronos {
