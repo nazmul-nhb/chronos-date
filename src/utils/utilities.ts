@@ -1,5 +1,6 @@
-import { isObject, isUndefined, normalizeNumber } from 'nhb-toolbox';
-import type { Maybe, Numeric } from 'nhb-toolbox/types';
+import { normalizeNumber } from 'toolbox-x';
+import { isObject, isUndefined } from 'toolbox-x/guards';
+import type { Maybe, Numeric } from 'toolbox-x/types';
 import { NATIVE_TZ_IDS } from '../constants/timezone';
 import { isValidUTCOffset } from '../guards';
 import type {

@@ -1,4 +1,4 @@
-import { roundToNearest } from 'nhb-toolbox';
+import { roundToNearest } from 'toolbox-x';
 import { INTERNALS, MS_PER_DAY } from '../constants/basic';
 import type { ChronosPlugin, TimeUnit } from '../types';
 

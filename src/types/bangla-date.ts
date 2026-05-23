@@ -1,5 +1,5 @@
-import type { $BnOnes, BanglaDigit, NumberRange } from 'nhb-toolbox/number/types';
-import type { LooseLiteral, Repeat } from 'nhb-toolbox/utils/types';
+import type { $BnOnes, BanglaDigit, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral, Repeat } from 'toolbox-x/types/utils';
 import type { BN_DAYS, BN_MONTH_TABLES, BN_MONTHS, BN_SEASONS } from '../constants/basic';
 import type {
 	DateFormatToken,

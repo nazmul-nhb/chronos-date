@@ -1,6 +1,6 @@
-import type { Enumerate, LocaleCode, NumberRange } from 'nhb-toolbox/number/types';
-import type { Maybe } from 'nhb-toolbox/types';
-import type { LooseLiteral, Split } from 'nhb-toolbox/utils/types';
+import type { Maybe } from 'toolbox-x/types';
+import type { Enumerate, LocaleCode, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral, Split } from 'toolbox-x/types/utils';
 import type {
 	DAYS,
 	LOCALE_CALENDARS,

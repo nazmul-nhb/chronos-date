@@ -1,4 +1,4 @@
-import { isFunction, isNumber } from 'nhb-toolbox';
+import { isFunction, isNumber } from 'toolbox-x/guards';
 import { Chronos } from '../index';
 import type { ChronosInput, ChronosStaticKey, ChronosStatics } from '../types';
 

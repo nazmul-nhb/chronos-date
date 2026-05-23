@@ -1,4 +1,4 @@
-import { isPalindrome } from 'nhb-toolbox';
+import { isPalindrome } from 'toolbox-x/guards';
 import type { ChronosPlugin } from '../types';
 
 declare module 'chronos-date' {

@@ -1,7 +1,7 @@
 'use client';
 
-import type { Maybe } from 'nhb-toolbox/types';
 import { useEffect, useState } from 'react';
+import type { Maybe } from 'toolbox-x/types';
 
 /**
  * Smoothly animates a number change (count-up / count-down)

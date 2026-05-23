@@ -3,9 +3,9 @@
 import Editor, { type OnMount, useMonaco } from '@monaco-editor/react';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 import { CheckIcon, CopyIcon, PlayIcon, RefreshCcwIcon } from 'lucide-react';
-import { isArray, isObject } from 'nhb-toolbox';
 import { useEffect, useId, useRef, useState } from 'react';
 import { transform } from 'sucrase';
+import { isArray, isObject } from 'toolbox-x/guards';
 import { Copy } from '@/components/copy';
 import { ChronosDate, type ChronosModule, MODULES } from '@/lib/.generated-modules';
 import generatedTypes from '@/lib/.generated-types.json';

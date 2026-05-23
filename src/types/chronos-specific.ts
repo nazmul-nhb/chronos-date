@@ -1,5 +1,5 @@
-import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
-import type { LooseLiteral } from 'nhb-toolbox/utils/types';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral } from 'toolbox-x/types/utils';
 import type { Chronos } from '../index';
 import type {
 	$TimeZoneIdentifier,

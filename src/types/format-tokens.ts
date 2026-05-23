@@ -1,4 +1,4 @@
-import type { LooseLiteral } from 'nhb-toolbox/utils/types';
+import type { LooseLiteral } from 'toolbox-x/types/utils';
 import type {
 	DATE_FORMATS,
 	DAY_FORMATS,

@@ -1,8 +1,8 @@
 // @ts-check
 
 import { defineScriptConfig } from 'nhb-scripts';
-import { isCamelCase } from 'nhb-toolbox';
-import { convertStringCase, toCamelCase } from 'nhb-toolbox/change-case';
+import { convertStringCase, toCamelCase } from 'toolbox-x/change-case';
+import { isCamelCase } from 'toolbox-x/guards';
 
 export default defineScriptConfig({
 	commit: {
@@ -36,7 +36,7 @@ export default defineScriptConfig({
 		},
 	},
 	count: {
-		defaultPath: 'node_modules/nhb-toolbox/dist/esm',
+		defaultPath: 'node_modules/toolbox-x/dist/esm',
 		excludePaths: ['node_modules', 'dist', '.VSCodeCounter'],
 	},
 });

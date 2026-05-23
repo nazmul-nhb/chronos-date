@@ -1,4 +1,4 @@
-import { digitToBangla } from 'nhb-toolbox';
+import { digitToBangla } from 'toolbox-x';
 import { BN_DAYS, BN_MONTHS, INTERNALS } from '../constants/basic';
 import type {
 	$BanglaMonth,

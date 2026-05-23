@@ -1,4 +1,4 @@
-import type { NumberRange } from 'nhb-toolbox/number/types';
+import type { NumberRange } from 'toolbox-x/types/number';
 import { ZODIAC_PRESETS } from '../constants/basic';
 import type {
 	ChronosPlugin,

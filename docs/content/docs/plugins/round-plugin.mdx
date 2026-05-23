@@ -118,7 +118,7 @@ round(unit: TimeUnit, nearest?: number): Chronos
 
 - Rounding is based on the **proximity to the start or end** of the specified time unit
 - Rounding uses sub-unit fractions (e.g., seconds within minutes, minutes within hours) to determine proximity precisely.
-- `nearest` defines the multiple to round to (e.g., 15-minute intervals), internally uses [**roundToNearest** from `nhb-toolbox`](https://toolbox.nazmul-nhb.dev/docs/utilities/number/roundToNearest).
+- `nearest` defines the multiple to round to (e.g., 15-minute intervals), internally uses **roundToNearest** from `toolbox-x`.
 - Rounding applies fractional logic based on how far into the unit the date is.
 - If an invalid unit is passed, returns the original instance unchanged.
 - Returns a new immutable `Chronos` instance *(does not modify the original)*.

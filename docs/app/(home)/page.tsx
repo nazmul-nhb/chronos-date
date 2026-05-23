@@ -2,8 +2,8 @@ import pkg from 'chronos-date/package.json';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 import type { Route } from 'next';
 import Link from 'next/link';
-import type { SpecialCharacter } from 'nhb-toolbox/string/types';
 import type { Key, ReactNode } from 'react';
+import type { SpecialCharacter } from 'toolbox-x/types/string';
 import { WatermarkContent } from '@/components/watermark';
 import { appLogo, appName } from '@/lib/shared';
 

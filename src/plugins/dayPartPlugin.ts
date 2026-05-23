@@ -1,4 +1,4 @@
-import { isValidObject } from 'nhb-toolbox';
+import { isValidObject } from 'toolbox-x/guards';
 import { DATE_PART_RANGES } from '../constants/basic';
 import type { ChronosPlugin, DayPart, DayPartConfig } from '../types';
 

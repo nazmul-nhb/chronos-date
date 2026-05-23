@@ -1,6 +1,6 @@
-import { isNumber } from 'nhb-toolbox';
-import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
-import type { LooseLiteral, TupleOf } from 'nhb-toolbox/utils/types';
+import { isNumber } from 'toolbox-x/guards';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
+import type { LooseLiteral, TupleOf } from 'toolbox-x/types/utils';
 import { DAYS, INTERNALS, MONTHS, MS_PER_DAY } from './constants/basic';
 import { isDateString, isLeapYear } from './guards';
 import {

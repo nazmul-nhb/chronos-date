@@ -20,7 +20,7 @@ export default defineConfig({
 		pluginTimings: false,
 	},
 	deps: {
-		onlyBundle: ['nhb-toolbox'],
+		onlyBundle: ['toolbox-x'],
 	},
 	banner: `/**
  * Copyright 2026 - present Nazmul Hassan

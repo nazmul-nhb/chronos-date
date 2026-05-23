@@ -1,5 +1,5 @@
-import type { Any, Maybe } from 'nhb-toolbox/types';
-import type { LooseLiteral } from 'nhb-toolbox/utils/types';
+import type { Any, Maybe } from 'toolbox-x/types';
+import type { LooseLiteral } from 'toolbox-x/types/utils';
 import { INTERNALS } from '../constants/basic';
 import { NATIVE_TZ_IDS, TIME_ZONE_LABELS, TIME_ZONES } from '../constants/timezone';
 import { isValidUTCOffset } from '../guards';

@@ -1,4 +1,4 @@
-import { isNumber, isValidArray } from 'nhb-toolbox';
+import { isNumber, isValidArray } from 'toolbox-x/guards';
 import { DAYS, INTERNALS, MS_PER_DAY } from '../constants/basic';
 import type {
 	ChronosPlugin,

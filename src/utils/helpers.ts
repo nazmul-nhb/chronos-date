@@ -1,12 +1,7 @@
-import {
-	getOrdinal,
-	isNonEmptyString,
-	isObjectWithKeys,
-	isString,
-	isValidArray,
-} from 'nhb-toolbox';
-import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
-import type { Maybe } from 'nhb-toolbox/types';
+import { getOrdinal } from 'toolbox-x';
+import { isNonEmptyString, isObjectWithKeys, isString, isValidArray } from 'toolbox-x/guards';
+import type { Maybe } from 'toolbox-x/types';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import {
 	BN_MONTH_TABLES,
 	BN_SEASONS,

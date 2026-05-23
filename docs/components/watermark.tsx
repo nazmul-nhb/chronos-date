@@ -1,6 +1,6 @@
 import type * as CSS from 'csstype';
-import type { Maybe } from 'nhb-toolbox/types';
 import { Fragment } from 'react/jsx-runtime';
+import type { Maybe } from 'toolbox-x/types';
 import { cn } from '../lib/cn';
 
 type WatermarkProps = {

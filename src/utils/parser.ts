@@ -1,5 +1,5 @@
-import { isNonEmptyString, isNumber, isNumericString } from 'nhb-toolbox';
-import type { Numeric } from 'nhb-toolbox/types';
+import { isNonEmptyString, isNumber, isNumericString } from 'toolbox-x/guards';
+import type { Numeric } from 'toolbox-x/types';
 import { MS_MAP } from '../constants/basic';
 import { isTimeWithUnit } from '../guards';
 import type { $TimeUnitVar, TimeWithUnit } from '../types';

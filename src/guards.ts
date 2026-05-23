@@ -1,12 +1,12 @@
+import { normalizeNumber } from 'toolbox-x';
 import {
 	isBoolean,
 	isFunction,
 	isNonEmptyString,
 	isNumericString,
 	isObject,
-	normalizeNumber,
-} from 'nhb-toolbox';
-import type { Numeric } from 'nhb-toolbox/types';
+} from 'toolbox-x/guards';
+import type { Numeric } from 'toolbox-x/types';
 import { IANA_TZ_IDS, NATIVE_TZ_IDS } from './constants/timezone';
 import type {
 	$TimeZoneIdentifier,

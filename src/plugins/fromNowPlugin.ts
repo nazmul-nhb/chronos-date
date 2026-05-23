@@ -1,4 +1,4 @@
-import { formatUnitWithPlural } from 'nhb-toolbox';
+import { formatUnitWithPlural } from 'toolbox-x';
 import { INTERNALS } from '../constants/basic';
 import type { $DateUnit, ChronosInput, ChronosPlugin, FromNowUnit } from '../types';
 

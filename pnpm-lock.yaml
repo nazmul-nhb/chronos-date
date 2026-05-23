@@ -23,9 +23,9 @@ importers:
       nhb-scripts:
         specifier: ^1.9.2
         version: 1.9.2
-      nhb-toolbox:
-        specifier: ^4.30.14
-        version: 4.30.14
+      toolbox-x:
+        specifier: 1.0.1-rc.6
+        version: 1.0.1-rc.6
       tsdown:
         specifier: ^0.22.0
         version: 0.22.0(typescript@6.0.3)
@@ -104,9 +104,6 @@ importers:
       nhb-hooks:
         specifier: ^1.50.11
         version: 1.50.11(nhb-toolbox@4.30.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      nhb-toolbox:
-        specifier: ^4.30.14
-        version: 4.30.14
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -137,6 +134,9 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
+      toolbox-x:
+        specifier: 1.0.1-rc.6
+        version: 1.0.1-rc.6
       twoslash:
         specifier: ^0.3.8
         version: 0.3.8(typescript@6.0.3)
@@ -2940,6 +2940,9 @@ packages:
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
+
+  toolbox-x@1.0.1-rc.6:
+    resolution: {integrity: sha512-Vu/oRrRIHgVx0gskKHP3fq79u6aQj5E32XPMDQs5VNOsBCkdcdWm6zGqf+1unI7q8Z29Hd1oAyKjAM6SjxPB5A==}
 
   tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
@@ -5986,6 +5989,8 @@ snapshots:
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
+
+  toolbox-x@1.0.1-rc.6: {}
 
   tree-kill@1.2.2: {}
 

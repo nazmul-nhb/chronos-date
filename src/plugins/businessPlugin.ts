@@ -1,6 +1,6 @@
-import { isUndefined, isValidArray } from 'nhb-toolbox';
-import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
-import type { RangeTuple } from 'nhb-toolbox/utils/types';
+import { isUndefined, isValidArray } from 'toolbox-x/guards';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
+import type { RangeTuple } from 'toolbox-x/types/utils';
 import { INTERNALS } from '../constants/basic';
 import type {
 	AcademicYear,

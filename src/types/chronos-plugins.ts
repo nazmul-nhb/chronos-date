@@ -1,5 +1,5 @@
-import type { Enumerate, NumberRange } from 'nhb-toolbox/number/types';
-import type { RangeTuple } from 'nhb-toolbox/utils/types';
+import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
+import type { RangeTuple } from 'toolbox-x/types/utils';
 import type { DATE_PARTS, WESTERN_ZODIAC_SIGNS, ZODIAC_PRESETS } from '../constants/basic';
 import type { SEASON_PRESETS } from '../constants/seasons';
 import type { $Chronos, ChronosInput } from './chronos-specific';
