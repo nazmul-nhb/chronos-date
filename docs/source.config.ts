@@ -46,7 +46,7 @@ export default defineConfig({
 	mdxOptions: {
 		rehypeCodeOptions: {
 			themes: {
-				light: 'dracula-soft',
+				light: 'horizon-bright',
 				dark: 'dracula',
 			},
 			transformers: [
