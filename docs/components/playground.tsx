@@ -208,7 +208,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 									wrapInSuspense
 									options={{
 										themes: {
-											light: 'dracula-soft',
+											light: 'horizon-bright',
 											dark: 'dracula',
 										},
 										structure: 'classic',
