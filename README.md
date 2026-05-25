@@ -138,12 +138,6 @@ For full documentation, API reference, and interactive playgrounds, visit the [*
 </div>
 
 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-  <a target="_blank" href="https://www.npmjs.com/package/nhb-toolbox">
-    <img src="https://img.shields.io/badge/NHB_Toolbox-nhb--toolbox-darkred" alt="nhb-toolbox" />
-  </a>
-</div>
-
-<div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
   <a target="_blank" href="https://www.npmjs.com/package/bn-calendar">
     <img src="https://img.shields.io/badge/Bangla_Calendar-bn--calendar-red" alt="bn-calendar" />
   </a>
