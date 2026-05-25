@@ -9,18 +9,20 @@ import type { RangeTuple } from 'toolbox-x/types/utils';
 export type ChronosPlugin = (Chronos: $Chronos) => void;
 
 /** ISO date-based range (format: `MM-DD`) e.g. `01-14` for 'January 14' */
-export type DateBoundary = {
+export interface DateBoundary {
 	/** Start date in `MM-DD` format, e.g. `01-18` means 'January 18' */
 	startDate: MonthDateString;
 	/** End date in `MM-DD` format, e.g. `03-17` means 'March 17' */
 	endDate: MonthDateString;
-};
+}
 
 /** Inclusive month index-based range `0-11` (0 = January) */
-export type MonthBoundary = {
+export interface MonthBoundary {
+	/** Inclusive start month index (0 = January) */
 	startMonth: Enumerate<12>;
+	/** Inclusive end month index (0 = January) */
 	endMonth: Enumerate<12>;
-};
+}
 
 /** Season definition for season configuration */
 export interface SeasonDefinition {
