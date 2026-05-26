@@ -1,0 +1,46 @@
+---
+title: Check Date Object
+description: Validates if a value is a Date object.
+---
+
+## isDate
+
+Validates if a value is a Date object. Properly handles Date instances across different execution contexts.
+
+### Signature
+
+```typescript
+isDate(value: unknown): value is Date
+```
+
+### Examples
+
+```typescript pg
+import { isDate } from 'chronos-date/guards';
+
+// Date checks
+console.log(isDate(new Date()));             // true
+console.log(isDate(new Date('2020-01-01'))); // true
+
+// Non-dates
+console.log(isDate('2020-01-01'));           // false
+console.log(isDate(1577836800000));          // false
+console.log(isDate({}));                     // false
+
+// Type narrowing
+const input: unknown = new Date();
+if (isDate(input)) {
+  console.log(input.getFullYear()); // safely accessible
+}
+```
+
+### Use Cases
+
+- Date parsing validation
+- Serialization/deserialization
+- Form input handling
+
+### See Also
+
+- [`isDateLike`](./is-date-like) - Checks if a value is date-like (Date, Day.js, Moment, Chronos, Luxon, Temporal etc.)
+- [`isDateString`](./is-date-string) - Checks if a string is a valid date string in 'DD-MM-YYYY' format.

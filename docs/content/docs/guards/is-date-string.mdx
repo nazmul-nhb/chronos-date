@@ -1,0 +1,49 @@
+---
+title: Check Date String
+description: Checks if the given value is a valid date string.
+---
+
+## isDateString
+
+Checks if the given value is a valid date string.
+
+<Callout type="idea" title="Note">
+  - A value is considered a valid date string if it is a string and can be parsed by `Date.parse()`.
+  - This uses the native JavaScript date parser internally.
+</Callout>
+
+### Signature
+
+```ts
+function isDateString(value: unknown): value is string
+```
+
+### Parameters
+
+* `value`: Value to check
+
+### Return Type
+
+`boolean` - Whether valid date string
+
+### Example
+
+```ts pg
+import { isDateString } from 'chronos-date/guards';
+
+console.log(isDateString('2025-01-01')); // true
+console.log(isDateString('2025/01/01')); // true
+console.log(isDateString('01-01-2025')); // true
+console.log(isDateString('hello world')); // false
+console.log(isDateString(new Date())); // false
+console.log(isDateString(new Date('2025-01-01'))); // false
+console.log(isDateString(null)); // false
+console.log(isDateString(undefined)); // false
+console.log(isDateString(0)); // false
+console.log(isDateString(1)); // false
+```
+
+### See Also
+
+- [`isDate`](./is-date) - Checks if a value is a Date object.
+- [`isDateLike`](./is-date-like) - Checks if a value is date-like (Date, Day.js, Moment, Chronos, Luxon, Temporal etc.)
