@@ -1,4 +1,4 @@
-import { formatDate, getTimeZoneDetails } from 'chronos-date/utils';
+import { formatDate } from 'chronos-date/utils';
 import { getGithubLastEdit } from 'fumadocs-core/content/github';
 import {
 	DocsBody,
@@ -57,9 +57,10 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 			{lastModified && (
 				<p className="text-sm text-fd-muted-foreground text-right">
 					{`Last updated: ${formatDate({
+						useUTC: true,
 						date: lastModified,
 						format: 'dd, mmm DD, YYYY hh:mm:ssA',
-					})} (${getTimeZoneDetails().tzNameLong})`}
+					})} (UTC)`}
 				</p>
 			)}
 		</DocsPage>
