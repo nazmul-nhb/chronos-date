@@ -1,3 +1,4 @@
+import { RELATIVE_TIME_DIVISIONS } from 'src/constants/basic';
 import { NATIVE_TZ_IDS } from 'src/constants/timezone';
 import { isValidUTCOffset } from 'src/guards';
 import type {
@@ -9,6 +10,7 @@ import type {
 	HourMinutes,
 	ISODateFormat,
 	ISODateTimeString,
+	RelativeDateFormatOptions,
 	SafeFormat,
 	TimeOnlyFormat,
 	TimestampOptions,
@@ -298,6 +300,62 @@ export function formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): 
 	if (days < 7) return `${days}d ${suffix}`;
 
 	return formatDate({ date, format: format || 'mmm D, yyyy hh:mm a' });
+}
+
+/**
+ * * Formats a date as a relative time string using {@link Intl.RelativeTimeFormat} native method.
+ *
+ * @param toDate - The date to format, which can be a `Date` object, a date string, or a timestamp number.
+ * @param options - Optional configuration for relative date formatting.
+ * @returns A relative time string.
+ *
+ * @remarks
+ * - If `toDate` is provided but `undefined`, current date and time will be used.
+ * - If `fromDate` is provided but `undefined`, current date and time will be used.
+ * - If any of the provided date value (`toDate` or `fromDate`) is invalid, the function will return `'Invalid Date!'`.
+ *
+ * @example
+ * formatRelativeDateNative(Date.now() - 5 * 60000); // "5m ago"
+ * formatRelativeDateNative(Date.now() + 2 * 3600000); // "in 2 hours"
+ */
+export function formatRelativeDateNative(
+	toDate: DateArgs,
+	options?: RelativeDateFormatOptions
+): string {
+	const {
+		fromDate = new Date(),
+		locale = 'en',
+		localeMatcher,
+		numeric = 'always',
+		style,
+	} = options ?? {};
+
+	const to = _dateArgsToDate(toDate).getTime();
+	const from = _dateArgsToDate(fromDate).getTime();
+
+	if (Number.isNaN(to) || Number.isNaN(from)) {
+		return 'Invalid Date!';
+	}
+
+	let duration = (to - from) / 1000;
+
+	const RELATIVE_DATE_FORMATTER = new Intl.RelativeTimeFormat(locale, {
+		localeMatcher,
+		numeric,
+		style,
+	});
+
+	let formatted = 'Just now';
+
+	for (const division of RELATIVE_TIME_DIVISIONS) {
+		if (Math.abs(duration) < division.amount) {
+			formatted = RELATIVE_DATE_FORMATTER.format(Math.round(duration), division.name);
+			break;
+		}
+		duration /= division.amount;
+	}
+
+	return formatted;
 }
 
 /**

@@ -250,6 +250,131 @@ console.log({
 
 ---
 
+## `formatRelativeDateNative`
+
+Formats a date as a relative time string using the native `Intl.RelativeTimeFormat` API (e.g., `"5 minutes ago"`, `"in 2 hours"`). Supports custom locale, numeric style, and a reference date to compare against.
+
+### Import
+
+```typescript
+import { formatRelativeDateNative } from "chronos-date/utils";
+```
+
+### Signature
+
+```typescript
+formatRelativeDateNative(toDate: DateArgs, options?: RelativeDateFormatOptions): string
+```
+
+### Parameters
+
+- `toDate`: The target date to format — can be a `Date` object, a date string, or a timestamp number.
+- `options`: Optional configuration for relative date formatting.
+
+```ts
+interface RelativeDateFormatOptions extends Intl.RelativeTimeFormatOptions {
+    /** The date to compare against. Defaults to current time. Can be string, number or `Date`. */
+    fromDate?: string | number | Date;
+    /** The locale to use for formatting. Defaults to `'en'`. */
+    locale?: LocalesArguments;
+}
+```
+
+### Return Type
+
+`string` - A relative time string formatted by the native `Intl.RelativeTimeFormat` API.
+
+### Example
+
+```typescript pg
+import { formatRelativeDateNative } from "chronos-date/utils";
+
+// 5 minutes ago
+const relative5m = formatRelativeDateNative(Date.now() - 5 * 60000);
+// "5 minutes ago"
+
+// 2 hours in the future
+const relative2h = formatRelativeDateNative(Date.now() + 2 * 3600000);
+// "in 2 hours"
+
+// With custom locale
+const relativeBn = formatRelativeDateNative(Date.now() - 3 * 86400000, {
+  locale: "bn",
+});
+// "৩ দিন আগে"
+
+// With narrow style
+const relativeNarrow = formatRelativeDateNative(Date.now() - 2 * 3600000, {
+  style: "narrow",
+});
+// "2 hr. ago"
+
+// With short style
+const relativeShort = formatRelativeDateNative(Date.now() + 10 * 60000, {
+  style: "short",
+});
+// "in 10 min."
+
+// With numeric: 'auto' (uses "yesterday" instead of "1 day ago")
+const relativeAuto = formatRelativeDateNative(Date.now() - 86400000, {
+  numeric: "auto",
+});
+// "yesterday"
+
+// Custom fromDate (compare against a specific date instead of now)
+const relativeFrom = formatRelativeDateNative("2025-01-20", {
+  fromDate: "2025-01-15",
+});
+// "in 5 days"
+
+console.log({
+  relative5m,
+  relative2h,
+  relativeBn,
+  relativeNarrow,
+  relativeShort,
+  relativeAuto,
+  relativeFrom,
+});
+```
+
+### Relative Output Ranges
+
+The function uses progressive time divisions to determine the most appropriate unit:
+
+| Time Difference   | Unit Used   |
+| ----------------- | ----------- |
+| < 60 seconds      | `seconds`   |
+| < 60 minutes      | `minutes`   |
+| < 24 hours        | `hours`     |
+| < 7 days          | `days`      |
+| < ~4.35 weeks     | `weeks`     |
+| < 12 months       | `months`    |
+| ≥ 12 months       | `years`     |
+
+If the time difference is less than 1 second, the function returns `"Just now"`.
+
+### Aliases
+
+`formatRelativeDateNative` can also be accessed via the following aliases:
+
+- `formatDateRelativeNative`
+- `formatRelativeTimeNative`
+
+### Notes
+
+- If either `toDate` or `fromDate` is invalid, the function returns `'Invalid Date!'`.
+- If `toDate` is `undefined`, the current date and time will be used.
+- If `fromDate` is `undefined`, the current date and time will be used.
+- The direction (`"ago"` vs `"in"`) is determined by whether `toDate` is before or after `fromDate`.
+- Unlike [`formatDateRelative()`](#formatdaterelative), this function uses `Intl.RelativeTimeFormat` for localized output and does not fall back to a formatted date string.
+
+### See Also
+
+- [`formatDateRelative()`](#formatdaterelative) for a simpler relative time formatter with fallback to formatted date strings.
+
+---
+
 ## `formatTimePart`
 
 Formats a time-only string into a formatted time string, automatically combining it with today's date for proper parsing.
