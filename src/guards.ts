@@ -32,7 +32,7 @@ export function isDate(value: unknown): value is Date {
  * @returns `true` if the value is a valid date string, otherwise `false`.
  */
 export function isDateString(value: unknown): value is string {
-	return isNonEmptyString(value) && !isNaN(Date.parse(value));
+	return isNonEmptyString(value) && !Number.isNaN(Date.parse(value));
 }
 
 /**

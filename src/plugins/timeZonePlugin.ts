@@ -242,7 +242,7 @@ export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
 			offset = TIME_ZONES[zone].offset;
 			tzId = _getTimeZoneId(offset) || offset;
 		} else {
-			offset = _getTimeZoneDetails(zone, $Date(this)).offset || TIME_ZONES['UTC'].offset;
+			offset = _getTimeZoneDetails(zone, $Date(this)).offset || TIME_ZONES.UTC.offset;
 			tzId = zone;
 		}
 
@@ -276,7 +276,6 @@ export const timeZonePlugin: ChronosPlugin = ($Chronos) => {
 			.replace(/\W/g, '');
 	};
 
-	// @ts-ignore: Misleading TS2590
 	$Chronos.prototype.getTimeZoneNameShort = function (utc) {
 		const tracker = this?.$tzTracker;
 		const UTC = utc || offset(this);

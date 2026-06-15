@@ -207,7 +207,7 @@ export function formatDate(options?: DateFormatOptions): string {
 
 	const $date = _dateArgsToDate(date);
 
-	if (isNaN($date.getTime())) {
+	if (Number.isNaN($date.getTime())) {
 		return 'Invalid Date!';
 	}
 
@@ -277,7 +277,7 @@ export function formatTimePart(time: string, format?: TimeOnlyFormat): string {
 export function formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string {
 	const $date = _dateArgsToDate(date);
 
-	if (isNaN($date.getTime())) {
+	if (Number.isNaN($date.getTime())) {
 		return 'Invalid Date!';
 	}
 
@@ -364,7 +364,7 @@ export function getTimestamp<F extends ISODateFormat = 'utc'>(
 
 	let date = _dateArgsToDate($value);
 
-	if (isNaN(date.getTime())) {
+	if (Number.isNaN(date.getTime())) {
 		date = new Date();
 	}
 

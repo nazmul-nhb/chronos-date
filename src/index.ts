@@ -422,7 +422,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 		const date = value instanceof Chronos ? value.toDate() : _dateArgsToDate(value);
 
 		// Check if the date is invalid
-		if (isNaN(date.getTime())) {
+		if (Number.isNaN(date.getTime())) {
 			throw new Error('Provided date is invalid!');
 		}
 
@@ -1160,7 +1160,6 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			}
 			case 'year':
 				return this.diff(time, 'month') / 12;
-			case 'millisecond':
 			default:
 				return msDiff;
 		}
@@ -1303,7 +1302,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 
 	/** @instance Converts to object with all date unit parts */
 	toObject(): ChronosObject {
-		return Object.fromEntries([...this]) as {} as ChronosObject;
+		return Object.fromEntries([...this]) as unknown as ChronosObject;
 	}
 
 	/** @instance Converts to array with all date unit parts */

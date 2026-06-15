@@ -488,5 +488,13 @@ export function useAISearchContext() {
 }
 
 function useChatContext() {
-	return use(Context)!.chat;
+	const context = use(Context);
+
+	if (!context) {
+		throw Error('useChatContext must be used within AISearchProvider', {
+			cause: 'useChatContext was called outside of its provider',
+		});
+	}
+
+	return context.chat;
 }

@@ -1,0 +1,161 @@
+---
+title: Add Units to Date
+description: Add one or more units to a given date — Chronos Documentation.
+---
+
+## `addDate`
+
+Adds one or more time units (years, months, weeks, days, hours, minutes, seconds, milliseconds) to a given date, returning a new `Date` object without mutating the original.
+
+### Import
+
+```ts
+import { addDate } from 'chronos-date/utils';
+```
+
+### Function Signature
+
+```typescript
+function addDate(date: Maybe<DateArgs>, units: UnitWithValue): Date
+```
+
+### Parameters
+
+| Name    | Type              | Description                                                                                                  |
+| ------- | ----------------- | ------------------------------------------------------------------------------------------------------------ |
+| `date`  | `Maybe<DateArgs>` | Date input as a `Date` object, date string, or timestamp number. If `undefined`, uses current date and time. |
+| `units` | `UnitWithValue`   | An object specifying which time units to add. At least one unit-value pair is required.                      |
+
+#### `UnitWithValue` Properties
+
+| Property      | Type      | Description                    |
+| ------------- | --------- | ------------------------------ |
+| `year`        | `Numeric` | Number of years to add.        |
+| `month`       | `Numeric` | Number of months to add.       |
+| `week`        | `Numeric` | Number of weeks to add.        |
+| `day`         | `Numeric` | Number of days to add.         |
+| `hour`        | `Numeric` | Number of hours to add.        |
+| `minute`      | `Numeric` | Number of minutes to add.      |
+| `second`      | `Numeric` | Number of seconds to add.      |
+| `millisecond` | `Numeric` | Number of milliseconds to add. |
+
+<Callout type="success" title="Important">
+All properties are optional, but at least **one** must be provided. Values accept both `number` and numeric `string` types (`Numeric`).
+</Callout>
+
+### Return Value
+
+- `Date` — A new `Date` object with the specified units added.
+
+### Throws
+
+- **`TypeError`** — If the provided `date` is invalid (results in `NaN` timestamp).
+- **`TypeError`** — If any provided unit key or value is invalid.
+
+### Example Usage
+
+```typescript pg tab="Basic Usage"
+import { addDate } from "chronos-date/utils";
+
+const result = addDate('2026-06-15T01:39:59.288Z', { day: 1, hour: '7' });
+
+console.log(result); // new Date('2026-06-16T08:39:59.288Z')
+```
+
+```typescript pg tab="Multiple Units"
+import { addDate } from "chronos-date/utils";
+
+const result = addDate('2026-01-01T00:00:00.000Z', {
+  year: 1,
+  month: 2,
+  day: 15,
+  hour: 6
+});
+
+console.log(result); // new Date('2027-03-16T06:00:00.000Z')
+```
+
+```typescript pg tab="With Date Object"
+import { addDate } from "chronos-date/utils";
+
+const baseDate = new Date('2026-06-15T12:00:00.000Z');
+const result = addDate(baseDate, { week: 2 });
+
+console.log(result);   // new Date('2026-06-29T12:00:00.000Z')
+console.log(baseDate); // new Date('2026-06-15T12:00:00.000Z') — original unchanged
+```
+
+```typescript pg tab="Negative Values"
+import { addDate } from "chronos-date/utils";
+
+// Subtract by passing negative values
+const result = addDate('2026-06-15T12:00:00.000Z', { day: -5, hour: -3 });
+
+console.log(result); // new Date('2026-06-10T09:00:00.000Z')
+```
+
+```typescript pg tab="Undefined Date"
+import { addDate } from "chronos-date/utils";
+
+// Uses current date and time when `date` is undefined
+const result = addDate(undefined, { minute: 30 });
+
+console.log(result); // Current date + 30 minutes
+```
+
+### Behavior
+
+- Creates a **new `Date` object** — the original date is never mutated.
+- When `date` is `undefined`, falls back to the current date and time (`new Date()`).
+- Multiple units can be combined in a single call; each is applied sequentially.
+- Supports negative values for subtraction (e.g., `{ day: -1 }` subtracts one day).
+- Accepts numeric strings (e.g., `'7'`) in addition to numbers for unit values.
+
+### Type Definitions
+
+```typescript
+type DateArgs = string | number | Date;
+type Maybe<T> = T | undefined;
+type Numeric = number | `${number}`;
+
+type TimeUnit =
+  | 'year'
+  | 'month'
+  | 'day'
+  | 'week'
+  | 'hour'
+  | 'minute'
+  | 'second'
+  | 'millisecond';
+
+type UnitWithValue = RequireAtLeast<{ [U in TimeUnit]?: Numeric }, 1>;
+```
+
+<Callout type="idea" title="Note">
+`RequireAtLeast<T, N>` ensures at least `N` properties from `T` must be provided.
+</Callout>
+
+### Edge Cases
+
+| Input Date                   | Units            | Result                     | Notes                      |
+| ---------------------------- | ---------------- | -------------------------- | -------------------------- |
+| `'2026-06-15T00:00:00.000Z'` | `{ day: -20 }`   | `2026-05-26T00:00:00.000Z` | Negative (subtraction)     |
+| `undefined`                  | `{ second: 30 }` | Current time + 30 seconds  | Falls back to `new Date()` |
+| `'invalid-date'`             | `{ day: 1 }`     | Throws `TypeError`         | Invalid date input         |
+| `Valid Date`                 | `{ }`            | Current time               | No unit provided           |
+
+### Use Cases
+
+- Calculating future due dates or deadlines
+- Scheduling events relative to a base date
+- Building date pickers and calendars with navigation
+- Computing expiration timestamps
+
+### Conclusion
+
+The `addDate` utility provides:
+
+1. **Immutable operations** — never mutates the original date
+2. **Flexible inputs** — accepts `Date`, string, number, or `undefined`
+3. **Multi-unit support** — add years, months, weeks, days, hours, minutes, seconds, and milliseconds in one call
+4. **Type-safe** — enforces at least one unit via `RequireAtLeast` and validates inputs at runtime

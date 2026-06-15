@@ -271,7 +271,7 @@ export const banglaPlugin: ChronosPlugin = ($Chronos) => {
 		return _bnDaysMonthIdx(date, variant ?? DEFAULT_CONFIG.get('config')?.variant);
 	}
 
-	$Chronos.prototype.$configureBangla = function (configs) {
+	$Chronos.prototype.$configureBangla = (configs) => {
 		DEFAULT_CONFIG.set('config', configs);
 	};
 
@@ -382,7 +382,7 @@ export const banglaPlugin: ChronosPlugin = ($Chronos) => {
 			Z: offset,
 			ZZ: offset,
 			S: seasonName,
-			SS: seasonName + 'কাল',
+			SS: `${seasonName}কাল`,
 		};
 
 		return _formatDateCore(

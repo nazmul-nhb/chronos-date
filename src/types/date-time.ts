@@ -13,9 +13,9 @@ import type {
 } from 'src/constants/timezone';
 import type { ChronosStatics } from 'src/types';
 import type { SafeFormat } from 'src/types/format-tokens';
-import type { Maybe } from 'toolbox-x/types';
+import type { Maybe, Numeric } from 'toolbox-x/types';
 import type { Enumerate, LocaleCode, NumberRange } from 'toolbox-x/types/number';
-import type { LooseLiteral, Split } from 'toolbox-x/types/utils';
+import type { LooseLiteral, RequireAtLeast, Split } from 'toolbox-x/types/utils';
 
 /** - Represents the full name of a weekday, e.g., 'Monday', 'Tuesday' etc. */
 export type WeekDay = (typeof DAYS)[number];
@@ -308,3 +308,22 @@ export type LocaleCalendar = (typeof LOCALE_CALENDARS)[number];
 
 /** Locale numbering systems supported by {@link Intl} API */
 export type NumberingSystem = (typeof LOCALE_NUMBERING_SYSTEMS)[number];
+
+/**
+ * * Interface for defining options for relative date formatting.
+ *
+ * @remarks This interface is an extension of {@link Intl.RelativeTimeFormatOptions} and is used by `formatRelativeDateNative` function to format dates relative to a given date.
+ */
+export interface RelativeDateFormatOptions extends Intl.RelativeTimeFormatOptions {
+	/**
+	 * * The date to compare against. Defaults to {@link Date new Date()}. Can be any type of {@link DateArgs}.
+	 */
+	fromDate?: DateArgs;
+	/**
+	 * * The locale to use for formatting. Defaults to `'en'`.
+	 */
+	locale?: LocalesArguments;
+}
+
+/** Record of TimeUnits and number values where at least one property is required. */
+export type UnitWithValue = RequireAtLeast<{ [U in TimeUnit]?: Numeric }, 1>;

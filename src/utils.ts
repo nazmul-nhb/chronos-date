@@ -1,3 +1,4 @@
+export { addDate } from 'src/utilities/calculation';
 export {
 	getGreeting as generateGreeting,
 	getGreeting,
