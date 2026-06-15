@@ -7,15 +7,23 @@ description: Returns a new Chronos instance with the specified unit added.
 
 Returns a new `Chronos` instance with the specified unit added.
 
-### Signature
+### Signatures
 
 ```ts
-add(amount: number, unit: TimeUnit): Chronos
+add(value: number, unit: TimeUnit): Chronos
+
+add(units: UnitWithValue): Chronos
 ```
 
 ### Parameters
 
-- `amount`: Number of units to add
+#### Parameter 1
+
+- `value`: Number of units to add
+- `units`: An object specifying which time units to add. At least one unit-value pair is required.
+
+#### Parameter 2
+
 - `unit`: Time unit to add ('year', 'month', 'day', etc.)
 
 ### Return Type
@@ -29,7 +37,7 @@ add(amount: number, unit: TimeUnit): Chronos
 
 ### Example
 
-```ts pg
+```ts pg tab="With Value and Unit"
 import { Chronos } from 'chronos-date';
 
 const original = new Chronos('2025-01-31');
@@ -37,6 +45,20 @@ const added = original.add(1, 'month');
 
 console.log({ original, added });
 ```
+
+```ts pg tab="With UnitWithValue Object"
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const added = original.add({ month: 1, day: 1, hour: 5, minute: 15 });
+
+console.log({ original, added });
+```
+
+<Callout type="success" title="Important Note for UnitWithValue">
+- All properties are optional, but at least **one** must be provided. Values accept both `number` and numeric `string` types (`Numeric`).
+- For more details, refer to [addDate](/docs/utils/add-date) which returns `Date` object and is used internally 
+</Callout>
 
 ### Alternatives
 

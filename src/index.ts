@@ -1,7 +1,7 @@
-import { isNumber } from 'toolbox-x/guards';
+import { isNotEmptyObject, isNumber } from 'toolbox-x/guards';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { LooseLiteral, TupleOf } from 'toolbox-x/types/utils';
-import { DAYS, INTERNALS, MONTHS, MS_PER_DAY } from 'src/constants/basic';
+import { DATE_UNIT_SETTERS, DAYS, INTERNALS, MONTHS, MS_PER_DAY } from 'src/constants/basic';
 import { isDateString, isLeapYear } from 'src/guards';
 import {
 	_dateArgsToDate,
@@ -44,8 +44,10 @@ import type {
 	SafeFormat,
 	TimeOnlyFormat,
 	ChronosTimeZone,
+	UnitWithValue,
 } from 'src/types';
 import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utilities/utils';
+import { addDate } from 'src/utilities/calculation';
 
 /** Date parts for `Chronos` as `Record<part, number>` */
 type $DateParts = {
@@ -1020,49 +1022,45 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 
 	/**
 	 * @instance Returns a new `Chronos` instance with the specified unit added.
-	 * @param number The number of time unit to add (can be negative).
+	 * @param value The number of time unit to add (can be negative).
 	 * @param unit The time unit to add.
 	 */
-	add(number: number, unit: TimeUnit): Chronos<Tz> {
-		const d = new Date(this.#date);
+	add(value: number, unit: TimeUnit): Chronos<Tz>;
 
-		switch (unit) {
-			case 'millisecond':
-				d.setMilliseconds(d.getMilliseconds() + number);
-				break;
-			case 'second':
-				d.setSeconds(d.getSeconds() + number);
-				break;
-			case 'minute':
-				d.setMinutes(d.getMinutes() + number);
-				break;
-			case 'hour':
-				d.setHours(d.getHours() + number);
-				break;
-			case 'day':
-				d.setDate(d.getDate() + number);
-				break;
-			case 'week':
-				d.setDate(d.getDate() + number * 7);
-				break;
-			case 'month':
-				d.setMonth(d.getMonth() + number);
-				break;
-			case 'year':
-				d.setFullYear(d.getFullYear() + number);
-				break;
+	/**
+	 * @instance Returns a new `Chronos` instance with the specified units added.
+	 * @param units The units to add (e.g., `{ days: 1, hours: 1 }`).
+	 * @throws - {@link TypeError} If the provided units/values are invalid.
+	 * @remarks Internally uses {@link addDate} to add the units.
+	 */
+	add(units: UnitWithValue): Chronos<Tz>;
+
+	/**
+	 * @instance Returns a new `Chronos` instance with the specified unit added.
+	 * @param valueOrUnits The number of time units to add (can be negative).
+	 * @param unit The time unit to add.
+	 */
+	add(valueOrUnits: number | UnitWithValue, unit?: TimeUnit): Chronos<Tz> {
+		const date = new Date(this.#date);
+
+		if (isNumber(valueOrUnits) && unit && unit in DATE_UNIT_SETTERS) {
+			DATE_UNIT_SETTERS[unit](date, valueOrUnits);
+		} else if (isNotEmptyObject(valueOrUnits)) {
+			const modified = addDate(this.#date, valueOrUnits);
+
+			return this.#cloneStates(new Chronos(modified), 'add');
 		}
 
-		return this.#cloneStates(new Chronos(d), 'add');
+		return this.#cloneStates(new Chronos(date), 'add');
 	}
 
 	/**
 	 * @instance Returns a new `Chronos` instance with the specified unit subtracted.
-	 * @param number The number of time unit to subtract (can be negative).
+	 * @param value The number of time unit to subtract (can be negative).
 	 * @param unit The time unit to add.
 	 */
-	subtract(number: number, unit: TimeUnit): Chronos<Tz> {
-		return this.#cloneStates(this.add(-number, unit), 'subtract');
+	subtract(value: number, unit: TimeUnit): Chronos<Tz> {
+		return this.#cloneStates(this.add(-value, unit), 'subtract');
 	}
 
 	/**

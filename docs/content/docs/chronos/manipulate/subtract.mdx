@@ -10,12 +10,12 @@ Returns a new `Chronos` instance with the specified unit subtracted.
 ### Signature
 
 ```ts
-subtract(amount: number, unit: TimeUnit): Chronos
+subtract(value: number, unit: TimeUnit): Chronos
 ```
 
 ### Parameters
 
-- `amount`: Number of units to subtract
+- `value`: Number of units to subtract
 - `unit`: Time unit to subtract
 
 ### Return Type
@@ -34,5 +34,5 @@ console.log({ original, subtracted });
 ```
 
 <Callout type="idea" title="Info">
- Internally it uses [`add`](./add) method such as `new Chronos(...).add(-amount, unit)`.
+ Internally it uses [`add`](./add) method such as `new Chronos(...).add(-value, unit)`.
 </Callout>
