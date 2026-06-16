@@ -4,6 +4,12 @@ All notable changes to **chronos-date** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.3.2](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.3.2) — 2026-06-16
+
+[Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.3.1...v2.3.2)
+
+* \[[`0ff11734b1`](https://github.com/nazmul-nhb/chronos-date/commit/0ff11734b1)] - 📚 docs(changelog): integrated automated changelog generator/updater (Nazmul Hassan)
+
 ## [v2.3.1](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.3.1) — 2026-06-16
 
 [Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.3.0...v2.3.1)
