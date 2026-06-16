@@ -105,10 +105,10 @@ export const zodiacPlugin: ChronosPlugin = ($Chronos) => {
 		return this.getZodiacSign(options);
 	};
 
-	$Chronos.prototype.getZodiacMeta = <Z extends string = ZodiacSign>(
+	$Chronos.prototype.getZodiacMeta = function <Z extends string = ZodiacSign>(
 		sign: Z,
 		options?: ZodiacMetaOptions<Z>
-	) => {
+	) {
 		const sortedSigns = _resolveSigns(options);
 
 		const index = sortedSigns.findIndex(([s]) => s === sign);

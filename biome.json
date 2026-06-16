@@ -191,7 +191,7 @@
 			}
 		},
 		{
-			"includes": ["src/**/*types.ts", "src/**/types/*.ts"],
+			"includes": ["src/**/*types.ts", "src/**/types/*.ts", "**/*.extensions.ts"],
 			"linter": { "rules": { "complexity": { "noBannedTypes": "off" } } }
 		},
 		{
@@ -216,8 +216,8 @@
 			"linter": { "rules": { "style": { "noCommonJs": "off" } } }
 		},
 		{
-			"includes": ["**/*.extensions.ts"],
-			"linter": { "rules": { "complexity": { "noBannedTypes": "off" } } }
+			"includes": ["**/*/plugins/*.ts"],
+			"linter": { "rules": { "complexity": { "useArrowFunction": "off" } } }
 		}
 	],
 	"assist": {

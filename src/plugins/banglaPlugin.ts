@@ -271,7 +271,7 @@ export const banglaPlugin: ChronosPlugin = ($Chronos) => {
 		return _bnDaysMonthIdx(date, variant ?? DEFAULT_CONFIG.get('config')?.variant);
 	}
 
-	$Chronos.prototype.$configureBangla = (configs) => {
+	$Chronos.prototype.$configureBangla = function (configs) {
 		DEFAULT_CONFIG.set('config', configs);
 	};
 
