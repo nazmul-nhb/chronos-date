@@ -220,6 +220,7 @@
 		"Colón",
 		"COLORTERM",
 		"Colour",
+		"committerdate",
 		"Comod",
 		"cornflowerblue",
 		"cornsilk",
@@ -628,6 +629,7 @@
 		"SYOT",
 		"Syowa",
 		"tablesorter",
+		"taggerdate",
 		"TAHT",
 		"Tajikistani",
 		"takr",
@@ -736,5 +738,6 @@
 		"শ্রাবণ",
 		"সোমবার",
 		"হেমন্ত"
-	]
+	],
+	"cSpell.ignoreWords": ["ssrcipts"]
 }

@@ -9,6 +9,8 @@
 		"chronos",
 		"plugins",
 		"utils",
-		"guards"
+		"guards",
+		"---Recent Changes---",
+		"changelog"
 	]
 }

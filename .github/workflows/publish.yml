@@ -69,21 +69,6 @@ jobs:
         if: env.VERSION_UNCHANGED == 'false'
         run: pnpm install --frozen-lockfile --filter chronos-date... --store-dir ~/.pnpm-store
 
-      # Publish to NPM Registry
-      - name: Publish to NPM Registry
-        if: env.VERSION_UNCHANGED == 'false'
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          if [[ "$VERSION" =~ -(alpha|beta|rc) ]]; then
-            echo "Pre-release detected, tag 'next'"
-            pnpm publish --access public --tag next --registry https://registry.npmjs.org
-          else
-            echo "Stable release, tag 'latest'"
-            pnpm publish --access public --registry https://registry.npmjs.org
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       # Generate release notes for the release
       - name: Generate Release Notes
         if: env.VERSION_UNCHANGED == 'false'
@@ -132,14 +117,50 @@ jobs:
           cat release_notes.md >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
 
-      # Create a Git tag if version is different
-      - name: Create Git Tag
+      # Create a local Git tag (not pushed yet — so changelog script sees it)
+      - name: Create Local Git Tag
+        if: env.VERSION_UNCHANGED == 'false'
+        run: git tag v${{ env.VERSION }}
+
+      # Generate CHANGELOG.md (sees the new tag → proper version header)
+      - name: Generate CHANGELOG.md
+        if: env.VERSION_UNCHANGED == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/generate-changelog.mjs
+
+      # Commit CHANGELOG.md before publish so npm package includes it
+      # GITHUB_TOKEN pushes do NOT trigger new workflow runs (no loop)
+      - name: Commit CHANGELOG.md
         if: env.VERSION_UNCHANGED == 'false'
         run: |
-          git tag v${{ env.VERSION }}
-          git push origin v${{ env.VERSION }}
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git diff --cached --quiet || git commit -m "📚 docs: updated CHANGELOG.md for v${{ env.VERSION }}"
+          git push origin main
 
-      # Create GitHub Release if version is different
+      # Publish to NPM Registry (CHANGELOG.md is now on disk and committed)
+      - name: Publish to NPM Registry
+        if: env.VERSION_UNCHANGED == 'false'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          if [[ "$VERSION" =~ -(alpha|beta|rc) ]]; then
+            echo "Pre-release detected, tag 'next'"
+            pnpm publish --access public --tag next --no-git-checks --registry https://registry.npmjs.org
+          else
+            echo "Stable release, tag 'latest'"
+            pnpm publish --access public --no-git-checks --registry https://registry.npmjs.org
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Push the Git tag (after changelog commit)
+      - name: Push Git Tag
+        if: env.VERSION_UNCHANGED == 'false'
+        run: git push origin v${{ env.VERSION }}
+
+      # Create GitHub Release
       - name: Create Release
         if: env.VERSION_UNCHANGED == 'false'
         uses: softprops/action-gh-release@v1

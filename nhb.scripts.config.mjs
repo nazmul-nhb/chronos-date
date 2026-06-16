@@ -36,8 +36,8 @@ export default defineScriptConfig({
 		},
 	},
 	count: {
-		defaultPath: 'node_modules/toolbox-x/dist/esm',
-		excludePaths: ['node_modules', 'dist', '.VSCodeCounter'],
+		defaultPath: 'src/index.ts',
+		excludePaths: ['node_modules', 'dist', '.VSCodeCounter', 'docs'],
 	},
 });
 

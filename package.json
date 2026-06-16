@@ -1,6 +1,6 @@
 {
   "name": "chronos-date",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -18,7 +18,7 @@
     "typecheck:docs": "pnpm --filter chronos-date-docs typecheck",
     "validate:links": "pnpm --filter chronos-date-docs validate:links",
     "prepublishOnly": "pnpm run build",
-    "commit": "nhb-commit",
+    "commit": "node scripts/pull-main.mjs && nhb-commit",
     "count": "nhb-count",
     "delete": "nhb-delete",
     "lint": "biome lint --diagnostic-level=error",
@@ -26,7 +26,9 @@
     "format": "biome format --write --diagnostic-level=error",
     "plugin": "nhb-module -t chronos-plugin -d src/plugins",
     "create-docs": "nhb-module -t docs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changelog": "node scripts/generate-changelog.mjs",
+    "changelog:docs": "pnpm --filter chronos-date-docs changelog"
   },
   "keywords": [
     "day",
@@ -85,7 +87,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
     "nhb-scripts": "^1.9.2",
-    "toolbox-x": "2.2.1",
+    "toolbox-x": "2.2.5",
     "tsdown": "^0.22.2",
     "typescript": "^6.0.3"
   },
@@ -173,6 +175,6 @@
     "./package.json": "./package.json"
   },
   "inlinedDependencies": {
-    "toolbox-x": "2.2.1"
+    "toolbox-x": "2.2.5"
   }
 }
