@@ -24,8 +24,8 @@ importers:
         specifier: ^1.9.2
         version: 1.9.2
       toolbox-x:
-        specifier: 2.0.14
-        version: 2.0.14
+        specifier: 2.2.1
+        version: 2.2.1
       tsdown:
         specifier: ^0.22.2
         version: 0.22.2(typescript@6.0.3)
@@ -135,8 +135,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       toolbox-x:
-        specifier: 2.0.14
-        version: 2.0.14
+        specifier: 2.2.1
+        version: 2.2.1
       twoslash:
         specifier: ^0.3.8
         version: 0.3.8(typescript@6.0.3)
@@ -2941,8 +2941,8 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
-  toolbox-x@2.0.14:
-    resolution: {integrity: sha512-kGUpI9apuiVnTJSSa4eOnzelyHccPFRMVPQYZ8JcxCPs6MgD1s4qQwqms9yuAyCs9ZCPd2WsyG4S5Tg1wmKuDw==}
+  toolbox-x@2.2.1:
+    resolution: {integrity: sha512-KL2l69PIOXbh8PpijkmDWo0fZgmFy8lcxtUPqL4kx+l57iCAVW57TUOYCVCX++aIPT6VLfJsQuxfIxc/m0QT1A==}
 
   tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
@@ -5992,7 +5992,7 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  toolbox-x@2.0.14: {}
+  toolbox-x@2.2.1: {}
 
   tree-kill@1.2.2: {}
 

@@ -50,7 +50,7 @@
 		"scroll-into-view-if-needed": "^3.1.0",
 		"sucrase": "^3.35.1",
 		"tailwind-merge": "^3.6.0",
-		"toolbox-x": "2.0.14",
+		"toolbox-x": "2.2.1",
 		"twoslash": "^0.3.8",
 		"unist-util-visit": "^5.1.0",
 		"zod": "^4.4.3"
