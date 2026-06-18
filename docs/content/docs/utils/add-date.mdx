@@ -137,12 +137,12 @@ type UnitWithValue = RequireAtLeast<{ [U in TimeUnit]?: Numeric }, 1>;
 
 ### Edge Cases
 
-| Input Date                   | Units            | Result                     | Notes                      |
-| ---------------------------- | ---------------- | -------------------------- | -------------------------- |
-| `'2026-06-15T00:00:00.000Z'` | `{ day: -20 }`   | `2026-05-26T00:00:00.000Z` | Negative (subtraction)     |
-| `undefined`                  | `{ second: 30 }` | Current time + 30 seconds  | Falls back to `new Date()` |
-| `'invalid-date'`             | `{ day: 1 }`     | Throws `TypeError`         | Invalid date input         |
-| `Valid Date`                 | `{ }`            | Current time               | No unit provided           |
+| Input Date        | Units                 | Result                           | Notes                                       |
+| ----------------- | --------------------- | -------------------------------- | ------------------------------------------- |
+| `Valid Date-time` | `{ day: -20 }`        | `Provided Date-time - 20 days`   | Negative (subtraction)                      |
+| `Valid Date-time` | `{ }`                 | `Provided Date-time`             | `Provided Date-time` as new `Date` instance |
+| `undefined`       | `{ second: 30 }`      | `Current Date-time + 30 seconds` | Falls back to `new Date()`                  |
+| `invalid-date`    | `Valid UnitWithValue` | Throws `TypeError`               | Invalid date input                          |
 
 ### Use Cases
 
