@@ -660,7 +660,34 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 		return this.#date.toLocaleString(locales, options);
 	}
 
-	/** @instance Returns the time value in milliseconds since midnight, January 1, 1970 UTC. */
+	/**
+	 * @instance Returns current instance's date as a string value.
+	 * @remarks A simple wrapper over native {@link Date.toDateString}.
+	 */
+	toDateString(): string {
+		return this.toDate().toDateString();
+	}
+
+	/**
+	 * @instance Returns current instance's time as a string value.
+	 * @remarks A simple wrapper over native {@link Date.toTimeString}.
+	 */
+	toTimeString(): string {
+		return this.toDate().toTimeString();
+	}
+
+	/**
+	 * @instance Returns a date converted to a string using Universal Coordinated Time (UTC).
+	 * @remarks A simple wrapper over native {@link Date.toUTCString}.
+	 */
+	toUTCString(): string {
+		return this.toDate().toUTCString();
+	}
+
+	/**
+	 * @instance Returns the time value in milliseconds since midnight, January 1, 1970 UTC.
+	 * @remarks A simple wrapper over native {@link Date.getTime}.
+	 */
 	getTimeStamp(): number {
 		return this.toDate().getTime();
 	}
