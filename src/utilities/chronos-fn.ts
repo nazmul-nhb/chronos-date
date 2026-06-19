@@ -1,4 +1,4 @@
-import { Chronos } from 'src/index';
+import { Chronos } from 'src/classes/chronos';
 import type { ChronosInput, ChronosStaticKey, ChronosStatics } from 'src/types';
 import { isFunction, isNumber } from 'toolbox-x/guards';
 

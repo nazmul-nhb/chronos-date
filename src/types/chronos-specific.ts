@@ -1,4 +1,4 @@
-import type { Chronos } from 'src/index';
+import type { Chronos } from 'src/classes/chronos';
 import type {
 	$TimeZoneIdentifier,
 	ISODateFormat,

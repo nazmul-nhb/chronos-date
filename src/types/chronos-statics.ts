@@ -1,4 +1,4 @@
-import type { Chronos } from 'src/index';
+import type { Chronos } from 'src/classes/chronos';
 import type { ChronosPlugin } from 'src/types/chronos-plugins';
 import type {
 	ChronosInput,
