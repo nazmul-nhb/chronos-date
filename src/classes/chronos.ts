@@ -589,6 +589,30 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 		return this.getTimeStamp();
 	}
 
+	/**
+	 * @getter Returns the time value in seconds since midnight, January 1, 1970 UTC.
+	 * @remarks Converted from {@link getTimeStamp} method (an alias for {@link unix} getter).
+	 */
+	get epochSeconds(): number {
+		return this.unix;
+	}
+
+	/**
+	 * @getter Returns the time value in milliseconds since midnight, January 1, 1970 UTC.
+	 * @remarks A simple wrapper over native {@link Date.getTime} method (internally uses {@link getTimeStamp} method).
+	 */
+	get epochMilliseconds(): number {
+		return this.getTimeStamp();
+	}
+
+	/**
+	 * @getter Returns the time value in nanoseconds since midnight, January 1, 1970 UTC.
+	 * @remarks It does not return the actual nanoseconds, it converts milliseconds to nanoseconds bigint for working with `Temporal`.
+	 */
+	get epochNanoseconds(): bigint {
+		return BigInt(this.getTimeStamp() * 1_000_000);
+	}
+
 	/** * Gets the last date (number) of the current month `(28, 29, 30 or 31)`. */
 	get lastDateOfMonth(): NumberRange<28, 31> {
 		return this.daysInMonth();
