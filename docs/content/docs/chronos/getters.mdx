@@ -265,6 +265,78 @@ new Chronos('2025-01-01').timestamp; // 1672531200000
 
 ---
 
+## epochSeconds
+
+### Signature
+
+```ts
+get epochSeconds(): number
+```
+
+### Return Type
+
+`number` - Seconds since epoch
+
+<Callout type="info" title="Note">
+Same as [`unix`](#unix) getter method.
+</Callout>
+
+### Example
+
+```javascript
+new Chronos('2025-01-01').epochSeconds; // 1735689600
+```
+
+---
+
+## epochMilliseconds
+
+### Signature
+
+```ts
+get epochMilliseconds(): number
+```
+
+### Return Type
+
+`number` - Milliseconds since epoch
+
+<Callout type="info" title="Note">
+Same as [`timestamp`](#timestamp) getter method.
+</Callout>
+
+### Example
+
+```javascript
+new Chronos('2025-01-01').epochMilliseconds; // 1735689600000
+```
+
+---
+
+## epochNanoseconds
+
+### Signature
+
+```ts
+get epochNanoseconds(): bigint
+```
+
+### Return Type
+
+`bigint` - Nanoseconds since epoch
+
+<Callout type="warning" title="Important">
+It does not return the actual nanoseconds, it converts [milliseconds](#timestamp) to nanoseconds `bigint` for working with `Temporal`.
+</Callout>
+
+### Example
+
+```javascript
+new Chronos('2025-01-01').epochNanoseconds; // 1735689600000000000n
+```
+
+---
+
 ## lastDateOfMonth
 
 ### Signature
