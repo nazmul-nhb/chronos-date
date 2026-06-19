@@ -1,6 +1,8 @@
 {
 	"pages": [
 		"clone",
+		"next",
+		"previous",
 		"start-of",
 		"end-of",
 		"add",

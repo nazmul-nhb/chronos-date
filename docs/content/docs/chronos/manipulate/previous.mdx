@@ -1,0 +1,48 @@
+---
+title: previous
+description: Returns a new Chronos instance moved back by specified time unit.
+---
+
+## `previous()`
+
+Returns a new `Chronos` instance moved back by the specified time unit.
+specified
+### Signature
+
+```ts
+previous(unit?: TimeUnit): Chronos
+```
+
+### Parameters
+
+| Parameter | Type       | Default | Description                    |
+| --------- | ---------- | ------- | ------------------------------ |
+| `unit`    | `TimeUnit` | `'day'` | The time unit to move back by. |
+
+### Return Value
+
+Returns a new `Chronos` instance moved back by one of the specified unit.
+
+<Callout type="idea" title="Behavior">
+Moves the date/time backward by exactly the specified unit while preserving other components whenever possible.
+</Callout>
+
+### Notes
+
+* Returns a new immutable instance.
+* Equivalent to `add(-1, unit)`.
+* Preserves the existing time components whenever possible.
+* Handles month and year overflow automatically.
+
+### Examples
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const previousDay = original.previous(); // Default unit is `'day'`
+const previousMonth = original.previous('month');
+
+console.log({ original, previousDay, previousMonth });
+```
+

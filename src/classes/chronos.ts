@@ -1115,16 +1115,20 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/**
-	 * @instance Returns a new `Chronos` instance with the next unit.
-	 * @param unit The unit to get the next value of. Default is `'day'`.
+	 * @instance Returns a new `Chronos` instance advanced by the specified time unit.
+	 * @param unit The time unit to advance by. Default is `'day'`.
+	 *
+	 * @remarks Advances the date/time by exactly the specified unit while preserving other components whenever possible.
 	 */
 	next(unit: TimeUnit = 'day'): Chronos<Tz> {
 		return this.#cloneStates(this.add(1, unit), 'next');
 	}
 
 	/**
-	 * @instance Returns a new `Chronos` instance with the previous unit.
-	 * @param unit The unit to get the previous value of. Default is `'day'`.
+	 * @instance Returns a new `Chronos` instance moved back by specified time unit.
+	 * @param unit The time unit to move back by. Default is `'day'`.
+	 *
+	 * @remarks Moves the date/time backward by exactly the specified unit while preserving other components whenever possible.
 	 */
 	previous(unit: TimeUnit = 'day'): Chronos<Tz> {
 		return this.#cloneStates(this.add(-1, unit), 'previous');

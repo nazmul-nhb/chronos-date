@@ -1,0 +1,47 @@
+---
+title: next
+description: Returns a new Chronos instance advanced by the specified time unit.
+---
+
+## `next()`
+
+Returns a new `Chronos` instance advanced by the specified time unit.
+
+### Signature
+
+```ts
+next(unit?: TimeUnit): Chronos
+```
+
+### Parameters
+
+| Parameter | Type       | Default | Description                  |
+| --------- | ---------- | ------- | ---------------------------- |
+| `unit`    | `TimeUnit` | `'day'` | The time unit to advance by. |
+
+### Return Value
+
+Returns a new `Chronos` instance advanced by the specified unit.
+
+<Callout type="idea" title="Behavior">
+Advances the date/time by exactly the specified unit while preserving other components whenever possible.
+</Callout>
+
+### Notes
+
+* Returns a new immutable instance.
+* Equivalent to `add(1, unit)`.
+* Preserves the existing time components whenever possible.
+* Handles month and year overflow automatically.
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+const original = new Chronos('2025-01-31');
+const nextDay = original.next(); // Default unit is `'day'`
+const nextMonth = original.next('month');
+
+console.log({ original, nextDay, nextMonth });
+```
