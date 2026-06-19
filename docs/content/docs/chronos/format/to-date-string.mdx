@@ -1,0 +1,48 @@
+---
+title: toDateString
+description: Returns a string representation of the date portion of the date.
+---
+
+## `toDateString()`
+
+Returns a string representation of the date portion of the date.
+
+### Signature
+
+```ts
+toDateString(): string
+```
+
+### Return Type
+
+`string` - Date string
+
+### Notes
+
+- Returns localized string representation.
+- Includes timezone information when an instance created with [`timeZone`](/docs/plugins/timezone-plugin#timezone) method.
+
+<Callout type="info" title="Note">
+It is different than native [`Date.prototype.toDateString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toDateString).
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const date = new Chronos('2025-01-15');
+console.log(date.toDateString());
+// "Wed Jan 15 2025" --> Depends on system timezone
+
+const kolkataTime = date.timeZone('Asia/Kolkata');
+console.log(kolkataTime.toDateString());
+// "Wed Jan 15 2025" --> Timezone locked to Asia/Kolkata
+
+const nycTime = date.timeZone('America/New_York');
+console.log(nycTime.toDateString());
+// "Tue Jan 14 2025" --> Timezone locked to America/New_York
+```

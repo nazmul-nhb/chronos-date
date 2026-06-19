@@ -1,0 +1,44 @@
+---
+title: toUTCString
+description: Returns a string representation of the date and time in UTC.
+---
+
+## `toUTCString()`
+
+Returns a string representation of the date and time in UTC.
+
+### Signature
+
+```ts
+toUTCString(): string
+```
+
+### Return Type
+
+`string` - UTC Date string
+
+<Callout type="info" title="Note">
+- It is just a wrapper over native [`Date.prototype.toUTCString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toUTCString).
+- Does not depend on system timezone or provided timezone. Always returns UTC date string.
+</Callout>
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+import { timeZonePlugin } from 'chronos-date/plugins/timeZonePlugin';
+
+Chronos.use(timeZonePlugin);
+
+const date = new Chronos('2025-01-15');
+console.log(date.toUTCString());
+// "Wed, 15 Jan 2025 00:00:00 GMT" --> Does not depend on system timezone
+
+const kolkataTime = date.timeZone('Asia/Kolkata');
+console.log(kolkataTime.toUTCString());
+// "Wed, 15 Jan 2025 00:00:00 GMT" --> Does not depend on provided timezone
+
+const nycTime = date.timeZone('America/New_York');
+console.log(nycTime.toUTCString());
+// "Wed, 15 Jan 2025 00:00:00 GMT" --> Does not depend on provided timezone
+```

@@ -525,6 +525,14 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			: this.toISOString().replace(search, '');
 	}
 
+	/** Returns string representation of the time zone offset and name, e.g. `GMT+06:00 (Bangladesh Standard Time)`. */
+	#getOffsetWithZoneName(): string {
+		return this.#offset
+			.replace('UTC', 'GMT')
+			.replace(':', '')
+			.concat(` (${this.timeZoneName})`);
+	}
+
 	// ! ======= Getter Methods ======= //
 
 	/** Gets the full year of the date. */
@@ -656,21 +664,37 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 		return new Date(this.#timestamp - adjustmentMs);
 	}
 
-	/** @instance Returns a string representation of a date. */
+	/** @instance Returns a string representation of the date and time. */
 	toString(): string {
-		return this.#format('dd mmm DD YYYY HH:mm:ss ')
-			.concat(this.#offset.replace('UTC', 'GMT').replace(':', ''))
-			.concat(` (${this.timeZoneName})`);
+		return this.#format('dd mmm DD YYYY HH:mm:ss ').concat(this.#getOffsetWithZoneName());
 	}
 
-	/** @instance Returns ISO time string in appropriate time zone with offset. */
-	toLocalISOString(): ISODateTimeString<'local'> {
-		return this.#format('YYYY-MM-DDTHH:mm:ss.mssZZ') as ISODateTimeString<'local'>;
+	/** @instance Returns current instance's date as a string value. */
+	toDateString(): string {
+		return this.#format('dd mmm DD YYYY');
+	}
+
+	/** @instance Returns current instance's time as a string value. */
+	toTimeString(): string {
+		return this.#format('HH:mm:ss ').concat(this.#getOffsetWithZoneName());
+	}
+
+	/**
+	 * @instance Returns a date converted to a string using Universal Coordinated Time (UTC).
+	 * @remarks A simple wrapper over native {@link Date.toUTCString}.
+	 */
+	toUTCString(): string {
+		return this.toDate().toUTCString();
 	}
 
 	/** @instance Returns a date as a string value in ISO format (UTC). */
 	toISOString(): ISODateTimeString {
 		return this.toDate().toISOString() as ISODateTimeString;
+	}
+
+	/** @instance Returns ISO time string in appropriate time zone with offset. */
+	toLocalISOString(): ISODateTimeString<'local'> {
+		return this.#format('YYYY-MM-DDTHH:mm:ss.mssZZ') as ISODateTimeString<'local'>;
 	}
 
 	/**
@@ -682,30 +706,6 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 */
 	toLocaleString(locales?: LocalesArguments, options?: DateTimeFormatOptions): string {
 		return this.#date.toLocaleString(locales, options);
-	}
-
-	/**
-	 * @instance Returns current instance's date as a string value.
-	 * @remarks A simple wrapper over native {@link Date.toDateString}.
-	 */
-	toDateString(): string {
-		return this.toDate().toDateString();
-	}
-
-	/**
-	 * @instance Returns current instance's time as a string value.
-	 * @remarks A simple wrapper over native {@link Date.toTimeString}.
-	 */
-	toTimeString(): string {
-		return this.toDate().toTimeString();
-	}
-
-	/**
-	 * @instance Returns a date converted to a string using Universal Coordinated Time (UTC).
-	 * @remarks A simple wrapper over native {@link Date.toUTCString}.
-	 */
-	toUTCString(): string {
-		return this.toDate().toUTCString();
 	}
 
 	/**
