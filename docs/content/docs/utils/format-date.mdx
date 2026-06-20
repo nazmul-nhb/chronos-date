@@ -430,28 +430,21 @@ const timePart3 = formatTimePart('14:50:30.500');
 // "02:50:30 pm" (milliseconds not shown in default format)
 
 // Custom formats
-const timePart4 = formatTimePart('14:50', 'HH:mm');
+const timePart4 = formatTimePart('14:50', 'HH:mm'); // 24-hour format
 // "14:50"
 
-const timePart5 = formatTimePart('14:50:30', 'h:mm A');
+const timePart5 = formatTimePart('14:50:30', 'h:mm A'); // 12-hour format with AM/PM
 // "2:50 PM"
 
-const timePart6 = formatTimePart('09:15', 'hh:mm a');
-// "09:15 am"
-
-// 24-hour format
-const timePart7 = formatTimePart('23:45:20', 'HH:mm:ss');
-// "23:45:20"
-
 // With timezone offset
-const timePart8 = formatTimePart('14:50+06');
+const timePart6 = formatTimePart('14:50+06');
 // "02:50:00 pm" (converted to local time)
 
-const timePart9 = formatTimePart('14:50:00+05:30');
+const timePart7 = formatTimePart('14:50:00+05:30');
 // "03:20:00 pm" (adjusted from +05:30 to local time)
 
 // Complex formats
-const timePart10 = formatTimePart('18:30:45', '[Time:] hh:mm:ss A');
+const timePart8 = formatTimePart('18:30:45', '[Time:] hh:mm:ss A');
 // "Time: 06:30:45 PM"
 
 console.log({
@@ -463,8 +456,6 @@ console.log({
   timePart6,
   timePart7,
   timePart8,
-  timePart9,
-  timePart10,
 });
 ```
 
