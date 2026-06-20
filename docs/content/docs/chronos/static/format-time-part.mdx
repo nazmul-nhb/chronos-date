@@ -38,9 +38,11 @@ static formatTimePart(time: string, format?: TimeOnlyFormat): string
 ### Example
 
  ```ts pg
+import { Chronos } from 'chronos-date';
+
 console.log(Chronos.formatTimePart('14:50')); 
 // "02:50:00 pm"
 
 console.log(Chronos.formatTimePart('14:50:00.800+05:30', 'HH:mm:ss'));
-// "14:50:00"
+// "14:20:00"
 ```
