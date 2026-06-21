@@ -1,20 +1,31 @@
 {
 	// ! Exclude Folders from watching
 	"files.watcherExclude": {
-		"**/node_modules": true,
-		"**/coverage": true,
-		"**/.git": true,
-		"**/dist": true
+		"**/.git/**": true,
+		"**/node_modules/**": true,
+		"**/coverage/**": true,
+		"**/.docusaurus/**": true,
+		"**/.next/**": true,
+		"**/.source/**": true,
+		"**/.build/**": true,
+		"**/dist/**": true,
+		"**/build/**": true
 	},
 	"files.exclude": {
-		"**/.git": true
+		"**/.git": true,
 	},
 	// ! Exclude Folders from global searching
 	"search.exclude": {
-		"**/node_modules": true,
-		"**/dist": true,
-		"**/coverage": true,
-		"**/.git": true
+	"**/node_modules": true,
+		"**/.git/**": true,
+		"**/node_modules/**": true,
+		"**/coverage/**": true,
+		"**/.docusaurus/**": true,
+		"**/.next/**": true,
+		"**/.source/**": true,
+		"**/.build/**": true,
+		"**/dist/**": true,
+		"**/build/**": true
 	},
 	"eslint.enable": false,
 	"prettier.enable": false,
