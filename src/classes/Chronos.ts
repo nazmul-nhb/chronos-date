@@ -1872,7 +1872,8 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * - All inputs are normalized to `Chronos` instances before comparison.
 	 * - Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
 	 * - When exactly two values are provided, the first value becomes the initial candidate; if the second value represents an earlier moment in time, it replaces the candidate.
-	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created.
+	 * 	 Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
 	 *
 	 * @param dates A list of Chronos-compatible inputs (`string`, `number`, `Date` or `Chronos`).
 	 * @returns A new `Chronos` instance representing the earliest moment.
@@ -1898,7 +1899,8 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * - All inputs are normalized to `Chronos` instances before comparison.
 	 * - Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
 	 * - When exactly two values are provided, the first value becomes the initial candidate; if the second value represents a later moment in time, it replaces the candidate.
-	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created.
+	 * 	 Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
 	 *
 	 * @param dates A list of Chronos-compatible inputs (`string`, `number`, `Date` or `Chronos`).
 	 * @returns A new `Chronos` instance representing the latest moment.
@@ -1925,9 +1927,10 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * - Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
 	 * - If `value` represents a moment earlier than `min`, the result will be equal to `min`.
 	 * - If `value` represents a moment later than `max`, the result will be equal to `max`.
-	 * - If `value` falls within the range, it is returned unchanged.
+	 * - If `value` falls within the range, it is returned as a new `Chronos` instance.
 	 * - Internally equivalent to: `Chronos.min(Chronos.max(value, min), max)`.
-	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created.
+	 * 	 Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
 	 *
 	 * @param value The date to clamp.
 	 * @param min The lower bound of the allowed range.

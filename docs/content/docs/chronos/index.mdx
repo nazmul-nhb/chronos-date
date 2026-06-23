@@ -270,25 +270,25 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
   </Accordion>
 
   <Accordion title="Manipulation Methods">
-    | Method                                                       | Short Description                                                      |
-    | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
-    | [clone()](./chronos/manipulate/clone)                        | Clones and returns exactly same `Chronos` instance.                    |
+    | Method                                                       | Short Description                                                     |
+    | ------------------------------------------------------------ | --------------------------------------------------------------------- |
+    | [clone()](./chronos/manipulate/clone)                        | Clones and returns exactly same `Chronos` instance.                   |
     | [next()](./chronos/manipulate/next)                          | Returns a new `Chronos` instance advanced by the specified time unit. |
-    | [previous()](./chronos/manipulate/previous)                  | Returns a new `Chronos` instance moved back by one time unit.          |
-    | [startOf()](./chronos/manipulate/start-of)                   | Returns a new `Chronos` instance at the start of a given unit.         |
-    | [endOf()](./chronos/manipulate/end-of)                       | Returns a new `Chronos` instance at the end of a given unit.           |
-    | [add()](./chronos/manipulate/add)                            | Returns a new `Chronos` instance with the specified unit added.        |
-    | [addDays()](./chronos/manipulate/add-days)                   | Adds days and returns a new immutable instance.                        |
-    | [addHours()](./chronos/manipulate/add-hours)                 | Adds hours and returns a new immutable instance.                       |
-    | [addMinutes()](./chronos/manipulate/add-minutes)             | Adds minutes and returns a new immutable instance.                     |
-    | [addMonths()](./chronos/manipulate/add-months)               | Adds months and returns a new immutable instance.                      |
-    | [addSeconds()](./chronos/manipulate/add-seconds)             | Adds seconds and returns a new immutable instance.                     |
-    | [addWeeks()](./chronos/manipulate/add-weeks)                 | Adds weeks and returns a new immutable instance.                       |
-    | [addYears()](./chronos/manipulate/add-years)                 | Adds years and returns a new immutable instance.                       |
-    | [subtract()](./chronos/manipulate/subtract)                  | Returns a new `Chronos` instance with the specified unit subtracted.   |
-    | [round()](./plugins/round-plugin#round)                      | Rounds the current date-time to the nearest unit and interval.         |
-    | [firstDayOfMonth()](./chronos/manipulate/first-day-of-month) | Returns a new instance set to the first day of the current month.      |
-    | [lastDayOfMonth()](./chronos/manipulate/last-day-of-month)   | Returns a new instance set to the last day of the current month.       |
+    | [previous()](./chronos/manipulate/previous)                  | Returns a new `Chronos` instance moved back by one time unit.         |
+    | [startOf()](./chronos/manipulate/start-of)                   | Returns a new `Chronos` instance at the start of a given unit.        |
+    | [endOf()](./chronos/manipulate/end-of)                       | Returns a new `Chronos` instance at the end of a given unit.          |
+    | [add()](./chronos/manipulate/add)                            | Returns a new `Chronos` instance with the specified unit added.       |
+    | [addDays()](./chronos/manipulate/add-days)                   | Adds days and returns a new immutable instance.                       |
+    | [addHours()](./chronos/manipulate/add-hours)                 | Adds hours and returns a new immutable instance.                      |
+    | [addMinutes()](./chronos/manipulate/add-minutes)             | Adds minutes and returns a new immutable instance.                    |
+    | [addMonths()](./chronos/manipulate/add-months)               | Adds months and returns a new immutable instance.                     |
+    | [addSeconds()](./chronos/manipulate/add-seconds)             | Adds seconds and returns a new immutable instance.                    |
+    | [addWeeks()](./chronos/manipulate/add-weeks)                 | Adds weeks and returns a new immutable instance.                      |
+    | [addYears()](./chronos/manipulate/add-years)                 | Adds years and returns a new immutable instance.                      |
+    | [subtract()](./chronos/manipulate/subtract)                  | Returns a new `Chronos` instance with the specified unit subtracted.  |
+    | [round()](./plugins/round-plugin#round)                      | Rounds the current date-time to the nearest unit and interval.        |
+    | [firstDayOfMonth()](./chronos/manipulate/first-day-of-month) | Returns a new instance set to the first day of the current month.     |
+    | [lastDayOfMonth()](./chronos/manipulate/last-day-of-month)   | Returns a new instance set to the last day of the current month.      |
   </Accordion>
 
   <Accordion title="Query/Checker Methods">
@@ -401,8 +401,9 @@ console.log(custom.$tzTracker); // → "Asia/Kolkata"
     | [with()](./chronos/static/with)                          | Creates a new `Chronos` instance with the provided time component(s).  |
     | [reconstruct](./chronos/static/reconstruct)              | Reconstructs a `Chronos` instance from a given value.                  |
     | [parse()](./chronos/static/parse)                        | Parses a date string with a given format (limited support only).       |
-    | [max()](./chronos/static/max)                            | Returns latest Chronos.                                                |
-    | [min()](./chronos/static/min)                            | Returns earliest Chronos.                                              |
+    | [min()](./chronos/static/min)                            | Returns earliest `Chronos`.                                            |
+    | [max()](./chronos/static/max)                            | Returns latest `Chronos`.                                              |
+    | [clamp()](./chronos/static/clamp)                        | Restricts a date to a specified range                                  |
     | [today()](./chronos/static/today)                        | Returns the current date and time in a specified format in local time. |
     | [tomorrow()](./chronos/static/tomorrow)                  | Returns a new `Chronos` instance representing tomorrow's date.         |
     | [yesterday()](./chronos/static/yesterday)                | Returns a new `Chronos` instance representing yesterday's date.        |

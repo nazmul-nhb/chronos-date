@@ -1,0 +1,57 @@
+---
+title: clamp
+description: Restricts a date to a specified range based on the underlying universal timestamp.
+---
+
+## `clamp()`
+
+Restricts a date to a specified range based on the underlying universal timestamp.
+
+### Signature
+
+```ts
+static clamp(value: ChronosInput, min: ChronosInput, max: ChronosInput): Chronos
+```
+
+### Parameters
+
+- `value`: The date to clamp
+- `min`: The lower bound of the allowed range
+- `max`: The upper bound of the allowed range
+
+### Return Type
+
+`Chronos` - Clamped moment (new instance)
+
+### Example
+
+```ts pg
+import { Chronos } from 'chronos-date';
+
+// Within range
+const date1 = Chronos.clamp('2025-06-15', '2025-06-01', '2025-06-30');
+console.log(date1); // '2025-06-15'
+
+// Earlier than min
+const date2 = Chronos.clamp('2025-05-15', '2025-06-01', '2025-06-30');
+console.log(date2); // '2025-06-01'
+
+// Later than max
+const date3 = Chronos.clamp('2025-07-15', '2025-06-01', '2025-06-30');
+console.log(date3); // '2025-06-30'
+```
+
+### Notes
+
+- All inputs are normalized to `Chronos` instances before comparison.
+- Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
+- If `value` represents a moment earlier than `min`, the result will be equal to `min`.
+- If `value` represents a moment later than `max`, the result will be equal to `max`.
+- If `value` falls within the range, it is returned as a new `Chronos` instance.
+- Internally equivalent to: `Chronos.min(Chronos.max(value, min), max)`.
+- The returned value is **not** one of the input values. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+
+### See Also
+
+- [min()](./min) - Returns the earliest `Chronos` instance based on the underlying universal timestamp.
+- [max()](./max) - Returns the latest `Chronos` instance based on the underlying universal timestamp.

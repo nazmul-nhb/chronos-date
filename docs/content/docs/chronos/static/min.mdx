@@ -19,7 +19,7 @@ static min(...dates: ChronosInput[]): Chronos
 
 ### Return Type
 
-`Chronos` - Earliest moment
+`Chronos` - Earliest moment (new instance)
 
 ### Example
 
@@ -38,4 +38,4 @@ console.log(min2); // 2012-12-01T05:30:00.000+05:30
 - All inputs are normalized to `Chronos` instances before comparison.
 - Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
 - When exactly two values are provided, the first value becomes the initial candidate; if the second value represents an earlier moment in time, it replaces the candidate.
-- The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+- The returned value is **not** one of the input values. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.

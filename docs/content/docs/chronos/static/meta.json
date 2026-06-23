@@ -5,6 +5,7 @@
 		"register",
 		"min",
 		"max",
+		"clamp",
 		"with",
 		"parse",
 		"utc",
