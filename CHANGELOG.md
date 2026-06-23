@@ -4,6 +4,17 @@ All notable changes to **chronos-date** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.10](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.10) — 2026-06-24
+
+[Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.6...v2.4.10)
+
+* \[[`8d48e6b495`](https://github.com/nazmul-nhb/chronos-date/commit/8d48e6b495)] - 🔧 update(docs): added docs for `Chronos.clamp` and updated related docs (Nazmul Hassan)
+* \[[`e2afaf41c0`](https://github.com/nazmul-nhb/chronos-date/commit/e2afaf41c0)] - 🔧 update(docs): updated docs for date range methods (both static and instance) (Nazmul Hassan)
+* \[[`f0aeb71aba`](https://github.com/nazmul-nhb/chronos-date/commit/f0aeb71aba)] - 🐛 fix(scripts): copy script now properly handles generics and rest parameters (Nazmul Hassan)
+* \[[`b6fbd01689`](https://github.com/nazmul-nhb/chronos-date/commit/b6fbd01689)] - ✨ feat(Chronos): `Chronos.getDatesForDay()` now returns array of `Chronos` instances when `format` is set to `'chronos'` in the options (Nazmul Hassan)
+* \[[`f315f9d36b`](https://github.com/nazmul-nhb/chronos-date/commit/f315f9d36b)] - ✨ feat(Chronos): added new static method: `Chronos.clamp()` (Nazmul Hassan)
+* \[[`f6372ba242`](https://github.com/nazmul-nhb/chronos-date/commit/f6372ba242)] - 📚 docs: updated CHANGELOG.md for v2.4.6 (github-actions\[bot])
+
 ## [v2.4.6](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.6) — 2026-06-23
 
 [Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.4...v2.4.6)
