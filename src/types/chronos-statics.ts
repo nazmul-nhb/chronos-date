@@ -17,7 +17,7 @@ import type {
 import type { TimeOnlyFormat } from 'src/types/format-tokens';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 
-/** All the statics methods and constructor signatures in `Chronos` class */
+/** Interface for the {@link Chronos} static methods and constructor signatures for the `chronos` wrapper function */
 export interface ChronosStatics {
 	/**
 	 * * Creates a new immutable `Chronos` instance from current date & time (UTC).
@@ -162,7 +162,7 @@ export interface ChronosStatics {
 	(value?: ChronosInput): Chronos;
 
 	/**
-	 * * Parses a date string with a given format (limited support only).
+	 * @static Parses a date string with a given format (limited support only).
 	 *
 	 * **Supported format tokens**:
 	 * - `YYYY`: Full year (e.g., 2023)
@@ -181,7 +181,7 @@ export interface ChronosStatics {
 	 * - `ms`: Millisecond (0-999)
 	 *
 	 * @example
-	 * Chronos.parse('23-12-31 15:30:45', 'YY-MM-DD HH:mm:ss');
+	 * chronos.parse('23-12-31 15:30:45', 'YY-MM-DD HH:mm:ss');
 	 * // returns `Chronos` instance with the parsed date 2023-12-31T15:30:45
 	 *
 	 * @param dateStr - The date string to be parsed
@@ -192,7 +192,7 @@ export interface ChronosStatics {
 	parse(dateStr: string, format: string): Chronos;
 
 	/**
-	 * * Creates a new `Chronos` instance with the provided time component(s).
+	 * @static Creates a new `Chronos` instance with the provided time component(s).
 	 *
 	 * @param options - One or more time components to override.
 	 * @returns A new `Chronos` instance with the provided time components applied.
@@ -212,7 +212,7 @@ export interface ChronosStatics {
 	with(options: ChronosWithOptions): Chronos;
 
 	/**
-	 * * Returns the current date and time in a specified format in local time.
+	 * @static Returns the current date and time in a specified format in local time.
 	 * * Default format is dd, `mmm DD, YYYY HH:mm:ss` = `Sun, Apr 06, 2025 16:11:55`
 	 * @param options - Configure format string and whether to format using utc offset.
 	 * @returns Formatted date string in desired format.
@@ -220,28 +220,28 @@ export interface ChronosStatics {
 	today(options?: FormatOptions): string;
 
 	/**
-	 * * Returns a new `Chronos` instance representing yesterday's date.
+	 * @static Returns a new `Chronos` instance representing yesterday's date.
 	 *
 	 * @returns A `Chronos` instance for the previous calendar day.
 	 */
 	yesterday(): Chronos;
 
 	/**
-	 * * Returns a new `Chronos` instance representing tomorrow's date.
+	 * @static Returns a new `Chronos` instance representing tomorrow's date.
 	 *
 	 * @returns A `Chronos` instance for the next calendar day.
 	 */
 	tomorrow(): Chronos;
 
 	/**
-	 * * Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC).
+	 * @static Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC).
 	 * @returns The number of milliseconds elapsed since the Unix epoch.
 	 * @remarks It internally uses {@link Date.now()}.
 	 */
 	now(): number;
 
 	/**
-	 * * Creates a UTC-based `Chronos` instance.
+	 * @static Creates a UTC-based `Chronos` instance.
 	 * If no date is provided, it uses the current date and time.
 	 *
 	 * **This is the base time, meaning conversion in other timezone will consider UTC time as the base time.**
@@ -253,7 +253,7 @@ export interface ChronosStatics {
 	utc(dateLike?: ChronosInput): Chronos<'UTC'>;
 
 	/**
-	 * * Formats a time-only string into a formatted time string.
+	 * @static Formats a time-only string into a formatted time string.
 	 *
 	 * @param time - Time string to be formatted. Supported formats include:
 	 * - `HH:mm` → e.g., `'14:50'`
@@ -275,7 +275,7 @@ export interface ChronosStatics {
 	formatTimePart(time: string, format?: TimeOnlyFormat): string;
 
 	/**
-	 * * Returns ISO date strings for each occurrence of a weekday from today, spanning a relative time range.
+	 * @static Returns ISO date strings for each occurrence of a weekday from today, spanning a relative time range.
 	 *
 	 * @param day - The weekday to match (e.g., `'Wednesday'`, `'Sunday'`).
 	 * @param options - Relative range (e.g., 7 days, 4 weeks) and output format (local with timezone or utc).
@@ -284,11 +284,11 @@ export interface ChronosStatics {
 	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
 	 * @example
-	 * Chronos.getDatesForDay('Wednesday', { span: 7, unit: 'day' });
+	 * chronos.getDatesForDay('Wednesday', { span: 7, unit: 'day' });
 	 * //=> [ '2025-05-28T21:16:06.198+06:00', '2025-06-04T21:16:06.198+06:00' ]
 	 *
 	 * @example
-	 * Chronos.getDatesForDay('Wednesday', {
+	 * chronos.getDatesForDay('Wednesday', {
 	 *   span: 7,
 	 *   unit: 'day',
 	 *   format: 'utc'
@@ -301,7 +301,7 @@ export interface ChronosStatics {
 	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
-	 * * Returns ISO date strings for each occurrence of a weekday between two fixed dates.
+	 * @static Returns ISO date strings for each occurrence of a weekday between two fixed dates.
 	 *
 	 * @param day - The weekday to match (e.g., `'Monday'`, `'Friday'`).
 	 * @param options - Date range (from/to, e.g. `'2025-06-30'`, ` new Date()`, `new Chronos()` etc.) and output format (local with timezone or utc).
@@ -314,7 +314,7 @@ export interface ChronosStatics {
 	 * - Mixing zones may shift the interpreted start or end by several hours, which can cause the range to include or exclude incorrect weekdays.
 	 *
 	 * @example
-	 * Chronos.getDatesForDay('Monday', {
+	 * chronos.getDatesForDay('Monday', {
 	 *   from: '2025-05-28',
 	 *   to: '2025-06-30',
 	 *   format: 'local'
@@ -327,7 +327,7 @@ export interface ChronosStatics {
 	): ISODateTimeString<'utc' | 'local'>[];
 
 	/**
-	 * * Returns the earliest `Chronos` instance based on the underlying universal {@link timestamp}.
+	 * @static Returns the earliest `Chronos` instance based on the underlying universal {@link timestamp}.
 	 *
 	 * @remarks
 	 * - All inputs are normalized to `Chronos` instances before comparison.
@@ -341,7 +341,7 @@ export interface ChronosStatics {
 	min(dates?: ChronosInput[]): Chronos<ChronosTimeZone>;
 
 	/**
-	 * * Returns the latest `Chronos` instance based on the underlying universal {@link timestamp}.
+	 * @static Returns the latest `Chronos` instance based on the underlying universal {@link timestamp}.
 	 *
 	 * @remarks
 	 * - All inputs are normalized to `Chronos` instances before comparison.
@@ -355,7 +355,38 @@ export interface ChronosStatics {
 	max(dates?: ChronosInput[]): Chronos<ChronosTimeZone>;
 
 	/**
-	 * * Checks if the year in the date string or year (from 0 - 9999) is a leap year.
+	 * @static Restricts a date to a specified range based on the underlying universal {@link timestamp}.
+	 *
+	 * @remarks
+	 * - All inputs are normalized to `Chronos` instances before comparison.
+	 * - Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
+	 * - If `value` represents a moment earlier than `min`, the result will be equal to `min`.
+	 * - If `value` represents a moment later than `max`, the result will be equal to `max`.
+	 * - If `value` falls within the range, it is returned unchanged.
+	 * - Internally equivalent to: `Chronos.min(Chronos.max(value, min), max)`.
+	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+	 *
+	 * @param value The date to clamp.
+	 * @param min The lower bound of the allowed range.
+	 * @param max The upper bound of the allowed range.
+	 * @returns A new `Chronos` instance representing the clamped moment.
+	 *
+	 * @example
+	 * chronos.clamp('2025-06-15', '2025-06-01', '2025-06-30');
+	 * //=> 2025-06-15
+	 *
+	 * @example
+	 * chronos.clamp('2025-05-15', '2025-06-01', '2025-06-30');
+	 * //=> 2025-06-01
+	 *
+	 * @example
+	 * chronos.clamp('2025-07-15', '2025-06-01', '2025-06-30');
+	 * //=> 2025-06-30
+	 */
+	clamp(value: ChronosInput, min: ChronosInput, max: ChronosInput): Chronos<ChronosTimeZone>;
+
+	/**
+	 * @static Checks if the year in the date string or year (from 0 - 9999) is a leap year.
 	 * - A year is a leap year if it is divisible by 4, but not divisible by 100, unless it is also divisible by 400.
 	 * - For example, 2000 and 2400 are leap years, but 1900 and 2100 are not.
 	 *
@@ -372,7 +403,7 @@ export interface ChronosStatics {
 	isLeapYear(date: ChronosInput): boolean;
 
 	/**
-	 * * Checks if the given value is a valid `Date` object.
+	 * @static Checks if the given value is a valid `Date` object.
 	 * - A value is considered valid if it is an instance of the built-in `Date` class.
 	 * - This does not check whether the date itself is valid (e.g., `new Date('invalid')`).
 	 * @param value - The value to test.
@@ -381,7 +412,7 @@ export interface ChronosStatics {
 	isValidDate(value: unknown): value is Date;
 
 	/**
-	 * * Checks if the given value is a valid date string.
+	 * @static Checks if the given value is a valid date string.
 	 * - A value is considered a valid date string if it is a string and can be parsed by `Date.parse()`.
 	 * - This uses the native JavaScript date parser internally.
 	 * @param value - The value to test.
@@ -390,7 +421,7 @@ export interface ChronosStatics {
 	isDateString(value: unknown): value is string;
 
 	/**
-	 * * Checks if the given value is an instance of `Chronos`.
+	 * @static Checks if the given value is an instance of `Chronos`.
 	 * - Useful for verifying `Chronos` objects in type guards or validations.
 	 * @param value - The value to test.
 	 * @returns `true` if the value is an instance of `Chronos`, otherwise `false`.
@@ -398,7 +429,7 @@ export interface ChronosStatics {
 	isValidChronos(value: unknown): value is Chronos<ChronosTimeZone>;
 
 	/**
-	 * * Checks if the given value has the necessary properties to be reconstructed into a `Chronos` instance.
+	 * @static Checks if the given value has the necessary properties to be reconstructed into a `Chronos` instance.
 	 * - Can be used for validating objects that may represent serialized `Chronos` data.
 	 * @param value - The value to check.
 	 * @returns `true` if the value has the required properties for reconstruction, otherwise `false`.
@@ -406,7 +437,7 @@ export interface ChronosStatics {
 	isReconstructable(value: unknown): value is ChronosProperties;
 
 	/**
-	 * * Reconstructs a `Chronos` instance from an object containing the necessary properties.
+	 * @static Reconstructs a `Chronos` instance from an object containing the necessary properties.
 	 * - The input object must have the properties defined in {@link ChronosProperties} interface.
 	 * - If the input is not reconstructable, an error is thrown.
 	 *
@@ -417,7 +448,7 @@ export interface ChronosStatics {
 	reconstruct(value: ChronosProperties): Chronos<ChronosTimeZone>;
 
 	/**
-	 * * Injects a plugin into the `Chronos` system.
+	 * @static Injects a plugin into the `Chronos` system.
 	 * @param plugin The plugin to inject.
 	 *
 	 * @remarks
@@ -430,7 +461,7 @@ export interface ChronosStatics {
 	use(plugin: ChronosPlugin): void;
 
 	/**
-	 * * Registers a plugin into the `Chronos` system.
+	 * @static Registers a plugin into the `Chronos` system.
 	 * @param plugin The plugin to register.
 	 *
 	 * @remarks

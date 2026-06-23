@@ -1904,6 +1904,49 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	}
 
 	/**
+	 * @static Restricts a date to a specified range based on the underlying universal {@link timestamp}.
+	 *
+	 * @remarks
+	 * - All inputs are normalized to `Chronos` instances before comparison.
+	 * - Comparison is always performed using each instance's **UTC timestamp**, ensuring a consistent and timezone-agnostic result.
+	 * - If `value` represents a moment earlier than `min`, the result will be equal to `min`.
+	 * - If `value` represents a moment later than `max`, the result will be equal to `max`.
+	 * - If `value` falls within the range, it is returned unchanged.
+	 * - Internally equivalent to: `Chronos.min(Chronos.max(value, min), max)`.
+	 * - The returned value is **not** one of the input objects. A new immutable `Chronos` instance is always created. Its internal timezone, offset, name, and tracking information are cloned from the winning input instance.
+	 *
+	 * @param value The date to clamp.
+	 * @param min The lower bound of the allowed range.
+	 * @param max The upper bound of the allowed range.
+	 * @returns A new `Chronos` instance representing the clamped moment.
+	 *
+	 * @example
+	 * Chronos.clamp('2025-06-15', '2025-06-01', '2025-06-30');
+	 * //=> 2025-06-15
+	 *
+	 * @example
+	 * Chronos.clamp('2025-05-15', '2025-06-01', '2025-06-30');
+	 * //=> 2025-06-01
+	 *
+	 * @example
+	 * Chronos.clamp('2025-07-15', '2025-06-01', '2025-06-30');
+	 * //=> 2025-06-30
+	 */
+	static clamp(
+		value: ChronosInput,
+		min: ChronosInput,
+		max: ChronosInput
+	): Chronos<ChronosTimeZone> {
+		const winner = Chronos.min(Chronos.max(value, min), max);
+		const origin = winner.#ORIGIN;
+
+		return winner.#cloneStates(
+			winner,
+			origin !== 'root' && origin !== 'min' && origin !== 'max' ? origin : 'clamp'
+		);
+	}
+
+	/**
 	 * @static Checks if the year in the date string or year (from 0 - 9999) is a leap year.
 	 * - A year is a leap year if it is divisible by 4, but not divisible by 100, unless it is also divisible by 400.
 	 * - For example, 2000 and 2400 are leap years, but 1900 and 2100 are not.

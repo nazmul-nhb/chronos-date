@@ -142,7 +142,7 @@ for (const method of staticMethods) {
 
 		for (const doc of docs) {
 			for (const line of doc.getText().split('\n')) {
-				bodyLines.push(`\t${line.replace(/@statics?/g, '*')}`);
+				bodyLines.push(`\t${line.replace(/\* Chronos\./g, '* chronos.')}`);
 			}
 		}
 
@@ -186,7 +186,7 @@ for (const [modulePath, names] of importsByModule.entries()) {
 const finalLines = [
 	...importLines,
 	'',
-	`/** All the statics methods and constructor signatures in \`Chronos\` class */`,
+	`/** Interface for the {@link Chronos} static methods and constructor signatures for the \`chronos\` wrapper function */`,
 	`export interface ChronosStatics {`,
 	...bodyLines,
 	`}`,
