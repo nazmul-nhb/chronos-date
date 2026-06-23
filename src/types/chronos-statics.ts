@@ -6,14 +6,10 @@ import type {
 	ChronosTimeZone,
 	ChronosWithOptions,
 	DateRangeOptions,
+	DateRangeResult,
 	RelativeRangeOptions,
 } from 'src/types/chronos-specific';
-import type {
-	FormatOptions,
-	ISODateTimeString,
-	Milliseconds,
-	WeekDay,
-} from 'src/types/date-time';
+import type { FormatOptions, ISODateFormat, Milliseconds, WeekDay } from 'src/types/date-time';
 import type { TimeOnlyFormat } from 'src/types/format-tokens';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 
@@ -279,7 +275,8 @@ export interface ChronosStatics {
 	 *
 	 * @param day - The weekday to match (e.g., `'Wednesday'`, `'Sunday'`).
 	 * @param options - Relative range (e.g., 7 days, 4 weeks) and output format (local with timezone or utc).
-	 * @returns Array of ISO date strings in the specified format. Returns empty array if no matches in the time span.
+	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
+	 * 			Returns empty array if no matches in the time span.
 	 *
 	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
@@ -295,17 +292,18 @@ export interface ChronosStatics {
 	 * });
 	 * //=> [ '2025-05-28T15:17:10.812Z', '2025-06-04T15:17:10.812Z' ]
 	 */
-	getDatesForDay(
+	getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
 		day: WeekDay,
-		options?: RelativeRangeOptions
-	): ISODateTimeString<'utc' | 'local'>[];
+		options?: RelativeRangeOptions<F>
+	): DateRangeResult<F>;
 
 	/**
 	 * @static Returns ISO date strings for each occurrence of a weekday between two fixed dates.
 	 *
 	 * @param day - The weekday to match (e.g., `'Monday'`, `'Friday'`).
 	 * @param options - Date range (from/to, e.g. `'2025-06-30'`, ` new Date()`, `new Chronos()` etc.) and output format (local with timezone or utc).
-	 * @returns Array of ISO date strings in the specified format. Returns empty array if no matches in the range.
+	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
+	 * 			Returns empty array if no matches in the range.
 	 *
 	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
@@ -321,10 +319,10 @@ export interface ChronosStatics {
 	 * });
 	 * //=> [ '2025-01-06T...', '2025-01-13T...', ... ]
 	 */
-	getDatesForDay(
+	getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
 		day: WeekDay,
-		options?: DateRangeOptions
-	): ISODateTimeString<'utc' | 'local'>[];
+		options?: DateRangeOptions<F>
+	): DateRangeResult<F>;
 
 	/**
 	 * @static Returns the earliest `Chronos` instance based on the underlying universal {@link timestamp}.
@@ -338,7 +336,7 @@ export interface ChronosStatics {
 	 * @param dates A list of Chronos-compatible inputs (`string`, `number`, `Date` or `Chronos`).
 	 * @returns A new `Chronos` instance representing the earliest moment.
 	 */
-	min(dates?: ChronosInput[]): Chronos<ChronosTimeZone>;
+	min(...dates: ChronosInput[]): Chronos<ChronosTimeZone>;
 
 	/**
 	 * @static Returns the latest `Chronos` instance based on the underlying universal {@link timestamp}.
@@ -352,7 +350,7 @@ export interface ChronosStatics {
 	 * @param dates A list of Chronos-compatible inputs (`string`, `number`, `Date` or `Chronos`).
 	 * @returns A new `Chronos` instance representing the latest moment.
 	 */
-	max(dates?: ChronosInput[]): Chronos<ChronosTimeZone>;
+	max(...dates: ChronosInput[]): Chronos<ChronosTimeZone>;
 
 	/**
 	 * @static Restricts a date to a specified range based on the underlying universal {@link timestamp}.

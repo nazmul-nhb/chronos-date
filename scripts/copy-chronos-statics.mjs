@@ -111,9 +111,11 @@ for (const ctor of constructorOverloads) {
 			const name = param.getName();
 			const type = param.getTypeNode()?.getText() ?? param.getType().getText(param);
 			addUsedTypesFromText(type);
-			const optional = param.isOptional() ? '?' : '';
+			const isRest = param.isRestParameter();
+			const optional = !isRest && param.isOptional() ? '?' : '';
+			const restPrefix = isRest ? '...' : '';
 
-			return `${name}${optional}: ${type}`;
+			return `${restPrefix}${name}${optional}: ${type}`;
 		})
 		.join(', ');
 
@@ -152,9 +154,11 @@ for (const method of staticMethods) {
 				const name = param.getName();
 				const type = param.getTypeNode()?.getText() ?? param.getType().getText(param);
 				addUsedTypesFromText(type);
-				const optional = param.isOptional() ? '?' : '';
+				const isRest = param.isRestParameter();
+				const optional = !isRest && param.isOptional() ? '?' : '';
+				const restPrefix = isRest ? '...' : '';
 
-				return `${name}${optional}: ${type}`;
+				return `${restPrefix}${name}${optional}: ${type}`;
 			})
 			.join(', ');
 
@@ -162,7 +166,19 @@ for (const method of staticMethods) {
 			current.getReturnTypeNode()?.getText() ?? current.getReturnType().getText(current);
 		addUsedTypesFromText(returnType);
 
-		bodyLines.push(`\t${method.getName()}(${params}): ${returnType};`);
+		const typeParams = current.getTypeParameters();
+		const typeParamsStr =
+			typeParams.length > 0
+				? `<${typeParams
+						.map((tp) => {
+							const tpText = tp.getText();
+							addUsedTypesFromText(tpText);
+							return tpText;
+						})
+						.join(', ')}>`
+				: '';
+
+		bodyLines.push(`\t${method.getName()}${typeParamsStr}(${params}): ${returnType};`);
 	}
 }
 
