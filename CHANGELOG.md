@@ -4,6 +4,16 @@ All notable changes to **chronos-date** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.4](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.4) — 2026-06-23
+
+[Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.0...v2.4.4)
+
+* \[[`057b69dce7`](https://github.com/nazmul-nhb/chronos-date/commit/057b69dce7)] - 🛠️ chore: updated editor configs and deps (Nazmul Hassan)
+* \[[`4a72c5351b`](https://github.com/nazmul-nhb/chronos-date/commit/4a72c5351b)] - 🔧 update(docs): updated examples in playground code blocks (Nazmul Hassan)
+* \[[`4e10e25c52`](https://github.com/nazmul-nhb/chronos-date/commit/4e10e25c52)] - 🔧 update(docs): synced changelog and generated types for the playground (Nazmul Hassan)
+* \[[`a1125de983`](https://github.com/nazmul-nhb/chronos-date/commit/a1125de983)] - 🔧 update(docs): updated docs for `Chronos.formatTimePart` static method (Nazmul Hassan)
+* \[[`31363cd0e3`](https://github.com/nazmul-nhb/chronos-date/commit/31363cd0e3)] - 📚 docs: updated CHANGELOG.md for v2.4.0 (github-actions\[bot])
+
 ## [v2.4.0](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.0) — 2026-06-20
 
 [Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.3.3...v2.4.0)
