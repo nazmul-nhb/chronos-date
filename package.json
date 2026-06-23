@@ -1,6 +1,6 @@
 {
   "name": "chronos-date",
-  "version": "2.4.10",
+  "version": "2.4.11",
   "description": "A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -108,8 +108,8 @@
       "require": "./dist/index.cjs"
     },
     "./constants": {
-      "import": "./dist/constants.mjs",
-      "require": "./dist/constants.cjs"
+      "import": "./dist/constants/index.mjs",
+      "require": "./dist/constants/index.cjs"
     },
     "./guards": {
       "import": "./dist/guards.mjs",
@@ -168,8 +168,8 @@
       "require": "./dist/plugins/zodiacPlugin.cjs"
     },
     "./types": {
-      "import": "./dist/types.mjs",
-      "require": "./dist/types.cjs"
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.cjs"
     },
     "./utils": {
       "import": "./dist/utils.mjs",

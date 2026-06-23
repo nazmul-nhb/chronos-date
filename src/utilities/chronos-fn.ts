@@ -3,7 +3,7 @@ import type { ChronosInput, ChronosStaticKey, ChronosStatics } from 'src/types';
 import { isFunction, isNumber } from 'toolbox-x/guards';
 
 /**
- * * Converts a date into a Chronos object and access to all `Chronos` methods and properties.
+ * * Converts a date into a `Chronos` object and access to all `Chronos` methods and properties.
  *
  * **Note**: *If a date is provided **without a time component**, the instance will default to `00:00:00.000` UTC
  * and convert it to the **equivalent local time** using the current environment's UTC offset.*
@@ -49,11 +49,11 @@ import { isFunction, isNumber } from 'toolbox-x/guards';
  * @remarks
  * - Static methods can be accessed from both the `Chronos` class and the `chronos` function.
  * - Static methods from the `Chronos` class are copied over to the `chronos` wrapper function, so you can call them like:
- * ```ts
- * chronos.parse("2023-12-31", "YYYY-MM-DD");
- * // Or
- * Chronos.parse("2023-12-31", "YYYY-MM-DD");
- * ```
+ * 	 ```ts
+ * 	 chronos.parse("2023-12-31", "YYYY-MM-DD");
+ * 	 // Or
+ * 	 Chronos.parse("2023-12-31", "YYYY-MM-DD");
+ * 	 ```
  */
 const $chronos = (
 	valueOrYear?: ChronosInput,
@@ -118,7 +118,7 @@ function _isChronosStaticKey(prop: PropertyKey): prop is ChronosStaticKey {
  * chronos.isLeapYear(2024);
  * chronos.min(date1, date2, date3);
  *
- * @remarks *No need to call `chronos` for accessing the static methods. Simply call the static methods.*
+ * @remarks *No need to call `chronos` for accessing the static methods. Simply call them.*
  *
  * **Available Static Methods:**
  *
@@ -132,6 +132,7 @@ function _isChronosStaticKey(prop: PropertyKey): prop is ChronosStaticKey {
  * chronos.utc(dateLike: ChronosInput): Chronos;
  * chronos.min(...dates: ChronosInput[]): Chronos;
  * chronos.max(...dates: ChronosInput[]): Chronos;
+ * chronos.clamp(value: ChronosInput, min: ChronosInput, max: ChronosInput): Chronos;
  * chronos.isLeapYear(date: ChronosInput): boolean;
  * chronos.isValidDate(value: unknown): boolean;
  * chronos.isDateString(value: unknown): boolean;
