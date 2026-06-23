@@ -1,11 +1,14 @@
 import { DAYS, INTERNALS, MS_PER_DAY } from 'src/constants/basic';
 import type {
 	ChronosPlugin,
-	ISODateTimeString,
+	DateRangeResult,
+	DatesInRangeOptions,
+	ISODateFormat,
 	RangeWithDates,
 	RelativeDateRange,
 } from 'src/types';
-import { isNumber, isValidArray } from 'toolbox-x/guards';
+import { toPascalCase } from 'toolbox-x/change-case';
+import { isNumber, isPascalCase, isValidArray } from 'toolbox-x/guards';
 
 declare module 'chronos-date' {
 	interface Chronos {
@@ -17,7 +20,8 @@ declare module 'chronos-date' {
 		 * - If `skipDays` are provided, matching weekdays are excluded from the result.
 		 *
 		 * @param options - Configuration for the date range. Accepts a fixed (`RangeWithDates`) format.
-		 * @returns Array of ISO date-time strings in either local or UTC format, excluding any skipped weekdays if specified.
+		 * @returns Array of ISO date-time strings in either local or UTC format or `Chronos` instances when format is `'chronos'`,
+		 * 			excluding any skipped weekdays if specified.
 		 *
 		 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/plugins/date-range-plugin#getdatesinrange docs} for details.
 		 *
@@ -40,7 +44,9 @@ declare module 'chronos-date' {
 		 * new Chronos().getDatesInRange({ span: 2, unit: 'day', format: 'utc' });
 		 * // → ['2025-06-16T00:00:00.000Z', '2025-06-17T00:00:00.000Z']
 		 */
-		getDatesInRange(options?: RangeWithDates): ISODateTimeString<'local' | 'utc'>[];
+		getDatesInRange<F extends ISODateFormat | 'chronos' = 'local'>(
+			options?: RangeWithDates<F>
+		): DateRangeResult<F>;
 
 		/**
 		 * @instance Returns an array of ISO date-time strings within a specific date range.
@@ -50,7 +56,8 @@ declare module 'chronos-date' {
 		 * - If `skipDays` are provided, matching weekdays are excluded from the result.
 		 *
 		 * @param options - Configuration for the date range. Accepts a relative (`RelativeDateRange`) format.
-		 * @returns Array of ISO date-time strings in either local or UTC format, excluding any skipped weekdays if specified.
+		 * @returns Array of ISO date-time strings in either local or UTC format or `Chronos` instances when format is `'chronos'`,
+		 * 			excluding any skipped weekdays if specified.
 		 *
 		 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/plugins/date-range-plugin#getdatesinrange docs} for details.
 		 *
@@ -69,7 +76,9 @@ declare module 'chronos-date' {
 		 * new Chronos().getDatesInRange({ from: '2025-01-01', to: '2025-01-03' });
 		 * // → ['2025-01-01T00:00:00+06:00', '2025-01-02T00:00:00+06:00', '2025-01-03T00:00:00+06:00']
 		 */
-		getDatesInRange(options?: RelativeDateRange): ISODateTimeString<'local' | 'utc'>[];
+		getDatesInRange<F extends ISODateFormat | 'chronos' = 'local'>(
+			options?: RelativeDateRange<F>
+		): DateRangeResult<F>;
 	}
 }
 
@@ -77,7 +86,9 @@ declare module 'chronos-date' {
 export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate: $Date, cast, withOrigin, offset } = $Chronos[INTERNALS];
 
-	$Chronos.prototype.getDatesInRange = function (this, options) {
+	$Chronos.prototype.getDatesInRange = function <
+		F extends ISODateFormat | 'chronos' = 'local',
+	>(this, options: DatesInRangeOptions<F>) {
 		let startDate = this.clone(),
 			endDate = this.addWeeks(4);
 
@@ -105,10 +116,12 @@ export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 				: [];
 
 		const skipSet = new Set<number>(
-			skippedDays.map((day) => (isNumber(day) ? day : DAYS.indexOf(day)))
+			skippedDays.map((day) =>
+				isNumber(day) ? day : DAYS.indexOf(isPascalCase(day) ? day : toPascalCase(day))
+			)
 		);
 
-		const dates: ISODateTimeString<'local' | 'utc'>[] = [];
+		const dates: unknown[] = [];
 
 		const startTime = $Date(startDate).getTime();
 		const endTime = $Date(endDate).getTime();
@@ -131,10 +144,16 @@ export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 					startDate.$tzTracker
 				);
 
-				dates.push(format === 'local' ? chr.toLocalISOString() : chr.toISOString());
+				const $format = format.toLowerCase<ISODateFormat | 'chronos'>();
+
+				if ($format === 'chronos') {
+					dates.push(chr);
+				} else {
+					dates.push($format === 'utc' ? chr.toISOString() : chr.toLocalISOString());
+				}
 			}
 		}
 
-		return dates;
+		return dates as DateRangeResult<F>;
 	};
 };

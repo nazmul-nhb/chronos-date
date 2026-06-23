@@ -48,7 +48,7 @@ import {
 } from 'src/utilities/helpers';
 import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utilities/utils';
 import { toPascalCase } from 'toolbox-x/change-case';
-import { isNotEmptyObject, isNumber } from 'toolbox-x/guards';
+import { isNotEmptyObject, isNumber, isPascalCase } from 'toolbox-x/guards';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { LooseLiteral, TupleOf } from 'toolbox-x/types/utils';
 
@@ -1827,7 +1827,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			endDate = endDate.startOf('day');
 		}
 
-		const result = [] as unknown[];
+		const result: unknown[] = [];
 
 		// compute total days difference
 		const step = (startDate.isBefore(endDate, 'day') ? 1 : -1) * MS_PER_DAY;
@@ -1837,7 +1837,8 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 		// move to first matching weekday
 		let firstOffset = 0;
 		while (
-			new Date(now + firstOffset * step).getDay() !== DAYS.indexOf(toPascalCase(day))
+			new Date(now + firstOffset * step).getDay() !==
+			DAYS.indexOf(isPascalCase(day) ? day : toPascalCase(day))
 		) {
 			firstOffset++;
 		}
@@ -1852,7 +1853,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 				startDate.$tzTracker
 			);
 
-			const $format = format.toLowerCase() as F;
+			const $format = format.toLowerCase<ISODateFormat | 'chronos'>();
 
 			if ($format === 'chronos') {
 				result.push(chr);

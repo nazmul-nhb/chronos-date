@@ -1,7 +1,12 @@
 import type { DATE_PARTS, WESTERN_ZODIAC_SIGNS, ZODIAC_PRESETS } from 'src/constants/basic';
 import type { SEASON_PRESETS } from 'src/constants/seasons';
-import type { $Chronos, ChronosInput } from 'src/types/chronos-specific';
-import type { ClockHour, MonthDateString } from 'src/types/date-time';
+import type {
+	$Chronos,
+	ChronosInput,
+	DateRangeOptions,
+	RelativeRangeOptions,
+} from 'src/types/chronos-specific';
+import type { ClockHour, ISODateFormat, MonthDateString, WeekDay } from 'src/types/date-time';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { RangeTuple } from 'toolbox-x/types/utils';
 
@@ -160,3 +165,43 @@ export interface DurationOptions {
 	/** Whether to include zero values (default: `false`) */
 	showZero?: boolean;
 }
+
+/** Common options to either skip or keep days */
+interface $SkipOrKeepDays {
+	/**
+	 * An array of weekdays to exclude from the date range.
+	 * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+	 * - Ignored if {@link onlyDays} is provided.
+	 *
+	 * @example
+	 * skipDays: ['Saturday', 'Sunday']
+	 * skipDays: [0, 6] // Sunday and Saturday
+	 */
+	skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
+
+	/**
+	 * An array of weekdays to explicitly include in the date range.
+	 * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+	 * - When provided, this overrides {@link skipDays} and includes only the specified days.
+	 *
+	 * @example
+	 * onlyDays: ['Monday', 'Wednesday']
+	 * onlyDays: [1, 3] // Monday and Wednesday
+	 */
+	onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
+}
+
+/** - Options to define a **fixed date range** using explicit `from` and `to` dates. */
+export interface RangeWithDates<F extends ISODateFormat | 'chronos' = 'local'>
+	extends DateRangeOptions<F>,
+		$SkipOrKeepDays {}
+
+/** - Options to define a **relative date range** starting from the current date. */
+export interface RelativeDateRange<F extends ISODateFormat | 'chronos' = 'local'>
+	extends RelativeRangeOptions<F>,
+		$SkipOrKeepDays {}
+
+/** - Unified type that supports either a fixed or relative date range configuration. */
+export type DatesInRangeOptions<F extends ISODateFormat | 'chronos' = 'local'> =
+	| RangeWithDates<F>
+	| RelativeDateRange<F>;

@@ -1,36 +1,39 @@
 ---
 title: getDatesForDay
-description: Returns ISO date strings for each occurrence of a weekday.
+description: Returns ISO date strings or Chronos instances for each occurrence of a weekday.
 ---
 
 ## `getDatesForDay()`
 
-Returns ISO date strings for each occurrence of a weekday.
+Returns ISO date strings or `Chronos` instances for each occurrence of a weekday.
 
 ### Signature
 
 ```ts
 // Relative range signature
-static getDatesForDay(day: WeekDay, options?: RelativeRangeOptions): ISODateTimeString<'utc' | 'local'>[];
+static getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
+    day: WeekDay,
+    options?: RelativeRangeOptions<F>
+): DateRangeResult<F>;
 
 // Absolute range signature
-static getDatesForDay(day: WeekDay, options?: DateRangeOptions): ISODateTimeString<'utc' | 'local'>[];
-
-// Implementation signature
-static getDatesForDay(day: WeekDay, options?: WeekdayOptions): ISODateTimeString<'utc' | 'local'>[]
+static getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
+    day: WeekDay,
+    options?: DateRangeOptions<F>
+): DateRangeResult<F>;
 ```
 
 ### Parameters
 
-| Parameter   | Type             | Required | Default          | Description                                           |
-| ----------- | ---------------- | -------- | ---------------- | ----------------------------------------------------- |
-| `day`       | `WeekDay`        | ✅       | -                | Target weekday name (case-sensitive)                  |
-| `span`      | `number`         | ❌       | 4                | Number of time units for relative range               |
-| `unit`      | `TimeUnit`       | ❌       | 'week'           | Unit for relative range ('day'/'week'/'month'/'year') |
-| `from`      | `ChronosInput`   | ❌       | Current date     | Start date for absolute range                         |
-| `to`        | `ChronosInput`   | ❌       | 4 weeks from now | End date for absolute range                           |
-| `format`    | `'local'\|'utc'` | ❌       | 'local'          | Output format for ISO strings                         |
-| `roundDate` | `boolean`        | ❌       | false            | Round dates to start of day                           |
+| Parameter   | Type                        | Required | Default          | Description                                           |
+| ----------- | --------------------------- | -------- | ---------------- | ----------------------------------------------------- |
+| `day`       | `WeekDay`                   | ✅       | -                | Target weekday name (case-sensitive)                  |
+| `span`      | `number`                    | ❌       | `4`              | Number of time units for relative range               |
+| `unit`      | `TimeUnit`                  | ❌       | `'week'`         | Unit for relative range ('day'/'week'/'month'/'year') |
+| `from`      | `ChronosInput`              | ❌       | Current date     | Start date for absolute range                         |
+| `to`        | `ChronosInput`              | ❌       | 4 weeks from now | End date for absolute range                           |
+| `format`    | `'local'\|'utc'\|'chronos'` | ❌       | `'local'`        | Output format for ISO strings or `Chronos` instances  |
+| `roundDate` | `boolean`                   | ❌       | `false`          | Round dates to start of day                           |
 
 #### Common Parameter
 
@@ -44,7 +47,7 @@ static getDatesForDay(day: WeekDay, options?: WeekdayOptions): ISODateTimeString
 interface RelativeRangeOptions {
   span?: number;    // Duration quantity (default: 4)
   unit?: TimeUnit;  // 'day' | 'week' | 'month' | 'year' (default: 'week')
-  format?: 'local' | 'utc'; // Output format (default: 'local')
+  format?: 'local' | 'utc' | 'chronos'; // Output format (default: 'local')
   roundDate?: boolean; // Round to start of day (default: false)
 }
 ```
@@ -53,14 +56,20 @@ interface RelativeRangeOptions {
 interface DateRangeOptions {
   from?: ChronosInput; // Start date (default: now)
   to?: ChronosInput;   // End date (default: 4 weeks from now)
-  format?: 'local' | 'utc'; // Output format (default: 'local')
+  format?: 'local' | 'utc' | 'chronos'; // Output format (default: 'local')
   roundDate?: boolean; // Round to start of day (default: false)
 }
 ```
 
 ### Return Type
 
-`ISODateTimeString<'utc' | 'local'>[]` - Array of ISO-8601 formatted date strings
+`DateRangeResult<F>` - Array of ISO date strings or `Chronos` instances based on the `format` option.
+
+<Callout type="idea" title="Tips">
+- When `format` is `chronos`, the method returns an array of `Chronos` instances.
+- Thus you can call any method of `Chronos` on each element of the returned array.
+- **Note:** Each `Chronos` instance will be in the **same time zone** as the original instance.
+</Callout>
 
 ### Behavior
 
@@ -107,6 +116,20 @@ const dates = Chronos.getDatesForDay('Friday', {
 console.log(dates);
 ```
 
+```ts pg tab="Chronos Instances"
+import { Chronos } from 'chronos-date';
+
+// Get Chronos instances for Fridays in Q3 2025 (rounded)
+const chronosInstances = Chronos.getDatesForDay('Friday', {
+  from: '2025-07-01',
+  to: '2025-09-30',
+  roundDate: true,
+  format: 'chronos'
+});
+
+console.log(chronosInstances.map((c) => c.format()));
+```
+
 ### Notes
 
 - When `format: 'local'` (default):
@@ -115,6 +138,9 @@ console.log(dates);
 - When `format: 'utc'`:
   - Output is in UTC/Zulu time (ends with `Z`)
   - Uses `toISOString()` internally
+- When `format: 'chronos'`:
+  - Output is an array of `Chronos` instances
+  - Each instance preserves the original metadata
 - The method always starts searching from:
   - Current date (for relative ranges)
   - The `from` date (for absolute ranges)
