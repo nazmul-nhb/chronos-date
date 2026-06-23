@@ -12,11 +12,11 @@
 		"**/build/**": true
 	},
 	"files.exclude": {
-		"**/.git": true,
+		"**/.git": true
 	},
 	// ! Exclude Folders from global searching
 	"search.exclude": {
-	"**/node_modules": true,
+		"**/node_modules": true,
 		"**/.git/**": true,
 		"**/node_modules/**": true,
 		"**/coverage/**": true,
