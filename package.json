@@ -86,7 +86,7 @@
     "@biomejs/biome": "^2.5.0",
     "@types/node": "^26.0.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.7",
+    "lint-staged": "^17.0.8",
     "nhb-scripts": "^1.9.2",
     "toolbox-x": "2.4.2",
     "tsdown": "^0.22.3",
@@ -176,6 +176,6 @@
     "./package.json": "./package.json"
   },
   "inlinedDependencies": {
-    "toolbox-x": "2.2.5"
+    "toolbox-x": "2.4.2"
   }
 }
