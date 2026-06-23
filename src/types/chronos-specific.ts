@@ -2,6 +2,7 @@ import type { Chronos } from 'src/classes/Chronos';
 import type {
 	$TimeZoneIdentifier,
 	ISODateFormat,
+	ISODateTimeString,
 	Milliseconds,
 	TimeZone,
 	TimeZoneId,
@@ -187,16 +188,20 @@ export interface ChronosObject {
 }
 
 /** Common options for formatting and rounding dates */
-interface $CommonRangeOptions {
-	/** - Output format: return ISO strings in `'local'` or `'utc'` format. Defaults to `'local'`. */
-	format?: ISODateFormat;
+interface $CommonRangeOptions<F extends ISODateFormat | 'chronos' = 'local'> {
+	/**
+	 * - Output format: return ISO strings in `'local'` or `'utc'` format or as `Chronos` instance.
+	 * - Defaults to `'local'`.
+	 */
+	format?: F | ISODateFormat | 'chronos';
 
 	/** - Whether to round the dates in the range to the start of the day. Default is `false`. */
 	roundDate?: boolean;
 }
 
 /** - Options to define a **fixed date range** using explicit `from` and `to` dates. */
-export interface DateRangeOptions extends $CommonRangeOptions {
+export interface DateRangeOptions<F extends ISODateFormat | 'chronos' = 'local'>
+	extends $CommonRangeOptions<F> {
 	/** - Start date of the range (inclusive). Defaults to **now** if not provided. */
 	from?: ChronosInput;
 
@@ -205,7 +210,8 @@ export interface DateRangeOptions extends $CommonRangeOptions {
 }
 
 /** - Options to define a **relative date range** starting from the current date. */
-export interface RelativeRangeOptions extends $CommonRangeOptions {
+export interface RelativeRangeOptions<F extends ISODateFormat | 'chronos' = 'local'>
+	extends $CommonRangeOptions<F> {
 	/**
 	 * The number of time units to move **forward from `now`**.
 	 *
@@ -228,7 +234,12 @@ export interface RelativeRangeOptions extends $CommonRangeOptions {
 }
 
 /** - Unified type that supports either a fixed or relative date range configuration. */
-export type WeekdayOptions = RelativeRangeOptions | DateRangeOptions;
+export type WeekdayOptions<F extends ISODateFormat | 'chronos' = 'local'> =
+	| RelativeRangeOptions<F>
+	| DateRangeOptions<F>;
+
+export type DateRangeResult<F extends ISODateFormat | 'chronos' = 'local'> =
+	F extends ISODateFormat ? ISODateTimeString<F>[] : Chronos[];
 
 /** Common options to either skip or keep days */
 interface $SkipOrKeepDays {
@@ -256,10 +267,16 @@ interface $SkipOrKeepDays {
 }
 
 /** - Options to define a **fixed date range** using explicit `from` and `to` dates. */
-export interface RangeWithDates extends DateRangeOptions, $SkipOrKeepDays {}
+export interface RangeWithDates<F extends ISODateFormat | 'chronos' = 'local'>
+	extends DateRangeOptions<F>,
+		$SkipOrKeepDays {}
 
 /** - Options to define a **relative date range** starting from the current date. */
-export interface RelativeDateRange extends RelativeRangeOptions, $SkipOrKeepDays {}
+export interface RelativeDateRange<F extends ISODateFormat | 'chronos' = 'local'>
+	extends RelativeRangeOptions<F>,
+		$SkipOrKeepDays {}
 
 /** - Unified type that supports either a fixed or relative date range configuration. */
-export type DatesInRangeOptions = RangeWithDates | RelativeDateRange;
+export type DatesInRangeOptions<F extends ISODateFormat | 'chronos' = 'local'> =
+	| RangeWithDates<F>
+	| RelativeDateRange<F>;

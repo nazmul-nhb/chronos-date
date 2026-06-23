@@ -15,8 +15,10 @@ import type {
 	ChronosTimeZone,
 	ChronosWithOptions,
 	DateRangeOptions,
+	DateRangeResult,
 	DateTimeFormatOptions,
 	FormatOptions,
+	ISODateFormat,
 	ISODateTimeString,
 	LocalesArguments,
 	Milliseconds,
@@ -45,6 +47,7 @@ import {
 	_resolveNativeTzName,
 } from 'src/utilities/helpers';
 import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utilities/utils';
+import { toPascalCase } from 'toolbox-x/change-case';
 import { isNotEmptyObject, isNumber } from 'toolbox-x/guards';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { LooseLiteral, TupleOf } from 'toolbox-x/types/utils';
@@ -1742,7 +1745,8 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 *
 	 * @param day - The weekday to match (e.g., `'Wednesday'`, `'Sunday'`).
 	 * @param options - Relative range (e.g., 7 days, 4 weeks) and output format (local with timezone or utc).
-	 * @returns Array of ISO date strings in the specified format. Returns empty array if no matches in the time span.
+	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
+	 * 			Returns empty array if no matches in the time span.
 	 *
 	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
@@ -1758,17 +1762,18 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * });
 	 * //=> [ '2025-05-28T15:17:10.812Z', '2025-06-04T15:17:10.812Z' ]
 	 */
-	static getDatesForDay(
+	static getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
 		day: WeekDay,
-		options?: RelativeRangeOptions
-	): ISODateTimeString<'utc' | 'local'>[];
+		options?: RelativeRangeOptions<F>
+	): DateRangeResult<F>;
 
 	/**
 	 * @static Returns ISO date strings for each occurrence of a weekday between two fixed dates.
 	 *
 	 * @param day - The weekday to match (e.g., `'Monday'`, `'Friday'`).
 	 * @param options - Date range (from/to, e.g. `'2025-06-30'`, ` new Date()`, `new Chronos()` etc.) and output format (local with timezone or utc).
-	 * @returns Array of ISO date strings in the specified format. Returns empty array if no matches in the range.
+	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
+	 * 			Returns empty array if no matches in the range.
 	 *
 	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
@@ -1784,24 +1789,24 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	 * });
 	 * //=> [ '2025-01-06T...', '2025-01-13T...', ... ]
 	 */
-	static getDatesForDay(
+	static getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
 		day: WeekDay,
-		options?: DateRangeOptions
-	): ISODateTimeString<'utc' | 'local'>[];
+		options?: DateRangeOptions<F>
+	): DateRangeResult<F>;
 
 	/**
 	 * @static Returns ISO date strings for each occurrence of a weekday.
 	 *
 	 * @param day - The weekday to match (e.g., `'Wednesday'`, `'Sunday'`).
 	 * @param options - Relative range (e.g., 7 days, 4 weeks) or date range (from/to) and output format.
-	 * @returns Array of ISO date strings in the specified format.
+	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
 	 *
 	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
 	 */
-	static getDatesForDay(
+	static getDatesForDay<F extends ISODateFormat | 'chronos' = 'local'>(
 		day: WeekDay,
-		options?: WeekdayOptions
-	): ISODateTimeString<'utc' | 'local'>[] {
+		options?: WeekdayOptions<F>
+	): DateRangeResult<F> {
 		let startDate = new Chronos(),
 			endDate = startDate.addWeeks(4);
 
@@ -1822,21 +1827,23 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			endDate = endDate.startOf('day');
 		}
 
-		const result: ISODateTimeString<'utc' | 'local'>[] = [];
+		const result = [] as unknown[];
 
 		// compute total days difference
 		const step = (startDate.isBefore(endDate, 'day') ? 1 : -1) * MS_PER_DAY;
 		const totalDays = Math.abs(endDate.diff(startDate, 'day'));
-		const currentTime = startDate.#timestamp;
+		const now = startDate.#timestamp;
 
 		// move to first matching weekday
 		let firstOffset = 0;
-		while (new Date(currentTime + firstOffset * step).getDay() !== DAYS.indexOf(day)) {
+		while (
+			new Date(now + firstOffset * step).getDay() !== DAYS.indexOf(toPascalCase(day))
+		) {
 			firstOffset++;
 		}
 
 		for (let i = firstOffset; i <= totalDays; i += 7) {
-			const ts = currentTime + i * step;
+			const ts = now + i * step;
 			const chr = new Chronos(ts).#withOrigin(
 				'clone',
 				startDate.#offset,
@@ -1845,10 +1852,16 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 				startDate.$tzTracker
 			);
 
-			result.push(format === 'local' ? chr.toLocalISOString() : chr.toISOString());
+			const $format = format.toLowerCase() as F;
+
+			if ($format === 'chronos') {
+				result.push(chr);
+			} else {
+				result.push($format === 'utc' ? chr.toISOString() : chr.toLocalISOString());
+			}
 		}
 
-		return result;
+		return result as DateRangeResult<F>;
 	}
 
 	/**
