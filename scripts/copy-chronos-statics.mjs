@@ -7,11 +7,10 @@ import { resolve } from 'node:path';
 import { Stylog } from 'toolbox-x/stylog';
 import { Project, Scope } from 'ts-morph';
 
-const CHRONOS_PATH = resolve('src/classes/Chronos.ts');
+const CHRONOS_PATH = resolve('src/core/Chronos.ts');
 const OUTPUT_PATH = resolve('src/types/chronos-statics.ts');
 
-const CONSTRUCTOR_REMARKS = `\t*\n\t* @remarks
-\t* - This function serves as a wrapper around the {@link Chronos} class constructor.\n\t* - It allows you to create a new \`Chronos\` instance from \`number\`, \`string\`, {@link Date}, {@link Chronos}, or individual date-time components.`;
+const CONSTRUCTOR_REMARKS = `\t*\n\t* @remarks This function serves as a wrapper around the {@link Chronos} class constructor.`;
 
 const project = new Project({
 	skipAddingFilesFromTsConfig: false,
@@ -24,7 +23,7 @@ const chronosClass = sourceFile.getClassOrThrow('Chronos');
 
 // Build type to path mapping
 const typeToPath = new Map();
-typeToPath.set('Chronos', 'src/classes/Chronos');
+typeToPath.set('Chronos', 'src/core/Chronos');
 
 const typeFiles = project.getSourceFiles();
 for (const file of typeFiles) {

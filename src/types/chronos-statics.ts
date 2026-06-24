@@ -20,9 +20,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(): Chronos;
 
@@ -33,9 +31,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(value: number): Chronos;
 
@@ -48,9 +44,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(value: string): Chronos;
 
@@ -61,9 +55,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(value: Date): Chronos;
 
@@ -74,9 +66,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(value: Chronos): Chronos;
 
@@ -95,9 +85,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(
 		year: number,
@@ -124,9 +112,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(
 		year: number,
@@ -151,9 +137,7 @@ export interface ChronosStatics {
 	 *
 	 * @returns Instance of `Chronos` with all methods and properties.
 	 *
-	 * @remarks
-	 * - This function serves as a wrapper around the {@link Chronos} class constructor.
-	 * - It allows you to create a new `Chronos` instance from `number`, `string`, {@link Date}, {@link Chronos}, or individual date-time components.
+	 * @remarks This function serves as a wrapper around the {@link Chronos} class constructor.
 	 */
 	(value?: ChronosInput): Chronos;
 
