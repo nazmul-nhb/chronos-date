@@ -3,8 +3,8 @@ import { defineConfig } from 'tsdown';
 export default defineConfig({
 	entry: [
 		'src/index.ts',
-		'src/utils.ts',
 		'src/guards.ts',
+		'src/utils/index.ts',
 		'src/types/index.ts',
 		'src/constants/index.ts',
 		'src/plugins/*.ts',

@@ -38,15 +38,15 @@ import type {
 	WeekDay,
 	WeekdayOptions,
 } from 'src/types';
-import { addDate } from 'src/utilities/calculation';
+import { addDate } from 'src/utils/calculation';
 import {
 	_dateArgsToDate,
 	_formatDate,
 	_hasChronosProperties,
 	_normalizeOffset,
 	_resolveNativeTzName,
-} from 'src/utilities/helpers';
-import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utilities/utils';
+} from 'src/utils/helpers';
+import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utils/misc';
 import { toPascalCase } from 'toolbox-x/change-case';
 import { isNotEmptyObject, isNumber, isPascalCase } from 'toolbox-x/guards';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';

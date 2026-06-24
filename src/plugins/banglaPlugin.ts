@@ -21,7 +21,7 @@ import {
 	_getBnYear,
 	_isBnLeapYear,
 	_padShunno,
-} from 'src/utilities/helpers';
+} from 'src/utils/helpers';
 import { digitToBangla } from 'toolbox-x';
 
 declare module 'chronos-date' {

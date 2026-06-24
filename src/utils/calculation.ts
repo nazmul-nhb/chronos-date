@@ -1,6 +1,6 @@
 import { DATE_UNIT_SETTERS } from 'src/constants/basic';
 import type { DateArgs, TimeUnit, UnitWithValue } from 'src/types/date-time';
-import { _dateArgsToDate } from 'src/utilities/helpers';
+import { _dateArgsToDate } from 'src/utils/helpers';
 import { normalizeNumber } from 'toolbox-x';
 import { isNumber, isObjectWithKeys } from 'toolbox-x/guards';
 import type { Maybe, Numeric } from 'toolbox-x/types';

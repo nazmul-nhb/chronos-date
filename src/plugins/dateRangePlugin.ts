@@ -88,7 +88,7 @@ export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 
 	$Chronos.prototype.getDatesInRange = function <
 		F extends ISODateFormat | 'chronos' = 'local',
-	>(this, options: DatesInRangeOptions<F>) {
+	>(options: DatesInRangeOptions<F>) {
 		let startDate = this.clone(),
 			endDate = this.addWeeks(4);
 

@@ -12,8 +12,8 @@ import type {
 	TimeZoneName,
 	UTCOffset,
 } from 'src/types';
-import { _gmtToUtcOffset, _resolveNativeTzName } from 'src/utilities/helpers';
-import { extractMinutesFromUTC } from 'src/utilities/utils';
+import { _gmtToUtcOffset, _resolveNativeTzName } from 'src/utils/helpers';
+import { extractMinutesFromUTC } from 'src/utils/misc';
 import type { Any, Maybe } from 'toolbox-x/types';
 import type { LooseLiteral } from 'toolbox-x/types/utils';
 

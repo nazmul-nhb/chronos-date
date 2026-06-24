@@ -1,10 +1,20 @@
-export { addDate } from 'src/utilities/calculation';
+export { addDate } from 'src/utils/calculation';
+export {
+	formatDate,
+	formatDate as formatDateTime,
+	formatDateRelative,
+	formatDateRelative as formatRelativeDate,
+	formatDateRelative as formatRelativeTime,
+	formatRelativeDateNative,
+	formatRelativeDateNative as formatDateRelativeNative,
+	formatRelativeDateNative as formatRelativeTimeNative,
+	formatTimePart,
+} from 'src/utils/format';
 export {
 	getGreeting as generateGreeting,
 	getGreeting,
 	getGreeting as greet,
-} from 'src/utilities/greet';
-export { parseMSec as parseMs, parseMSec } from 'src/utilities/parser';
+} from 'src/utils/greet';
 export {
 	convertMinutesToTime as convertMinutesToHourMinutes,
 	convertMinutesToTime,
@@ -17,15 +27,6 @@ export {
 	extractTimeFromUTC,
 	extractTimeFromUTC as extractTimeStringFromUTC,
 	extractTimeFromUTC as getTimeStringFromUTC,
-	formatDate,
-	formatDate as formatDateTime,
-	formatDateRelative,
-	formatDateRelative as formatRelativeDate,
-	formatDateRelative as formatRelativeTime,
-	formatRelativeDateNative,
-	formatRelativeDateNative as formatDateRelativeNative,
-	formatRelativeDateNative as formatRelativeTimeNative,
-	formatTimePart,
 	formatUTCOffset as convertMinutesToUTCOffset,
 	formatUTCOffset,
 	formatUTCOffset as minutesToUTCOffset,
@@ -36,4 +37,5 @@ export {
 	getTotalMinutes as extractTotalMinutesFromTime,
 	getTotalMinutes,
 	getTotalMinutes as getTotalMinutesFromTime,
-} from 'src/utilities/utils';
+} from 'src/utils/misc';
+export { parseMSec as parseMs, parseMSec } from 'src/utils/parser';

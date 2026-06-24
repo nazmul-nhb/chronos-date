@@ -7,7 +7,7 @@ import type {
 	ZodiacOptions,
 	ZodiacSign,
 } from 'src/types';
-import { _padZero } from 'src/utilities/helpers';
+import { _padZero } from 'src/utils/helpers';
 import type { NumberRange } from 'toolbox-x/types/number';
 
 declare module 'chronos-date' {
