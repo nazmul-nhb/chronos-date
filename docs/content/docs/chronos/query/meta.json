@@ -1,14 +1,14 @@
 {
 	"pages": [
 		"is-same",
-		"is-before",
 		"is-same-or-before",
+		"is-same-or-after",
+		"is-before",
 		"is-between",
 		"is-after",
-		"is-same-or-after",
 		"is-equal",
-		"is-equal-or-after",
 		"is-equal-or-before",
+		"is-equal-or-after",
 		"..."
 	]
 }

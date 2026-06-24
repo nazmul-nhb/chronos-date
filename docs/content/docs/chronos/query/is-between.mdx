@@ -36,9 +36,9 @@ const date = new Chronos('2025-01-15');
 
 console.log({
     exclusive: date.isBetween('2025-01-01', '2025-01-31'), // true
-    inclusive: date.isBetween('2025-01-15', '2025-01-20', '[]'); // true
-    exclusive_end: date.isBetween('2025-01-01', '2025-01-15', '(]'); // true
-    exclusive_start: date.isBetween('2025-01-15', '2025-01-20', '[)'); // true
-    exclusive_range: date.isBetween('2025-01-01', '2025-01-15', '()'); // false
+    inclusive: date.isBetween('2025-01-15', '2025-01-20', '[]'), // true
+    exclusive_end: date.isBetween('2025-01-01', '2025-01-15', '(]'), // true
+    exclusive_start: date.isBetween('2025-01-15', '2025-01-20', '[)'), // true
+    exclusive_range: date.isBetween('2025-01-01', '2025-01-15', '()'), // false
 });
 ```

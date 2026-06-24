@@ -29,10 +29,12 @@ isBefore(other: ChronosInput, unit?: TimeUnit, weekStartsOn?: Enumerate<7>): boo
 
 ### Example
 
-```ts
+```ts pg
+import { Chronos } from 'chronos-date';
+
 // Compare entire date: milliseconds granularity
-new Chronos('2025-01-01').isBefore('2025-02-01'); // true
+console.log(new Chronos('2025-01-01').isBefore('2025-02-01')); // true
 
 // Compare just the months
-new Chronos('2025-01-15').isBefore('2025-02-01', 'month'); // true
+console.log(new Chronos('2025-01-15').isBefore('2025-02-01', 'month')); // true
 ```
