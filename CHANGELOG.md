@@ -4,6 +4,14 @@ All notable changes to **chronos-date** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.12](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.12) — 2026-06-24
+
+[Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.11...v2.4.12)
+
+* \[[`edc49b08da`](https://github.com/nazmul-nhb/chronos-date/commit/edc49b08da)] - 🔣 types(chronos): updated constructor signatures `ChronosStatics`; updated the script to copy the interface (Nazmul Hassan)
+* \[[`1504c043cc`](https://github.com/nazmul-nhb/chronos-date/commit/1504c043cc)] - 🧼 refactor(src): updated folder structure (Nazmul Hassan)
+* \[[`df4eb710c2`](https://github.com/nazmul-nhb/chronos-date/commit/df4eb710c2)] - 📚 docs: updated CHANGELOG.md for v2.4.11 (github-actions\[bot])
+
 ## [v2.4.11](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.11) — 2026-06-24
 
 [Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.10...v2.4.11)
