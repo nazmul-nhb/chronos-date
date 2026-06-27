@@ -1,11 +1,12 @@
-import type { DateArgs, DateTimeCompareFn } from 'src/types/date-time';
+import type { DateArgs, DateTimeCompareFn, TimeUnit } from 'src/types/date-time';
+import { getDaysInMonth } from 'src/utils/calculation';
 import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import type { Maybe } from 'toolbox-x/types';
 
 /**
  * * Returns the number of full years between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeYear: DateTimeCompareFn = (date1, date2) => {
@@ -30,8 +31,8 @@ export const getRelativeYear: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full months between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeMonth: DateTimeCompareFn = (date1, date2) => {
@@ -56,8 +57,8 @@ export const getRelativeMonth: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full weeks between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeWeek: DateTimeCompareFn = (date1, date2) => {
@@ -68,8 +69,8 @@ export const getRelativeWeek: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full days between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeDay: DateTimeCompareFn = (date1, date2) => {
@@ -89,8 +90,8 @@ export const getRelativeDay: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full hours between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeHour: DateTimeCompareFn = (date1, date2) => {
@@ -107,8 +108,8 @@ export const getRelativeHour: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full minutes between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeMinute: DateTimeCompareFn = (date1, date2) => {
@@ -125,8 +126,8 @@ export const getRelativeMinute: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full seconds between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeSecond: DateTimeCompareFn = (date1, date2) => {
@@ -143,8 +144,8 @@ export const getRelativeSecond: DateTimeCompareFn = (date1, date2) => {
 
 /**
  * * Returns the number of full milliseconds between 2 inputs.
- * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
- * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @param date1 First input to compare with. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. For `undefined` value it uses the current date.
  * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
  */
 export const getRelativeMilliSecond: DateTimeCompareFn = (date1, date2) => {
@@ -194,4 +195,51 @@ export function isYesterday(date: Maybe<DateArgs>): boolean {
 	_throwInvalidDate($date);
 
 	return getRelativeDay(new Date(), $date) === -1;
+}
+
+/**
+ * * Calculates the difference between two dates in the specified time unit.
+ * @param date1 The first date to compare. For `undefined` value it uses the current date.
+ * @param date2 The second date to compare. For `undefined` value it uses the current date.
+ * @param unit The time unit to use for the comparison. Defaults to `'millisecond'`.
+ * @returns The difference between the two dates in the specified time unit.
+ *
+ * @remarks
+ * - It returns negative value if `date1` is after `date2` and positive value if `date1` is before `date2`.
+ * - It returns difference in milliseconds for incorrect or `undefined` {@link unit}.
+ */
+export function getTimeDiff(date1: DateArgs, date2: DateArgs, unit?: TimeUnit): number {
+	const $date1 = _dateArgsToDate(date1);
+	const $date2 = _dateArgsToDate(date2);
+
+	_throwInvalidDate($date1);
+	_throwInvalidDate($date2);
+
+	const msDiff = $date2.getTime() - $date1.getTime();
+
+	switch (unit) {
+		case 'second':
+			return msDiff / 1e3;
+		case 'minute':
+			return msDiff / 6e4;
+		case 'hour':
+			return msDiff / 3.6e6;
+		case 'day':
+			return msDiff / 8.64e7;
+		case 'week':
+			return msDiff / 6.048e8;
+		case 'month': {
+			const yearDiff = $date2.getFullYear() - $date1.getFullYear();
+			const monthDiff = $date2.getMonth() - $date1.getMonth();
+
+			const totalMonthDiff = yearDiff * 12 + monthDiff;
+			const dayDiff = $date2.getDate() - $date1.getDate();
+
+			return totalMonthDiff + dayDiff / getDaysInMonth($date2);
+		}
+		case 'year':
+			return getTimeDiff(date1, date2, 'month') / 12;
+		default:
+			return msDiff;
+	}
 }

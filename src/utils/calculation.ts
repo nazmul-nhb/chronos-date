@@ -4,6 +4,7 @@ import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import { normalizeNumber } from 'toolbox-x';
 import { isNumber, isObjectWithKeys } from 'toolbox-x/guards';
 import type { Maybe, Numeric } from 'toolbox-x/types';
+import type { NumberRange } from 'toolbox-x/types/number';
 
 /**
  * * A function that takes a date and adds units to it.
@@ -43,4 +44,20 @@ export function addDate(date: Maybe<DateArgs>, units: UnitWithValue): Date {
 	}
 
 	return expected;
+}
+
+/**
+ * * Returns the number of total days in a month.
+ * @param date Date object to get the number of days in the month.
+ * @returns The number of days in the month (`28`-`31`).
+ */
+export function getDaysInMonth(date: DateArgs): NumberRange<28, 31> {
+	const $date = _dateArgsToDate(date);
+
+	_throwInvalidDate($date);
+
+	const year = $date.getFullYear();
+	const month = $date.getMonth();
+
+	return new Date(year, month + 1, 0).getDate() as NumberRange<28, 31>;
 }

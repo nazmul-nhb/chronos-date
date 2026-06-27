@@ -179,3 +179,9 @@ export function isTimeWithUnit(value: unknown): value is TimeWithUnit {
 		)
 	);
 }
+
+export {
+	isToday,
+	isTomorrow,
+	isYesterday,
+} from 'src/utils/compare';
