@@ -1,5 +1,4 @@
 import type { DateArgs, DateTimeCompareFn, TimeUnit } from 'src/types/date-time';
-import { getDaysInMonth } from 'src/utils/calculation';
 import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import type { Maybe } from 'toolbox-x/types';
 
@@ -229,13 +228,18 @@ export function getTimeDiff(date1: DateArgs, date2: DateArgs, unit?: TimeUnit): 
 		case 'week':
 			return msDiff / 6.048e8;
 		case 'month': {
-			const yearDiff = $date2.getFullYear() - $date1.getFullYear();
-			const monthDiff = $date2.getMonth() - $date1.getMonth();
+			const year2 = $date2.getFullYear();
+			const month2 = $date1.getMonth();
+
+			const yearDiff = year2 - $date1.getFullYear();
+			const monthDiff = month2 - $date1.getMonth();
 
 			const totalMonthDiff = yearDiff * 12 + monthDiff;
 			const dayDiff = $date2.getDate() - $date1.getDate();
 
-			return totalMonthDiff + dayDiff / getDaysInMonth($date2);
+			const daysInMonth = new Date(year2, month2 + 1, 0).getDate();
+
+			return totalMonthDiff + dayDiff / daysInMonth;
 		}
 		case 'year':
 			return getTimeDiff(date1, date2, 'month') / 12;
