@@ -3,7 +3,7 @@ import type {
 	ChronosPlugin,
 	DateRangeResult,
 	DatesInRangeOptions,
-	ISODateFormat,
+	RangedChronosFormat,
 	RangeWithDates,
 	RelativeDateRange,
 } from 'src/types';
@@ -19,7 +19,7 @@ declare module 'chronos-date' {
 		 * - If the input is a relative range (`span` and `unit`), it starts from current date and goes forward.
 		 * - If `skipDays` are provided, matching weekdays are excluded from the result.
 		 *
-		 * @param options - Configuration for the date range. Accepts a fixed (`RangeWithDates`) format.
+		 * @param options - Configuration for the date range. Accepts a fixed ({@link RangeWithDates}) format.
 		 * @returns Array of ISO date-time strings in either local or UTC format or `Chronos` instances when format is `'chronos'`,
 		 * 			excluding any skipped weekdays if specified.
 		 *
@@ -44,7 +44,7 @@ declare module 'chronos-date' {
 		 * new Chronos().getDatesInRange({ span: 2, unit: 'day', format: 'utc' });
 		 * // → ['2025-06-16T00:00:00.000Z', '2025-06-17T00:00:00.000Z']
 		 */
-		getDatesInRange<F extends ISODateFormat | 'chronos' = 'local'>(
+		getDatesInRange<F extends RangedChronosFormat = 'local'>(
 			options?: RangeWithDates<F>
 		): DateRangeResult<F>;
 
@@ -55,7 +55,7 @@ declare module 'chronos-date' {
 		 * - If the input is a relative range (`span` and `unit`), it starts from current date and goes forward.
 		 * - If `skipDays` are provided, matching weekdays are excluded from the result.
 		 *
-		 * @param options - Configuration for the date range. Accepts a relative (`RelativeDateRange`) format.
+		 * @param options - Configuration for the date range. Accepts a relative ({@link RelativeDateRange}) format.
 		 * @returns Array of ISO date-time strings in either local or UTC format or `Chronos` instances when format is `'chronos'`,
 		 * 			excluding any skipped weekdays if specified.
 		 *
@@ -76,7 +76,7 @@ declare module 'chronos-date' {
 		 * new Chronos().getDatesInRange({ from: '2025-01-01', to: '2025-01-03' });
 		 * // → ['2025-01-01T00:00:00+06:00', '2025-01-02T00:00:00+06:00', '2025-01-03T00:00:00+06:00']
 		 */
-		getDatesInRange<F extends ISODateFormat | 'chronos' = 'local'>(
+		getDatesInRange<F extends RangedChronosFormat = 'local'>(
 			options?: RelativeDateRange<F>
 		): DateRangeResult<F>;
 	}
@@ -86,9 +86,9 @@ declare module 'chronos-date' {
 export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 	const { internalDate: $Date, cast, withOrigin, offset } = $Chronos[INTERNALS];
 
-	$Chronos.prototype.getDatesInRange = function <
-		F extends ISODateFormat | 'chronos' = 'local',
-	>(options: DatesInRangeOptions<F>) {
+	$Chronos.prototype.getDatesInRange = function <F extends RangedChronosFormat = 'local'>(
+		options: DatesInRangeOptions<F>
+	) {
 		let startDate = this.clone(),
 			endDate = this.addWeeks(4);
 
@@ -144,7 +144,7 @@ export const dateRangePlugin: ChronosPlugin = ($Chronos) => {
 					startDate.$tzTracker
 				);
 
-				const $format = format.toLowerCase<ISODateFormat | 'chronos'>();
+				const $format = format.toLowerCase<RangedChronosFormat>();
 
 				if ($format === 'chronos') {
 					dates.push(chr);

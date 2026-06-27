@@ -186,8 +186,11 @@ export interface ChronosObject {
 	unix: number;
 }
 
+/** Formats for range getter methods, includes: `'local'`, `'utc'`, and `'chronos'` */
+export type RangedChronosFormat = ISODateFormat | 'chronos';
+
 /** Common options for formatting and rounding dates */
-interface $CommonRangeOptions<F extends ISODateFormat | 'chronos' = 'local'> {
+export interface $CommonRangeOptions<F extends RangedChronosFormat = 'local'> {
 	/**
 	 * - Output format: return ISO strings in `'local'` or `'utc'` format or as `Chronos` instance.
 	 * - Defaults to `'local'`.
@@ -199,7 +202,7 @@ interface $CommonRangeOptions<F extends ISODateFormat | 'chronos' = 'local'> {
 }
 
 /** - Options to define a **fixed date range** using explicit `from` and `to` dates. */
-export interface DateRangeOptions<F extends ISODateFormat | 'chronos' = 'local'>
+export interface DateRangeOptions<F extends RangedChronosFormat = 'local'>
 	extends $CommonRangeOptions<F> {
 	/** - Start date of the range (inclusive). Defaults to **now** if not provided. */
 	from?: ChronosInput;
@@ -209,7 +212,7 @@ export interface DateRangeOptions<F extends ISODateFormat | 'chronos' = 'local'>
 }
 
 /** - Options to define a **relative date range** starting from the current date. */
-export interface RelativeRangeOptions<F extends ISODateFormat | 'chronos' = 'local'>
+export interface RelativeRangeOptions<F extends RangedChronosFormat = 'local'>
 	extends $CommonRangeOptions<F> {
 	/**
 	 * The number of time units to move **forward from `now`**.
@@ -232,11 +235,12 @@ export interface RelativeRangeOptions<F extends ISODateFormat | 'chronos' = 'loc
 	unit?: 'year' | 'month' | 'week' | 'day';
 }
 
-/** - Unified type that supports either a fixed or relative date range configuration. */
-export type WeekdayOptions<F extends ISODateFormat | 'chronos' = 'local'> =
+/** Unified type that supports either a fixed or relative date range configuration. */
+export type WeekdayOptions<F extends RangedChronosFormat = 'local'> =
 	| RelativeRangeOptions<F>
 	| DateRangeOptions<F>;
 
 /** The result type of `getDatesInRange` and `getDatesForDay` */
-export type DateRangeResult<F extends ISODateFormat | 'chronos' = 'local'> =
-	F extends ISODateFormat ? ISODateTimeString<F>[] : Chronos<ChronosTimeZone>[];
+export type DateRangeResult<F extends RangedChronosFormat = 'local'> = F extends ISODateFormat
+	? ISODateTimeString<F>[]
+	: Chronos<ChronosTimeZone>[];

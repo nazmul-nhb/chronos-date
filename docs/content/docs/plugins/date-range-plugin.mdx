@@ -100,7 +100,6 @@ The `dateRangePlugin` adds comprehensive date range functionalities to `Chronos`
 - Generating an array of ISO date strings within a specified date range
 - Generating an array of `Chronos` instances if `format` is set to `'chronos'`
 
-
 ---
 
 ## Methods Added by the Plugin
@@ -109,9 +108,9 @@ The `dateRangePlugin` adds comprehensive date range functionalities to `Chronos`
 All these methods are provided by `dateRangePlugin`. You must register it using `Chronos.use(dateRangePlugin)` before calling them. Once registered, all `Chronos` instances will have access to these methods.
 </Callout>
 
-| Method                                | Description                                                          | Returns    |
-| ------------------------------------- | -------------------------------------------------------------------- | ---------- |
-| [`getDatesInRange`](#getdatesinrange) | Generate an array of ISO date strings within a specified date range. | `string[]` |
+| Method                                | Description                                                                | Returns                 |
+| ------------------------------------- | -------------------------------------------------------------------------- | ----------------------- |
+| [`getDatesInRange`](#getdatesinrange) | Generate an array of ISO date strings or `Chronos` instances in the range. | `(string \| Chronos)[]` |
 ---
 
 ## API Reference
@@ -145,38 +144,38 @@ Generates dates between two points in time with:
 
 Configuration object accepting either fixed or relative range parameters:
 
-| Parameter   | Type                             | Default          | Description                                                      |
-| ----------- | -------------------------------- | ---------------- | ---------------------------------------------------------------- |
-| `from`      | `ChronosInput`                   | Current date     | Start date (inclusive)                                           |
-| `to`        | `ChronosInput`                   | 4 weeks from now | End date (inclusive)                                             |
-| `span`      | `number`                         | `4`              | Number of time units                                             |
-| `unit`      | `'year'\|'month'\|'week'\|'day'` | `'week'`         | Unit of time for relative ranges                                 |
-| `format`    | `'local'\|'utc'\|'chronos'`      | `'local'`        | Output format for ISO strings  or `Chronos` instances            |
-| `skipDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`             | Weekdays to exclude (e.g. `['Sunday', 'Saturday']` or `[0, 6]`)  |
-| `onlyDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`             | Include these (e.g. `['Monday']` or `[1]`, overrides `skipDays`) |
-| `roundDate` | `boolean`                        | `false`          | Round dates to start of day                                      |
+| Parameter   | Type                             | Default             | Description                                                      |
+| ----------- | -------------------------------- | ------------------- | ---------------------------------------------------------------- |
+| `from`      | `ChronosInput`                   | Current date        | Start date (inclusive)                                           |
+| `to`        | `ChronosInput`                   | 4 weeks from `from` | End date (inclusive)                                             |
+| `span`      | `number`                         | `4`                 | Number of time units                                             |
+| `unit`      | `'year'\|'month'\|'week'\|'day'` | `'week'`            | Unit of time for relative ranges                                 |
+| `format`    | `'local'\|'utc'\|'chronos'`      | `'local'`           | Output format for ISO strings  or `Chronos` instances            |
+| `skipDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`                | Weekdays to exclude (e.g. `['Sunday', 'Saturday']` or `[0, 6]`)  |
+| `onlyDays`  | `WeekDay[] \| Enumerate<7>[]`    | `[]`                | Include these (e.g. `['Monday']` or `[1]`, overrides `skipDays`) |
+| `roundDate` | `boolean`                        | `false`             | Round dates to start of day                                      |
 
 
 ```ts tab="Fixed Range Options"
 interface RangeWithDates {
-  /** Start date (inclusive). Default: current date */
-  from?: ChronosInput;
-  /** End date (inclusive). Default: 4 weeks from now */
-  to?: ChronosInput;
+	/** Start date of the range (inclusive). Defaults to the current `Chronos` instance if not provided. */
+	from?: ChronosInput;
+	/** End date of the range (inclusive). Defaults to **4 weeks from the current `Chronos` instance** if not provided. */
+	to?: ChronosInput;
   /** Output format. Default: 'local' */
   format?: 'local' | 'utc' | 'chronos';
- /**
-  * An array of weekdays to exclude from the date range.
-  * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
-  * - Ignored if `onlyDays` is provided.
-  */
- skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
- /**
-  * An array of weekdays to explicitly include in the date range.
-  * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
-  * - When provided, this overrides `skipDays` and includes only the specified days.
-  */
- onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /**
+    * An array of weekdays to exclude from the date range.
+    * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+    * - Ignored if `onlyDays` is provided.
+    */
+  skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /**
+    * An array of weekdays to explicitly include in the date range.
+    * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+    * - When provided, this overrides `skipDays` and includes only the specified days.
+    */
+  onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
   /** Round dates to start of day. Default: false */
   roundDate?: boolean;
 }
@@ -184,7 +183,7 @@ interface RangeWithDates {
 
 ```ts tab="Relative Range Options"
 interface RelativeDateRange {
-  /** Number of time units. Default: 4 */
+  /** Number of time units to move forward from current `Chronos` instance. Default: 4 */
   span?: number;
   /** Unit of time. Default: 'week' */
   unit?: 'year' | 'month' | 'week' | 'day';

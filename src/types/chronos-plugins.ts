@@ -2,11 +2,11 @@ import type { DATE_PARTS, WESTERN_ZODIAC_SIGNS, ZODIAC_PRESETS } from 'src/const
 import type { SEASON_PRESETS } from 'src/constants/seasons';
 import type {
 	$Chronos,
+	$CommonRangeOptions,
 	ChronosInput,
-	DateRangeOptions,
-	RelativeRangeOptions,
+	RangedChronosFormat,
 } from 'src/types/chronos-specific';
-import type { ClockHour, ISODateFormat, MonthDateString, WeekDay } from 'src/types/date-time';
+import type { ClockHour, MonthDateString, WeekDay } from 'src/types/date-time';
 import type { Enumerate, NumberRange } from 'toolbox-x/types/number';
 import type { RangeTuple } from 'toolbox-x/types/utils';
 
@@ -192,16 +192,42 @@ interface $SkipOrKeepDays {
 }
 
 /** - Options to define a **fixed date range** using explicit `from` and `to` dates. */
-export interface RangeWithDates<F extends ISODateFormat | 'chronos' = 'local'>
-	extends DateRangeOptions<F>,
-		$SkipOrKeepDays {}
+export interface RangeWithDates<F extends RangedChronosFormat = 'local'>
+	extends $CommonRangeOptions<F>,
+		$SkipOrKeepDays {
+	/** - Start date of the range (inclusive). Defaults to the current `Chronos` instance if not provided. */
+	from?: ChronosInput;
+
+	/** - End date of the range (inclusive). Defaults to **4 weeks from the current `Chronos` instance** if not provided. */
+	to?: ChronosInput;
+}
 
 /** - Options to define a **relative date range** starting from the current date. */
-export interface RelativeDateRange<F extends ISODateFormat | 'chronos' = 'local'>
-	extends RelativeRangeOptions<F>,
-		$SkipOrKeepDays {}
+export interface RelativeDateRange<F extends RangedChronosFormat = 'local'>
+	extends $CommonRangeOptions<F>,
+		$SkipOrKeepDays {
+	/**
+	 * The number of time units to move **forward from current `Chronos` instance**.
+	 *
+	 * - Determines the size of the range.
+	 * - `current` → `start`, and `start + span` → `end`.
+	 * - Both `start` and `end` are included in the result.
+	 * - Controlled by the {@link unit} option.
+	 * - Defaults to `4`.
+	 */
+	span?: number;
+
+	/**
+	 * The time unit used to advance the range.
+	 *
+	 * - Works together with {@link span} to calculate the final date range.
+	 * - For example: `span: 2, unit: 'week'` → 2-week range.
+	 * - Defaults to `'week'`.
+	 */
+	unit?: 'year' | 'month' | 'week' | 'day';
+}
 
 /** - Unified type that supports either a fixed or relative date range configuration. */
-export type DatesInRangeOptions<F extends ISODateFormat | 'chronos' = 'local'> =
+export type DatesInRangeOptions<F extends RangedChronosFormat = 'local'> =
 	| RangeWithDates<F>
 	| RelativeDateRange<F>;
