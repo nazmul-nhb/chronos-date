@@ -2,6 +2,12 @@ import type { DateArgs, DateTimeCompareFn } from 'src/types/date-time';
 import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import type { Maybe } from 'toolbox-x/types';
 
+/**
+ * * Returns the number of full years between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
 export const getRelativeYear: DateTimeCompareFn = (date1, date2) => {
 	const $date1 = _dateArgsToDate(date1);
 	const $date2 = _dateArgsToDate(date2);
@@ -22,6 +28,50 @@ export const getRelativeYear: DateTimeCompareFn = (date1, date2) => {
 	return years;
 };
 
+/**
+ * * Returns the number of full months between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
+export const getRelativeMonth: DateTimeCompareFn = (date1, date2) => {
+	const $date1 = _dateArgsToDate(date1);
+	const $date2 = _dateArgsToDate(date2);
+
+	_throwInvalidDate($date1);
+	_throwInvalidDate($date2);
+
+	let months =
+		($date2.getFullYear() - $date1.getFullYear()) * 12 +
+		($date2.getMonth() - $date1.getMonth());
+
+	const hasNotHadMonthDay = $date2.getDate() < $date1.getDate();
+
+	if (hasNotHadMonthDay) {
+		months--;
+	}
+
+	return months;
+};
+
+/**
+ * * Returns the number of full weeks between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
+export const getRelativeWeek: DateTimeCompareFn = (date1, date2) => {
+	const relativeDays = getRelativeDay(date1, date2);
+
+	return Math.floor(relativeDays / 7);
+};
+
+/**
+ * * Returns the number of full days between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
 export const getRelativeDay: DateTimeCompareFn = (date1, date2) => {
 	const $date1 = _dateArgsToDate(date1);
 	const $date2 = _dateArgsToDate(date2);
@@ -37,6 +87,81 @@ export const getRelativeDay: DateTimeCompareFn = (date1, date2) => {
 	return Math.floor(diff / (1000 * 60 * 60 * 24));
 };
 
+/**
+ * * Returns the number of full hours between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
+export const getRelativeHour: DateTimeCompareFn = (date1, date2) => {
+	const $date1 = _dateArgsToDate(date1);
+	const $date2 = _dateArgsToDate(date2);
+
+	_throwInvalidDate($date1);
+	_throwInvalidDate($date2);
+
+	const diff = $date2.getTime() - $date1.getTime();
+
+	return Math.floor(diff / (1000 * 60 * 60));
+};
+
+/**
+ * * Returns the number of full minutes between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
+export const getRelativeMinute: DateTimeCompareFn = (date1, date2) => {
+	const $date1 = _dateArgsToDate(date1);
+	const $date2 = _dateArgsToDate(date2);
+
+	_throwInvalidDate($date1);
+	_throwInvalidDate($date2);
+
+	const diff = $date2.getTime() - $date1.getTime();
+
+	return Math.floor(diff / (1000 * 60));
+};
+
+/**
+ * * Returns the number of full seconds between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
+export const getRelativeSecond: DateTimeCompareFn = (date1, date2) => {
+	const $date1 = _dateArgsToDate(date1);
+	const $date2 = _dateArgsToDate(date2);
+
+	_throwInvalidDate($date1);
+	_throwInvalidDate($date2);
+
+	const diff = $date2.getTime() - $date1.getTime();
+
+	return Math.floor(diff / 1000);
+};
+
+/**
+ * * Returns the number of full milliseconds between 2 inputs.
+ * @param date1 First input to compare with. It is the anchor date. For `undefined` value it uses the current date.
+ * @param date2 Second input to compare with. The date to find difference from anchor date. For `undefined` value it uses the current date.
+ * @returns The difference in number, negative if `date2` is before `date1`, positive if `date2` is after `date1`.
+ */
+export const getRelativeMilliSecond: DateTimeCompareFn = (date1, date2) => {
+	const $date1 = _dateArgsToDate(date1);
+	const $date2 = _dateArgsToDate(date2);
+
+	_throwInvalidDate($date1);
+	_throwInvalidDate($date2);
+
+	return $date2.getTime() - $date1.getTime();
+};
+
+/**
+ * * Checks if the given date is today.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date is today, `false` otherwise.
+ */
 export function isToday(date: Maybe<DateArgs>): boolean {
 	const $date = _dateArgsToDate(date);
 
@@ -45,6 +170,11 @@ export function isToday(date: Maybe<DateArgs>): boolean {
 	return getRelativeDay(new Date(), $date) === 0;
 }
 
+/**
+ * * Checks if the given date is tomorrow.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date is tomorrow, `false` otherwise.
+ */
 export function isTomorrow(date: Maybe<DateArgs>): boolean {
 	const $date = _dateArgsToDate(date);
 
@@ -53,6 +183,11 @@ export function isTomorrow(date: Maybe<DateArgs>): boolean {
 	return getRelativeDay(new Date(), $date) === 1;
 }
 
+/**
+ * * Checks if the given date is yesterday.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date is yesterday, `false` otherwise.
+ */
 export function isYesterday(date: Maybe<DateArgs>): boolean {
 	const $date = _dateArgsToDate(date);
 

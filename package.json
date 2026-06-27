@@ -89,7 +89,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "nhb-scripts": "^1.9.2",
-    "toolbox-x": "2.4.2",
+    "toolbox-x": "2.4.4",
     "ts-morph": "^28.0.0",
     "tsdown": "^0.22.3",
     "typescript": "^6.0.3"
@@ -178,6 +178,6 @@
     "./package.json": "./package.json"
   },
   "inlinedDependencies": {
-    "toolbox-x": "2.4.2"
+    "toolbox-x": "2.4.4"
   }
 }
