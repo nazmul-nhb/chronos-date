@@ -7,7 +7,12 @@ import type {
 	SafeFormat,
 	TimeOnlyFormat,
 } from 'src/types';
-import { _dateArgsToDate, _formatDate, _normalizeOffset } from 'src/utils/helpers';
+import {
+	_dateArgsToDate,
+	_formatDate,
+	_normalizeOffset,
+	_returnInvalidDate,
+} from 'src/utils/helpers';
 import { formatUTCOffset } from 'src/utils/misc';
 import type { Maybe } from 'toolbox-x/types';
 
@@ -36,9 +41,7 @@ export function formatDate(options?: DateFormatOptions): string {
 
 	const $date = _dateArgsToDate(date);
 
-	if (Number.isNaN($date.getTime())) {
-		return 'Invalid Date!';
-	}
+	_returnInvalidDate($date);
 
 	/** Get unit value for {@link $date} for specific unit in local or UTC time */
 	const _getUnitValue = (suffix: $DateUnit): number => {
@@ -106,9 +109,7 @@ export function formatTimePart(time: string, format?: TimeOnlyFormat): string {
 export function formatDateRelative(date: Maybe<DateArgs>, format?: SafeFormat): string {
 	const $date = _dateArgsToDate(date);
 
-	if (Number.isNaN($date.getTime())) {
-		return 'Invalid Date!';
-	}
+	_returnInvalidDate($date);
 
 	const now = Date.now();
 	const then = $date.getTime();

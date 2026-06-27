@@ -1,6 +1,6 @@
 import { DATE_UNIT_SETTERS } from 'src/constants/basic';
 import type { DateArgs, TimeUnit, UnitWithValue } from 'src/types/date-time';
-import { _dateArgsToDate } from 'src/utils/helpers';
+import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import { normalizeNumber } from 'toolbox-x';
 import { isNumber, isObjectWithKeys } from 'toolbox-x/guards';
 import type { Maybe, Numeric } from 'toolbox-x/types';
@@ -28,13 +28,9 @@ import type { Maybe, Numeric } from 'toolbox-x/types';
  * ```
  */
 export function addDate(date: Maybe<DateArgs>, units: UnitWithValue): Date {
-	const $date = _dateArgsToDate(date);
+	const expected = _dateArgsToDate(date);
 
-	if (Number.isNaN($date.getTime())) {
-		throw new TypeError('Provided date is invalid!');
-	}
-
-	const expected = new Date($date);
+	_throwInvalidDate(expected);
 
 	for (const [unit, value] of Object.entries(units) as [TimeUnit, Numeric][]) {
 		const val = normalizeNumber(value);

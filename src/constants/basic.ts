@@ -1,6 +1,6 @@
 import type { $TimeUnitVar, ClockHour, DayPart, TimeUnit } from 'src/types';
 
-/** @internal Symbol for accessing Chronos internals (plugin author use only) */
+/** @internal Symbol for accessing `Chronos` internals (plugin author use only) */
 export const INTERNALS = Symbol('Internals');
 
 /** Milliseconds per day */
@@ -367,12 +367,12 @@ export const RELATIVE_TIME_DIVISIONS = /* @__PURE__ */ Object.freeze([
 
 /** Internal Record of functions to set units to date. */
 export const DATE_UNIT_SETTERS = /* @__PURE__ */ Object.freeze({
-	year: (d: Date, v: number) => d.setFullYear(d.getFullYear() + v),
-	month: (d: Date, v: number) => d.setMonth(d.getMonth() + v),
-	week: (d: Date, v: number) => d.setDate(d.getDate() + v * 7),
-	day: (d: Date, v: number) => d.setDate(d.getDate() + v),
-	hour: (d: Date, v: number) => d.setHours(d.getHours() + v),
-	minute: (d: Date, v: number) => d.setMinutes(d.getMinutes() + v),
-	second: (d: Date, v: number) => d.setSeconds(d.getSeconds() + v),
-	millisecond: (d: Date, v: number) => d.setMilliseconds(d.getMilliseconds() + v),
+	year: (d, v) => d.setFullYear(d.getFullYear() + v),
+	month: (d, v) => d.setMonth(d.getMonth() + v),
+	week: (d, v) => d.setDate(d.getDate() + v * 7),
+	day: (d, v) => d.setDate(d.getDate() + v),
+	hour: (d, v) => d.setHours(d.getHours() + v),
+	minute: (d, v) => d.setMinutes(d.getMinutes() + v),
+	second: (d, v) => d.setSeconds(d.getSeconds() + v),
+	millisecond: (d, v) => d.setMilliseconds(d.getMilliseconds() + v),
 } satisfies Record<TimeUnit, (date: Date, value: number) => void>);

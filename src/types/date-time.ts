@@ -327,3 +327,6 @@ export interface RelativeDateFormatOptions extends Intl.RelativeTimeFormatOption
 
 /** Record of TimeUnits and number values where at least one property is required. */
 export type UnitWithValue = RequireAtLeast<{ [U in TimeUnit]?: Numeric }, 1>;
+
+/** Type for date-time comparison functions that return a number */
+export type DateTimeCompareFn = (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number;

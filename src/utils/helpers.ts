@@ -232,7 +232,7 @@ export function _padShunno(str: string, length = 2) {
 }
 
 /**
- * Convert a string, number, or `Date` object to a `Date` object.
+ * Convert a string, number, or `Date` object to a new `Date` object.
  * - If the input is already a `Date`, it is returned as is.
  * - If it's a string, it is parsed into a `Date`.
  * - If it's a number or undefined, it is treated as a timestamp and converted to a `Date`.
@@ -240,9 +240,27 @@ export function _padShunno(str: string, length = 2) {
  * @returns A `Date` object representing the input date.
  */
 export function _dateArgsToDate(value: Maybe<DateArgs>): Date {
-	return isDate(value)
-		? value
-		: new Date(isString(value) ? value.replace(/['"]/g, '') : (value ?? Date.now()));
+	return new Date(
+		isDate(value)
+			? value
+			: isString(value)
+				? value.replace(/['"]/g, '')
+				: (value ?? Date.now())
+	);
+}
+
+/** Throw error for invalid `Date` object */
+export function _throwInvalidDate(date: Date): void {
+	if (Number.isNaN(date.getTime())) {
+		throw new TypeError('Provided date is invalid!');
+	}
+}
+
+/** Return `'Invalid Date'` string for invalid `Date` object */
+export function _returnInvalidDate(date: Date) {
+	if (Number.isNaN(date.getTime())) {
+		return 'Invalid Date!';
+	}
 }
 
 /**

@@ -45,6 +45,7 @@ import {
 	_hasChronosProperties,
 	_normalizeOffset,
 	_resolveNativeTzName,
+	_throwInvalidDate,
 } from 'src/utils/helpers';
 import { extractMinutesFromUTC, getNativeTimeZoneId } from 'src/utils/misc';
 import { toPascalCase } from 'toolbox-x/change-case';
@@ -426,10 +427,7 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 	#toNewDate(value?: ChronosInput): Date {
 		const date = value instanceof Chronos ? value.toDate() : _dateArgsToDate(value);
 
-		// Check if the date is invalid
-		if (Number.isNaN(date.getTime())) {
-			throw new Error('Provided date is invalid!');
-		}
+		_throwInvalidDate(date);
 
 		return date;
 	}
