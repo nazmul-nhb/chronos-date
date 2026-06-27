@@ -4,6 +4,15 @@ All notable changes to **chronos-date** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.4.14](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.14) — 2026-06-27
+
+[Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.12...v2.4.14)
+
+* \[[`fd2a26351e`](https://github.com/nazmul-nhb/chronos-date/commit/fd2a26351e)] - 📚 docs(plugins): updated tsdoc and docs for the types related to `dateRangePlugin` (Nazmul Hassan)
+* \[[`6405d4173e`](https://github.com/nazmul-nhb/chronos-date/commit/6405d4173e)] - 🔧 update(docs): fixed an example in docs (Nazmul Hassan)
+* \[[`248766d203`](https://github.com/nazmul-nhb/chronos-date/commit/248766d203)] - 🔧 update(docs): updated examples and plugin docs (Nazmul Hassan)
+* \[[`a99db9e191`](https://github.com/nazmul-nhb/chronos-date/commit/a99db9e191)] - 📚 docs: updated CHANGELOG.md for v2.4.12 (github-actions\[bot])
+
 ## [v2.4.12](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.4.12) — 2026-06-24
 
 [Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.4.11...v2.4.12)
