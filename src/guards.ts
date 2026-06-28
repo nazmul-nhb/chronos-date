@@ -2,11 +2,13 @@ import { IANA_TZ_IDS, NATIVE_TZ_IDS } from 'src/constants/timezone';
 import type {
 	$TimeZoneIdentifier,
 	ClockTime,
+	DateArgs,
 	DateLike,
 	TimeWithUnit,
 	TimeZoneIdNative,
 	UTCOffset,
 } from 'src/types';
+import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import { normalizeNumber } from 'toolbox-x';
 import {
 	isBoolean,
@@ -15,7 +17,7 @@ import {
 	isNumericString,
 	isObject,
 } from 'toolbox-x/guards';
-import type { Numeric } from 'toolbox-x/types';
+import type { Maybe, Numeric } from 'toolbox-x/types';
 
 /**
  * * Type guard to check if a value is a Date object.
@@ -97,16 +99,35 @@ export function isNativeTimeZoneId(value: unknown): value is TimeZoneIdNative {
 
 /**
  * * Checks if the year is a leap year.
- *
- * - A year is a leap year if it is divisible by 4, but not divisible by 100, unless it is also divisible by 400.
- * - For example, 2000 and 2400 are leap years, but 1900 and 2100 are not.
  * @param year The year to check.
  * @returns `true` if the year is a leap year, `false` otherwise.
+ *
+ * @remarks
+ * - A year is a leap year if it is divisible by 4, but not divisible by 100, unless it is also divisible by 400.
+ * - For example, `2000` and `2400` are leap years, but `1900` and `2100` are not.
  */
 export function isLeapYear(year: Numeric): boolean {
 	const $year = normalizeNumber(year);
 
 	return $year ? ($year % 4 === 0 && $year % 100 !== 0) || $year % 400 === 0 : false;
+}
+
+/**
+ * * Checks if the given date belongs to a leap year.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date belongs to a leap year, `false` otherwise.
+ *
+ * @remarks
+ * - Internally passes the date's year to {@link isLeapYear} to check if the year is a leap year.
+ * - A year is a leap year if it is divisible by 4, but not divisible by 100, unless it is also divisible by 400.
+ * - For example, `2000` and `2400` are leap years, but `1900` and `2100` are not.
+ */
+export function isDateLeapYear(date: Maybe<DateArgs>): boolean {
+	const $date = _dateArgsToDate(date);
+
+	_throwInvalidDate($date);
+
+	return isLeapYear($date.getFullYear());
 }
 
 /**

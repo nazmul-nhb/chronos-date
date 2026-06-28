@@ -54,16 +54,56 @@ console.log(isLeapYear("2024")); // true (accepts numeric strings)
 type Numeric = number | `${number}`;
 ```
 
-### Use Cases
-
-- Date validation
-- Calendar applications
-- Age calculations
-- Date arithmetic
-- Financial year calculations
-
 ### Key Points
 
 - **Accurate** leap year detection
 - **Flexible** input (numbers or numeric string)
 
+---
+
+## isDateLeapYear
+
+Checks if a given date belongs to a leap year.
+
+### Function Signature
+
+```ts
+isDateLeapYear(date: Maybe<DateArgs>): boolean;
+```
+
+### Parameters
+
+- **`date`**: The date to check. Can be `string`, `number` or `Date` object. For `undefined` value it uses the current date.
+
+### Returns
+
+`true` if the date belongs to a leap year, `false` otherwise.
+
+<Callout type="idea" title="Note">
+- Internally passes the date's year to [`isLeapYear`](#isleapyear) to check if the year is a leap year.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Example Usage
+
+```ts pg
+import { isDateLeapYear } from 'chronos-date/guards';
+
+console.log(isDateLeapYear(new Date()));      // true/false depends on current date
+console.log(isDateLeapYear('2020-02-01'));    // true
+console.log(isDateLeapYear('2021-02-01'));    // false
+console.log(isDateLeapYear(undefined));       // true/false depends on current date
+```
+
+### Type Definition
+
+```ts
+type DateArgs = string | number | Date;
+type Maybe<T> = T | undefined;
+```
+
+### Key Points
+
+- **Accurate** leap year detection
+- **Flexible** input (`numbers`, `string`, or `Date` object)
+- **Convenient** for date-based checks
