@@ -11,7 +11,7 @@ import type {
 	TIME_ZONES,
 	TIME_ZONES_NATIVE,
 } from 'src/constants/timezone';
-import type { ChronosStatics } from 'src/types';
+import type { ChronosStatics, RangeWithDates, RelativeDateRange } from 'src/types';
 import type { SafeFormat } from 'src/types/format-tokens';
 import type { Maybe, Numeric } from 'toolbox-x/types';
 import type { Enumerate, LocaleCode, NumberRange } from 'toolbox-x/types/number';
@@ -330,3 +330,25 @@ export type UnitWithValue = RequireAtLeast<{ [U in TimeUnit]?: Numeric }, 1>;
 
 /** Type for date-time comparison functions that return a number */
 export type DateTimeCompareFn = (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number;
+
+export interface SpanRangeForDate
+	extends Omit<RangeWithDates, 'format' | 'from' | 'to' | 'roundDate'> {
+	/** - Start date of the range (inclusive). Defaults to the current date-time if not provided. */
+	from?: DateArgs;
+
+	/** - End date of the range (inclusive). Defaults to **4 weeks from the current date-time** if not provided. */
+	to?: DateArgs;
+}
+export interface RelativeRangeForDate
+	extends Omit<RelativeDateRange, 'format' | 'span' | 'roundDate'> {
+	/**
+	 * The number of time units to move **forward from current date-time**.
+	 *
+	 * - Determines the size of the range.
+	 * - `current` → `start`, and `start + span` → `end`.
+	 * - Both `start` and `end` are included in the result.
+	 * - Controlled by the {@link unit} option.
+	 * - Defaults to `4`.
+	 */
+	span?: number;
+}

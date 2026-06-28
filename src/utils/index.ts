@@ -1,4 +1,4 @@
-export { addDate, getDaysInMonth } from 'src/utils/calculation';
+export { addDate, getDatesInRange, getDaysInMonth } from 'src/utils/calculation';
 export {
 	getRelativeDay,
 	getRelativeHour,
