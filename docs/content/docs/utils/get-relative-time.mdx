@@ -1,0 +1,309 @@
+---
+title: Get Relative Time
+description: Get full relative time between 2 dates in specified unit.
+---
+
+<Callout type="idea" title="Note">
+- Calculation order is `date2 - date1`.
+- These functions return integer values (whole numbers).
+- For exact values (integer or float), use the [`getTimeDiff`](/docs/utils/get-time-diff) function.
+</Callout>
+
+## getRelativeYear
+
+Returns the number of full years between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeYear: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full years between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeYear } from 'chronos-date/utils';
+
+console.log(getRelativeYear('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeYear('2026-06-28', '2028-06-28')); // 2
+console.log(getRelativeYear('2028-06-28', '2026-06-28')); // -2
+```
+
+---
+
+## getRelativeMonth
+
+Returns the number of full months between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeMonth: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full months between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeMonth } from 'chronos-date/utils';
+
+console.log(getRelativeMonth('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeMonth('2026-06-28', '2026-08-28')); // 2
+console.log(getRelativeMonth('2026-06-28', '2026-03-28')); // -3
+```
+
+---
+
+## getRelativeWeek
+
+Returns the number of full weeks between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeWeek: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full weeks between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeWeek } from 'chronos-date/utils';
+
+console.log(getRelativeWeek('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeWeek('2026-06-28', '2026-07-01')); // 0
+console.log(getRelativeWeek('2026-06-28', '2026-07-06')); // 1
+console.log(getRelativeWeek('2026-06-28', '2028-06-28')); // 104
+console.log(getRelativeWeek('2028-06-28', '2026-06-28')); // -105
+```
+
+---
+
+## getRelativeDay
+
+Returns the number of full days between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeDay: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full days between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeDay } from 'chronos-date/utils';
+
+console.log(getRelativeDay('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeDay('2026-06-28', '2026-07-01')); // 3
+console.log(getRelativeDay('2026-06-28', '2026-07-06')); // 8
+console.log(getRelativeDay('2026-06-28', '2028-06-28')); // 731
+console.log(getRelativeDay('2028-06-28', '2026-06-28')); // -731
+```
+
+---
+
+## getRelativeHour
+
+Returns the number of full hours between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeHour: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full hours between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeHour } from 'chronos-date/utils';
+
+console.log(getRelativeHour('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeHour('2026-06-28', '2026-07-01')); // 72
+console.log(getRelativeHour('2026-06-28', '2026-07-06')); // 192
+console.log(getRelativeHour('2026-06-28', '2028-06-28')); // 17544
+console.log(getRelativeHour('2028-06-28', '2026-06-28')); // -17544
+```
+
+---
+
+## getRelativeMinute
+
+Returns the number of full minutes between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeMinute: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full minutes between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeMinute } from 'chronos-date/utils';
+
+console.log(getRelativeMinute('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeMinute('2026-06-28', '2026-07-01')); // 4320
+console.log(getRelativeMinute('2026-06-28', '2026-07-06')); // 11520
+console.log(getRelativeMinute('2026-06-28', '2028-06-28')); // 1052640
+console.log(getRelativeMinute('2028-06-28', '2026-06-28')); // -1052640
+```
+
+---
+
+## getRelativeSecond
+
+Returns the number of full seconds between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeSecond: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full seconds between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeSecond } from 'chronos-date/utils';
+
+console.log(getRelativeSecond('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeSecond('2026-06-28', '2026-07-01')); // 259200
+console.log(getRelativeSecond('2026-06-28', '2026-07-06')); // 691200
+console.log(getRelativeSecond('2026-06-28', '2028-06-28')); // 63158400
+console.log(getRelativeSecond('2028-06-28', '2026-06-28')); // -63158400
+```
+
+---
+
+## getRelativeMillisecond
+
+Returns the number of full milliseconds between 2 inputs.
+
+### Function Signature
+
+```ts
+const getRelativeMillisecond: (date1: Maybe<DateArgs>, date2: Maybe<DateArgs>) => number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+The number of full milliseconds between the two dates.
+
+### Example Usage
+
+```ts pg
+import { getRelativeMillisecond } from 'chronos-date/utils';
+
+console.log(getRelativeMillisecond('2026-06-28', '2026-06-28')); // 0
+console.log(getRelativeMillisecond('2026-06-28', '2026-07-01')); // 259200000
+console.log(getRelativeMillisecond('2026-06-28', '2026-07-06')); // 691200000
+console.log(getRelativeMillisecond('2026-06-28', '2028-06-28')); // 63158400000
+console.log(getRelativeMillisecond('2028-06-28', '2026-06-28')); // -63158400000
+```
+
