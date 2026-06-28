@@ -19,7 +19,7 @@ Checks if a given year is a leap year according to the Gregorian calendar rules.
 ### Function Signature
 
 ```ts
-isLeapYear(year: Numeric): boolean;
+function isLeapYear(year: Numeric): boolean;
 ```
 
 ### Parameters
@@ -68,12 +68,16 @@ Checks if a given date belongs to a leap year.
 ### Function Signature
 
 ```ts
-isDateLeapYear(date: Maybe<DateArgs>): boolean;
+function isDateLeapYear(date: Maybe<DateArgs>): boolean;
 ```
 
 ### Parameters
 
-- **`date`**: The date to check. Can be `string`, `number` or `Date` object. For `undefined` value it uses the current date.
+- **`date`**: The date to check. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+For `undefined` date argument it uses the current date.
+</Callout>
 
 ### Returns
 

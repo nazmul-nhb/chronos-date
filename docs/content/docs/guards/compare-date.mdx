@@ -1,0 +1,113 @@
+---
+title: Compare Date
+description: Check if the provided date is today, tomorrow or yesterday.
+---
+
+## isToday
+
+Checks if the given date is today.
+
+### Function Signature
+
+```ts
+function isToday(date: Maybe<DateArgs>): boolean;
+```
+
+### Parameters
+
+- **`date`**: The date to check. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date argument it uses the current date.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+`true` if the date is today, `false` otherwise
+
+### Example Usage
+
+```ts pg
+import { isToday } from 'chronos-date/guards';
+
+console.log(isToday(new Date()));   // true
+console.log(isToday('2026-06-27')); // false
+console.log(isToday(undefined));    // true
+```
+
+---
+
+## isTomorrow
+
+Checks if the given date is tomorrow.
+
+### Function Signature
+
+```ts
+function isTomorrow(date: Maybe<DateArgs>): boolean;
+```
+
+### Parameters
+
+- **`date`**: The date to check. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date argument it uses the current date.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+`true` if the date is tomorrow, `false` otherwise
+
+### Example Usage
+
+```ts pg
+import { isTomorrow } from 'chronos-date/guards';
+import { addDate } from 'chronos-date/utils';
+
+const tomorrow = addDate(new Date(), { day: 1 });
+
+console.log(isTomorrow(tomorrow));      // true
+console.log(isTomorrow('2026-06-27'));  // false
+console.log(isTomorrow(undefined));     // false
+```
+
+---
+
+## isYesterday
+
+Checks if the given date is yesterday.
+
+### Function Signature
+
+```ts
+function isYesterday(date: Maybe<DateArgs>): boolean;
+```
+
+### Parameters
+
+- **`date`**: The date to check. Can be `string`, `number` or `Date` object.
+
+<Callout type="idea" title="Note">
+- For `undefined` date argument it uses the current date.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+`true` if the date is yesterday, `false` otherwise
+
+### Example Usage
+
+```ts pg
+import { isYesterday } from 'chronos-date/guards';
+import { addDate } from 'chronos-date/utils';
+
+const yesterday = addDate(new Date(), { day: -1 });
+
+console.log(isYesterday(yesterday));     // true
+console.log(isYesterday('2026-06-26'));  // false
+console.log(isYesterday(undefined));     // false
+```
