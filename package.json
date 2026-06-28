@@ -1,6 +1,6 @@
 {
   "name": "chronos-date",
-  "version": "2.4.14",
+  "version": "2.5.0",
   "description": "A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.",
   "main": "./dist/index.cjs",
   "type": "module",

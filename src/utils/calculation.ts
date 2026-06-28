@@ -48,10 +48,10 @@ export function addDate(date: Maybe<DateArgs>, units: UnitWithValue): Date {
 
 /**
  * * Returns the number of total days in a month.
- * @param date Date object to get the number of days in the month.
+ * @param date Date to get the number of days in the month. If `undefined`, it will use the current date.
  * @returns The number of days in the month (`28`-`31`).
  */
-export function getDaysInMonth(date: DateArgs): NumberRange<28, 31> {
+export function getDaysInMonth(date?: DateArgs): NumberRange<28, 31> {
 	const $date = _dateArgsToDate(date);
 
 	_throwInvalidDate($date);

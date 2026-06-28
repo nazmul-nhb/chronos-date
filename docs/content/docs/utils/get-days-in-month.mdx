@@ -1,0 +1,41 @@
+---
+title: Get Days in Month
+description: Get the number of total days in a month.
+---
+
+## getDaysInMonth
+
+Returns the number of total days in a month.
+
+### Function Signature
+
+```ts
+function getDaysInMonth(date?: DateArgs): NumberRange<28, 31>
+```
+
+### Parameter
+
+- **`date`**: Date to get the number of days in the month.  Can be `string`, `number` or `Date` object.
+
+<Callout type="info" title="Info">
+ If `undefined` or not provided, it will use the current date.
+</Callout>
+
+### Returns
+
+Returns the number of days in the month (`28`-`31`).
+
+<Callout type="danger" title="Note">
+ Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Example Usage
+
+```ts pg
+import { getDaysInMonth } from 'chronos-date/utils';
+
+console.log(getDaysInMonth()); // total days in the current month
+console.log(getDaysInMonth('2022-01-01')); // 31
+console.log(getDaysInMonth('2024-02-01')); // 29
+console.log(getDaysInMonth('2026-02-01')); // 28
+```
