@@ -1,0 +1,44 @@
+---
+title: Get Time Difference
+description: Calculates the difference between two dates in the specified time unit.
+---
+
+## getTimeDiff
+
+### Function Signature
+
+```ts
+function getTimeDiff(date1: Maybe<DateArgs>, date2: Maybe<DateArgs>, unit?: TimeUnit): number
+```
+
+### Parameters
+
+- **`date1`**: The first date to compare. Can be `string`, `number` or `Date` object.
+- **`date2`**: The second date to compare. Can be `string`, `number` or `Date` object.
+- **`unit`**: The time unit to use for the difference. Defaults to `'millisecond'`.
+
+<Callout type="idea" title="Note">
+- For `undefined` date arguments it uses the current dates.
+- Throws `TypeError` if the provided date is invalid (not parsable into a valid date by `DateConstructor`).
+</Callout>
+
+### Returns
+
+Returns the difference between `date2` and `date1` in the specified time unit.
+
+### Example Usage
+
+```ts pg
+import { getTimeDiff } from 'chronos-date/utils';
+
+const date1 = new Date('2022-01-01T00:00:00');
+const date2 = new Date('2022-01-01T00:00:05');
+
+console.log(getTimeDiff(date1, date2)); // 5000
+console.log(getTimeDiff('2026-06-27', '2028-06-28', 'month')); // 24.033333333333335
+console.log(getTimeDiff('2026-06-27', '2028-06-28', 'day')); // 732
+console.log(getTimeDiff('2026-06-27', '2028-06-28', 'hour')); // 17568
+console.log(getTimeDiff('2026-06-27', '2028-06-28', 'minute')); // 1054080
+console.log(getTimeDiff('2026-06-27', '2028-06-28', 'second')); // 63244800
+console.log(getTimeDiff('2026-06-27', '2028-06-28', 'millisecond')); // 63244800000
+```

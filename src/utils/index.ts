@@ -9,9 +9,6 @@ export {
 	getRelativeWeek,
 	getRelativeYear,
 	getTimeDiff,
-	isToday,
-	isTomorrow,
-	isYesterday,
 } from 'src/utils/compare';
 export {
 	formatDate,

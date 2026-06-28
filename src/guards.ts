@@ -8,6 +8,7 @@ import type {
 	TimeZoneIdNative,
 	UTCOffset,
 } from 'src/types';
+import { getRelativeDay } from 'src/utils/compare';
 import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
 import { normalizeNumber } from 'toolbox-x';
 import {
@@ -201,8 +202,41 @@ export function isTimeWithUnit(value: unknown): value is TimeWithUnit {
 	);
 }
 
-export {
-	isToday,
-	isTomorrow,
-	isYesterday,
-} from 'src/utils/compare';
+/**
+ * * Checks if the given date is today.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date is today, `false` otherwise.
+ */
+export function isToday(date: Maybe<DateArgs>): boolean {
+	const $date = _dateArgsToDate(date);
+
+	_throwInvalidDate($date);
+
+	return getRelativeDay(new Date(), $date) === 0;
+}
+
+/**
+ * * Checks if the given date is tomorrow.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date is tomorrow, `false` otherwise.
+ */
+export function isTomorrow(date: Maybe<DateArgs>): boolean {
+	const $date = _dateArgsToDate(date);
+
+	_throwInvalidDate($date);
+
+	return getRelativeDay(new Date(), $date) === 1;
+}
+
+/**
+ * * Checks if the given date is yesterday.
+ * @param date The date to check. For `undefined` value it uses the current date.
+ * @returns `true` if the date is yesterday, `false` otherwise.
+ */
+export function isYesterday(date: Maybe<DateArgs>): boolean {
+	const $date = _dateArgsToDate(date);
+
+	_throwInvalidDate($date);
+
+	return getRelativeDay(new Date(), $date) === -1;
+}

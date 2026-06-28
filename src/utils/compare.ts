@@ -1,6 +1,5 @@
 import type { DateArgs, DateTimeCompareFn, TimeUnit } from 'src/types/date-time';
 import { _dateArgsToDate, _throwInvalidDate } from 'src/utils/helpers';
-import type { Maybe } from 'toolbox-x/types';
 
 /**
  * * Returns the number of full years between 2 inputs.
@@ -156,45 +155,6 @@ export const getRelativeMilliSecond: DateTimeCompareFn = (date1, date2) => {
 
 	return $date2.getTime() - $date1.getTime();
 };
-
-/**
- * * Checks if the given date is today.
- * @param date The date to check. For `undefined` value it uses the current date.
- * @returns `true` if the date is today, `false` otherwise.
- */
-export function isToday(date: Maybe<DateArgs>): boolean {
-	const $date = _dateArgsToDate(date);
-
-	_throwInvalidDate($date);
-
-	return getRelativeDay(new Date(), $date) === 0;
-}
-
-/**
- * * Checks if the given date is tomorrow.
- * @param date The date to check. For `undefined` value it uses the current date.
- * @returns `true` if the date is tomorrow, `false` otherwise.
- */
-export function isTomorrow(date: Maybe<DateArgs>): boolean {
-	const $date = _dateArgsToDate(date);
-
-	_throwInvalidDate($date);
-
-	return getRelativeDay(new Date(), $date) === 1;
-}
-
-/**
- * * Checks if the given date is yesterday.
- * @param date The date to check. For `undefined` value it uses the current date.
- * @returns `true` if the date is yesterday, `false` otherwise.
- */
-export function isYesterday(date: Maybe<DateArgs>): boolean {
-	const $date = _dateArgsToDate(date);
-
-	_throwInvalidDate($date);
-
-	return getRelativeDay(new Date(), $date) === -1;
-}
 
 /**
  * * Calculates the difference between two dates in the specified time unit.
