@@ -63,19 +63,18 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 		setError(null);
 		setOutputs([]);
 
-		const results: unknown[] = [];
 		const customConsole = {
 			log: (...args: unknown[]) => {
-				results.push(...args);
+				setOutputs((prev) => [...prev, ...args]);
 			},
 			error: (...args: unknown[]) => {
-				results.push(...args);
+				setOutputs((prev) => [...prev, ...args]);
 			},
 			warn: (...args: unknown[]) => {
-				results.push(...args);
+				setOutputs((prev) => [...prev, ...args]);
 			},
 			info: (...args: unknown[]) => {
-				results.push(...args);
+				setOutputs((prev) => [...prev, ...args]);
 			},
 		};
 
@@ -99,9 +98,7 @@ export function Playground({ code: initialCode }: PlaygroundProps) {
 				transpiled
 			);
 			executor(customRequire, customConsole, ChronosDate.Chronos, ChronosDate.chronos);
-
-			setOutputs(results);
-		} catch (err: unknown) {
+		} catch (err) {
 			setError(err instanceof Error ? err.message : String(err));
 		}
 	};

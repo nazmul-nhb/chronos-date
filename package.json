@@ -1,183 +1,184 @@
 {
-  "name": "chronos-date",
-  "version": "2.5.0",
-  "description": "A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.",
-  "main": "./dist/index.cjs",
-  "type": "module",
-  "sideEffects": false,
-  "scripts": {
-    "build": "tsdown",
-    "dev:pkg": "tsdown --watch",
-    "dev": "pnpm --filter chronos-date-docs dev",
-    "start": "pnpm --filter chronos-date-docs start",
-    "build:gen": "tsdown && pnpm gen",
-    "build:docs": "pnpm --filter chronos-date-docs build",
-    "gen": "pnpm --filter chronos-date-docs gen",
-    "typegen": "pnpm --filter chronos-date-docs typegen",
-    "typecheck": "tsc --noEmit",
-    "typecheck:docs": "pnpm --filter chronos-date-docs typecheck",
-    "validate:links": "pnpm --filter chronos-date-docs validate:links",
-    "prepublishOnly": "pnpm run build",
-    "commit": "node scripts/pull-main.mjs && nhb-commit",
-    "count": "nhb-count",
-    "delete": "nhb-delete",
-    "lint": "biome lint --diagnostic-level=error",
-    "fix": "biome check --write --diagnostic-level=error",
-    "format": "biome format --write --diagnostic-level=error",
-    "plugin": "nhb-module -t chronos-plugin -d src/plugins",
-    "create-docs": "nhb-module -t docs",
-    "prepare": "husky",
-    "changelog": "node scripts/generate-changelog.mjs",
-    "chronos": "node scripts/copy-chronos-statics.mjs && biome check --write --diagnostic-level=error ./src/types/chronos*.ts",
-    "changelog:docs": "pnpm --filter chronos-date-docs changelog"
-  },
-  "keywords": [
-    "day",
-    "time",
-    "date",
-    "moment",
-    "chronos",
-    "date-fns",
-    "chronos-date",
-    "date-utilities",
-    "date-helper",
-    "date-utils",
-    "date-tools",
-    "timezone"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md",
-    "CHANGELOG.md",
-    "package.json"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nazmul-nhb/chronos-date.git"
-  },
-  "homepage": "https://chronos.nazmul-nhb.dev",
-  "author": {
-    "name": "Nazmul Hassan",
-    "email": "nazmulnhb@gmail.com",
-    "url": "https://nazmul-nhb.dev"
-  },
-  "contributors": [
-    {
-      "name": "Nazmul Hassan",
-      "email": "nazmulnhb007@yahoo.com",
-      "url": "https://github.com/nazmul-nhb"
-    },
-    {
-      "name": "Nazmul Hassan",
-      "email": "nazmulnhb@gmail.com",
-      "url": "https://github.com/nhb-nazmul"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/nazmul-nhb/chronos-date/issues",
-    "email": "nazmulnhb@gmail.com"
-  },
-  "license": "Apache-2.0",
-  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
-  "devDependencies": {
-    "@biomejs/biome": "^2.5.1",
-    "@types/node": "^26.0.1",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.0.8",
-    "nhb-scripts": "^1.9.2",
-    "toolbox-x": "2.4.4",
-    "ts-morph": "^28.0.0",
-    "tsdown": "^0.22.3",
-    "typescript": "^6.0.3"
-  },
-  "lint-staged": {
-    "*.+((c|m)?js(x)?|(c|m)?ts(x)?)": [
-      "biome format --write --diagnostic-level=error",
-      "biome lint --diagnostic-level=error"
-    ]
-  },
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    },
-    "./constants": {
-      "import": "./dist/constants/index.mjs",
-      "require": "./dist/constants/index.cjs"
-    },
-    "./guards": {
-      "import": "./dist/guards.mjs",
-      "require": "./dist/guards.cjs"
-    },
-    "./plugins/banglaPlugin": {
-      "import": "./dist/plugins/banglaPlugin.mjs",
-      "require": "./dist/plugins/banglaPlugin.cjs"
-    },
-    "./plugins/businessPlugin": {
-      "import": "./dist/plugins/businessPlugin.mjs",
-      "require": "./dist/plugins/businessPlugin.cjs"
-    },
-    "./plugins/dateRangePlugin": {
-      "import": "./dist/plugins/dateRangePlugin.mjs",
-      "require": "./dist/plugins/dateRangePlugin.cjs"
-    },
-    "./plugins/dayPartPlugin": {
-      "import": "./dist/plugins/dayPartPlugin.mjs",
-      "require": "./dist/plugins/dayPartPlugin.cjs"
-    },
-    "./plugins/durationPlugin": {
-      "import": "./dist/plugins/durationPlugin.mjs",
-      "require": "./dist/plugins/durationPlugin.cjs"
-    },
-    "./plugins/fromNowPlugin": {
-      "import": "./dist/plugins/fromNowPlugin.mjs",
-      "require": "./dist/plugins/fromNowPlugin.cjs"
-    },
-    "./plugins/greetingPlugin": {
-      "import": "./dist/plugins/greetingPlugin.mjs",
-      "require": "./dist/plugins/greetingPlugin.cjs"
-    },
-    "./plugins/palindromePlugin": {
-      "import": "./dist/plugins/palindromePlugin.mjs",
-      "require": "./dist/plugins/palindromePlugin.cjs"
-    },
-    "./plugins/relativeTimePlugin": {
-      "import": "./dist/plugins/relativeTimePlugin.mjs",
-      "require": "./dist/plugins/relativeTimePlugin.cjs"
-    },
-    "./plugins/roundPlugin": {
-      "import": "./dist/plugins/roundPlugin.mjs",
-      "require": "./dist/plugins/roundPlugin.cjs"
-    },
-    "./plugins/seasonPlugin": {
-      "import": "./dist/plugins/seasonPlugin.mjs",
-      "require": "./dist/plugins/seasonPlugin.cjs"
-    },
-    "./plugins/timeZonePlugin": {
-      "import": "./dist/plugins/timeZonePlugin.mjs",
-      "require": "./dist/plugins/timeZonePlugin.cjs"
-    },
-    "./plugins/zodiacPlugin": {
-      "import": "./dist/plugins/zodiacPlugin.mjs",
-      "require": "./dist/plugins/zodiacPlugin.cjs"
-    },
-    "./types": {
-      "import": "./dist/types/index.mjs",
-      "require": "./dist/types/index.cjs"
-    },
-    "./utils": {
-      "import": "./dist/utils/index.mjs",
-      "require": "./dist/utils/index.cjs"
-    },
-    "./package.json": "./package.json"
-  },
-  "inlinedDependencies": {
-    "toolbox-x": "2.4.4"
-  }
+	"name": "chronos-date",
+	"version": "2.5.0",
+	"description": "A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.",
+	"main": "./dist/index.cjs",
+	"type": "module",
+	"sideEffects": false,
+	"scripts": {
+		"build": "tsdown",
+		"dev:pkg": "tsdown --watch",
+		"dev": "pnpm --filter chronos-date-docs dev",
+		"start": "pnpm --filter chronos-date-docs start",
+		"build:gen": "tsdown && pnpm gen",
+		"build:docs": "pnpm --filter chronos-date-docs build",
+		"gen": "pnpm --filter chronos-date-docs gen",
+		"typegen": "pnpm --filter chronos-date-docs typegen",
+		"typecheck": "tsc --noEmit",
+		"typecheck:docs": "pnpm --filter chronos-date-docs typecheck",
+		"validate:links": "pnpm --filter chronos-date-docs validate:links",
+		"prepublishOnly": "pnpm run build",
+		"commit": "node scripts/pull-main.mjs && nhb-commit",
+		"count": "nhb-count",
+		"delete": "nhb-delete",
+		"lint": "biome lint --diagnostic-level=error",
+		"fix": "biome check --write --diagnostic-level=error",
+		"format": "biome format --write --diagnostic-level=error",
+		"fixmat": "tsc --noEmit && biome check --write --diagnostic-level=warn && biome format --write --diagnostic-level=info",
+		"plugin": "nhb-module -t chronos-plugin -d src/plugins",
+		"create-docs": "nhb-module -t docs",
+		"prepare": "husky",
+		"changelog": "node scripts/generate-changelog.mjs",
+		"chronos": "node scripts/copy-chronos-statics.mjs && biome check --write --diagnostic-level=error ./src/types/chronos*.ts",
+		"changelog:docs": "pnpm --filter chronos-date-docs changelog"
+	},
+	"keywords": [
+		"day",
+		"time",
+		"date",
+		"moment",
+		"chronos",
+		"date-fns",
+		"chronos-date",
+		"date-utilities",
+		"date-helper",
+		"date-utils",
+		"date-tools",
+		"timezone"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist",
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md",
+		"package.json"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nazmul-nhb/chronos-date.git"
+	},
+	"homepage": "https://chronos.nazmul-nhb.dev",
+	"author": {
+		"name": "Nazmul Hassan",
+		"email": "nazmulnhb@gmail.com",
+		"url": "https://nazmul-nhb.dev"
+	},
+	"contributors": [
+		{
+			"name": "Nazmul Hassan",
+			"email": "nazmulnhb007@yahoo.com",
+			"url": "https://github.com/nazmul-nhb"
+		},
+		{
+			"name": "Nazmul Hassan",
+			"email": "nazmulnhb@gmail.com",
+			"url": "https://github.com/nhb-nazmul"
+		}
+	],
+	"bugs": {
+		"url": "https://github.com/nazmul-nhb/chronos-date/issues",
+		"email": "nazmulnhb@gmail.com"
+	},
+	"license": "Apache-2.0",
+	"packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.3",
+		"@types/node": "^26.1.1",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.0.8",
+		"nhb-scripts": "^1.9.2",
+		"toolbox-x": "2.5.1",
+		"ts-morph": "^28.0.0",
+		"tsdown": "^0.22.4",
+		"typescript": "^7.0.2"
+	},
+	"lint-staged": {
+		"*.+((c|m)?js(x)?|(c|m)?ts(x)?)": [
+			"biome format --write --diagnostic-level=error",
+			"biome lint --diagnostic-level=error"
+		]
+	},
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.cts",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		},
+		"./constants": {
+			"import": "./dist/constants/index.mjs",
+			"require": "./dist/constants/index.cjs"
+		},
+		"./guards": {
+			"import": "./dist/guards.mjs",
+			"require": "./dist/guards.cjs"
+		},
+		"./plugins/banglaPlugin": {
+			"import": "./dist/plugins/banglaPlugin.mjs",
+			"require": "./dist/plugins/banglaPlugin.cjs"
+		},
+		"./plugins/businessPlugin": {
+			"import": "./dist/plugins/businessPlugin.mjs",
+			"require": "./dist/plugins/businessPlugin.cjs"
+		},
+		"./plugins/dateRangePlugin": {
+			"import": "./dist/plugins/dateRangePlugin.mjs",
+			"require": "./dist/plugins/dateRangePlugin.cjs"
+		},
+		"./plugins/dayPartPlugin": {
+			"import": "./dist/plugins/dayPartPlugin.mjs",
+			"require": "./dist/plugins/dayPartPlugin.cjs"
+		},
+		"./plugins/durationPlugin": {
+			"import": "./dist/plugins/durationPlugin.mjs",
+			"require": "./dist/plugins/durationPlugin.cjs"
+		},
+		"./plugins/fromNowPlugin": {
+			"import": "./dist/plugins/fromNowPlugin.mjs",
+			"require": "./dist/plugins/fromNowPlugin.cjs"
+		},
+		"./plugins/greetingPlugin": {
+			"import": "./dist/plugins/greetingPlugin.mjs",
+			"require": "./dist/plugins/greetingPlugin.cjs"
+		},
+		"./plugins/palindromePlugin": {
+			"import": "./dist/plugins/palindromePlugin.mjs",
+			"require": "./dist/plugins/palindromePlugin.cjs"
+		},
+		"./plugins/relativeTimePlugin": {
+			"import": "./dist/plugins/relativeTimePlugin.mjs",
+			"require": "./dist/plugins/relativeTimePlugin.cjs"
+		},
+		"./plugins/roundPlugin": {
+			"import": "./dist/plugins/roundPlugin.mjs",
+			"require": "./dist/plugins/roundPlugin.cjs"
+		},
+		"./plugins/seasonPlugin": {
+			"import": "./dist/plugins/seasonPlugin.mjs",
+			"require": "./dist/plugins/seasonPlugin.cjs"
+		},
+		"./plugins/timeZonePlugin": {
+			"import": "./dist/plugins/timeZonePlugin.mjs",
+			"require": "./dist/plugins/timeZonePlugin.cjs"
+		},
+		"./plugins/zodiacPlugin": {
+			"import": "./dist/plugins/zodiacPlugin.mjs",
+			"require": "./dist/plugins/zodiacPlugin.cjs"
+		},
+		"./types": {
+			"import": "./dist/types/index.mjs",
+			"require": "./dist/types/index.cjs"
+		},
+		"./utils": {
+			"import": "./dist/utils/index.mjs",
+			"require": "./dist/utils/index.cjs"
+		},
+		"./package.json": "./package.json"
+	},
+	"inlinedDependencies": {
+		"toolbox-x": "2.5.1"
+	}
 }
