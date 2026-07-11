@@ -13,3 +13,7 @@ minimumReleaseAgeExclude:
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+peerDependencyRules:
+  allowedVersions:
+    typescript: "7"
