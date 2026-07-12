@@ -1,0 +1,162 @@
+---
+title: Get Dates in Range
+description: Returns an array of Date objects within a specific date range.
+---
+
+## getDatesInRange
+
+Returns an array of Date objects within a specific date range.
+
+### Import
+
+```ts
+import { getDatesInRange } from 'chronos-date/utils';
+```
+
+### Function Signatures
+
+```typescript tab="Fixed Range"
+function getDatesInRange(options?: SpanRangeForDate): Date[]
+```
+
+```typescript tab="Relative Range"
+function getDatesInRange(options?: RelativeRangeForDate): Date[]
+```
+
+### Overview
+
+Generates dates between two points in time with:
+
+- Fixed date ranges (`from`/`to`) or relative ranges (`span`/`unit`)
+- Weekday filtering (`skipDays`/`onlyDays`)
+
+### Parameters
+
+#### `options` *(Optional)*
+
+Configuration object accepting either fixed or relative range parameters:
+
+| Parameter  | Type                                   | Default           | Description                                                       |
+| ---------- | -------------------------------------- | ----------------- | ----------------------------------------------------------------- |
+| `from`     | `DateArgs`                             | Current date-time | Start date of the range (inclusive).                              |
+| `to`       | `DateArgs`                             | 4 weeks from now  | End date of the range (inclusive).                                |
+| `span`     | `number`                               | `4`               | Number of time units to move forward from current date-time.      |
+| `unit`     | `'year' \| 'month' \| 'week' \| 'day'` | `'week'`          | Unit of time for relative ranges.                                 |
+| `skipDays` | `WeekDay[] \| Enumerate<7>[]`          | `[]`              | Weekdays to exclude (e.g. `['Sunday', 'Saturday']` or `[0, 6]`).  |
+| `onlyDays` | `WeekDay[] \| Enumerate<7>[]`          | `[]`              | Include these (e.g. `['Monday']` or `[1]`, overrides `skipDays`). |
+
+```typescript tab="Fixed Range Options"
+interface SpanRangeForDate {
+  /** Start date of the range (inclusive). Defaults to the current date-time if not provided. */
+  from?: DateArgs;
+  /** End date of the range (inclusive). Defaults to 4 weeks from the current date-time if not provided. */
+  to?: DateArgs;
+  /**
+   * An array of weekdays to exclude from the date range.
+   * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+   * - Ignored if `onlyDays` is provided.
+   */
+  skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /**
+   * An array of weekdays to explicitly include in the date range.
+   * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+   * - When provided, this overrides `skipDays` and includes only the specified days.
+   */
+  onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
+}
+```
+
+```typescript tab="Relative Range Options"
+interface RelativeRangeForDate {
+  /** Number of time units to move forward from current date-time. Default: 4 */
+  span?: number;
+  /** Unit of time. Default: 'week' */
+  unit?: 'year' | 'month' | 'week' | 'day';
+  /**
+   * An array of weekdays to exclude from the date range.
+   * - Accepts either weekday names (e.g., `'Saturday'`, `'Sunday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+   * - Ignored if `onlyDays` is provided.
+   */
+  skipDays?: Array<WeekDay> | Array<Enumerate<7>>;
+  /**
+   * An array of weekdays to explicitly include in the date range.
+   * - Accepts either weekday names (e.g., `'Monday'`, `'Wednesday'`) or numeric indices (0 for Sunday to 6 for Saturday).
+   * - When provided, this overrides `skipDays` and includes only the specified days.
+   */
+  onlyDays?: Array<WeekDay> | Array<Enumerate<7>>;
+}
+```
+
+### Return Value
+
+- `Date[]` — An array of native JavaScript `Date` objects representing the dates in the specified range.
+
+### Behavior
+
+- **Fixed ranges**: Includes all dates between `from` and `to` (inclusive).
+- **Relative ranges**: Generates dates forward from current date.
+- `onlyDays` takes precedence over `skipDays` when both are provided.
+- Defaults to a `4-week range` when no options are provided.
+
+### Examples
+
+```typescript pg tab="Fixed Range"
+import { getDatesInRange } from 'chronos-date/utils';
+
+// Get all dates in January 2025 excluding weekends
+const dates = getDatesInRange({
+  from: '2025-01-01',
+  to: '2025-01-31',
+  skipDays: ['Saturday', 'Sunday']
+});
+
+console.log(dates);
+```
+
+```typescript pg tab="Relative Range"
+import { getDatesInRange } from 'chronos-date/utils';
+
+// Get dates for next 10 business days
+const dates = getDatesInRange({
+  span: 10,
+  unit: 'day',
+  skipDays: ['Saturday', 'Sunday']
+});
+
+console.log(dates);
+```
+
+```typescript pg tab="Only Specified Days"
+import { getDatesInRange } from 'chronos-date/utils';
+
+// Get only Tuesdays and Thursdays over a 2-week period
+const dates = getDatesInRange({
+  span: 2,
+  unit: 'week',
+  onlyDays: ['Tuesday', 'Thursday']
+});
+
+console.log(dates);
+```
+
+### Notes
+
+<Callout type="error" title="Important">
+- Weekday names must exactly match: `'Monday'`, `'Tuesday'`, etc. (case-insensitive accepted but TypeScript enforces Capitalized form).
+- When using `onlyDays`, all other days are excluded regardless of `skipDays`.
+</Callout>
+
+<Callout type="info" title="Similar Chronos Methods">
+- [getDatesInRange](/docs/plugins/date-range-plugin#getdatesinrange)
+- [getDatesForDay](/docs/chronos/static/get-dates-for-day)
+</Callout>
+
+### Type Definitions
+
+```typescript
+type DateArgs = string | number | Date;
+
+type WeekDay = 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
+
+type Enumerate<N extends number> = number;
+```
