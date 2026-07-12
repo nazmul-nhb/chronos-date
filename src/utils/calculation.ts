@@ -133,14 +133,13 @@ export function getDatesInRange(options?: SpanRangeForDate | RelativeRangeForDat
 
 	for (let i = 0; i <= totalDays; i++) {
 		const ts = startTime + i * step;
-		const wDay = new Date(ts).getDay(); // temporary, just for weekday
+		const date = new Date(ts);
+		const wDay = date.getDay(); // temporary, just for weekday
 
 		const include = isValidArray(onlyDays) ? skipSet.has(wDay) : !skipSet.has(wDay);
 
 		if (include) {
-			const chr = new Date(ts);
-
-			dates.push(chr);
+			dates.push(date);
 		}
 	}
 

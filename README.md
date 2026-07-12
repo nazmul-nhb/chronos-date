@@ -47,6 +47,35 @@
   </a>
 </p>
 
+## Quick Start
+
+```ts
+import { Chronos, chronos } from 'chronos-date';
+
+// Using the constructor
+const now = new Chronos();
+console.log(now.format('dd, mmm DD, YYYY')); 
+
+// Using the function wrapper
+const tomorrow = chronos().addDays(1);
+console.log(tomorrow.formatSafe('YYYY-MM-DD'));
+
+// Calculate differences
+const eventDate = new Chronos('2025-12-31');
+console.log(now.diff(eventDate, 'day')); // Days until event
+
+// Using utils
+import { addDate, getDaysInMonth } from 'chronos-date/utils';
+
+const final = addDate(new Date(), { day: 1, hour: '7' });
+
+console.log(final);
+
+console.log(getDaysInMonth('2024-02')); // 29
+```
+
+---
+
 ## Why Chronos?
 
 In ancient Greek mythology, **Chronos** is the primordial embodiment of time — not merely tracking moments, but **defining their very existence**. Like its mythological namesake, the `Chronos` class offers **precise, immutable, and expressive control** over time within your application.
@@ -73,26 +102,6 @@ npm install chronos-date
 yarn add chronos-date
 # or
 pnpm add chronos-date
-```
-
----
-
-## Quick Start
-
-```ts
-import { Chronos, chronos } from 'chronos-date';
-
-// Using the constructor
-const now = new Chronos();
-console.log(now.format('dd, mmm DD, YYYY')); 
-
-// Using the function wrapper
-const tomorrow = chronos().addDays(1);
-console.log(tomorrow.formatSafe('YYYY-MM-DD'));
-
-// Calculate differences
-const eventDate = new Chronos('2025-12-31');
-console.log(now.diff(eventDate, 'day')); // Days until event
 ```
 
 ---
