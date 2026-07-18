@@ -83,17 +83,17 @@
     "email": "nazmulnhb@gmail.com"
   },
   "license": "Apache-2.0",
-  "packageManager": "pnpm@11.12.0+sha512.820a6fbd0d9f04c226638002aead1e45340a9139dd5dc077c1d83ef44aa2481c8eb6637b4c9aa696a3c7e35ba818e49cf27213e5f2b91138d09b7a3e26e898ba",
+  "packageManager": "pnpm@11.15.0+sha512.266f8957a30d2be6e9468e5e66bcdedd35a794175f71b067ba8504d686cce1d0c0f429b33c323c3c569ad4891e667574a49ff71d1b89a22cc66f13c65818c578",
   "devDependencies": {
-    "@biomejs/biome": "^2.5.3",
+    "@biomejs/biome": "^2.5.4",
     "@types/node": "^26.1.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.8",
+    "lint-staged": "^17.1.0",
     "nhb-scripts": "^1.9.2",
-    "toolbox-x": "2.5.1",
+    "toolbox-x": "2.6.6",
     "ts-morph": "^28.0.0",
-    "tsdown": "^0.22.4",
-    "typescript": "^7.0.2"
+    "tsdown": "^0.22.9",
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
     "*.+((c|m)?js(x)?|(c|m)?ts(x)?)": [
