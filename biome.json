@@ -5,6 +5,7 @@
 		"includes": [
 			"**",
 			"!!**/dist",
+			"!!**/.sonda",
 			"!!**/node_modules",
 			"!!__dump__",
 			"!!__ideas__",
@@ -195,7 +196,7 @@
 			"linter": { "rules": { "complexity": { "noBannedTypes": "off" } } }
 		},
 		{
-			"includes": ["__ideas__/**/*.ts", "__*.ts", "src/**/*log.ts"],
+			"includes": ["__ideas__/**/*.ts", "__*.ts"],
 			"linter": {
 				"rules": {
 					"correctness": { "noUnusedVariables": "off" },
