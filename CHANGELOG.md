@@ -4,6 +4,16 @@ All notable changes to **chronos-date** will be documented in this file.
 
 > Auto-generated from git history using [changelog-maker](https://github.com/nodejs/changelog-maker).
 
+## [v2.5.3](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.5.3) — 2026-07-20
+
+[Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.5.1...v2.5.3)
+
+* \[[`9ccf494824`](https://github.com/nazmul-nhb/chronos-date/commit/9ccf494824)] - 🛠️ chore: updated configs (Nazmul Hassan)
+* \[[`d6b7aeb21d`](https://github.com/nazmul-nhb/chronos-date/commit/d6b7aeb21d)] - 🔧 update: updated types, tsdoc and documentation (Nazmul Hassan)
+* \[[`3c5ecbe36b`](https://github.com/nazmul-nhb/chronos-date/commit/3c5ecbe36b)] - 🔧 update: updated deps and configs (Nazmul Hassan)
+* \[[`33dbff498a`](https://github.com/nazmul-nhb/chronos-date/commit/33dbff498a)] - 🔧 update(docs): added docs for `getDatesInRange` utility function (Nazmul Hassan)
+* \[[`b7d4031c4e`](https://github.com/nazmul-nhb/chronos-date/commit/b7d4031c4e)] - 📚 docs: updated CHANGELOG.md for v2.5.1 (github-actions\[bot])
+
 ## [v2.5.1](https://github.com/nazmul-nhb/chronos-date/releases/tag/v2.5.1) — 2026-07-12
 
 [Compare changes](https://github.com/nazmul-nhb/chronos-date/compare/v2.5.0...v2.5.1)
