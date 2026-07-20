@@ -3,7 +3,6 @@ import { isDateString, isLeapYear } from 'src/guards';
 import type {
 	$DateUnit,
 	$NativeTzNameOrId,
-	$PluginMethods,
 	$TimeZoneIdentifier,
 	$UTCOffset,
 	ChronosInput,
@@ -105,21 +104,15 @@ export class Chronos<Tz extends ChronosTimeZone = 'System'> {
 			return instance.#offset;
 		},
 
-		withOrigin(instance, method, offset, tzName, tzId, tzTracker) {
-			return instance.#withOrigin(
-				method as $PluginMethods,
-				offset,
-				tzName,
-				tzId,
-				tzTracker
-			);
+		withOrigin(i, origin, offset, tzName, tzId, tracker) {
+			return i.#withOrigin(origin as ChronosMethods, offset, tzName, tzId, tracker);
 		},
 
 		toNewDate(instance, value) {
 			return instance.#toNewDate(value);
 		},
 
-		cast(date: ChronosInput) {
+		cast(date) {
 			return Chronos.#cast(date);
 		},
 	};

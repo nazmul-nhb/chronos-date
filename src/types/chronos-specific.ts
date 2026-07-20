@@ -61,7 +61,7 @@ export interface ChronosInternals {
 	 */
 	withOrigin<Tz extends ChronosTimeZone>(
 		instance: Chronos,
-		method: PluginMethods,
+		origin: PluginMethods,
 		offset?: UTCOffset,
 		tzName?: LooseLiteral<TimeZoneName>,
 		tzId?: TimeZoneId,
@@ -104,7 +104,7 @@ export type $Chronos = typeof Chronos;
 /** * Instance methods that return `Chronos` instance */
 export type $InstanceMethods = {
 	[Method in keyof WithoutOrigin]: Chronos extends {
-		[Instance in Method]: (...args: any[]) => Chronos;
+		[M in Method]: (...args: any[]) => Chronos;
 	}
 		? Method
 		: never;
@@ -113,7 +113,7 @@ export type $InstanceMethods = {
 /** * Static methods that return `Chronos` instance */
 export type $StaticMethods = {
 	[Method in keyof $Chronos]: $Chronos extends {
-		[Instance in Method]: (...args: any[]) => Chronos;
+		[M in Method]: (...args: any[]) => Chronos;
 	}
 		? Method
 		: never;
