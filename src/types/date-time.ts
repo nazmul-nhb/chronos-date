@@ -204,7 +204,7 @@ export interface FormatOptions {
 	 *
 	 *   - Supported format tokens include: `YYYY`, `YY`, `mmmm`, `mmm`, `MM`, `M`, `DD`, `D`, `dd`, `ddd`, `Do`, `HH`, `H`, `hh`, `h`, `mm`, `m`, `ss`, `s`, `ms`, `mss`, `a`, `A`, and `ZZ`.
 	 *   - *Any token not wrapped in brackets will be parsed and replaced with its corresponding date component.*
-	 *   - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/format#format-tokens format tokens} for details.
+	 *   - Please refer to {@link https://chronos-date.vercel.app/docs/chronos/format#format-tokens format tokens} for details.
 	 */
 	format?: string;
 	/** - Whether to use UTC time. Defaults to `false`. */

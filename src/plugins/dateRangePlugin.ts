@@ -23,7 +23,7 @@ declare module 'chronos-date' {
 		 * @returns Array of ISO date-time strings in either local or UTC format or `Chronos` instances when format is `'chronos'`,
 		 * 			excluding any skipped weekdays if specified.
 		 *
-		 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/plugins/date-range-plugin#getdatesinrange docs} for details.
+		 * - Please refer to {@link https://chronos-date.vercel.app/docs/plugins/date-range-plugin#getdatesinrange docs} for details.
 		 *
 		 * @remarks
 		 * - When using `Chronos` instances for `from` and/or `to`, ensure both are created in the **same time zone** to avoid mismatched boundaries.
@@ -59,7 +59,7 @@ declare module 'chronos-date' {
 		 * @returns Array of ISO date-time strings in either local or UTC format or `Chronos` instances when format is `'chronos'`,
 		 * 			excluding any skipped weekdays if specified.
 		 *
-		 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/plugins/date-range-plugin#getdatesinrange docs} for details.
+		 * - Please refer to {@link https://chronos-date.vercel.app/docs/plugins/date-range-plugin#getdatesinrange docs} for details.
 		 *
 		 * @example
 		 * // Using a relative date range with skipDays:

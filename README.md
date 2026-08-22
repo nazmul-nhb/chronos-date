@@ -1,8 +1,8 @@
-# [Chronos Date](https://chronos.nazmul-nhb.dev/)
+# [Chronos Date](https://chronos-date.vercel.app/)
 
 > A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.
 
-[![Chronos Date](https://raw.githubusercontent.com/nazmul-nhb/chronos-date/refs/heads/main/chronos.png)](https://chronos.nazmul-nhb.dev/)
+[![Chronos Date](https://raw.githubusercontent.com/nazmul-nhb/chronos-date/refs/heads/main/chronos.png)](https://chronos-date.vercel.app/)
 
 <p>
   <!-- Package Info -->
@@ -134,7 +134,7 @@ import { pluginName } from "chronos-date/plugins/pluginName";
 
 ## Documentation
 
-For full documentation, API reference, and interactive playgrounds, visit the [**Documentation Site**](https://chronos.nazmul-nhb.dev/).
+For full documentation, API reference, and interactive playgrounds, visit the [**Documentation Site**](https://chronos-date.vercel.app/).
 
 ---
 
@@ -196,4 +196,4 @@ You are free to use, modify, and distribute this project under the terms of the 
 
 ---
 
-Built with ❤️ by [**Nazmul Hassan**](https://nazmul-nhb.dev)
+Built with ❤️ by [**Nazmul Hassan**](https://nazmul-nhb.vercel.app)

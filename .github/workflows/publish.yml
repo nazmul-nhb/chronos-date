@@ -178,4 +178,4 @@ jobs:
             **Compare Changes:** [${{ env.LATEST_TAG }} vs v${{ env.VERSION }}](https://github.com/${{ github.repository }}/compare/${{ env.LATEST_TAG }}...v${{ env.VERSION }})
 
             ---
-            **[Docs](https://chronos.nazmul-nhb.dev) • [NPM](https://www.npmjs.com/package/chronos-date/v/${{ env.VERSION }})**
+            **[Docs](https://chronos-date.vercel.app) • [NPM](https://www.npmjs.com/package/chronos-date/v/${{ env.VERSION }})**

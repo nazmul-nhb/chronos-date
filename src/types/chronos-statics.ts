@@ -262,7 +262,7 @@ export interface ChronosStatics {
 	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
 	 * 			Returns empty array if no matches in the time span.
 	 *
-	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
+	 * - Please refer to {@link https://chronos-date.vercel.app/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
 	 * @example
 	 * chronos.getDatesForDay('Wednesday', { span: 7, unit: 'day' });
@@ -289,7 +289,7 @@ export interface ChronosStatics {
 	 * @returns Array of ISO date strings in the specified format or `Chronos` instances when format is `'chronos'`.
 	 * 			Returns empty array if no matches in the range.
 	 *
-	 * - Please refer to {@link https://chronos.nazmul-nhb.dev/docs/chronos/static/get-dates-for-day docs} for details.
+	 * - Please refer to {@link https://chronos-date.vercel.app/docs/chronos/static/get-dates-for-day docs} for details.
 	 *
 	 * @remarks
 	 * - When using `Chronos` instances for `from` and/or `to`, ensure both are created in the **same time zone** to avoid mismatched boundaries.
@@ -441,7 +441,7 @@ export interface ChronosStatics {
 	 * 	- To prevent this incorrect *linter error* in `React` projects, prefer using {@link register} method (alias `use` method).
 	 *
 	 * - **NOTE:** *Once a plugin is injected, all the registered methods for that plugin will be available for the whole project.*
-	 * - See {@link https://chronos.nazmul-nhb.dev/docs/plugins#-official-plugins full list of plugins and the methods they register}.
+	 * - See {@link https://chronos-date.vercel.app/docs/plugins#-official-plugins full list of plugins and the methods they register}.
 	 */
 	use(plugin: ChronosPlugin): void;
 
@@ -455,7 +455,7 @@ export interface ChronosStatics {
 	 * 	- To prevent this incorrect *linter error* in `React` projects, prefer using this (`register`) method over {@link use} method.
 	 *
 	 * - **NOTE:** *Once a plugin is injected, all the registered methods for that plugin will be available for the whole project.*
-	 * - See {@link https://chronos.nazmul-nhb.dev/docs/plugins#-official-plugins full list of plugins and the methods they register}.
+	 * - See {@link https://chronos-date.vercel.app/docs/plugins#-official-plugins full list of plugins and the methods they register}.
 	 */
 	register(plugin: ChronosPlugin): void;
 }

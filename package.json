@@ -1,6 +1,6 @@
 {
   "name": "chronos-date",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "A lightweight, immutable, and plugin-based date-time manipulation library for JavaScript and TypeScript.",
   "main": "./dist/index.cjs",
   "type": "module",
@@ -60,11 +60,11 @@
     "type": "git",
     "url": "git+https://github.com/nazmul-nhb/chronos-date.git"
   },
-  "homepage": "https://chronos.nazmul-nhb.dev",
+  "homepage": "https://chronos-date.vercel.app",
   "author": {
     "name": "Nazmul Hassan",
     "email": "nazmulnhb@gmail.com",
-    "url": "https://nazmul-nhb.dev"
+    "url": "https://nazmul-nhb.vercel.app"
   },
   "contributors": [
     {
@@ -85,14 +85,14 @@
   "license": "Apache-2.0",
   "packageManager": "pnpm@11.15.1+sha512.81350b07e53c9538a02f1f2303b4290fa2d7be04e56e2a970c4cc4b417dc761de196edabd49d55c7dc9580db81007c44143e4e3d7e462b3000d23c255122d065",
   "devDependencies": {
-    "@biomejs/biome": "^2.5.4",
-    "@types/node": "^26.1.1",
+    "@biomejs/biome": "^2.5.10",
+    "@types/node": "^26.2.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.1.0",
+    "lint-staged": "^17.3.0",
     "nhb-scripts": "^1.9.2",
-    "toolbox-x": "2.6.16",
+    "toolbox-x": "2.6.20",
     "ts-morph": "^28.0.0",
-    "tsdown": "^0.22.12",
+    "tsdown": "^0.22.14",
     "typescript": "^6.0.3"
   },
   "lint-staged": {
@@ -179,6 +179,6 @@
     "./package.json": "./package.json"
   },
   "inlinedDependencies": {
-    "toolbox-x": "2.6.16"
+    "toolbox-x": "2.6.20"
   }
 }

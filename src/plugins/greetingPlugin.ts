@@ -6,7 +6,7 @@ declare module 'chronos-date' {
 		/**
 		 * @instance Returns a greeting message based on current instance of `Chronos` time or provided time in the `configs`.
 		 *
-		 * @remarks This method internally uses {@link https://chronos.nazmul-nhb.dev/docs/utils/get-greeting getGreeting} function.
+		 * @remarks This method internally uses {@link https://chronos-date.vercel.app/docs/utils/get-greeting getGreeting} function.
 		 *
 		 * @param configs - Configuration options for greeting times and messages.
 		 * @returns The appropriate greeting message.
